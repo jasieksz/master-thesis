@@ -1,9 +1,23 @@
 %!TEX root = ../thesis.tex
+%*******************************************************************************
+%*********************************** First Chapter *****************************
+%*******************************************************************************
 
-\chapter{Related Work}
+\chapter{Related Work}  %Title of the First Chapter
+
+\ifpdf
+    \graphicspath{{Chapter4/Figs/Raster/}{Chapter4/Figs/PDF/}{Chapter4/Figs/}}
+\else
+    \graphicspath{{Chapter4/Figs/Vector/}{Chapter4/Figs/}}
+\fi
 
 
 %********************************** %First Section  **************************************
+\section{Section One} %Section - 1.1 
+
+%********************************** %Second Section  *************************************
+\section{Section Two} %Section - 1.2
+
 \section{Papers}
 
 \begin{itemize}
@@ -15,3 +29,4 @@
     \item Example of a NP-hard domain recognition algorithms and theorems by \cite{peters2016recognising}
     \item Alternative approch to C1P for domain recognition by \cite{DBLP:journals/jair/MagieraF19}
 \end{itemize}
+

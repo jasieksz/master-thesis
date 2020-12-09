@@ -2,7 +2,7 @@
 %*******************************************************************************
 %****************************** Third Chapter **********************************
 %*******************************************************************************
-\chapter{My third chapter}
+\chapter{Background}
 
 % **************************** Define Graphics Path **************************
 \ifpdf
@@ -12,145 +12,69 @@
 \fi
 
 \section{First section of the third chapter}
-And now I begin my third chapter here \dots
-
-And now to cite some more people~\citet{Rea85,Ancey1996}
-
-\subsection{First subsection in the first section}
-\dots and some more 
-
-\subsection{Second subsection in the first section}
-\dots and some more \dots
-
-\subsubsection{First subsub section in the second subsection}
-\dots and some more in the first subsub section otherwise it all looks the same
-doesn't it? well we can add some text to it \dots
-
-\subsection{Third subsection in the first section}
-\dots and some more \dots
-
-\subsubsection{First subsub section in the third subsection}
-\dots and some more in the first subsub section otherwise it all looks the same
-doesn't it? well we can add some text to it and some more and some more and
-some more and some more and some more and some more and some more \dots
-
-\subsubsection{Second subsub section in the third subsection}
-\dots and some more in the first subsub section otherwise it all looks the same
-doesn't it? well we can add some text to it \dots
-
-\section{Second section of the third chapter}
-and here I write more \dots
-
-\section{The layout of formal tables}
-This section has been modified from ``Publication quality tables in \LaTeX*''
- by Simon Fear.
-
-The layout of a table has been established over centuries of experience and 
-should only be altered in extraordinary circumstances. 
-
-When formatting a table, remember two simple guidelines at all times:
-
-\begin{enumerate}
-  \item Never, ever use vertical rules (lines).
-  \item Never use double rules.
-\end{enumerate}
-
-These guidelines may seem extreme but I have
-never found a good argument in favour of breaking them. For
-example, if you feel that the information in the left half of
-a table is so different from that on the right that it needs
-to be separated by a vertical line, then you should use two
-tables instead. Not everyone follows the second guideline:
-
-There are three further guidelines worth mentioning here as they
-are generally not known outside the circle of professional
-typesetters and subeditors:
-
-\begin{enumerate}\setcounter{enumi}{2}
-  \item Put the units in the column heading (not in the body of
-          the table).
-  \item Always precede a decimal point by a digit; thus 0.1
-      {\em not} just .1.
-  \item Do not use `ditto' signs or any other such convention to
-      repeat a previous value. In many circumstances a blank
-      will serve just as well. If it won't, then repeat the value.
-\end{enumerate}
-
-A frequently seen mistake is to use `\textbackslash begin\{center\}' \dots `\textbackslash end\{center\}' inside a figure or table environment. This center environment can cause additional vertical space. If you want to avoid that just use `\textbackslash centering'
 
 
-\begin{table}
-\caption{A badly formatted table}
-\centering
-\label{table:bad_table}
-\begin{tabular}{|l|c|c|c|c|}
-\hline 
-& \multicolumn{2}{c}{Species I} & \multicolumn{2}{c|}{Species II} \\ 
-\hline
-Dental measurement  & mean & SD  & mean & SD  \\ \hline 
-\hline
-I1MD & 6.23 & 0.91 & 5.2  & 0.7  \\
-\hline 
-I1LL & 7.48 & 0.56 & 8.7  & 0.71 \\
-\hline 
-I2MD & 3.99 & 0.63 & 4.22 & 0.54 \\
-\hline 
-I2LL & 6.81 & 0.02 & 6.66 & 0.01 \\
-\hline 
-CMD & 13.47 & 0.09 & 10.55 & 0.05 \\
-\hline 
-CBL & 11.88 & 0.05 & 13.11 & 0.04\\ 
-\hline 
-\end{tabular}
-\end{table}
+\textbf{Approval Elections}
+\indent
+Election is a pair \(E = (C, V)\) where 
+\(C = \{c_1,...,c_m\}\) is a set of candidates and 
+\(V = \{v_1,...,v_n\}\) is a list of voters. 
+Each voter \(v \in V\) approves a subset of the candidates and disapproves the remaining candidates.
 
-\begin{table}
-\caption{A nice looking table}
-\centering
-\label{table:nice_table}
-\begin{tabular}{l c c c c}
-\hline 
-\multirow{2}{*}{Dental measurement} & \multicolumn{2}{c}{Species I} & \multicolumn{2}{c}{Species II} \\ 
-\cline{2-5}
-  & mean & SD  & mean & SD  \\ 
-\hline
-I1MD & 6.23 & 0.91 & 5.2  & 0.7  \\
+\subsubsection{Preference Restrictions}
+One-Dimensional Euclidean Preferences
+\cite{DBLP:journals/corr/ElkindL15}
 
-I1LL & 7.48 & 0.56 & 8.7  & 0.71 \\
+\textbf{Voter Candidate Range}
+\indent
+Given an election \(E = (C, V)\), we say that the voters have \textit{1D-Euclidean} preferences 
+For each agent there exists a point $x_a$ and nonnegative realvalue $r_a$ such that:
+$c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$
 
-I2MD & 3.99 & 0.63 & 4.22 & 0.54 \\
+Intuitevely, for $a \in C \cup V$ the point $x_a$ describes a's ideal position 
+in 1-dimmensional space of opinions.
+For candidate $c \in C, r_c$ can be seen as c's charisma.
+For candidate $v \in V, r_v$ can be seen as v's willingness to compromise.
 
-I2LL & 6.81 & 0.02 & 6.66 & 0.01 \\
+\textbf{Candidate Range}
+\indent
+We say that P satisfies CR if candidates in C can be
+ordered so that each of the sets vi forms an interval of that ordering.
 
-CMD & 13.47 & 0.09 & 10.55 & 0.05 \\
+CR is special case of VCR, where we require all the voters to have radii equal to zero
 
-CBL & 11.88 & 0.05 & 13.11 & 0.04\\ 
-\hline 
-\end{tabular}
-\end{table}
+\textbf{Voter Range}
+\indent
+We say that P satisfies VR if the voters in P can be reordered
+so that for every candidate c the voters that approve c form an interval of that
+ordering.
 
+VR is special case of VCR, where we require all the candidates to have radii equal to zero
+\newline
 
-\begin{table}
-\caption{Even better looking table using booktabs}
-\centering
-\label{table:good_table}
-\begin{tabular}{l c c c c}
-\toprule
-\multirow{2}{*}{Dental measurement} & \multicolumn{2}{c}{Species I} & \multicolumn{2}{c}{Species II} \\ 
-\cmidrule{2-5}
-  & mean & SD  & mean & SD  \\ 
-\midrule
-I1MD & 6.23 & 0.91 & 5.2  & 0.7  \\
+The VCR model is strictly more powerful than the VR
+and CR ones. For example, election with candidate set
+$C = \{a, b, c, d\}$ and voters with approval sets $\{a, b\}$, $\{b, c\}$,
+$\{b, d\}$, and $\{a, b, c, d\}$ is VCR, but neither VR nor CR.
 
-I1LL & 7.48 & 0.56 & 8.7  & 0.71 \\
+\subsubsection{Committee Selection Rules}
 
-I2MD & 3.99 & 0.63 & 4.22 & 0.54 \\
+\textbf{Approval Voting}
+\indent
 
-I2LL & 6.81 & 0.02 & 6.66 & 0.01 \\
+\textbf{Proportional Approval Voting}
+\indent
 
-CMD & 13.47 & 0.09 & 10.55 & 0.05 \\
+\textbf{Minimax Approval Voting (MAV)}
+\indent
+\cite{minimax-Brams-Kilgour-Sanver}
 
-CBL & 11.88 & 0.05 & 13.11 & 0.04\\ 
-\bottomrule
-\end{tabular}
-\end{table}
+As close as possible to the preferences of all parties.
+By “close” we mean that the maximum distance of the compromise from the position of any state 
+is minimal, which we call a minimax outcome.
+\newline
+\indent
+Selects a committee \(W\) that minimizes the maximum Hamming distance
+between \(W\) and voters’ approval ballots. We define MAV-score of a committee \(W\) 
+as \(Max(f(W,v1),f(W,v2),...,f(W,vn))\) where \(f(W,vi)=\).
+MAV returns a committee \(W\) with the lowest MAV-score.
