@@ -11,37 +11,84 @@
     \graphicspath{{Chapter4/Figs/Vector/}{Chapter4/Figs/}}
 \fi
 
-\section{VCR Profiles}
+\section{Voter Candidate Range Profiles}
 
-\subsection{How many VCR profiles exists that are not VR nor CR}
-\textbf{3C 3V}
-\begin{itemize}
-    \item all profiles $2^9 = 512$
-    \item VCR ILP detection $506$
-    \item VCR not VR nor CR $0$
-\end{itemize}
+In this section I describe carried out experiments and their results. 
+I've found various interesting features of the VCR profiles (WIP).
 
-\noindent\textbf{4C 4V}
-\begin{itemize}
-    \item all profiles $2^{16} = 65536$
-    \item VCR ILP detection $57832$
-    \item VCR not VR nor CR $96$
-\end{itemize}
+Reiterating important definitions from the Preliminaries chapter:
 
-\noindent\textbf{5C 5V}
-\begin{itemize}
-    \item all profiles $2^{25} = 33554432$
-\end{itemize}
+\noindent\textbf{Voter Candidate Range}
+\indent Profile has \textit{1D-Euclidean} preference if for each agent there exists a point $x_a$ and nonnegative real value $r_a$ such that:
+$c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$.
 
-\noindent\textbf{6C 4V}
 
-\noindent\textbf{4C 6V}
+\subsection{(WIP) Experiment description - search of domain}
+Experiments can be grouped into 2 basic categories: \textit{exhaustive} and \textit{random} search.
+\newline
+Steps were as follows:
+\begin{enumerate}\label{SearchProfilesAlgo}
+    \item Given size of the election $C$ and $V$
+    \item\label{SearchGenerationStep} Generate approval sets of the profiles
+    \item Filter out profiles not fullfilling \textit{VCR} property. Described in the section \ref{VCR Detection}
+    \item Group profiles by \textit{VR, CR} and \textit{VCR not VR nor CR} properties
+    \item Aggregate statistics
+\end{enumerate}
 
-\noindent\textbf{Medium Size}
+To achive high performance I used \textit{MapReduce} paradigm with \textit{Spark}, as the tasks are independent and easy to parallelize.
 
-\noindent\textbf{Large Size}
+\subsection{How many VCR profiles exists that are not VR nor CR?}
+\subsubsection{Search of all the small profiles}
+For the smaller size of profiles I was able to perform search of all the profiles step \ref{SearchGenerationStep} of \ref{SearchProfilesAlgo}.
 
-\section{Poly VCR Profile Detection Algorithm}
+\begin{center}
+    \begin{tabular}{||c c c c c c||}
+        \hline
+         & 3C 3V & 4C 4V & 5C 5V & 4C 6V & 6C 4V \\ [0.5ex] 
+        \hline\hline
+        Count & 512 & 65536 & $2^{25}$ & $2^{24}$  & $2^{24}$ \\ 
+        \hline
+        VCR & 506 & 57832 & - & - & - \\ 
+        \hline
+        VR & - & - & - & - & - \\ 
+        \hline
+        CR & - & - & - & - & - \\
+        \hline
+        VCR !COP & 0 & 96 & - & - & - \\ [1ex] 
+        \hline
+   \end{tabular}
+\end{center}
+
+\subsubsection{Search of the random large profiles}
+For the larger size of profiles only difference is in the step \ref{SearchGenerationStep} of \ref{SearchProfilesAlgo}.
+Where I generated an suitable number of random profiles.
+
+\begin{center}
+    \begin{tabular}{||c c c c||}
+        \hline
+         & 20C 20V & 60C 60V & 100C 100V\\ [0.5ex] 
+        \hline\hline
+        Count & - & - & - \\
+        \hline
+        VCR & - & - & - \\
+        \hline
+        VR & - & - & - \\
+        \hline
+        CR & - & - & - \\
+        \hline
+        VCR !COP & - & - & - \\ [1ex]
+        \hline
+   \end{tabular}
+\end{center}
+
+\subsection{(WIP) Experiment conclusions}
+
+Maybe do some nice graphs here
+
+\newpage
+\section{VCR Profile Detection Algorithm}\label{VCR Detection}
+
+This section describes in detail and compares created algorithms for the profile VCR property detection.
 
 \subsection{Integer Linear Programming}
 The only input is \textit{ApprovalSet} of each voter. \\
@@ -99,8 +146,42 @@ D_{cv} \le r_c + r_v \\
 D_{cv} \ge r_c + r_v + 1 \\
 \end{align*}
 
-\section{Poly Minimax Algorithm for VCR profiles}
+\subsection{Polynomial VCR detection algorithm}
 
-\section{Approval deletion for VCR profile to become VR or CR}
+\subsection{Performance Comparison}
+
+\newpage
+\section{Minimax Scoring Rule Algorithms}
+
+\subsection{Overview}
+
+Explain what is MAV \cite{minimax-Brams-Kilgour-Sanver}
+
+\begin{verbatim}
+def hammingDistance(a: np.array, b: np.array) -> int:
+return (a != b).nonzero()[0].shape[0]
+
+def mavScore(profile: Profile, committee:np.array) -> int:
+    partialHD = lambda preference: hammingDistance(committee, preference)
+    return max([partialHD(pref) for pref in profile.A])
+
+def minimax(profile: Profile, k: int) -> np.array:
+    candidateCount = len(profile.C)
+    scores = [(mavScore(profile, np.array(committee)), profile) 
+                for committee in combinations(range(candidateCount), k)]
+    scores.sort(key=lambda mav_p: mav_p[0])
+    return scores
+\end{verbatim}
+
+\noindent Implementation of ILP from \cite{lacknerSkowronAVOverview}
+
+\noindent Implementation of Poly for VR and CR from \cite{mav}
+
+\subsection{My polynomial algorithms for VCR profiles}
+
+\subsection{Comparison}
+
+\newpage
+\section{TBD: Approval deletion for VCR profile to become VR or CR}
 
 

@@ -11,21 +11,7 @@
     \graphicspath{{Chapter2/Figs/Vector/}{Chapter2/Figs/}}
 \fi
 
-\section{Papers}
-
-\begin{itemize}
-    \item An Analysis of Approval-Based Committee Rules for 2D-Euclidean Elections by \cite{falisz}
-    \item Overview of various domain restriction in Structure in Dichotomous Preferences by \cite{DBLP:journals/corr/ElkindL15}
-    \item Minimax Approval Voting rule introduced by \cite{minimax-Brams-Kilgour-Sanver}
-    \item Polynomial algorithms for MAV in VR and CR domains by \cite{mav}
-    \item Example of a new domain restriction (SPOC) and recognition algorithms by \cite{DBLP:journals/jair/PetersL20}
-    \item Example of a NP-hard domain recognition algorithms and theorems by \cite{peters2016recognising}
-    \item Alternative approch to C1P for domain recognition by \cite{DBLP:journals/jair/MagieraF19}
-\end{itemize}
-
-
 \section{Definitions}
-
 
 \textbf{Approval Elections}
 \indent
@@ -47,7 +33,7 @@ $c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$
 Intuitevely, for $a \in C \cup V$ the point $x_a$ describes a's ideal position 
 in 1-dimmensional space of opinions.
 For candidate $c \in C, r_c$ can be seen as c's charisma.
-For candidate $v \in V, r_v$ can be seen as v's willingness to compromise.
+For candidate $v \in V, r_v$ can be seen as v's willingness to compromise. \cite{falisz}
 
 \textbf{Candidate Range}
 \indent
@@ -91,3 +77,16 @@ Selects a committee \(W\) that minimizes the maximum Hamming distance
 between \(W\) and voters’ approval ballots. We define MAV-score of a committee \(W\) 
 as \(Max(f(W,v1),f(W,v2),...,f(W,vn))\) where \(f(W,vi)=\).
 MAV returns a committee \(W\) with the lowest MAV-score.
+
+\newpage
+\section{(WIP) Papers}
+
+\begin{itemize}
+    \item An Analysis of Approval-Based Committee Rules for 2D-Euclidean Elections by \cite{falisz}
+    \item Overview of various domain restriction in Structure in Dichotomous Preferences by \cite{DBLP:journals/corr/ElkindL15}
+    \item Minimax Approval Voting rule introduced by \cite{minimax-Brams-Kilgour-Sanver}
+    \item Polynomial algorithms for MAV in VR and CR domains by \cite{mav}
+    \item Example of a new domain restriction (SPOC) and recognition algorithms by \cite{DBLP:journals/jair/PetersL20}
+    \item Example of a NP-hard domain recognition algorithms and theorems by \cite{peters2016recognising}
+    \item Alternative approch to C1P for domain recognition by \cite{DBLP:journals/jair/MagieraF19}
+\end{itemize}
