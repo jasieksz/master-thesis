@@ -3,7 +3,7 @@
 %*********************************** First Chapter *****************************
 %*******************************************************************************
 
-\chapter{Related Work}  %Title of the First Chapter
+\chapter{Solution}  %Title of the First Chapter
 
 \ifpdf
     \graphicspath{{Chapter4/Figs/Raster/}{Chapter4/Figs/PDF/}{Chapter4/Figs/}}
@@ -11,22 +11,177 @@
     \graphicspath{{Chapter4/Figs/Vector/}{Chapter4/Figs/}}
 \fi
 
+\section{Voter Candidate Range Profiles}
 
-%********************************** %First Section  **************************************
-\section{Section One} %Section - 1.1 
+In this section I describe carried out experiments and their results. 
+I've found various interesting features of the VCR profiles (WIP).
 
-%********************************** %Second Section  *************************************
-\section{Section Two} %Section - 1.2
+Reiterating important definitions from the Preliminaries chapter:
 
-\section{Papers}
+\noindent\textbf{Voter Candidate Range}
+\indent Profile has \textit{1D-Euclidean} preference if for each agent there exists a point $x_a$ and nonnegative real value $r_a$ such that:
+$c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$.
 
-\begin{itemize}
-    \item An Analysis of Approval-Based Committee Rules for 2D-Euclidean Elections by \cite{falisz}
-    \item Overview of various domain restriction in Structure in Dichotomous Preferences by \cite{DBLP:journals/corr/ElkindL15}
-    \item Minimax Approval Voting rule introduced by \cite{minimax-Brams-Kilgour-Sanver}
-    \item Polynomial algorithms for MAV in VR and CR domains by \cite{mav}
-    \item Example of a new domain restriction (SPOC) and recognition algorithms by \cite{DBLP:journals/jair/PetersL20}
-    \item Example of a NP-hard domain recognition algorithms and theorems by \cite{peters2016recognising}
-    \item Alternative approch to C1P for domain recognition by \cite{DBLP:journals/jair/MagieraF19}
-\end{itemize}
+
+\subsection{(WIP) Experiment description - search of domain}
+Experiments can be grouped into 2 basic categories: \textit{exhaustive} and \textit{random} search.
+\newline
+Steps were as follows:
+\begin{enumerate}\label{SearchProfilesAlgo}
+    \item Given size of the election $C$ and $V$
+    \item\label{SearchGenerationStep} Generate approval sets of the profiles
+    \item Filter out profiles not fullfilling \textit{VCR} property. Described in the section \ref{VCR Detection}
+    \item Group profiles by \textit{VR, CR} and \textit{VCR not VR nor CR} properties
+    \item Aggregate statistics
+\end{enumerate}
+
+To achive high performance I used \textit{MapReduce} paradigm with \textit{Spark}, as the tasks are independent and easy to parallelize.
+
+\subsection{How many VCR profiles exists that are not VR nor CR?}
+\subsubsection{Search of all the small profiles}
+For the smaller size of profiles I was able to perform search of all the profiles step \ref{SearchGenerationStep} of \ref{SearchProfilesAlgo}.
+
+\begin{center}
+    \begin{tabular}{||c c c c c c||}
+        \hline
+         & 3C 3V & 4C 4V & 5C 5V & 4C 6V & 6C 4V \\ [0.5ex] 
+        \hline\hline
+        Count & 512 & 65536 & $2^{25}$ & $2^{24}$  & $2^{24}$ \\ 
+        \hline
+        VCR & 506 & 57832 & - & - & - \\ 
+        \hline
+        VR & - & - & - & - & - \\ 
+        \hline
+        CR & - & - & - & - & - \\
+        \hline
+        VCR !COP & 0 & 96 & - & - & - \\ [1ex] 
+        \hline
+   \end{tabular}
+\end{center}
+
+\subsubsection{Search of the random large profiles}
+For the larger size of profiles only difference is in the step \ref{SearchGenerationStep} of \ref{SearchProfilesAlgo}.
+Where I generated an suitable number of random profiles.
+
+\begin{center}
+    \begin{tabular}{||c c c c||}
+        \hline
+         & 20C 20V & 60C 60V & 100C 100V\\ [0.5ex] 
+        \hline\hline
+        Count & - & - & - \\
+        \hline
+        VCR & - & - & - \\
+        \hline
+        VR & - & - & - \\
+        \hline
+        CR & - & - & - \\
+        \hline
+        VCR !COP & - & - & - \\ [1ex]
+        \hline
+   \end{tabular}
+\end{center}
+
+\subsection{(WIP) Experiment conclusions}
+
+Maybe do some nice graphs here
+
+\newpage
+\section{VCR Profile Detection Algorithm}\label{VCR Detection}
+
+This section describes in detail and compares created algorithms for the profile VCR property detection.
+
+\subsection{Integer Linear Programming}
+The only input is \textit{ApprovalSet} of each voter. \\
+Represented by $2D$ matrix $A_{vc}$
+
+\subsubsection{Variables}
+
+$x_c$ - candidate $c$ position on $x$ axis \\
+$x_v$ - voter $v$ position on $x$ axis \\
+$r_c$ - candidate $c$ radius \\
+$r_v$ - voter $v$ radius 
+
+\subsubsection{Transform VCR condition to Linear constraints}
+\begin{equation}
+    \begin{split}
+    VCR & = \\
+     & = \sqrt{(x_c - x_v)^2} \le r_c + r_v \\
+     & = \|x_c - x_v\| \le r_c + r_v \\
+     & = x_c - x_v \le r_c + r_v \ or -(x_c - x_v) \le r_c + r_v \\
+     & = -(r_c + r_v) \le x_c - x_v \le r_c + r_v 
+    \end{split}
+\end{equation}
+
+\subsubsection{Positive and Negative Condition and Big M method}
+
+Introduce large constant positive parmater \\
+$M$\\\\
+Introduce new binary variables for each pair of candidate and voter:\\
+$z1_{cv}\\ z2_{cv}$
+
+\begin{align*}
+\textit{Minimize 0} \\ 
+\textit{foreach (c,v) in } C \times V : \\\textit{if } c \in ApprovalSet(v) \textit{ add constraints} \\ 
+x_c - x_v \le r_c + r_v \\
+-(x_c - x_v) \le r_c + r_v \\
+\textit{if } c \not\in ApprovalSet(v) \textit{ add constraints} \\
+x_c - x_v  + M(1 - z1_{cv}) \ge r_c + r_v + 1 \\
+-(x_c - x_v) + M(1 - z2_{cv}) \ge r_c + r_v + 1 \\
+z1_{cv} + z2_{cv} >= 1
+\end{align*}
+
+\subsubsection{Mock Distance Variable Condition}
+Introduce new variable\\
+$D_{cv}$ - distance between candidate $c$ and voter $v$ on $x$ axis
+
+\begin{align*}
+\textit{Minimize 0} \\ 
+\textit{foreach (c,v) in } C \times V : \\
+\textit{ add constraints} \\ 
+D_{cv} = x_c - x_v \\
+D_{cv} = -(x_c - x_v) \\
+\textit{if } c \in ApprovalSet(v) \textit{ add constraints} \\ 
+D_{cv} \le r_c + r_v \\
+\textit{if } c \not\in ApprovalSet(v) \textit{ add constraints} \\
+D_{cv} \ge r_c + r_v + 1 \\
+\end{align*}
+
+\subsection{Polynomial VCR detection algorithm}
+
+\subsection{Performance Comparison}
+
+\newpage
+\section{Minimax Scoring Rule Algorithms}
+
+\subsection{Overview}
+
+Explain what is MAV \cite{minimax-Brams-Kilgour-Sanver}
+
+\begin{verbatim}
+def hammingDistance(a: np.array, b: np.array) -> int:
+return (a != b).nonzero()[0].shape[0]
+
+def mavScore(profile: Profile, committee:np.array) -> int:
+    partialHD = lambda preference: hammingDistance(committee, preference)
+    return max([partialHD(pref) for pref in profile.A])
+
+def minimax(profile: Profile, k: int) -> np.array:
+    candidateCount = len(profile.C)
+    scores = [(mavScore(profile, np.array(committee)), profile) 
+                for committee in combinations(range(candidateCount), k)]
+    scores.sort(key=lambda mav_p: mav_p[0])
+    return scores
+\end{verbatim}
+
+\noindent Implementation of ILP from \cite{lacknerSkowronAVOverview}
+
+\noindent Implementation of Poly for VR and CR from \cite{mav}
+
+\subsection{My polynomial algorithms for VCR profiles}
+
+\subsection{Comparison}
+
+\newpage
+\section{TBD: Approval deletion for VCR profile to become VR or CR}
+
 
