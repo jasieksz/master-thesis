@@ -13,4 +13,21 @@
 
 
 %********************************** %First Section  **************************************
-\section{(WIP) Elections, etc.}
+\section{Approval Elections}
+Elections are ubiquitous element of our society in one form or another.
+For example choosing members of parliament, winner of a competition.
+In a day-to-day activities we need to decide on a meeting time or select recommended movies in a streaming service.
+Each of these choices may require different type of election and scoring rule,
+based on the underlying properties of the choice (i.e. voters should be represented proportionally by members of a government)
+
+
+(WIP) Write here about types of elections, single / multi winner, etc. , different scoring rules.
+
+
+In this work I am going to focus on the \textit{Approval Elections}, that is where each voter provides a subset of candidates that he approves of and disapproves the rest.
+In general many interesting voting rules are known to be NP-hard, however become polynomial solvable under some restrictions on the structure of the preferences.
+
+\cite{DBLP:journals/corr/ElkindL15} introduced a new one-dimensional domain restriction (VR / CR) and showed relation with existing ones (SP, SC and others).
+\cite{falisz} generalized the model (VCR) and explored two-dimensional case.
+
+The goal of this work is to explore properties of the one-dimensional VCR model and find polynomial algorithms for detection and scoring rules.
