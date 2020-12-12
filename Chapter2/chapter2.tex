@@ -11,76 +11,31 @@
     \graphicspath{{Chapter2/Figs/Vector/}{Chapter2/Figs/}}
 \fi
 
-\section{Definitions}
+\section{Basic Definitions}
+In this section, I introduce the definitions and notations used in this work.
 
-\textbf{Approval Elections}
+
+\noindent\textbf{Approval Elections}
 \indent
 Election is a pair \(E = (C, V)\) where 
 \(C = \{c_1,...,c_m\}\) is a set of candidates and 
 \(V = \{v_1,...,v_n\}\) is a list of voters. 
-Each voter \(v \in V\) approves a subset of the candidates and disapproves the remaining candidates.
-
-\subsubsection{Preference Restrictions}
-One-Dimensional Euclidean Preferences
-\cite{DBLP:journals/corr/ElkindL15}
-
-\textbf{Voter Candidate Range}
-\indent
-Given an election \(E = (C, V)\), we say that the voters have \textit{1D-Euclidean} preferences 
-For each agent there exists a point $x_a$ and nonnegative realvalue $r_a$ such that:
-$c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$
-
-Intuitevely, for $a \in C \cup V$ the point $x_a$ describes a's ideal position 
-in 1-dimmensional space of opinions.
-For candidate $c \in C, r_c$ can be seen as c's charisma.
-For candidate $v \in V, r_v$ can be seen as v's willingness to compromise. \cite{falisz}
-
-\textbf{Candidate Range}
-\indent
-We say that P satisfies CR if candidates in C can be
-ordered so that each of the sets vi forms an interval of that ordering.
-
-CR is special case of VCR, where we require all the voters to have radii equal to zero
-
-\textbf{Voter Range}
-\indent
-We say that P satisfies VR if the voters in P can be reordered
-so that for every candidate c the voters that approve c form an interval of that
-ordering.
-
-VR is special case of VCR, where we require all the candidates to have radii equal to zero
-\newline
-
-The VCR model is strictly more powerful than the VR
-and CR ones. For example, election with candidate set
-$C = \{a, b, c, d\}$ and voters with approval sets $\{a, b\}$, $\{b, c\}$,
-$\{b, d\}$, and $\{a, b, c, d\}$ is VCR, but neither VR nor CR.
+Each voter \(v \in V\) approves a subset of the candidates and disapproves the remaining candidates,
+I will be referring to it as a \mbox{\textit{approval set}} and for each voter $v \in V$ denote it as $A(v)$
 
 \subsubsection{Committee Selection Rules}
 
-\textbf{Approval Voting}
-\indent
-
-\textbf{Proportional Approval Voting}
-\indent
-
-\textbf{Minimax Approval Voting (MAV)}
-\indent
-\cite{minimax-Brams-Kilgour-Sanver}
-
-As close as possible to the preferences of all parties.
-By “close” we mean that the maximum distance of the compromise from the position of any state 
-is minimal, which we call a minimax outcome.
+For the detailed overview of multiwinner voting rules I point to \cite{faliszewskiSkowronMultiWinnerOverview}
 \newline
-\indent
-Selects a committee \(W\) that minimizes the maximum Hamming distance
-between \(W\) and voters’ approval ballots. We define MAV-score of a committee \(W\) 
-as \(Max(f(W,v1),f(W,v2),...,f(W,vn))\) where \(f(W,vi)=\).
-MAV returns a committee \(W\) with the lowest MAV-score.
+
+\noindent\textbf{Minimax Approval Voting (MAV)}
+\indent (WIP)
+Selects a committee $W$ that minimizes the maximum Hamming distance between \(W\) and voters' approval ballots.
+
+For an election $E$ and a resulting committee of size $k$ I denote winning committee as $W = MAV(E,k)$
 
 \newpage
-\section{(WIP) Papers}
-
+\section{(WIP) Related Work}
 \begin{itemize}
     \item An Analysis of Approval-Based Committee Rules for 2D-Euclidean Elections by \cite{falisz}
     \item Overview of various domain restriction in Structure in Dichotomous Preferences by \cite{DBLP:journals/corr/ElkindL15}
@@ -88,5 +43,6 @@ MAV returns a committee \(W\) with the lowest MAV-score.
     \item Polynomial algorithms for MAV in VR and CR domains by \cite{mav}
     \item Example of a new domain restriction (SPOC) and recognition algorithms by \cite{DBLP:journals/jair/PetersL20}
     \item Example of a NP-hard domain recognition algorithms and theorems by \cite{peters2016recognising}
-    \item Alternative approch to C1P for domain recognition by \cite{DBLP:journals/jair/MagieraF19}
+    \item Alternative approach to C1P for domain recognition by \cite{DBLP:journals/jair/MagieraF19}
 \end{itemize}
+

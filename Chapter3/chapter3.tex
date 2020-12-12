@@ -11,9 +11,54 @@
     \graphicspath{{Chapter3/Figs/Vector/}{Chapter3/Figs/}}
 \fi
 
-\section{Voter Candidate Range Definition}
-Explain what is VCR?
+\section{Euclidean Preference Restrictions}
 
+\noindent\textbf{Voter Candidate Range}
+\indent
+Given an election \(E = (C, V)\), we say that the voters have \textit{1D-Euclidean} preferences 
+For each agent there exists a point $x_a$ and nonnegative real value $r_a$ such that:
+$c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$
+
+Intuitively, for $a \in C \cup V$ the point $x_a$ describes a's ideal position 
+in 1-dimensional space of opinions.
+For candidate $c \in C, r_c$ can be seen as c's charisma.
+For candidate $v \in V, r_v$ can be seen as v's willingness to compromise. \cite{falisz}
+
+\noindent\textbf{Candidate Range}
+\indent
+We say that P satisfies CR if candidates in C can be
+ordered so that each of the sets vi forms an interval of that ordering.
+CR is special case of VCR, where we require all the voters to have radii equal to zero
+
+\noindent\textbf{Voter Range}
+\indent
+We say that P satisfies VR if the voters in P can be reordered
+so that for every candidate c the voters that approve c form an interval of that
+ordering.
+VR is a special case of VCR, where we require all the candidates to have radii equal to zero
+\newline
+
+\noindent\textit{CR} and \textit{VR} were introduced in \cite{DBLP:journals/corr/ElkindL15} under the names \textit{CI} and \textit{VI}.
+
+The VCR model is strictly more powerful than the VR and CR ones.
+For example, election with candidate set
+$C = \{a, b, c, d\}$ and voters with approval sets $\{a, b\}$, $\{b, c\}$,
+$\{b, d\}$, and $\{a, b, c, d\}$ is VCR, but neither VR nor CR.
+\begin{figure}[h]
+    \includegraphics[width=8cm]{vr-cr.png}
+    \centering
+    \caption{VR and CR Temporary image}
+\end{figure}
+\newline
+
+\subsection{VR and CR Detection algorithms}
+Profile is VR or CR if the matrix or any permutation has consecutive ones property, that is for each row (VR) or column (CR),
+entries with 1 are in the uninterrupted sequence.
+
+The fastest known algorithm for detection of C1P is based on the \textit{PQ-tree} algorithms by \cite{COP-PQTree}.
+However in this work I'm using still relatively fast and much easier to implement approach based on the \textit{Lex-BFS} algorithm by \cite{COP-LexBFS}
+
+\newpage
 \section{(WIP) Why VCR?}
-This is problem statement.
-
+This is a problem statement.
+Explain how VR/CR/VCR can change complexity of computing rules, detection, etc.

@@ -16,13 +16,6 @@
 In this section I describe carried out experiments and their results. 
 I've found various interesting features of the VCR profiles (WIP).
 
-Reiterating important definitions from the Preliminaries chapter:
-
-\noindent\textbf{Voter Candidate Range}
-\indent Profile has \textit{1D-Euclidean} preference if for each agent there exists a point $x_a$ and nonnegative real value $r_a$ such that:
-$c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$.
-
-
 \subsection{(WIP) Experiment description - search of domain}
 Experiments can be grouped into 2 basic categories: \textit{exhaustive} and \textit{random} search.
 \newline
@@ -155,7 +148,15 @@ D_{cv} \ge r_c + r_v + 1 \\
 
 \subsection{Overview}
 
-Explain what is MAV \cite{minimax-Brams-Kilgour-Sanver}
+\noindent\textbf{Minimax Approval Voting (MAV)}
+\indent
+As close as possible to the preferences of all parties.
+By “close” we mean that the maximum distance of the compromise from the position of any state 
+is minimal, which we call a minimax outcome. \cite{minimax-Brams-Kilgour-Sanver}
+Selects a committee $W$ that minimizes the maximum Hamming distance between \(W\) and voters’ approval ballots.
+We define MAV-score of a committee \(W\) as $Max(f(W,v1),...,f(W,vn))$ where \(f(W,vi)=\).
+MAV returns a committee \(W\) with the lowest MAV-score.
+
 
 \begin{verbatim}
 def hammingDistance(a: np.array, b: np.array) -> int:
@@ -177,7 +178,7 @@ def minimax(profile: Profile, k: int) -> np.array:
 
 \noindent Implementation of Poly for VR and CR from \cite{mav}
 
-\subsection{My polynomial algorithms for VCR profiles}
+\subsection{Polynomial algorithm for VCR profiles}
 
 \subsection{Comparison}
 
