@@ -13,7 +13,9 @@
 
 \section{Basic Definitions}
 In this section, I introduce the definitions and notations used in this work.
+\newline
 
+\subsubsection{Elections}
 
 \noindent\textbf{Approval Elections}
 \indent
@@ -21,21 +23,42 @@ Election is a pair \(E = (C, V)\) where
 \(C = \{c_1,...,c_m\}\) is a set of candidates and 
 \(V = \{v_1,...,v_n\}\) is a list of voters. 
 Each voter \(v \in V\) approves a subset of the candidates and disapproves the remaining candidates,
-I will be referring to it as a \mbox{\textit{approval set}} and for each voter $v \in V$ denote it as $A(v)$
+I will be referring to it as a \mbox{\textit{approval set}} and for each voter $v \in V$ denote it as $A(v)$, when
+using $A$ just by itself I refer to all \mbox{\textit{approval set}} in the given election.
 
 \subsubsection{Committee Selection Rules}
 
-For the detailed overview of multiwinner voting rules I point to \cite{faliszewskiSkowronMultiWinnerOverview}
+Voting rules are algorithms used to select winners (committee) of a given election.
+Each rule has different properties and must be selected accordingly to the goal of the election.
+\newline\indent For the detailed overview of multiwinner voting rules I point to \cite{faliszewskiSkowronMultiWinnerOverview}
 \newline
 
-\noindent\textbf{Minimax Approval Voting (MAV)}
-\indent (WIP)
+\noindent\textbf{Hamming Distance Minimax Approval Voting (MAV)}
+\indent
 Selects a committee $W$ that minimizes the maximum Hamming distance between \(W\) and voters' approval ballots.
 
 For an election $E$ and a resulting committee of size $k$ I denote winning committee as $W = MAV(E,k)$
+\indent\cite{minimax-Brams-Kilgour-Sanver}
+
+\subsubsection{Domain restrictions}
+
+Many voting rules with interesting properties are NP-hard, however by introducing
+certain restrictions to the structure of election it is possible to find a polynomial algorithm.
+
+\noindent\textbf{Single Peaked}
+\indent
+SPOC  - \cite{DBLP:journals/jair/PetersL20}
+
+\noindent\textbf{Single Crossing}
+\indent
+
+\noindent\textbf{VR / CR}
+\indent
+\cite{DBLP:journals/corr/ElkindL15}
 
 \newpage
-\section{(WIP) Related Work}
+\section{(WIP) Related Work - TODO : Should Related Work section be completely removed?}
+
 \begin{itemize}
     \item An Analysis of Approval-Based Committee Rules for 2D-Euclidean Elections by \cite{falisz}
     \item Overview of various domain restriction in Structure in Dichotomous Preferences by \cite{DBLP:journals/corr/ElkindL15}
