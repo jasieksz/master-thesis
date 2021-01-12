@@ -51,14 +51,16 @@ $\{b, d\}$, and $\{a, b, c, d\}$ is VCR, but neither VR nor CR.
 \end{figure}
 \newline
 
-\subsection{VR and CR Detection algorithms}
+\subsection{VR and CR Detection Algorithms}
 Profile is VR or CR if the matrix or any permutation has consecutive ones property, that is for each row (VR) or column (CR),
 entries with 1 are in the uninterrupted sequence.
 
 The fastest known algorithm for detection of C1P is based on the \textit{PQ-tree} algorithms by \cite{COP-PQTree}.
 However in this work I'm using still relatively fast and much easier to implement approach based on the \textit{Lex-BFS} algorithm by \cite{COP-LexBFS}
 
+\subsection{VCR Detection Algorithms}
+Voter Candidate Range detection algorithms are described in detail in the subsequent chapters.
+
 \newpage
 \section{(WIP) Why VCR?}
-This is a problem statement.
 Explain how VR/CR/VCR can change complexity of computing rules, detection, etc.
