@@ -58,9 +58,26 @@ entries with 1 are in the uninterrupted sequence.
 The fastest known algorithm for detection of C1P is based on the \textit{PQ-tree} algorithms by \cite{COP-PQTree}.
 However in this work I'm using still relatively fast and much easier to implement approach based on the \textit{Lex-BFS} algorithm by \cite{COP-LexBFS}
 
+( WIP ) Change of the solution, using ILP instead - described in the ch.4 
+
 \subsection{VCR Detection Algorithms}
+( WIP ) change titles of subsections and merge them together?
+
 Voter Candidate Range detection algorithms are described in detail in the subsequent chapters.
 
 \newpage
 \section{(WIP) Why VCR?}
 Explain how VR/CR/VCR can change complexity of computing rules, detection, etc.
+
+Section 4.1 in \cite{falisz}
+
+"Elkind and Lackner (2015) have shown polynomial-time algorithms for computing CC 
+winning committees in 1D-VRand 1D-CR elections.
+We unify this result into a single algorithm for 1D-VCR elections (the main idea is remarkably close to that for the 1D-VR case).
+Proposition 2. There is an algorithm that given a 1D-VCR election  and  committee  size, 
+computes  some  winning  Ccommittee in polynomial time.
+A natural question is whether it is possible to extend the above  result  to  PAV  and  other  Thiele  methods.
+While  weleave this question open, in Appendix B we explain that the existing technique that allowed to 
+construct a polynomial-time algorithm  for  a  large  class  of  Thiele  rules  under  the D-VR model (Peters and Lackner 2020)
+cannot be easilyapplied to the 1D-VCR setting. 
+On the other hand, it may be possible to obtain a 1D-VCR algorithm for MAV as 1D-VR and 1D-CR algorithms do exist (Liu and Guo 2016)."
