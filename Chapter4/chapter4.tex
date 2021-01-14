@@ -221,47 +221,6 @@ def minimax(profile: Profile, k: int) -> np.array:
 
 \subsubsection{Implementation of ILP from \cite{lacknerSkowronAVOverview}}
 
-\begin{verbatim}
-    def __gurobi_minimaxav(profile, committeesize, resolute):
-    def set_opt_model_func(m, profile, in_committee, committeesize, committees, cands, scorefct):
-        num_voters = len(profile)
-        # optimization goal: variable "sum_difference"
-        max_hamdistance = m.addVar(vtype=gb.GRB.INTEGER, name="max_hamdistance")
-    
-        m.addConstr(gb.quicksum(in_committee[cand] for cand in cands) == committeesize)
-    
-        # the single differences between the committee and the voters
-        difference = m.addVars(profile.num_cand, num_voters, vtype=gb.GRB.INTEGER, name="diff")
-    
-        for i in cands:
-            for j in range(num_voters):
-                if i in profile[j].approved:
-                    # constraint for the case that the candidate is approved
-                    m.addConstr(difference[i, j] == 1 - in_committee[i])
-                else:
-                    # constraint for the case that the candidate isn't approved
-                    m.addConstr(difference[i, j] == in_committee[i])
-    
-        for j in range(num_voters):
-            # maximum hamming distance is greater of equal than any individual one
-            m.addConstr(max_hamdistance >= gb.quicksum(difference[i, j] for i in cands))
-    
-        # find a new committee that has not been found before
-        for committee in committees:
-            m.addConstr(
-                gb.quicksum(in_committee[cand] for cand in cands if cand in committee)
-                <= committeesize - 1
-            )
-    
-        # maximizing the negative distance makes code more similar to the other methods here
-        m.setObjective(-max_hamdistance, gb.GRB.MAXIMIZE)
-    
-    committees = _optimize_rule_gurobi(
-        set_opt_model_func, profile, committeesize, scorefct=None, resolute=resolute
-    )
-    return sorted_committees(committees)
-    \end{verbatim}
-
 \subsubsection{Implementation of Poly for VR and CR from \cite{mav}}
 
 
