@@ -11,107 +11,11 @@
     \graphicspath{{Chapter4/Figs/Vector/}{Chapter4/Figs/}}
 \fi
 
-\section{Voter Candidate Range Profiles}
-
-In this section I describe exploration of VCR domain and found properties.
-
-\subsection{(WIP) Experiment description - search of domain}
-Experiments can be grouped into 2 categories. First search of small profiles, where I check every combination, 
-and second one for larger profiles where I generate random preferences.
-\newline
-
-\noindent Algorithm steps:
-\begin{enumerate}\label{SearchProfilesAlgo}
-    \item\label{SearchGenerationStep} Generate approval sets of the profiles for given C and V elections.
-    \item Filter out profiles not fulfilling \textit{VCR} property. Described in the section \ref{VCR Detection}
-    \item Group profiles by \textit{VR, CR} and \textit{VCR not VR nor CR} properties
-    \item Aggregate statistics
-\end{enumerate}
-
-To achieve high performance I used \textit{MapReduce} paradigm with \textit{Spark}, as the tasks are independent and easy to parallelize.
-
-\subsection{How many VCR profiles exists that are not VR nor CR?}
-\subsubsection{Search of all the small profiles}
-For the smaller size of profiles I performed search of all the profile combinations.
-
-\begin{center}
-    \begin{tabular}{||c c c c c c||}
-        \hline
-         & 3C 3V & 4C 4V & 5C 5V & 4C 6V & 6C 4V \\ [0.5ex] 
-        \hline\hline
-        Count & $2^{9}$ & $2^{16}$ & $2^{25}$ & $2^{24}$  & $2^{24}$ \\ 
-        \hline
-        VCR & 506 & 57832 & 19846082 & 10893736 & 10893736 \\ 
-        \hline
-        VR & - & - & - & - & - \\ 
-        \hline
-        CR & - & - & - & - & - \\
-        \hline
-        VCR !COP & 0 & 96 & 501000 & 144480 & 144480 \\ [1ex] 
-        \hline
-   \end{tabular}
-\end{center}
-
-WIP : Prettify the table 
-
-WIP : Make some charts, write statistics, show examples
-
-Example of 5C 5V elections that are VCR but not VR nor CR
-
-\begin{verbatim}
-
-    A=[
-        [1., 1., 0., 0., 1.],
-        [1., 1., 1., 1., 1.],
-        [1., 0., 0., 0., 0.],
-        [0., 0., 0., 1., 1.],
-        [0., 0., 1., 0., 1.]], 
-    C=[
-        Candidate(id='A', x=3.0, r=1.0), 
-        Candidate(id='B', x=2.0, r=0.0), 
-        Candidate(id='C', x=0.0, r=0.0), 
-        Candidate(id='D', x=1.0, r=0.0), 
-        Candidate(id='E', x=1.0, r=1.0)], 
-    V=[
-        Voter(id='V0', x=2.0, r=0.0), 
-        Voter(id='V1', x=0.0, r=2000000000.0), 
-        Voter(id='V2', x=3.0, r=0.0), 
-        Voter(id='V3', x=1.0, r=0.0), 
-        Voter(id='V4', x=0.0, r=0.0)])]
-
-\end{verbatim}
-
-\subsubsection{Search of the random large profiles}
-For the larger size of profiles I generated a suitable number of random profiles.
-
-\begin{center}
-    \begin{tabular}{||c c c c||}
-        \hline
-         & 20C 20V & 60C 60V & 100C 100V\\ [0.5ex] 
-        \hline\hline
-        Count & 400000 & - & - \\
-        \hline
-        VCR & - & - & - \\
-        \hline
-        VR & - & - & - \\
-        \hline
-        CR & - & - & - \\
-        \hline
-        VCR !COP & - & - & - \\ [1ex]
-        \hline
-   \end{tabular}
-\end{center}
-
-\subsection{(WIP) Experiment conclusions}
-
-Maybe do some nice graphs here and explore properties
-
 % ========================================================================
 % VCR Profile Detection Algorithm
 % ========================================================================
 
-\newpage
-\section{VCR Profile Detection Algorithm}\label{VCR Detection}
+\section{Voter Candidate Range Profile Detection}\label{VCR Detection}
 
 This section describes in detail and compares created algorithms for the VCR property detection.
 
@@ -180,9 +84,114 @@ z1_{cv} + z2_{cv} >= 1
 
 ( WIP ) : Rewrite solution using just one binary var
 
-\subsection{Polynomial VCR detection algorithm}
+\subsection{Polynomial Complexity VCR detection algorithm}
 
 \subsection{Performance Comparison}
+
+% ===================================================
+% Voter Candidate Range Profiles
+% ===================================================
+
+\newpage
+\section{Voter Candidate Range Profiles}
+
+In this section I describe exploration of VCR domain and found properties.
+
+\subsection{(WIP) Experiment description - search of domain}
+Experiments can be grouped into 2 categories. First search of small profiles, where I check every combination, 
+and second one for larger profiles where I generate random preferences.
+\newline
+
+\noindent Algorithm steps:
+\begin{enumerate}\label{SearchProfilesAlgo}
+    \item\label{SearchGenerationStep} Generate approval sets of the profiles for given C and V elections.
+    \item Filter out profiles not fulfilling \textit{VCR} property. Described in the section \ref{VCR Detection}
+    \item Group profiles by \textit{VR, CR} and \textit{VCR not VR nor CR} properties (\textit{VCR !COP})
+    \item Aggregate statistics
+\end{enumerate}
+
+To achieve high performance I used \textit{MapReduce} paradigm with \textit{Spark}, as the tasks are independent and easy to parallelize.
+
+\subsection{How many VCR profiles exists that are not VR nor CR?}
+\subsubsection{Search of all the small profiles}
+For the smaller size of profiles I performed search of all the profile combinations.
+
+\begin{center}
+    \begin{tabular}{||c c c c c c||}
+        \hline
+         & 3C 3V & 4C 4V & 5C 5V & 4C 6V & 6C 4V \\ [0.5ex] 
+        \hline\hline
+        Count & $2^{9}$ & $2^{16}$ & $2^{25}$ & $2^{24}$  & $2^{24}$ \\ 
+        \hline
+        VCR & 506 & 57832 & 19846082 & 10893736 & 10893736 \\ 
+        \hline
+        VR & - & - & - & - & - \\ 
+        \hline
+        CR & - & - & - & - & - \\
+        \hline
+        VCR !COP & 0 & 96 & 501000 & 144480 & 144480 \\ [1ex] 
+        \hline
+   \end{tabular}
+\end{center}
+
+WIP : Prettify the table 
+
+WIP : Make some charts, write statistics, show examples
+
+\subsubsection{Profile examples}
+Example of 5C 5V elections that are VCR but not VR nor CR
+
+\begin{verbatim}
+
+    A=[
+        [1., 1., 0., 0., 1.],
+        [1., 1., 1., 1., 1.],
+        [1., 0., 0., 0., 0.],
+        [0., 0., 0., 1., 1.],
+        [0., 0., 1., 0., 1.]], 
+    C=[
+        Candidate(id='A', x=3.0, r=1.0), 
+        Candidate(id='B', x=2.0, r=0.0), 
+        Candidate(id='C', x=0.0, r=0.0), 
+        Candidate(id='D', x=1.0, r=0.0), 
+        Candidate(id='E', x=1.0, r=1.0)], 
+    V=[
+        Voter(id='V0', x=2.0, r=0.0), 
+        Voter(id='V1', x=0.0, r=2000000000.0), 
+        Voter(id='V2', x=3.0, r=0.0), 
+        Voter(id='V3', x=1.0, r=0.0), 
+        Voter(id='V4', x=0.0, r=0.0)])]
+
+\end{verbatim}
+
+\subsubsection{Search of the random large profiles}
+For the larger size of profiles I generated a suitable number of random profiles.
+
+\begin{center}
+    \begin{tabular}{||c c c c||}
+        \hline
+         & 20C 20V & 60C 60V & 100C 100V\\ [0.5ex] 
+        \hline\hline
+        Count & 400000 & - & - \\
+        \hline
+        VCR & - & - & - \\
+        \hline
+        VR & - & - & - \\
+        \hline
+        CR & - & - & - \\
+        \hline
+        VCR !COP & - & - & - \\ [1ex]
+        \hline
+   \end{tabular}
+\end{center}
+
+\subsection{(WIP) Experiment conclusions}
+
+Maybe do some nice graphs here and explore properties
+
+% =================================================
+% Minimax Scoring Rule Algorithms
+% =================================================
 
 \newpage
 \section{Minimax Scoring Rule Algorithms}
@@ -240,6 +249,6 @@ def minimax(profile: Profile, k: int) -> np.array:
 \subsection{Comparison}
 
 \newpage
-\section{TBD: Approval deletion for VCR profile to become VR or CR}
+\section{WIP: Approval deletion for VCR profile to become VR or CR}
 
 

@@ -14,21 +14,28 @@
 
 %********************************** %First Section  **************************************
 Elections are ubiquitous element of our society in one form or another.
-For example choosing members of parliament, winner of a competition.
+For example choosing members of parliament or a winner of a competition.
 In a day-to-day activities we need to decide on a meeting time or select recommended movies in a streaming service.
 Each of these choices may require different type of election and scoring rule,
 based on the underlying properties of the choice (i.e. voters should be represented proportionally by members of a government)
-\newline
-
-(WIP) Write here about types of elections, single / multi winner, etc. , different scoring rules.
-Should it be here or in the 2nd chapter - preliminaries / basic definitions
-\newline
 
 
-In this work I am going to focus on the \textit{Approval Elections}, that is where each voter provides a subset of candidates that he approves of and disapproves the rest.
-In general many interesting voting rules are known to be NP-hard, however become polynomial solvable under some restrictions on the structure of the preferences.
+\subsubsection{Reseach objectives}
+In this work I am going to focus on the \textit{Approval Elections},
+that is where each voter provides a subset of candidates that he approves of and disapproves the rest.
+In general many social choice problems are known to be computationally hard.
+However they become tractable under some restrictions on the structure of the preferences.
+\cite{DBLP:journals/corr/ElkindL15} explored well known restrictions in the setting of approval preferences,
+introduced several new one-dimensional domain restrictions such as
+Dichotomous Euclidean and derivatives (czy to dobre okreslenie na VR CR?). 
+\cite{falisz} generalized this model for the N-dimensional euclidean space calling it Voter Candidate Range 
+and explored two-dimensional case. 
 
-\cite{DBLP:journals/corr/ElkindL15} introduced a new one-dimensional domain restriction (VR / CR) and showed relation with existing ones (SP, SC and others).
-\cite{falisz} generalized the model (VCR) and explored two-dimensional case.
+The goal of this work is to explore properties of the one-dimensional model.
+Search for the profile detection polynomial complexity algorithm, however \cite{peters2016recognising} proved this to be NP-hard 
+for the ordinal elections. I will try as well to extend solution of \cite{mav}
+for computing MAV score with polynomial complexity to the VCR model.
 
-The goal of this work is to explore properties of the one-dimensional VCR model and find polynomial algorithms for detection and scoring rules.
+
+\subsubsection{Contributions}
+I provide fast linear programming preference detection algorithm and ...

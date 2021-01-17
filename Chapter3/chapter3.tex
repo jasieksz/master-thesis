@@ -13,7 +13,7 @@
 
 \section{Euclidean Preference Restrictions}
 
-\noindent\textbf{Voter Candidate Range}
+\subsubsection{Voter Candidate Range}
 \indent
 Given an election \(E = (C, V)\), we say that the voters have \textit{1D-Euclidean} preferences 
 For each agent there exists a point $x_a$ and nonnegative real value $r_a$ such that:
@@ -24,32 +24,35 @@ in 1-dimensional space of opinions.
 For candidate $c \in C, r_c$ can be seen as c's charisma.
 For candidate $v \in V, r_v$ can be seen as v's willingness to compromise. \cite{falisz}
 
-\noindent\textbf{Candidate Range}
+\subsubsection{Candidate Range}
 \indent
 We say that P satisfies CR if candidates in C can be
 ordered so that each of the sets vi forms an interval of that ordering.
 CR is special case of VCR, where we require all the voters to have radii equal to zero
 
-\noindent\textbf{Voter Range}
+\subsubsection{Voter Range}
 \indent
 We say that P satisfies VR if the voters in P can be reordered
 so that for every candidate c the voters that approve c form an interval of that
 ordering.
 VR is a special case of VCR, where we require all the candidates to have radii equal to zero
-\newline
 
-\noindent\textit{CR} and \textit{VR} were introduced in \cite{DBLP:journals/corr/ElkindL15} under the names \textit{CI} and \textit{VI}.
-
-The VCR model is strictly more powerful than the VR and CR ones.
-For example, election with candidate set
-$C = \{a, b, c, d\}$ and voters with approval sets $\{a, b\}$, $\{b, c\}$,
-$\{b, d\}$, and $\{a, b, c, d\}$ is VCR, but neither VR nor CR.
 \begin{figure}[h]
     \includegraphics[width=8cm]{vr-cr.png}
     \centering
     \caption{VR and CR Temporary image}
 \end{figure}
-\newline
+
+\cite{falisz} showed that \textbf{CR} and \textbf{VR} are equivalent to respectively \textbf{VI} and \textbf{CI},
+introduced by \cite{DBLP:journals/corr/ElkindL15}.
+
+\subsubsection{Larger Domain}
+
+The VCR model is strictly more powerful than the VR and CR ones.
+For example, election with candidate set
+$C = \{a, b, c, d\}$ and voters with approval sets $\{a, b\}$, $\{b, c\}$,
+$\{b, d\}$, and $\{a, b, c, d\}$ is VCR, but neither VR nor CR.
+
 
 \subsection{VR and CR Detection Algorithms}
 Profile is VR or CR if the matrix or any permutation has consecutive ones property, that is for each row (VR) or column (CR),
@@ -66,18 +69,18 @@ However in this work I'm using still relatively fast and much easier to implemen
 Voter Candidate Range detection algorithms are described in detail in the subsequent chapters.
 
 \newpage
-\section{(WIP) Why VCR?}
+\section{(WIP) Committee Scoring Rules - Motivation}
 Explain how VR/CR/VCR can change complexity of computing rules, detection, etc.
 
 Section 4.1 in \cite{falisz}
 
 "Elkind and Lackner (2015) have shown polynomial-time algorithms for computing CC 
-winning committees in 1D-VRand 1D-CR elections.
+winning committees in 1D-VR and 1D-CR elections.
 We unify this result into a single algorithm for 1D-VCR elections (the main idea is remarkably close to that for the 1D-VR case).
 Proposition 2. There is an algorithm that given a 1D-VCR election  and  committee  size, 
-computes  some  winning  Ccommittee in polynomial time.
+computes  some  winning  $C$ committee in polynomial time.
 A natural question is whether it is possible to extend the above  result  to  PAV  and  other  Thiele  methods.
-While  weleave this question open, in Appendix B we explain that the existing technique that allowed to 
-construct a polynomial-time algorithm  for  a  large  class  of  Thiele  rules  under  the D-VR model (Peters and Lackner 2020)
-cannot be easilyapplied to the 1D-VCR setting. 
+While  we leave this question open, in Appendix B we explain that the existing technique that allowed to 
+construct a polynomial-time algorithm  for  a  large  class  of  Thiele  rules  under  the 1D-VR model (Peters and Lackner 2020)
+cannot be easily applied to the 1D-VCR setting. 
 On the other hand, it may be possible to obtain a 1D-VCR algorithm for MAV as 1D-VR and 1D-CR algorithms do exist (Liu and Guo 2016)."
