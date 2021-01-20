@@ -15,6 +15,98 @@ https://github.com/jasieksz/master-thesis-code/blob/master/results/profiles.md
     \item VR/CR MAV \cite{mav} - upper bound distance $d$ 
     \item $hammingDistance(vectorK, A[voterIndex]) + k - len(K) > d$
 \end{enumerate}
+\newpage
+
+\subsection{VR/CR MAV \cite{mav} - upper bound distance $d$}
+
+\subsubsection{Profile}
+
+\begin{verbatim}
+    A  B  C  D 
+ 0  0  0  1  0
+ 1  1  0  1  0
+ 2  1  1  0  1
+ 3  1  0  0  1   
+\end{verbatim}
+
+\subsubsection{Brute Force Results}
+
+\begin{verbatim}
+      MAV, Committee
+k=1     2, [A] 
+        3, [B], [D]
+        4, [C]
+
+k=2     3, [A, B], [A, C], [A, D], [C, D]
+        4, [B, C], [B, D]
+
+k=3     2, [A, C, D]
+        3, [A, B, C], [B, C, D]
+        4, [A, B, D]
+
+\end{verbatim}
+
+\subsubsection{Greedy MAV (\cite{mav})}
+
+\begin{verbatim}
+k=1
+    d=3 [D]
+    d=4 [ || A]
+
+k=2
+    d=3 [C, D]
+    d=4 [D || A]
+    d=5 [ || A, B]
+
+k=3
+    d=2 [C, D || A]
+    d=3 [C, D || A]
+    d=4 [C, D || A]
+    d=5 [D || A, B]
+    d=6 [ || A, B, C]
+
+\end{verbatim}
+
+\subsubsection{Brute Force}
+\begin{verbatim}
+def mavScore(A: np.ndarray, committee: np.array) -> int:
+    partialHD = lambda preference: hammingDistance(committee, preference)
+    return max([partialHD(pref) for pref in A])
+
+def minimax(A: np.ndarray, k: int) -> np.array:
+    candidateCount = A.shape[1]
+    scores = [(mavScore(A, committeeTupleToVector(K, candidateCount)), K)
+                for K in combinations(range(candidateCount), k)]
+    scores.sort(key=lambda mavScore_committee: mavScore_committee[0])
+    return scores
+\end{verbatim}
+
+\subsubsection{Greedy MAV (\cite{mav})}
+\begin{verbatim}
+def minimaxCR(A, k, d):
+    n,m = A.shape # Vn Cm
+    C = [i for i in range(m)]
+    K = []
+    for voterIndex in range(n):
+        X = [candidate for candidate in C if candidate not in K]
+        vectorK = committeeTupleToVector(committee=K, C=m)
+        s = hammingDistance2(vectorK, A[voterIndex]) + k - len(K)
+        if s > d:
+            r = math.ceil((s - d) / 2)
+            if r > k - len(K) or r > len(X):
+                print("NOT FOUND")
+                return []
+            
+            X_sorted = getCandsSortedByVotes(A=A, X=X)
+            X_after = getCandsAfter(C=X_sorted, after=voterIndex)
+            for c in X_after[:r]:
+                K.append(c)
+    if k > len(K):
+        print("ARBITRARY SELECTION - Current K = {}".format(K))
+        for c in [c for c in C if c not in K][:(k-len(K))]:
+            K.append(c)
+    return K
+\end{verbatim}
 
 \section{10/12/2020}
 \begin{enumerate}
