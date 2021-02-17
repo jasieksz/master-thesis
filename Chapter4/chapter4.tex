@@ -45,6 +45,9 @@ Hence it's not directly suitable for ILP formulation. Let's transform it to line
 \end{equation}
 
 \subsubsection{Big M method}
+(WIP) Replaced BigM with IndicatiorConstraint in the code - update the text.
+
+
 Above constraint contains $\lor$ condition which cannot be represented directly in the linear programming.
 I used the $BigM$ method to solve this issue
 
@@ -87,6 +90,7 @@ z1_{cv} + z2_{cv} >= 1
 \subsection{Polynomial Complexity VCR detection algorithm}
 
 \subsection{Performance Comparison}
+How fast Gurobi Solver can be?
 
 % ===================================================
 % Voter Candidate Range Profiles
@@ -95,7 +99,7 @@ z1_{cv} + z2_{cv} >= 1
 \newpage
 \section{Voter Candidate Range Profiles}
 
-In this section I describe exploration of VCR domain and found properties.
+In this section I explore VCR domain and describe found properties.
 
 \subsection{(WIP) Experiment description - search of domain}
 Experiments can be grouped into 2 categories. First search of small profiles, where I check every combination, 
@@ -109,8 +113,6 @@ and second one for larger profiles where I generate random preferences.
     \item Group profiles by \textit{VR, CR} and \textit{VCR not VR nor CR} properties (\textit{VCR !COP})
     \item Aggregate statistics
 \end{enumerate}
-
-To achieve high performance I used \textit{MapReduce} paradigm with \textit{Spark}, as the tasks are independent and easy to parallelize.
 
 \subsection{How many VCR profiles exists that are not VR nor CR?}
 \subsubsection{Search of all the small profiles}
@@ -165,22 +167,21 @@ Example of 5C 5V elections that are VCR but not VR nor CR
 \end{verbatim}
 
 \subsubsection{Search of the random large profiles}
-For the larger size of profiles I generated a suitable number of random profiles.
+For the larger size of profiles I generated a suitable number of random VCR profiles
+and checked how many of them are not VR nor CR.
 
 \begin{center}
     \begin{tabular}{||c c c c||}
         \hline
-         & 20C 20V & 60C 60V & 100C 100V\\ [0.5ex] 
+         & 10C 10V & 15C 15V & 20C 20V\\ [0.5ex] 
         \hline\hline
-        Count & 400000 & - & - \\
-        \hline
-        VCR & - & - & - \\
+        VCR & 1000 & 1000 & 3000 \\
         \hline
         VR & - & - & - \\
         \hline
         CR & - & - & - \\
         \hline
-        VCR !COP & - & - & - \\ [1ex]
+        VCR !COP & 24 & 667 & 2928 \\ [1ex]
         \hline
    \end{tabular}
 \end{center}
@@ -194,7 +195,7 @@ Maybe do some nice graphs here and explore properties
 % =================================================
 
 \newpage
-\section{Minimax Scoring Rule Algorithms}
+\section{Minimax Scoring Rule Algorithms WIP}
 
 \subsection{Overview}
 

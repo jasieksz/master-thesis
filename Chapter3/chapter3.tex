@@ -3,7 +3,7 @@
 %****************************** Second Chapter *********************************
 %*******************************************************************************
 
-\chapter{Approval-Based Elections in the \textit{1D} Euclidean Domain}
+\chapter{One Dimmensional Euclidean Domain}
 
 \ifpdf
     \graphicspath{{Chapter3/Figs/Raster/}{Chapter3/Figs/PDF/}{Chapter3/Figs/}}
@@ -15,19 +15,18 @@
 
 \subsubsection{Voter Candidate Range}
 \indent
-Given an election \(E = (C, V)\), we say that the voters have \textit{1D-Euclidean} preferences 
-For each agent there exists a point $x_a$ and nonnegative real value $r_a$ such that:
-$c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$
+Given an election \(E = (C, V)\), we say that the voters have \textit{1D-Euclidean} preferences if
+for every agent (voter or candidate) there exists a point $x_a$ and nonnegative real value radius $r_a$ such that:
+For every candidate, voter pair: $c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$
 
-Intuitively, for $a \in C \cup V$ the point $x_a$ describes a's ideal position 
-in 1-dimensional space of opinions.
-For candidate $c \in C, r_c$ can be seen as c's charisma.
-For candidate $v \in V, r_v$ can be seen as v's willingness to compromise. \cite{falisz}
+We can easily think of it as: the point $x_a$ represents ideal position 
+in the 1-dimensional space of opinions. The radius can be seen as candidate's charisma or
+voter's willingness to compromise.
 
 \subsubsection{Candidate Range}
 \indent
 We say that P satisfies CR if candidates in C can be
-ordered so that each of the sets vi forms an interval of that ordering.
+ordered so that each of the sets $v_i$ forms an interval of that ordering.
 CR is special case of VCR, where we require all the voters to have radii equal to zero
 
 \subsubsection{Voter Range}
@@ -40,37 +39,34 @@ VR is a special case of VCR, where we require all the candidates to have radii e
 \begin{figure}[h]
     \includegraphics[width=8cm]{vr-cr.png}
     \centering
-    \caption{VR and CR Temporary image}
+    \caption{CR and VR Temporary image}
 \end{figure}
 
-\cite{falisz} showed that \textbf{CR} and \textbf{VR} are equivalent to respectively \textbf{VI} and \textbf{CI},
+\cite{falisz} showed that CR and VR are equivalent to respectively VI and CI
 introduced by \cite{DBLP:journals/corr/ElkindL15}.
 
 \subsubsection{Larger Domain}
 
-The VCR model is strictly more powerful than the VR and CR ones.
+The VCR model has larger domain than the VR and CR combined.
 For example, election with candidate set
 $C = \{a, b, c, d\}$ and voters with approval sets $\{a, b\}$, $\{b, c\}$,
 $\{b, d\}$, and $\{a, b, c, d\}$ is VCR, but neither VR nor CR.
 
 
-\subsection{VR and CR Detection Algorithms}
-Profile is VR or CR if the matrix or any permutation has consecutive ones property, that is for each row (VR) or column (CR),
+\section{ Detection Algorithms (WIP)}
+Profile is VR or CR if the preference matrix or any permutation has consecutive ones property, that is for each row (VR) or column (CR),
 entries with 1 are in the uninterrupted sequence.
 
 The fastest known algorithm for detection of C1P is based on the \textit{PQ-tree} algorithms by \cite{COP-PQTree}.
 However in this work I'm using still relatively fast and much easier to implement approach based on the \textit{Lex-BFS} algorithm by \cite{COP-LexBFS}
-
 ( WIP ) Change of the solution, using ILP instead - described in the ch.4 
-
-\subsection{VCR Detection Algorithms}
-( WIP ) change titles of subsections and merge them together?
 
 Voter Candidate Range detection algorithms are described in detail in the subsequent chapters.
 
 \newpage
 \section{(WIP) Committee Scoring Rules - Motivation}
-Explain how VR/CR/VCR can change complexity of computing rules, detection, etc.
+Explain how domain restrictions (VR/CR/VCR) can change complexity of computing rules, detection, etc.
+Swap section order with "Detecion Algorithms"
 
 Section 4.1 in \cite{falisz}
 

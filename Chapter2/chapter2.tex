@@ -20,7 +20,7 @@ Election is a pair \(E = (C, V)\) where
 \(V = \{v_1,...,v_n\}\) is a list of voters. 
 Each voter \(v \in V\) approves a subset of the candidates and disapproves the remaining candidates,
 I will be referring to it as a \mbox{\textit{approval set}} and for each voter $v \in V$ denote it as $A(v)$,
-when using $A$ just by itself I refer to all \mbox{\textit{approval set}} in the given election.
+when using $A$ just by itself I refer to all approval sets in the given election (preferences).
 
 \subsubsection{Committee Selection Rules}
 
@@ -29,12 +29,17 @@ Each rule has different properties and must be selected accordingly to the goal 
 For the detailed overview of multiwinner voting rules I point to \cite{faliszewskiSkowronMultiWinnerOverview}.
 
 \subsubsection{Hamming Distance Minimax Approval Voting (MAV)}
+(WIP) dopisać wzory
 
+
+Introduced by \cite{minimax-Brams-Kilgour-Sanver}.
 Selects a committee $W$ that minimizes the maximum Hamming distance between \(W\) and voters' approval ballots.
 For an election $E$ and a resulting committee of size $k$
-I denote winning committee as $W = MAV(E,k)$ \cite{minimax-Brams-Kilgour-Sanver}
+I denote winning committee as $W = MAV(E,k)$ 
+
 
 \subsubsection{Domain restrictions}
+(WIP) czy w ogóle o tym tutaj pisać??? czy wystarczy w Ch.3
 
 \subsubsection{Dichotmous Euclidean, Voter Interval, Candidate Interval}
 \cite{DBLP:journals/corr/ElkindL15}
