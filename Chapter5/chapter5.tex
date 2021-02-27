@@ -3,7 +3,7 @@
 %*********************************** First Chapter *****************************
 %*******************************************************************************
 
-\chapter{Evaluation}  %Title of the First Chapter
+\chapter{Voter Candidate Range Profiles}  %Title of the First Chapter
 
 \ifpdf
     \graphicspath{{Chapter5/Figs/Raster/}{Chapter5/Figs/PDF/}{Chapter5/Figs/}}
@@ -12,9 +12,98 @@
 \fi
 
 
-%********************************** %First Section  **************************************
-\section{Conclusions} %Section - 1.1 
 
-%********************************** %Second Section  *************************************
-\section{Future work} %Section - 1.2
+% ===================================================
+% Voter Candidate Range Profiles
+% ===================================================
 
+In this section I explore VCR domain and describe found properties.
+
+\section{(WIP) Experiment description - search of domain}
+Experiments can be grouped into 2 categories. First search of small profiles, where I check every combination, 
+and second one for larger profiles where I generate random preferences.
+\newline
+
+\noindent Algorithm steps:
+\begin{enumerate}\label{SearchProfilesAlgo}
+    \item\label{SearchGenerationStep} Generate approval sets of the profiles for given C and V elections.
+    \item Filter out profiles not fulfilling \textit{VCR} property. Described in the section \ref{VCR Detection}
+    \item Group profiles by \textit{VR, CR} and \textit{VCR not VR nor CR} properties (\textit{VCR !COP})
+    \item Aggregate statistics
+\end{enumerate}
+
+\section{How many VCR profiles exists that are not VR nor CR?}
+\subsubsection{Search of all the small profiles}
+For the smaller size of profiles I performed search of all the profile combinations.
+
+\begin{center}
+    \begin{tabular}{||c c c c c c||}
+        \hline
+         & 3C 3V & 4C 4V & 5C 5V & 4C 6V & 6C 4V \\ [0.5ex] 
+        \hline\hline
+        Count & $2^{9}$ & $2^{16}$ & $2^{25}$ & $2^{24}$  & $2^{24}$ \\ 
+        \hline
+        VCR & 506 & 57832 & 19846082 & 10893736 & 10893736 \\ 
+        \hline
+        VR & - & - & - & - & - \\ 
+        \hline
+        CR & - & - & - & - & - \\
+        \hline
+        VCR !COP & 0 & 96 & 501000 & 144480 & 144480 \\ [1ex] 
+        \hline
+   \end{tabular}
+\end{center}
+
+WIP : Prettify the table 
+
+WIP : Make some charts, write statistics, show examples
+
+\subsubsection{Profile examples}
+Example of 5C 5V elections that are VCR but not VR nor CR
+
+\begin{verbatim}
+
+    A=[
+        [1., 1., 0., 0., 1.],
+        [1., 1., 1., 1., 1.],
+        [1., 0., 0., 0., 0.],
+        [0., 0., 0., 1., 1.],
+        [0., 0., 1., 0., 1.]], 
+    C=[
+        Candidate(id='A', x=3.0, r=1.0), 
+        Candidate(id='B', x=2.0, r=0.0), 
+        Candidate(id='C', x=0.0, r=0.0), 
+        Candidate(id='D', x=1.0, r=0.0), 
+        Candidate(id='E', x=1.0, r=1.0)], 
+    V=[
+        Voter(id='V0', x=2.0, r=0.0), 
+        Voter(id='V1', x=0.0, r=2000000000.0), 
+        Voter(id='V2', x=3.0, r=0.0), 
+        Voter(id='V3', x=1.0, r=0.0), 
+        Voter(id='V4', x=0.0, r=0.0)])]
+
+\end{verbatim}
+
+\subsubsection{Search of the random large profiles}
+For the larger size of profiles I generated a suitable number of random VCR profiles
+and checked how many of them are not VR nor CR.
+
+\begin{center}
+    \begin{tabular}{||c c c c||}
+        \hline
+         & 10C 10V & 15C 15V & 20C 20V\\ [0.5ex] 
+        \hline\hline
+        VCR & 1000 & 1000 & 3000 \\
+        \hline
+        VR & - & - & - \\
+        \hline
+        CR & - & - & - \\
+        \hline
+        VCR !COP & 24 & 667 & 2928 \\ [1ex]
+        \hline
+   \end{tabular}
+\end{center}
+
+\section{(WIP) Experiment conclusions}
+
+Maybe do some nice graphs here and explore properties

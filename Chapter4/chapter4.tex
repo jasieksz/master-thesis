@@ -3,7 +3,7 @@
 %*********************************** First Chapter *****************************
 %*******************************************************************************
 
-\chapter{Solution}  %Title of the First Chapter
+\chapter{Voter Candidate Range Profile Detection}  %Title of the First Chapter
 
 \ifpdf
     \graphicspath{{Chapter4/Figs/Raster/}{Chapter4/Figs/PDF/}{Chapter4/Figs/}}
@@ -15,11 +15,9 @@
 % VCR Profile Detection Algorithm
 % ========================================================================
 
-\section{Voter Candidate Range Profile Detection}\label{VCR Detection}
+This chapter describes in detail and compares created algorithms for the VCR property detection.
 
-This section describes in detail and compares created algorithms for the VCR property detection.
-
-\subsection{Integer Linear Programming}
+\section{Integer Linear Programming}
 The only input is \textit{approval set} of each voter. Represented by $2D$ matrix $A_{vc}$
 
 \subsubsection{Variables}
@@ -87,169 +85,7 @@ z1_{cv} + z2_{cv} >= 1
 
 ( WIP ) : Rewrite solution using just one binary var
 
-\subsection{Polynomial Complexity VCR detection algorithm}
+\section{(WIP) My VCR detection algorithm}
 
-\subsection{Performance Comparison}
+\section{Performance Comparison}
 How fast Gurobi Solver can be?
-
-% ===================================================
-% Voter Candidate Range Profiles
-% ===================================================
-
-\newpage
-\section{Voter Candidate Range Profiles}
-
-In this section I explore VCR domain and describe found properties.
-
-\subsection{(WIP) Experiment description - search of domain}
-Experiments can be grouped into 2 categories. First search of small profiles, where I check every combination, 
-and second one for larger profiles where I generate random preferences.
-\newline
-
-\noindent Algorithm steps:
-\begin{enumerate}\label{SearchProfilesAlgo}
-    \item\label{SearchGenerationStep} Generate approval sets of the profiles for given C and V elections.
-    \item Filter out profiles not fulfilling \textit{VCR} property. Described in the section \ref{VCR Detection}
-    \item Group profiles by \textit{VR, CR} and \textit{VCR not VR nor CR} properties (\textit{VCR !COP})
-    \item Aggregate statistics
-\end{enumerate}
-
-\subsection{How many VCR profiles exists that are not VR nor CR?}
-\subsubsection{Search of all the small profiles}
-For the smaller size of profiles I performed search of all the profile combinations.
-
-\begin{center}
-    \begin{tabular}{||c c c c c c||}
-        \hline
-         & 3C 3V & 4C 4V & 5C 5V & 4C 6V & 6C 4V \\ [0.5ex] 
-        \hline\hline
-        Count & $2^{9}$ & $2^{16}$ & $2^{25}$ & $2^{24}$  & $2^{24}$ \\ 
-        \hline
-        VCR & 506 & 57832 & 19846082 & 10893736 & 10893736 \\ 
-        \hline
-        VR & - & - & - & - & - \\ 
-        \hline
-        CR & - & - & - & - & - \\
-        \hline
-        VCR !COP & 0 & 96 & 501000 & 144480 & 144480 \\ [1ex] 
-        \hline
-   \end{tabular}
-\end{center}
-
-WIP : Prettify the table 
-
-WIP : Make some charts, write statistics, show examples
-
-\subsubsection{Profile examples}
-Example of 5C 5V elections that are VCR but not VR nor CR
-
-\begin{verbatim}
-
-    A=[
-        [1., 1., 0., 0., 1.],
-        [1., 1., 1., 1., 1.],
-        [1., 0., 0., 0., 0.],
-        [0., 0., 0., 1., 1.],
-        [0., 0., 1., 0., 1.]], 
-    C=[
-        Candidate(id='A', x=3.0, r=1.0), 
-        Candidate(id='B', x=2.0, r=0.0), 
-        Candidate(id='C', x=0.0, r=0.0), 
-        Candidate(id='D', x=1.0, r=0.0), 
-        Candidate(id='E', x=1.0, r=1.0)], 
-    V=[
-        Voter(id='V0', x=2.0, r=0.0), 
-        Voter(id='V1', x=0.0, r=2000000000.0), 
-        Voter(id='V2', x=3.0, r=0.0), 
-        Voter(id='V3', x=1.0, r=0.0), 
-        Voter(id='V4', x=0.0, r=0.0)])]
-
-\end{verbatim}
-
-\subsubsection{Search of the random large profiles}
-For the larger size of profiles I generated a suitable number of random VCR profiles
-and checked how many of them are not VR nor CR.
-
-\begin{center}
-    \begin{tabular}{||c c c c||}
-        \hline
-         & 10C 10V & 15C 15V & 20C 20V\\ [0.5ex] 
-        \hline\hline
-        VCR & 1000 & 1000 & 3000 \\
-        \hline
-        VR & - & - & - \\
-        \hline
-        CR & - & - & - \\
-        \hline
-        VCR !COP & 24 & 667 & 2928 \\ [1ex]
-        \hline
-   \end{tabular}
-\end{center}
-
-\subsection{(WIP) Experiment conclusions}
-
-Maybe do some nice graphs here and explore properties
-
-% =================================================
-% Minimax Scoring Rule Algorithms
-% =================================================
-
-\newpage
-\section{Minimax Scoring Rule Algorithms WIP}
-
-\subsection{Overview}
-
-\noindent\textbf{Minimax Approval Voting (MAV)}
-\indent
-As close as possible to the preferences of all parties.
-By “close” we mean that the maximum distance of the compromise from the position of any state 
-is minimal, which we call a minimax outcome. \cite{minimax-Brams-Kilgour-Sanver}
-Selects a committee $W$ that minimizes the maximum Hamming distance between \(W\) and voters’ approval ballots.
-We define MAV-score of a committee \(W\) as $Max(f(W,v1),...,f(W,vn))$ where \(f(W,vi)=\).
-
-( WIP ) Rewrite MAV definition, use easier equation formulation
-
-MAV returns a committee \(W\) with the lowest MAV-score.
-
-\subsubsection{Brute force algorithm}
-
-\begin{verbatim}
-def hammingDistance(a: np.array, b: np.array) -> int:
-return (a != b).nonzero()[0].shape[0]
-
-def mavScore(profile: Profile, committee:np.array) -> int:
-    partialHD = lambda preference: hammingDistance(committee, preference)
-    return max([partialHD(pref) for pref in profile.A])
-
-def minimax(profile: Profile, k: int) -> np.array:
-    candidateCount = len(profile.C)
-    scores = [(mavScore(profile, np.array(committee)), profile) 
-                for committee in combinations(range(candidateCount), k)]
-    scores.sort(key=lambda mav_p: mav_p[0])
-    return scores
-\end{verbatim}
-
-\subsubsection{Implementation of ILP from \cite{lacknerSkowronAVOverview}}
-
-\subsubsection{Implementation of Poly for VR and CR from \cite{mav}}
-
-
-\subsection{Polynomial algorithm for VCR profiles}
-
-\subsubsection{ ( WIP ) Current approches}
-
-\textbf{Greedy}
-
-\begin{enumerate}
-    \item Sort by ?
-    \item ?
-\end{enumerate}
-
-\noindent\textbf{Dynamic}
-
-\subsection{Comparison}
-
-\newpage
-\section{WIP: Approval deletion for VCR profile to become VR or CR}
-
-

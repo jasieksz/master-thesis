@@ -3,7 +3,7 @@
 %*********************************** First Chapter *****************************
 %*******************************************************************************
 
-\chapter{Evaluation}  %Title of the First Chapter
+\chapter{Minimax Scoring Rule Algorithms}  %Title of the First Chapter
 
 \ifpdf
     \graphicspath{{Chapter6/Figs/Raster/}{Chapter6/Figs/PDF/}{Chapter6/Figs/}}
@@ -11,10 +11,58 @@
     \graphicspath{{Chapter6/Figs/Vector/}{Chapter6/Figs/}}
 \fi
 
+% =================================================
+% Minimax Scoring Rule Algorithms
+% =================================================
 
-%********************************** %First Section  **************************************
-\section{Section One} %Section - 1.1 
+\section{Overview}
 
-%********************************** %Second Section  *************************************
-\section{Section Two} %Section - 1.2
+\noindent\textbf{Minimax Approval Voting (MAV)}
+\indent
+As close as possible to the preferences of all parties.
+By “close” we mean that the maximum distance of the compromise from the position of any state 
+is minimal, which we call a minimax outcome. \cite{minimax-Brams-Kilgour-Sanver}
+Selects a committee $W$ that minimizes the maximum Hamming distance between \(W\) and voters’ approval ballots.
+We define MAV-score of a committee \(W\) as $Max(f(W,v1),...,f(W,vn))$ where \(f(W,vi)=\).
 
+( WIP ) Rewrite MAV definition, use easier equation formulation
+
+MAV returns a committee \(W\) with the lowest MAV-score.
+
+\subsubsection{Brute force algorithm}
+
+\begin{verbatim}
+def hammingDistance(a: np.array, b: np.array) -> int:
+return (a != b).nonzero()[0].shape[0]
+
+def mavScore(profile: Profile, committee:np.array) -> int:
+    partialHD = lambda preference: hammingDistance(committee, preference)
+    return max([partialHD(pref) for pref in profile.A])
+
+def minimax(profile: Profile, k: int) -> np.array:
+    candidateCount = len(profile.C)
+    scores = [(mavScore(profile, np.array(committee)), profile) 
+                for committee in combinations(range(candidateCount), k)]
+    scores.sort(key=lambda mav_p: mav_p[0])
+    return scores
+\end{verbatim}
+
+\section{(WIP) MAV ILP from \cite{lacknerSkowronAVOverview}}
+
+\section{(WIP) Proof / Disproof? of MAV for VR and CR from \cite{mav}}
+
+
+\section{(WIP) My algorithm for VCR profiles}
+
+\subsubsection{ ( WIP ) Current approches}
+
+\textbf{Greedy}
+
+\begin{enumerate}
+    \item Sort by ?
+    \item ?
+\end{enumerate}
+
+\noindent\textbf{Dynamic}
+
+\section{Comparison}
