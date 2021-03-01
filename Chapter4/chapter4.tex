@@ -17,7 +17,19 @@
 
 This chapter describes in detail and compares created algorithms for the VCR property detection.
 
+\section{Overview}
+Detection algorithms are used to check whether election profile satisfies desirable structural properties.
+For example to check CR (VR) properties it's enough to check for the \textit{Consecutive Ones Property} in the preferences matrix.
+
+My focus lies on the one dimmensional VCR property. 
+Having preferences matrix as input we have to provide mapping of each agent (voter/candidate) to the point on real line
+and nonnegative number representing radius, so that it satisfies the VCR property.  
+
 \section{Integer Linear Programming}
+Solution based on the LP is excellent choice for the first algorithm to develop. 
+It provides efficient, correct (directly based on the VCR property definition) and relatively simple detection algorithm,
+Additionally it can be used as a benchmark for checking future solutions.
+
 The only input is \textit{approval set} of each voter. Represented by $2D$ matrix $A_{vc}$
 
 \subsubsection{Variables}
@@ -42,35 +54,16 @@ Hence it's not directly suitable for ILP formulation. Let's transform it to line
     \end{split}
 \end{equation}
 
-\subsubsection{Big M method}
-(WIP) Replaced BigM with IndicatiorConstraint in the code - update the text.
-
-
-Above constraint contains $\lor$ condition which cannot be represented directly in the linear programming.
-I used the $BigM$ method to solve this issue
-
-( WIP ) Fix explanation, based on :
-
-When used in the constraints themselves, one of the many uses of Big M,
-for example, refers to ensuring equality of variables only when a certain binary variable takes on one value,
-but to leave the variables "open" if the binary variable takes on its opposite value.
-One instance of this is as follows: for a sufficiently large $M$ and $z$ binary variable (0 or 1), the constraints
-
-\begin{align}
-    x - y \leq Mz \\
-    x - y \geq -Mz
-\end{align}
-
-ensure that $z = 0 \rightarrow x = y$, otherwise $z = 1 \rightarrow -M \leq x - y \leq M$
-indicating that the variables x and y can have any
-values so long as the absolute value of their difference 
-is bounded by M (hence the need for M to be "large enough.") 
+\subsubsection{Indicatior Constraint}
+Above constraint contains $\lor$ logical condition which cannot be represented directly in the linear programming.
+However the issue is quite common and most solvers provide additional constraint types to solve it.
+Gurobi solver provides \textit{IndicatorConstraint} which allows to create versatile statements like $if x==5 than y > 5 else y < 2$
+This approach is losely based (WIP Fact check) on the so called \textit{BigM} method which is low level solution, and requires parameter tunning depending on the problem.
 
 \subsubsection{ILP detection algorithm}
 
-\noindent Introduce large constant positive parameter $M$\\
-Introduce new binary variables for each pair of candidate and voter:\\
-$z1_{cv}\\ z2_{cv}$
+Introduce new binary variable for each pair of candidate and voter:\\
+$z_{cv}$
 
 \begin{align*}
 \textit{Minimize 0} \\ 
@@ -78,12 +71,11 @@ $z1_{cv}\\ z2_{cv}$
 x_c - x_v \le r_c + r_v \\
 -(x_c - x_v) \le r_c + r_v \\
 \textit{if } c \not\in ApprovalSet(v) \textit{ add constraints} \\
+WIP Replace with IndicatorConstraint \\
 x_c - x_v  + M(1 - z1_{cv}) \ge r_c + r_v + 1 \\
 -(x_c - x_v) + M(1 - z2_{cv}) \ge r_c + r_v + 1 \\
 z1_{cv} + z2_{cv} >= 1
 \end{align*}
-
-( WIP ) : Rewrite solution using just one binary var
 
 \section{(WIP) My VCR detection algorithm}
 
