@@ -26,44 +26,59 @@ Having preferences matrix as input we have to provide mapping of each agent (vot
 and nonnegative number representing radius, so that it satisfies the VCR property.  
 
 \section{Integer Linear Programming}
-Solution based on the LP is excellent choice for the first algorithm to develop. 
-It provides efficient, correct (directly based on the VCR property definition) and relatively simple detection algorithm,
+ILP is a common approach to solve NP-hard problems, 
+however it still can be used effictively for other problems.
+First we have to define the problem as an integer linear program.
+(WIP: Czy w ogole musze tlumaczyc co to ILP?) 
+That is a system of linear inequalities and constraints and 
+optionally linear function to optimize, alterinatively we can just check feasibility of the constraints.
+To obtain a solution we have to use a optimization solver.
+Popular choice are Gurobi or CPLEX which are state of the art general purpose solvers.
+
+Solution based on the ILP is excellent choice for the first algorithm to develop.
+It provides efficient and relatively simple detection algorithm,
 Additionally it can be used as a benchmark for checking future solutions.
 
-The only input is \textit{approval set} of each voter. Represented by $2D$ matrix $A_{vc}$
+\subsubsection{Transform VCR definition to linear constraints}
+Before forumulating ILP we have to redefine the VCR definition beacasue
+it is based on the euclidean distance hence contains quadratic function.
+Equation \ref{vcr-to-linear-eq} shows transforamtion of VCR equation into 
+linear inequalities.
 
-\subsubsection{Variables}
-
-$x_c$ - candidate $c$ position on $x$ axis \\
-$x_v$ - voter $v$ position on $x$ axis \\
-$r_c$ - candidate $c$ radius \\
-$r_v$ - voter $v$ radius 
-
-\subsubsection{Transform VCR condition to linear constraints}
-
-VCR definition formula contains square root and power elements (WIP: Inne słowo).
-Hence it's not directly suitable for ILP formulation. Let's transform it to linear constraint.
-
-\begin{equation}
+\begin{equation}\label{vcr-to-linear-eq}
     \begin{split}
-    VCR & = \\
-     & = \sqrt{(x_c - x_v)^2} \le r_c + r_v \\
-     & = \|x_c - x_v\| \le r_c + r_v \\
-     & = -(r_c + r_v) \le x_c - x_v \le r_c + r_v \\
+    VCR & \iff \sqrt{(x_c - x_v)^2} \le r_c + r_v \\
+     & \iff \|x_c - x_v\| \le r_c + r_v \\
+     & \iff -(r_c + r_v) \le x_c - x_v \le r_c + r_v \\
      & \iff x_c - x_v \le r_c + r_v\ \ \lor \ \ -(x_c - x_v) \le r_c + r_v
     \end{split}
 \end{equation}
+The constraints obtained from equation \ref{vcr-to-linear-eq} 
+still are not suitable for ILP beacasue it contains $\lor$ logical condition
+which cannot be directly represented in the ILP.
+However this issue is quite common and most solvers provide additional mechanisms to solve it.
 
-\subsubsection{Indicatior Constraint}
-Above constraint contains $\lor$ logical condition which cannot be represented directly in the linear programming.
-However the issue is quite common and most solvers provide additional constraint types to solve it.
-Gurobi solver provides \textit{IndicatorConstraint} which allows to create versatile statements like $if x==5 than y > 5 else y < 2$
+In Gurobi solver it's called \textit{INDICATOR} constraint
+which allows to create versatile constraints like:
+$z = f \rightarrow a^Tx \leq b$ which states that if the binary indicator variable $z$
+is equal to $f$, where $f \in \{0,1\}$, then the linear constraint 
+$a^Tx \leq b$ should hold. On the other hand, if $z = 1-f$, 
+the linear constraint may be violated.
 This approach is losely based (WIP Fact check) on the so called \textit{BigM} method which is low level solution, and requires parameter tunning depending on the problem.
 
-\subsubsection{ILP detection algorithm}
+\subsubsection{Detection algorithm}
 
 Introduce new binary variable for each pair of candidate and voter:\\
 $z_{cv}$
+
+
+\begin{alignat*}{2}
+    & \text{minimize: } & & \sum_{j=1}^{m} w_{j}x_{j} \\
+     & \text{subject to: }& \quad & \sum_{\mathclap{{j:e_{i} \in S_{j}}}}\begin{aligned}[t]
+                      x_{j} & \geq 1,& i & =1, \dots, n\\[3ex]
+                    x_{j} & \in \{0,1\}, & \quad j &=1 ,\dots, m
+                  \end{aligned}
+\end{alignat*}
 
 \begin{align*}
 \textit{Minimize 0} \\ 
