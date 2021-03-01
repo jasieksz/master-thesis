@@ -31,15 +31,15 @@ however it still can be used effictively for other problems.
 First we have to define the problem as an integer linear program.
 (WIP: Czy w ogole musze tlumaczyc co to ILP?) 
 That is a system of linear inequalities and constraints and 
-optionally linear function to optimize, alterinatively we can just check feasibility of the constraints.
-To obtain a solution we have to use a optimization solver.
-Popular choice are Gurobi or CPLEX which are state of the art general purpose solvers.
+optionally linear function to optimize, alternatively we can just check feasibility of the constraints.
+To obtain a solution we have to use an optimization solver.
+Popular choices are Gurobi or CPLEX which are state of the art general purpose solvers.
 
 Solution based on the ILP is excellent choice for the first algorithm to develop.
-It provides efficient and relatively simple detection algorithm,
-Additionally it can be used as a benchmark for checking future solutions.
+It provides efficient and relatively simple detection algorithm.
+Additionally it can be used as a fast benchmark for checking future solutions.
 
-\subsubsection{Transform VCR definition to linear constraints}
+\subsubsection{Transform VCR definition into linear constraints}
 Before forumulating ILP we have to redefine the VCR definition beacasue
 it is based on the euclidean distance hence contains quadratic function.
 Equation \ref{vcr-to-linear-eq} shows transforamtion of VCR equation into 
@@ -53,9 +53,9 @@ linear inequalities.
      & \iff x_c - x_v \le r_c + r_v\ \ \lor \ \ -(x_c - x_v) \le r_c + r_v
     \end{split}
 \end{equation}
-The constraints obtained from equation \ref{vcr-to-linear-eq} 
-still are not suitable for ILP beacasue it contains $\lor$ logical condition
-which cannot be directly represented in the ILP.
+The constraint obtained from equation \ref{vcr-to-linear-eq} 
+is not suitable for ILP yet beacasue it contains logical \textit{OR} condition
+which cannot be directly represented in the ILP. 
 However this issue is quite common and most solvers provide additional mechanisms to solve it.
 
 In Gurobi solver it's called \textit{INDICATOR} constraint
@@ -64,33 +64,32 @@ $z = f \rightarrow a^Tx \leq b$ which states that if the binary indicator variab
 is equal to $f$, where $f \in \{0,1\}$, then the linear constraint 
 $a^Tx \leq b$ should hold. On the other hand, if $z = 1-f$, 
 the linear constraint may be violated.
-This approach is losely based (WIP Fact check) on the so called \textit{BigM} method which is low level solution, and requires parameter tunning depending on the problem.
 
 \subsubsection{Detection algorithm}
+Final formulation of the ILP for recognising VCR property in the eleciton profile 
+is shown in figure \ref{vcr-detection-ilp}.
+Variables used by the program represent agent's point on real line and their radius. Additionally I use two binary variables 
+$p$ and $q$ required by the indicator constraints.
 
-Introduce new binary variable for each pair of candidate and voter:\\
-$z_{cv}$
+(WIP: Czy pisać jeszcze raz że approval set $A$ jest jedyną daną wejściową?)
 
-
-\begin{alignat*}{2}
-    & \text{minimize: } & & \sum_{j=1}^{m} w_{j}x_{j} \\
-     & \text{subject to: }& \quad & \sum_{\mathclap{{j:e_{i} \in S_{j}}}}\begin{aligned}[t]
-                      x_{j} & \geq 1,& i & =1, \dots, n\\[3ex]
-                    x_{j} & \in \{0,1\}, & \quad j &=1 ,\dots, m
-                  \end{aligned}
-\end{alignat*}
-
-\begin{align*}
-\textit{Minimize 0} \\ 
-\textit{foreach (c,v) in } C \times V : \\\textit{if } c \in ApprovalSet(v) \textit{ add constraints} \\ 
-x_c - x_v \le r_c + r_v \\
--(x_c - x_v) \le r_c + r_v \\
-\textit{if } c \not\in ApprovalSet(v) \textit{ add constraints} \\
-WIP Replace with IndicatorConstraint \\
-x_c - x_v  + M(1 - z1_{cv}) \ge r_c + r_v + 1 \\
--(x_c - x_v) + M(1 - z2_{cv}) \ge r_c + r_v + 1 \\
-z1_{cv} + z2_{cv} >= 1
-\end{align*}
+\begin{equation}\label{vcr-detection-ilp}
+\begin{aligned}
+    \mathbf{check } \text{ } \mathbf{feasibility:} & \\
+    \mathbf{subject } \text{ } \mathbf{to:} & \\
+    & x_a \in \mathbb{R} & & & \forall \text{ a} \in C \cup V & \\
+    & r_a \in \mathbb{R}^+ & & & \forall \text{ a} \in C \cup V & \\
+    & p_{cv} \in \{0,1\} & & & \forall \text{ c} \in \text{C } \forall \text{ v} \in V & \\
+    & q_{cv} \in \{0,1\} & & & \forall \text{ c} \in \text{C } \forall \text{ v} \in V & \\
+    \text{if } c \in A(v): & \\
+    & x_c - x_v \leq r_c + r_v & \\
+    & -(x_c - x_v) \leq r_c + r_v & \\
+    \text{if } c \notin A(v): & \\
+    & p_{cv} == 1 \rightarrow x_c - x_v \geq r_c + r_v + 1 & \\
+    & q_{cv} == 1 \rightarrow -(x_c - x_v) \geq r_c + r_v + 1 & \\
+    & p_{cv} + q_{cv} >= 1 &
+\end{aligned}
+\end{equation}
 
 \section{(WIP) My VCR detection algorithm}
 
