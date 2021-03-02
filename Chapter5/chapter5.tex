@@ -11,29 +11,29 @@
     \graphicspath{{Chapter5/Figs/Vector/}{Chapter5/Figs/}}
 \fi
 
-
-
 % ===================================================
 % Voter Candidate Range Profiles
 % ===================================================
 
-In this section I explore VCR domain and describe found properties.
+In this section I explore VCR profiles domain and describe found properties. 
+The main goal is to compare size of the domain with other well known domains
+such as VR, CR and others (WIP: Czy jeszcze jakies inne, SC, SP?). 
 
-\section{(WIP) Experiment description - search of domain}
-Experiments can be grouped into 2 categories. First search of small profiles, where I check every combination, 
-and second one for larger profiles where I generate random preferences.
-\newline
+\section{Domain analysis - experiment}
 
-\noindent Algorithm steps:
-\begin{enumerate}\label{SearchProfilesAlgo}
-    \item\label{SearchGenerationStep} Generate approval sets of the profiles for given C and V elections.
-    \item Filter out profiles not fulfilling \textit{VCR} property. Described in the section \ref{VCR Detection}
-    \item Group profiles by \textit{VR, CR} and \textit{VCR not VR nor CR} properties (\textit{VCR !COP})
-    \item Aggregate statistics
-\end{enumerate}
+To achive the goal I've performed several experiments.
+For the first one I check how many profiles have VCR property but not VR nor CR.
+As the input I use every combination of profiles for the given election size.
+For the second experiment I generate random VCR profiles and again check 
+how many of them are not VR nor CR.
 
-\section{How many VCR profiles exists that are not VR nor CR?}
-\subsubsection{Search of all the small profiles}
+In both experiments I use detection algorithm described in the section \ref{vcr-detection-ilp-section}.
+Additionally the second experiment is split into sub-experiments
+based on the different random distributions (WIP: Czy "distributions" jest ok?) used to generate profiles.
+
+\section{How many VCR profiles are not VR nor CR?}
+
+\subsubsection{Complete search of small profiles}
 For the smaller size of profiles I performed search of all the profile combinations.
 
 \begin{center}

@@ -22,7 +22,7 @@ Detection algorithms are used to check whether election profile satisfies desira
 For example to check CR (VR) properties it's enough to check for the \textit{Consecutive Ones Property} in the preferences matrix.
 
 My focus lies on the one dimmensional VCR property. 
-Having preferences matrix as input we have to provide mapping of each agent (voter/candidate) to the point on real line
+Having preferences matrix as input we have to provide a mapping of each agent (voter/candidate) to the point on real line
 and nonnegative number representing radius, so that it satisfies the VCR property.  
 
 \section{Integer Linear Programming}
@@ -65,13 +65,15 @@ is equal to $f$, where $f \in \{0,1\}$, then the linear constraint
 $a^Tx \leq b$ should hold. On the other hand, if $z = 1-f$, 
 the linear constraint may be violated.
 
-\subsubsection{Detection algorithm}
+\subsubsection{Detection algorithm} \label{vcr-detection-ilp-section}
 Final formulation of the ILP for recognising VCR property in the eleciton profile 
 is shown in figure \ref{vcr-detection-ilp}.
 Variables used by the program represent agent's point on real line and their radius. Additionally I use two binary variables 
 $p$ and $q$ required by the indicator constraints.
 
 (WIP: Czy pisać jeszcze raz że approval set $A$ jest jedyną daną wejściową?)
+
+(WIP: Poprawić format zapisu ILP na bardziej standardowy)
 
 \begin{equation}\label{vcr-detection-ilp}
 \begin{aligned}
