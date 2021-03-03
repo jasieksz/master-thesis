@@ -23,7 +23,7 @@ such as VR, CR and others (WIP: Czy jeszcze jakies inne, SC, SP?).
 
 To achive the goal I've performed several experiments.
 For the first one I check how many profiles have VCR property but not VR nor CR.
-As the input I use every combination of profiles for the given election size.
+As the input I use every combination of the profiles for the given election size.
 For the second experiment I generate random VCR profiles and again check 
 how many of them are not VR nor CR.
 
@@ -33,10 +33,16 @@ based on the different random distributions (WIP: Czy "distributions" jest ok?) 
 
 \section{How many VCR profiles are not VR nor CR?}
 
-\subsubsection{Complete search of small profiles}
-For the smaller size of profiles I performed search of all the profile combinations.
+\subsubsection{Experiment 1 - small profiles}
+For the small profiles I performed complete search of the domain. I checked the elections
+with the following sizes ($M$ candidates $N$ voters):
+$[(3,3), (4,4), (5,5), (4,6), (6,4)]$.
+The results as seen in the table \ref{vcr-ncop-small-stats} show that
+VCR domain is relatively large, however only limited number of profiles
+are not VR nor CR.
 
-\begin{center}
+\begin{table}[!htbp]
+\centering
     \begin{tabular}{||c c c c c c||}
         \hline
          & 3C 3V & 4C 4V & 5C 5V & 4C 6V & 6C 4V \\ [0.5ex] 
@@ -51,44 +57,48 @@ For the smaller size of profiles I performed search of all the profile combinati
         \hline
         VCR !COP & 0 & 96 & 501000 & 144480 & 144480 \\ [1ex] 
         \hline
-   \end{tabular}
-\end{center}
+    \end{tabular}
+\caption{\label{vcr-ncop-small-stats}Small profiles NCOP/VCR}
+\end{table}
 
 WIP : Prettify the table 
 
 WIP : Make some charts, write statistics, show examples
 
 \subsubsection{Profile examples}
-Example of 5C 5V elections that are VCR but not VR nor CR
+Example of 5C 5V election that is VCR but not VR nor CR.
 
 \begin{verbatim}
+Approval Set
+    [1., 1., 0., 0., 1.]
+    [1., 1., 1., 1., 1.]
+    [1., 0., 0., 0., 0.]
+    [0., 0., 0., 1., 1.]
+    [0., 0., 1., 0., 1.]
 
-    A=[
-        [1., 1., 0., 0., 1.],
-        [1., 1., 1., 1., 1.],
-        [1., 0., 0., 0., 0.],
-        [0., 0., 0., 1., 1.],
-        [0., 0., 1., 0., 1.]], 
-    C=[
-        Candidate(id='A', x=3.0, r=1.0), 
-        Candidate(id='B', x=2.0, r=0.0), 
-        Candidate(id='C', x=0.0, r=0.0), 
-        Candidate(id='D', x=1.0, r=0.0), 
-        Candidate(id='E', x=1.0, r=1.0)], 
-    V=[
-        Voter(id='V0', x=2.0, r=0.0), 
-        Voter(id='V1', x=0.0, r=2000000000.0), 
-        Voter(id='V2', x=3.0, r=0.0), 
-        Voter(id='V3', x=1.0, r=0.0), 
-        Voter(id='V4', x=0.0, r=0.0)])]
+Candidates
+    Candidate(id='A', x=3.0, r=1.0), 
+    Candidate(id='B', x=2.0, r=0.0), 
+    Candidate(id='C', x=0.0, r=0.0), 
+    Candidate(id='D', x=1.0, r=0.0), 
+    Candidate(id='E', x=1.0, r=1.0)
 
+Voters
+    Voter(id='V0', x=2.0, r=0.0), 
+    Voter(id='V1', x=0.0, r=3.0), 
+    Voter(id='V2', x=3.0, r=0.0), 
+    Voter(id='V3', x=1.0, r=0.0), 
+    Voter(id='V4', x=0.0, r=0.0)
 \end{verbatim}
 
-\subsubsection{Search of the random large profiles}
+\subsubsection{Experiment 2 - large profiles}
 For the larger size of profiles I generated a suitable number of random VCR profiles
 and checked how many of them are not VR nor CR.
+To create random VCR profile I generated a point and radius for every voter and candidate
+and then created approval sets based on the VCR definition.
 
-\begin{center}
+\begin{table}[!htbp]
+    \centering
     \begin{tabular}{||c c c c||}
         \hline
          & 10C 10V & 15C 15V & 20C 20V\\ [0.5ex] 
@@ -102,7 +112,8 @@ and checked how many of them are not VR nor CR.
         VCR !COP & 24 & 667 & 2928 \\ [1ex]
         \hline
    \end{tabular}
-\end{center}
+   \caption{\label{vcr-ncop-big-stats}Large profiles NCOP/VCR}
+\end{table}
 
 \section{(WIP) Experiment conclusions}
 
