@@ -3,7 +3,7 @@
 %*********************************** First Chapter *****************************
 %*******************************************************************************
 
-\chapter{Minimax Scoring Rule Algorithms}  %Title of the First Chapter
+\chapter{HD-Minimax Scoring Rule Algorithms}  %Title of the First Chapter
 
 \ifpdf
     \graphicspath{{Chapter6/Figs/Raster/}{Chapter6/Figs/PDF/}{Chapter6/Figs/}}
@@ -15,10 +15,15 @@
 % Minimax Scoring Rule Algorithms
 % =================================================
 
-\section{Overview}
+\section{Hamming Distance Minimax Approval Voting}
+(WIP) dopisać wzory
+
+Introduced by \cite{minimax-Brams-Kilgour-Sanver}.
+Selects a committee $W$ that minimizes the maximum Hamming distance between \(W\) and voters' approval ballots.
+For an election $E$ and a resulting committee of size $k$
+I denote winning committee as $W = MAV(E,k)$ 
 
 \noindent\textbf{Minimax Approval Voting (MAV)}
-\indent
 As close as possible to the preferences of all parties.
 By “close” we mean that the maximum distance of the compromise from the position of any state 
 is minimal, which we call a minimax outcome. \cite{minimax-Brams-Kilgour-Sanver}
