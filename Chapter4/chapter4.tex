@@ -80,7 +80,7 @@ $p$ and $q$ required by the indicator constraints.
     \mathbf{check } \text{ } \mathbf{feasibility:} & \\
     \mathbf{subject } \text{ } \mathbf{to:} & \\
     & x_a \in \mathbb{R} & & & \forall \text{ a} \in C \cup V & \\
-    & r_a \in \mathbb{R}^+ & & & \forall \text{ a} \in C \cup V & \\
+    & r_a \in \mathbb{R}^{0+} & & & \forall \text{ a} \in C \cup V & \\
     & p_{cv} \in \{0,1\} & & & \forall \text{ c} \in \text{C } \forall \text{ v} \in V & \\
     & q_{cv} \in \{0,1\} & & & \forall \text{ c} \in \text{C } \forall \text{ v} \in V & \\
     \text{if } c \in A(v): & \\
@@ -94,6 +94,3 @@ $p$ and $q$ required by the indicator constraints.
 \end{equation}
 
 \section{(WIP) My VCR detection algorithm}
-
-\section{Performance Comparison}
-How fast Gurobi Solver can be?

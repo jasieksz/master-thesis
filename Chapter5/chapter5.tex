@@ -19,17 +19,17 @@ In this section I explore VCR profiles domain and describe found properties.
 The main goal is to compare size of the domain with other well known domains
 such as VR, CR.
 
-\section{Domain analysis - experiment}
+\section{Domain analysis}
 
 To achive the goal I've performed several experiments.
 For the first one I check how many profiles have VCR property but not VR nor CR.
 As the input I use every combination of the profiles for the given election size.
 For the second experiment I generate random VCR profiles and again check 
 how many of them are not VR nor CR.
-
 In both experiments I use detection algorithm described in the section \ref{vcr-detection-ilp-section}.
-Additionally the second experiment is split into sub-experiments
-based on the different random distributions (WIP: Czy "distributions" jest ok?) used to generate profiles.
+
+All resources and implemention details related to the task
+are included in the appendix \ref{appendix:vcr-detection}.
 
 \section{How many VCR profiles are not VR nor CR?}
 
@@ -58,8 +58,10 @@ are not VR nor CR.
         VCR !COP & 0 & 96 & 501000 & 144480 & 144480 \\ [1ex] 
         \hline
     \end{tabular}
-\caption{\label{vcr-ncop-small-stats}Small profiles NCOP/VCR}
+\caption{\label{vcr-ncop-small-stats}Temporary table - Small profiles NCOP/VCR}
 \end{table}
+
+WIP : More advanced conclusions?
 
 WIP : Prettify the table 
 
@@ -67,6 +69,8 @@ WIP : Make some charts, write statistics, show examples
 
 \subsubsection{Profile examples}
 Example of 5C 5V election that is VCR but not VR nor CR.
+
+WIP: Replace with a drawing and explain why not VR/CR
 
 \begin{verbatim}
 Approval Set
@@ -94,23 +98,19 @@ Voters:
 \subsubsection{Experiment 2 - large profiles}
 For the larger size of profiles I generated a suitable number of random VCR profiles
 and checked how many of them are not VR nor CR.
-To create random VCR profile I generated a point and radius for every voter and candidate
+To create random VCR profile I generated
+points $x_a$ and radii $r_a$ for every agent $a \in C \cup V$
 and then created approval sets based on the VCR definition.
 
+Additionally to have a broder view of the domain the experiment is 
+split into sub-experiments based on the different random distributions
+(WIP: Czy "distributions" jest ok?) used to generate profiles.
+
 \subsubsection{Uniform distribution}
+For this sub-experiment I generated points and radii
+with uniform distribution from the ranges $[0, 750)$ and $[0,100)$ respectively.
 
-\begin{verbatim}
-def generateRandomAgents(RNG, count:int,
-    rMin:int, rMax:int,
-    xMin:int, xMax:int) -> np.ndarray:
-    positions = RNG.uniform(low=xMin, high=xMax, size=count)
-    radii = RNG.uniform(low=rMin, high=rMax, size=count)
-    return np.dstack((positions, radii))[0]
-
-def generateRandomVCRProfile(RNG, C:int, V:int) -> Profile:
-    candidates = generateRandomAgents(RNG, C, 0, 100, 0, 750)
-    voters = generateRandomAgents(RNG, V, 0, 100, 0, 750)
-\end{verbatim}
+(WIP: Napisać jaki wpływ mają parametry na "strukturę" profilu -> np dla 20x20. $sum(sum(A)) \in [180, 250]$) 
 
 \begin{table}[!htbp]
     \centering
@@ -127,12 +127,8 @@ def generateRandomVCRProfile(RNG, C:int, V:int) -> Profile:
         VCR !COP & 24 & 667 & 2928 \\ [1ex]
         \hline
    \end{tabular}
-   \caption{\label{vcr-ncop-big-stats}Large profiles NCOP/VCR}
+   \caption{\label{vcr-ncop-big-stats}Temporary table - Large profiles NCOP/VCR}
 \end{table}
 
 \subsubsection{Some other distribution}
 WIP:
-
-\section{(WIP) Experiment conclusions}
-
-Maybe do some nice graphs here and explore properties
