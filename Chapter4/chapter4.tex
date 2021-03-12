@@ -19,17 +19,17 @@ This chapter describes in detail and compares created algorithms for the VCR pro
 
 \section{Profile Structure Detection}
 Detection algorithms are used to check whether election profile satisfies desirable structural properties.
-For example to check CR (VR) properties it's enough to check for the \textit{Consecutive Ones Property} in the preferences matrix.
+For example to check CR (VR) properties it's enough to check for the \textit{consecutive ones property} in the preferences matrix.
 
-My focus lies on the one dimmensional VCR property. 
-Having preferences matrix as input we have to provide a mapping of each agent (voter/candidate) to the point on real line
-and nonnegative number representing radius, so that it satisfies the VCR property.  
+Our focus lies on the one dimmensional VCR property. 
+Having preferences matrix as input we have to provide a mapping of each agent (voter/candidate)
+to the point on the real line and nonnegative number representing radius,
+so that it satisfies the VCR property.  
 
 \section{Integer Linear Programming}
 ILP is a common approach to solve NP-hard problems, 
-however it still can be used effictively for other problems.
+furthermore it still can be used effictively for other problems.
 First we have to define the problem as an integer linear program.
-(WIP: Czy w ogole musze tlumaczyc co to ILP?) 
 That is a system of linear inequalities and constraints and 
 optionally linear function to optimize, alternatively we can just check feasibility of the constraints.
 To obtain a solution we have to use an optimization solver.
@@ -66,12 +66,15 @@ $a^Tx \leq b$ should hold. On the other hand, if $z = 1-f$,
 the linear constraint may be violated.
 
 \subsubsection{Detection algorithm} \label{vcr-detection-ilp-section}
-Final formulation of the ILP for recognising VCR property in the eleciton profile 
+Final formulation of the ILP for recognising VCR property in the election profile 
 is shown in figure \ref{vcr-detection-ilp}.
-Variables used by the program represent agent's point on real line and their radius. Additionally I use two binary variables 
-$p$ and $q$ required by the indicator constraints.
+Variables used by the program $x_a$ and $r_a$ represent agent's point on the real line
+and their radius respectively.
+Additionally we use two binary variables $p$ and $q$ required by the indicator constraints.
 
 (WIP: Czy pisać jeszcze raz że approval set $A$ jest jedyną daną wejściową?)
+
+(WIP: Wyjaśnić rodzaje zmiennych w ILP? (binary, etc.))
 
 (WIP: Poprawić format zapisu ILP na bardziej standardowy)
 

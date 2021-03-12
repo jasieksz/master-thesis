@@ -15,27 +15,28 @@
 % Voter Candidate Range Profiles
 % ===================================================
 
-In this section I explore VCR profiles domain and describe found properties. 
+In this section we explore VCR profiles domain and describe found statistical properties. 
 The main goal is to compare size of the domain with other well known domains
-such as VR, CR.
+such as VR and CR.
 
 \section{Domain analysis}
 
-To achive the goal I've performed several experiments.
-For the first one I check how many profiles have VCR property but not VR nor CR.
-As the input I use every combination of the profiles for the given election size.
-For the second experiment I generate random VCR profiles and again check 
+We've performed several experiments. (WIP: tense - present perfect vs past simple vs present?)
+For the first one we check how many profiles have VCR property but not VR nor CR.
+As the input we use every combination (WIP: czy to na pewno kombinacje?) 
+of the profiles for the given election size.
+For the second experiment we generate random VCR profiles and again check 
 how many of them are not VR nor CR.
-In both experiments I use detection algorithm described in the section \ref{vcr-detection-ilp-section}.
+In both experiments we use detection algorithm described in the section \ref{vcr-detection-ilp-section}.
 
-All resources and implemention details related to the task
+All the resources and implemention details related to the task
 are included in the appendix \ref{appendix:vcr-detection}.
 
-\section{How many VCR profiles are not VR nor CR?}
+\section{(WIP) How many VCR profiles are not VR nor CR?}
 
 \subsubsection{Experiment 1 - small profiles}
-For the small profiles I performed complete search of the domain. I checked the elections
-with the following sizes ($M$ candidates $N$ voters):
+For the small profiles we performed a complete search of the domain. 
+We checked the elections with the following sizes ($M$ candidates $N$ voters):
 $[(3,3), (4,4), (5,5), (4,6), (6,4)]$.
 The results as seen in the table \ref{vcr-ncop-small-stats} show that
 VCR domain is relatively large, however only limited number of profiles
@@ -96,18 +97,18 @@ Voters:
 \end{verbatim}
 
 \subsubsection{Experiment 2 - large profiles}
-For the larger size of profiles I generated a suitable number of random VCR profiles
+For the larger size of profiles we generated a suitable number of random VCR profiles
 and checked how many of them are not VR nor CR.
-To create random VCR profile I generated
+To create random VCR profile we generated
 points $x_a$ and radii $r_a$ for every agent $a \in C \cup V$
-and then created approval sets based on the VCR definition.
+and then created preference matrix based on the VCR definition.
 
 Additionally to have a broder view of the domain the experiment is 
 split into sub-experiments based on the different random distributions
 (WIP: Czy "distributions" jest ok?) used to generate profiles.
 
 \subsubsection{Uniform distribution}
-For this sub-experiment I generated points and radii
+For this sub-experiment we generated points and radii
 with uniform distribution from the ranges $[0, 750)$ and $[0,100)$ respectively.
 
 (WIP: Napisać jaki wpływ mają parametry na "strukturę" profilu -> np dla 20x20. $sum(sum(A)) \in [180, 250]$) 
