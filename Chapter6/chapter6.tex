@@ -16,23 +16,19 @@
 % =================================================
 
 \section{Hamming Distance Minimax Approval Voting}
-(WIP) dopisać wzory
 
-Introduced by \cite{minimax-Brams-Kilgour-Sanver}.
-Selects a committee $W$ that minimizes the maximum Hamming distance between \(W\) and voters' approval ballots.
-For an election $E$ and a resulting committee of size $k$
-I denote winning committee as $W = MAV(E,k)$ 
+\subsubsection{Hamming Distance}
+Given two sets $X,Y$ their Hamming distance is 
+$d_{Ham}(X,Y) = |X \setminus Y| + |Y \setminus X|$.
+Alternatively for vector representation we define Hamming distance between
+vectors of the same size $a,b$ as $d_{Ham}(a,b) = |a \oplus b|$.
 
-\noindent\textbf{Minimax Approval Voting (MAV)}
-As close as possible to the preferences of all parties.
-By “close” we mean that the maximum distance of the compromise from the position of any state 
-is minimal, which we call a minimax outcome. \cite{minimax-Brams-Kilgour-Sanver}
-Selects a committee $W$ that minimizes the maximum Hamming distance between \(W\) and voters’ approval ballots.
-We define MAV-score of a committee \(W\) as $Max(f(W,v1),...,f(W,vn))$ where \(f(W,vi)=\).
-
-( WIP ) Rewrite MAV definition, use easier equation formulation
-
-MAV returns a committee \(W\) with the lowest MAV-score.
+\subsubsection{Minimax Approval Voting (MAV)}
+Scoring rule introduced by \cite{minimax-Brams-Kilgour-Sanver}.
+Selects a committees $W$ that minimizes the maximum Hamming distance
+between \(W\) and voters' approval ballots, i.e. 
+$min \text{ } max_{v \in V} \text{ } d_{Ham}(W,A(v))$ 
+MAV follows the egalitarian principle (WIP: Co to dokładnie?)
 
 \subsubsection{Brute force algorithm}
 
