@@ -20,38 +20,25 @@
 \subsubsection{Hamming Distance}
 Given two sets $X,Y$ their Hamming distance is 
 $d_{Ham}(X,Y) = |X \setminus Y| + |Y \setminus X|$.
-Alternatively for vector representation we define Hamming distance between
+Alternatively for a vector representation we define the Hamming distance between
 vectors of the same size $a,b$ as $d_{Ham}(a,b) = |a \oplus b|$.
 
 \subsubsection{Minimax Approval Voting (MAV)}
 Scoring rule introduced by \cite{minimax-Brams-Kilgour-Sanver}.
 Selects a committees $W$ that minimizes the maximum Hamming distance
 between \(W\) and voters' approval ballots, i.e. 
-$min \text{ } max_{v \in V} \text{ } d_{Ham}(W,A(v))$ 
-MAV follows the egalitarian principle (WIP: Co to dokładnie?)
+\textit{MAV mininimizes } $max_{v \in V} \text{ } d_{Ham}(A(v),W)$.
+Intuitively MAV follows the egalitarian principle (WIP: Co to dokładnie / czy istnieje definicja?),
+it selects committees that minimize the dissatisfaction of the least happy voter. 
 
-\subsubsection{Brute force algorithm}
+(WIP: poprawić zdanie)
 
-\begin{verbatim}
-def hammingDistance(a: np.array, b: np.array) -> int:
-return (a != b).nonzero()[0].shape[0]
+\subsubsection{(WIP) Computational complexity}
+Computing the winning committee for MAV is known to be NP-hard, see \cite{mav-np-hard} (WIP: cytacje).
+Nevertheless, \cite{cr-vr-mav-liu-guo} provide polynomial-time algorithms for computing MAV results, for the 
+special case of the elections with candidate range or voter range properties.
 
-def mavScore(profile: Profile, committee:np.array) -> int:
-    partialHD = lambda preference: hammingDistance(committee, preference)
-    return max([partialHD(pref) for pref in profile.A])
-
-def minimax(profile: Profile, k: int) -> np.array:
-    candidateCount = len(profile.C)
-    scores = [(mavScore(profile, np.array(committee)), profile) 
-                for committee in combinations(range(candidateCount), k)]
-    scores.sort(key=lambda mav_p: mav_p[0])
-    return scores
-\end{verbatim}
-
-\section{(WIP) MAV ILP from \cite{lacknerSkowronAVOverview}}
-
-\section{(WIP) Proof / Disproof?  VR/CR MAV from \cite{mav}}
-
+(WIP: Poprawić zdanie)
 
 \section{(WIP) My algorithm for VCR profiles}
 
