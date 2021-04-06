@@ -15,12 +15,22 @@
 % VCR Profile Detection Algorithm
 % ========================================================================
 
-This chapter describes in detail and compares created algorithms for the VCR property detection.
+In this chapter we present our algorithms for deciding
+if a given approval profile has the VCR property.
 
 \section{Profile Structure Detection}
-Detection algorithms are used to check whether election profile satisfies desirable structural properties.
-For example to check CR (VR) properties it's enough to check for the \textit{consecutive ones property}
-in the preferences matrix. (WIP : Citation)
+To take advantage of restrictions defined in Section \ref{pref-restrictions-section},
+we need to create detection algorithms that can be used to check whether given election profiles
+satisfy particular structural properties.
+
+For example, to check the VR (CR) property it is enough to check for the \textit{consecutive ones} property
+in the preferences matrix. Detailed solution is presented in \cite{DBLP:journals/corr/ElkindL15}.
+
+\begin{definition}
+Consecutive Ones problem asks if given 0-1 matrix,
+can the columns be permuted in such a way that in each row the 1s are consecutive,
+that is the 1s from an interval. \cite{COP-PQTree} provide linear-time algorithm based on the PQ-Trees.
+\end{definition}
 
 Our focus lies on the one dimensional VCR property. 
 Having preferences matrix as input we have to provide a mapping of each agent (voter/candidate)
