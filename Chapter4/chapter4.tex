@@ -20,40 +20,35 @@ if a given approval profile has the VCR property.
 
 \section{Profile Structure Detection}
 To take advantage of restrictions defined in Section \ref{pref-restrictions-section},
-we need to create detection algorithms that can be used to check whether given election profiles
+we need to create detection algorithms. They can be used to check whether given election profiles
 satisfy particular structural properties.
-
-For example, to check the VR (CR) property it is enough to check for the \textit{consecutive ones} property
-in the preferences matrix. Detailed solution is presented in \cite{DBLP:journals/corr/ElkindL15}.
+For example, to check the VR (CR) property it is enough to check for the \textit{consecutive ones property}
+in the preferences matrix. 
 
 \begin{definition}
-Consecutive Ones problem asks if given 0-1 matrix,
-can the columns be permuted in such a way that in each row the 1s are consecutive,
-that is the 1s from an interval. \cite{COP-PQTree} provide linear-time algorithm based on the PQ-Trees.
+A binary matrix has the consecutive ones property (C1P)
+if its columns be permuted in such a way that
+the 1's are consecutive for each row in the resulting matrix.
+i.e., the 1s form an interval.
 \end{definition}
 
+In this work we refer to the term \textit{C1P} more broadly, using it interchangeably,
+for an analogous scenario where we permute the rows and look for the 
+consecutive 1's in every column in a given matrix.
+\cite{COP-PQTree} provided linear-time C1P detection algorithm based on the PQ-Trees.
+
+
 Our focus lies on the one dimensional VCR property. 
-Having preferences matrix as input we have to provide a mapping of each agent (voter/candidate)
-to the point on the real line and a nonnegative real value representing radius,
-so that it satisfies the VCR property.  
+Having preference matrix as input we have to provide 
+for each agent (voter/candidate) a point on the real line 
+and a nonnegative real value representing radius,
+so that these parameters satisfy the VCR property.  
 
 \section{Integer Linear Program}
-Integer linear programming (ILP) is a common approach to solve NP-hard problems, 
-furthermore it can be used effectively for other problems as well.
-(WIP: czy zdanie od furthermore ... jest potrzebne) 
-To define a computational problem as an integer linear program,
-we have to create a system of linear inequalities (constraints) 
-(WIP: Sprawdzic czy na pewno inequalities == constraints) and 
-optionally a linear function to optimize, alternatively we can just check feasibility of the constraints.
-Next to obtain a solution we have to use an optimization solver.
-Popular choices are Gurobi or CPLEX which are state-of-the-art general purpose solvers.
-
-(WIP: Czy przenieść do Preliminaries + opisać rodzaje zmiennych w ILP, etc. ?)
-
-Solution based on the ILP is an excellent choice for the first algorithm to develop.
-It provides efficient and relatively simple detection algorithm.
+An algorithm based on the ILP solving is an excellent choice for the first attempt
+at designing a detection algorithm. It provides an efficient and relatively simple solution.
 Additionally, it can be used as a benchmark for validating future solutions.
-Below we provide an ILP for VCR profile recognition, together with additional preliminary steps.
+Below we provide an ILP for the VCR profile recognition, together with additional preliminary steps.
 
 \subsubsection{Transform the VCR definition into linear constraints}
 First we have to redefine the VCR definition in order to make it appropriate 
@@ -112,4 +107,6 @@ Additionally, we use two binary variables $p$ and $q$ required by the indicator 
 \end{aligned}
 \end{equation}
 
-\section{(WIP) My VCR detection algorithm}
+\section{(WIP) My VCR Detection Algorithm}
+
+\section{(WIP) C1P Detection - ILP vs PQTree Performance Comparison}
