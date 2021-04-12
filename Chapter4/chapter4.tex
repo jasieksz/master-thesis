@@ -89,13 +89,24 @@ bez ponownego wpropadzania wszystkich oznaczeń, przypomieć definicję? O ile w
 \text{(WIP: Poprawić formatowanie)}
 
 The constraint obtained from the equation \ref{vcr-to-linear-eq} 
-is not suitable yet for the ILP because it contains logical \textit{OR} condition
-which again cannot be directly represented in an ILP. 
-However, this issue is quite common and most solvers provide additional built-in mechanisms to solve it.
+is not suitable yet for an ILP because it contains logical \textit{OR} condition
+which again cannot be directly represented in an ILP.
+To transform it into linear form, we have to apply, commonly called \textit{Big M} technique.
+To reformulate above inequalities, we have to introduce a large constant $M$ and two binary variables $z_1$ and $z_2$
+\begin{equation}
+    \begin{split}
+    x_c - x_v + M(1 - z_1) \leq r_c + r_v \\
+    -(x_c - x_v) + M(1 - z_2) \leq r_c + r_v \\
+    z_1 + z_2 >= 1
+    \end{split}
+\end{equation}
 
+However, this issue is quite common and most solvers provide additional built-in mechanisms to solve it.
 In Gurobi solver it is called \textit{indicator constraint},
 which allows creating versatile constraints in form of:
-$z = f \rightarrow a^Tx \leq b$ which states that if the binary indicator variable $z$
+$z = f \rightarrow a^Tx \leq b$,
+where $a$ and $b$ are data coefficients vectors and $x$ represents the decision variables,
+which states that if the binary indicator variable $z$
 is equal to $f$, where $f \in \{0,1\}$, then the linear constraint 
 $a^Tx \leq b$ should hold. On the other hand, if $z = 1-f$, 
 the linear constraint may be violated.
