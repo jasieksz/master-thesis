@@ -19,24 +19,36 @@ In this chapter we present our algorithms for deciding
 if a given approval profile has the VCR property.
 
 \section{Profile Structure Detection}
-To take advantage of restrictions defined in Section \ref{pref-restrictions-section},
-we need to create detection algorithms. They can be used to check whether given election profiles
+To take advantage of the restrictions defined in Section \ref{pref-restrictions-section},
+we need to design detection algorithms. They can be used to check whether given election profiles
 satisfy particular structural properties.
 For example, to check the VR (CR) property it is enough to check for the \textit{consecutive ones property}
 in the preferences matrix. 
 
 \begin{definition}
-A binary matrix has the consecutive ones property (C1P)
+A binary matrix (i.e., a matrix consisting of zeros and ones) has the consecutive ones property (C1P)
 if its columns be permuted in such a way that
-the 1's are consecutive for each row in the resulting matrix.
-i.e., the 1s form an interval.
+for each row the ones are consecutive, i.e., the 1s form an interval.
 \end{definition}
 
 In this work we refer to the term \textit{C1P} more broadly, using it interchangeably,
 for an analogous scenario where we permute the rows and look for the 
-consecutive 1's in every column in a given matrix.
-\cite{COP-PQTree} provided linear-time C1P detection algorithm based on the PQ-Trees.
+consecutive 1s in every column in a given matrix.
+\cite{COP-PQTree} provided linear-time C1P detection algorithm based on the PQ-Tree data structure.
 
+\begin{proposition}
+\cite{DBLP:journals/corr/ElkindL15} Deciding whether an approval profile satisfies VR or CR is possible in 
+$O(m \cdot n)$ time.
+\end{proposition}
+
+\begin{proof}
+Let $C = \{c_1,...,c_m\}$ and $V = \{v_1,...,v_n\}$,
+we create a $n \times m$ matrix A ($a_{ij}$): for each $i \in [n]$ and $j \in [m]$:
+$a_{ij} = 1$ if $c_j \in ApprovalSet(v_i)$ and $0$ otherwise.
+We can see that for the VR property, permuting the columns of matrix $A$ so that ones form an interval in each row is equivalent 
+to permuting candidates so that the set of candidates approved by each voter forms an interval.
+For the CR case, we just need to transpose the matrix created for the VR.
+\end{proof}
 
 Our focus lies on the one dimensional VCR property. 
 Having preference matrix as input we have to provide 
@@ -50,26 +62,38 @@ at designing a detection algorithm. It provides an efficient and relatively simp
 Additionally, it can be used as a benchmark for validating future solutions.
 Below we provide an ILP for the VCR profile recognition, together with additional preliminary steps.
 
-\subsubsection{Transform the VCR definition into linear constraints}
-First we have to redefine the VCR definition in order to make it appropriate 
-for the ILP. It is based on the euclidean distance which cannot be directly represented in the ILP.
-Figure \ref{vcr-to-linear-eq} (WIP: Figure/Equation/sth else?) shows transformation of the VCR definition into 
-linear inequalities. (WIP: Czy powtarzam VCR definition za często?)
+\subsubsection{Transforming the Definition of VCR into Linear Constraints}
+Before formulating an ILP for detecting VCR profiles,
+we have to redefine the VCR definition in order to make it appropriate for an ILP solver.
+One dimensional VCR definition is based on the euclidean distance which cannot be directly represented in the ILP.
+Equation \ref{vcr-to-linear-eq} shows transformation of the VCR definition into 
+linear inequalities.
+\textcolor{orange}{(WIP: Czy powtarzam \textit{VCR definition} za często?)}
+
+As a short reminder from Section \ref{VCR-definition}, 
+for the candidates $C$ and voters $V$, 1D-VCR is defined as:
+\begin{equation}
+\forall \text{ } c \in C \text{ } \forall \text{ } v \in V: c \in A(v) \Leftrightarrow \|x_c - x_v\| \leq r_c + r_v
+\end{equation}
+\textcolor{orange}{(WIP: W jaki sposób mogę zwięźle,
+bez ponownego wpropadzania wszystkich oznaczeń, przypomieć definicję? O ile w ogóle jest to potrzebne...)}
+
 
 \begin{equation}\label{vcr-to-linear-eq}
     \begin{split}
-    VCR & \iff \sqrt{(x_c - x_v)^2} \le r_c + r_v \\
-     & \iff \|x_c - x_v\| \le r_c + r_v \\
+     & \|x_c - x_v\| \leq r_c + r_v \\
      & \iff -(r_c + r_v) \le x_c - x_v \le r_c + r_v \\
      & \iff x_c - x_v \le r_c + r_v\ \ \lor \ \ -(x_c - x_v) \le r_c + r_v
     \end{split}
 \end{equation}
+\text{(WIP: Poprawić formatowanie)}
+
 The constraint obtained from the equation \ref{vcr-to-linear-eq} 
 is not suitable yet for the ILP because it contains logical \textit{OR} condition
-which again cannot be directly represented in the ILP. 
+which again cannot be directly represented in an ILP. 
 However, this issue is quite common and most solvers provide additional built-in mechanisms to solve it.
 
-In Gurobi solver it's called \textit{INDICATOR} constraint
+In Gurobi solver it is called \textit{indicator constraint},
 which allows creating versatile constraints in form of:
 $z = f \rightarrow a^Tx \leq b$ which states that if the binary indicator variable $z$
 is equal to $f$, where $f \in \{0,1\}$, then the linear constraint 
