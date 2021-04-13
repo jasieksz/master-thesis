@@ -34,7 +34,7 @@ for each row the ones are consecutive, i.e., the 1s form an interval.
 In this work we refer to the term \textit{C1P} more broadly, using it interchangeably,
 for an analogous scenario where we permute the rows and look for the 
 consecutive 1s in every column in a given matrix.
-\cite{COP-PQTree} provided linear-time C1P detection algorithm based on the PQ-Tree data structure.
+\cite{COP-PQTree} provided a linear-time C1P detection algorithm based on the PQ-Tree data structure.
 
 \begin{proposition}
 \cite{DBLP:journals/corr/ElkindL15} Deciding whether an approval profile satisfies VR or CR is possible in 
@@ -44,7 +44,7 @@ $O(m \cdot n)$ time.
 \begin{proof}
 Let $C = \{c_1,...,c_m\}$ and $V = \{v_1,...,v_n\}$,
 we create a $n \times m$ matrix A ($a_{ij}$): for each $i \in [n]$ and $j \in [m]$:
-$a_{ij} = 1$ if $c_j \in ApprovalSet(v_i)$ and $0$ otherwise.
+$a_{ij} = 1$ if $c_j \in A(v_i)$ and $0$ otherwise.
 We can see that for the VR property, permuting the columns of matrix $A$ so that ones form an interval in each row is equivalent 
 to permuting candidates so that the set of candidates approved by each voter forms an interval.
 For the CR case, we just need to transpose the matrix created for the VR.
@@ -59,7 +59,7 @@ so that these parameters satisfy the VCR property.
 \section{Integer Linear Program}
 An algorithm based on ILP solving is an excellent choice for the first attempt
 at designing a detection algorithm. It provides an efficient and relatively simple solution.
-Additionally, it can be used as a fast benchmark for validating future solutions.
+Furthermore, it can be used as a fast benchmark for validating future solutions.
 Below we provide an ILP for the VCR profile recognition, together with additional preliminary steps.
 
 \subsubsection{Transforming the Definition of VCR into Linear Constraints}
