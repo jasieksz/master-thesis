@@ -58,3 +58,31 @@ Algorithm from \cite{control-cr-how-hard-magiera-faliszewski}
 %********************************** %Second Section  *************************************
 \section{Control for the VCR profiles} %Section - 1.2
 
+Notation used in the algorithm: \\
+$x_a$, $r_a$ — point and radius \\ 
+$b(a) = x_a - r_a$ — range beginning (left)\\
+$e(a) = x_a + r_a$ — range end (right) \\
+$p$ — candidate chosen to be a winner \\
+$\widehat{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}$ — opponents (dangerous candidates) \\
+$V' = \{v \in V | \: p \notin A(v)\}$ — potential voters to delete \\
+
+We use greedy strategy for voter deletion:
+\begin{enumerate}
+    \item We pick a leftmost opponent $c_L$ that is the one with the minimal $b(c_L)$
+    \item We consider only voters who approve of $c_L$ that is, $\widehat{V} = \{v \in V' | \: c_L \in A(v)\}$
+    \item We need to delete $deltaScore(c_L,p)+1$ rightmost voters from $\widehat{V}$
+        that is the ones with the maximal $e(v)$, if it's not possible we fail
+    \item We repeat the above steps until we succeed, recalculating $\widehat{C}$ and $\widehat{V}$ after each iteration
+\end{enumerate}
+
+\begin{figure}[h]
+    \includegraphics[width=\linewidth]{ncop66-i77-p0.png}
+    \centering
+    \caption{Temporary Image - VCR !C1P Election \\
+        yellow — candidate $p$ \\
+        red — opponents \\
+        lightblue — voters whitelist \\
+        darkblue — possible voters to delete \\
+        grey — agents that can be ignored            
+    }
+\end{figure}
