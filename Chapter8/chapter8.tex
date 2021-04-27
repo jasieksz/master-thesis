@@ -92,6 +92,15 @@ On the other hand CR algorithm would pick $c_1$, because it has minimal candidat
 
 We can ignore this special case \textit{W.L.O.G} \cite{falisz} (WIP: Dokończyć rozumowanie + dodatkowo to nie ma wpływu na wynik algorytmu)
 
+Now, once we now how to pick an opponent, we will show that choosing voters is equivalent as well (for the both algorithms).
+
+Notion of the beginning/end of the interval in the CR order is equivalent to the left/right in the VCR setting, additionally we will keep in mind that 
+for the CR case all voters have radius $0$.
+
+Both algorithms delete $scoreDelta(p,c) + 1$ voters, CR one starts deleting voters from the end of interval. VCR does virtually the same by deleting the rightmost voter.
+
+\textcolor{orange}{(WIP: Czy rozumowanie \textit{lewo prawo} na osi VCR, jest analogiczne do \textit{początek koniec} interwału dla CR, wystarczy jako dowód?)}
+
 \subsection{Sketch Proof - VR case}
 
 \subsection{Sketch Proof - VCR (not C1P) case}
