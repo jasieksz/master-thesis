@@ -49,7 +49,7 @@ Algorithm from \cite{control-cr-how-hard-magiera-faliszewski}
     \item Przeciwnicy -  wybieramy kandydatów $\widehat{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}$
     \item Usuwanie głosów 
     \begin{enumerate}
-        \item zaczynając od przeciwnika $c_N$ takiego, że $e(c_N)$ jest minimalne
+        \item zaczynając od przeciwnika $c_N$ takiego, że $v_{e(c_N)}$ jest minimalne
         \item usuwamy $deltaScore(c_N,p)+1$ głosów, zaczynając od końca przedziału $v_{e(c_{N})}$
     \end{enumerate} 
     \item powtarzamy do skutu, przeliczając $V'$ i $\widehat{C}$ co iterację
@@ -75,7 +75,28 @@ We use greedy strategy for voter deletion:
     \item We repeat the above steps until we succeed, recalculating $\widehat{C}$ and $\widehat{V}$ after each iteration
 \end{enumerate}
 
-\begin{figure}[h]
+\subsection{Sketch Proof - CR case}
+In the CR case algorithm, we choose candidates to process, ordered by $v_{e(c)}$ ascending.
+We can see that it is equivalent to picking the leftmost candidate $c_L$ from $\widehat{C}$ in the VCR ordering.
+
+\begin{figure}[hbt!]
+    \includegraphics[width=\linewidth]{cr-inclusive-counter.png}
+    \centering
+    \caption{Special Case}
+    \label{fig:cr-counter}
+\end{figure}
+
+\noindent However, there is a special case for this strategy. Let's follow an example from Figure \ref{fig:cr-counter}.
+VCR algorithm would choose $c_0$ because it has the leftmost beginning ($b(c)$). 
+On the other hand CR algorithm would pick $c_1$, because it has minimal candidate range ending position ($v_{e(c)})$).
+
+We can ignore this special case \textit{W.L.O.G} \cite{falisz} (WIP: Dokończyć rozumowanie + dodatkowo to nie ma wpływu na wynik algorytmu)
+
+\subsection{Sketch Proof - VR case}
+
+\subsection{Sketch Proof - VCR (not C1P) case}
+
+\begin{figure}[hbt!]
     \includegraphics[width=\linewidth]{ncop66-i77-p0.png}
     \centering
     \caption{Temporary Image - VCR !C1P Election \\
@@ -87,11 +108,22 @@ We use greedy strategy for voter deletion:
     }
 \end{figure}
 
-
-\begin{figure}[h]
+\begin{figure}[hbt!]
     \includegraphics[width=\linewidth]{ccP-p0.png}
     \centering
     \caption{Temporary Image - CR Election \\
+        yellow — candidate $p$ \\
+        red — opponents \\
+        lightblue — voters whitelist \\
+        darkblue — possible voters to delete \\
+        grey — agents that can be ignored            
+    }
+\end{figure}
+
+\begin{figure}[hbt!]
+    \includegraphics[width=\linewidth]{vr77-i22-p0.png}
+    \centering
+    \caption{Temporary Image - VR Election \\
         yellow — candidate $p$ \\
         red — opponents \\
         lightblue — voters whitelist \\
