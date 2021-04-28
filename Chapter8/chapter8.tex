@@ -58,6 +58,19 @@ Algorithm from \cite{control-cr-how-hard-magiera-faliszewski}
 %********************************** %Second Section  *************************************
 \section{AV-CC-DV for the VCR profiles} %Section - 1.2
 
+\begin{figure}[hbt!]
+    \includegraphics[width=0.9\linewidth]{ncop66-i77-p0.png}
+    \centering
+    \caption{Temporary Image - VCR !C1P Election \\
+        yellow — candidate $p$ \\
+        red — opponents \\
+        lightblue — voters whitelist \\
+        darkblue — possible voters to delete \\
+        grey — agents that can be ignored            
+    }
+    \label{fig:ncop-cc-dv}
+\end{figure}
+
 Notation used in the algorithm: \\
 $x_a$, $r_a$ — point and radius \\ 
 $b(a) = x_a - r_a$ — range beginning (left)\\
@@ -76,11 +89,18 @@ We use greedy strategy for voter deletion:
 \end{enumerate}
 
 \subsection{Sketch Proof - CR case}
+We will show how VCR algorithms is equivalent to the CR one.
+Having voters in CR order, that is, they are still represented by a point $x_v$ on the $R$ line but have radius $0$.
+Example in Figure \ref{fig:cr-cc-dv}.
+
+\subsubsection{Choosing opponents}
 In the CR case algorithm, we choose candidates to process, ordered by $v_{e(c)}$ ascending.
-We can see that it is equivalent to picking the leftmost candidate $c_L$ from $\widehat{C}$ in the VCR ordering.
+We can see that it is equivalent to picking the leftmost candidate $c_L$ from $\widehat{C}$ in the VCR ordering,
+because it will also have the minimal $v_{e(c)}$, unless it fully contains some "smaller" candidate inside its interval.
+We explain the special case below.
 
 \begin{figure}[hbt!]
-    \includegraphics[width=\linewidth]{cr-inclusive-counter.png}
+    \includegraphics[width=0.8\linewidth]{cr-inclusive-counter.png}
     \centering
     \caption{Special Case}
     \label{fig:cr-counter}
@@ -90,53 +110,59 @@ We can see that it is equivalent to picking the leftmost candidate $c_L$ from $\
 VCR algorithm would choose $c_0$ because it has the leftmost beginning ($b(c)$). 
 On the other hand CR algorithm would pick $c_1$, because it has minimal candidate range ending position ($v_{e(c)})$).
 
-We can ignore this special case \textit{W.L.O.G} \cite{falisz} (WIP: Dokończyć rozumowanie + dodatkowo to nie ma wpływu na wynik algorytmu)
+We can ignore this special case \textit{W.L.O.G} \cite{falisz} 
+(WIP: Dokończyć rozumowanie + dodatkowo to nie ma wpływu na wynik algorytmu bo i tak wtedy musimy usunąć ten głos)
 
-Now, once we now how to pick an opponent, we will show that choosing voters is equivalent as well (for the both algorithms).
+\subsubsection{Voter deletion}
+Now, once we now how to pick an opponent, we will show that choosing voters is equivalent as well.
 
-Notion of the beginning/end of the interval in the CR order is equivalent to the left/right in the VCR setting, additionally we will keep in mind that 
-for the CR case all voters have radius $0$.
+Notion of the beginning/end of the interval in the CR order is equivalent to the left/right in the VCR setting.
+Both algorithms delete $scoreDelta(p,c) + 1$ voters,
+CR one starts deleting voters from the end of interval.
+VCR does virtually the same by deleting the rightmost voter.
 
-Both algorithms delete $scoreDelta(p,c) + 1$ voters, CR one starts deleting voters from the end of interval. VCR does virtually the same by deleting the rightmost voter.
+\textcolor{orange}{(WIP: Czy rozumowanie \textit{lewo prawo} na osi VCR,
+jest analogiczne do \textit{początek koniec} interwału dla CR, wystarczy jako dowód?)}
 
-\textcolor{orange}{(WIP: Czy rozumowanie \textit{lewo prawo} na osi VCR, jest analogiczne do \textit{początek koniec} interwału dla CR, wystarczy jako dowód?)}
+\begin{figure}[hbt!]
+    \includegraphics[width=0.9\linewidth]{ccP-p0.png}
+    \centering
+    \caption{Temporary Image - CR Election}
+    \label{fig:cr-cc-dv}
+\end{figure}
 
 \subsection{Sketch Proof - VR case}
+We will show how VCR algorithms is equivalent to the VR one.
+Having candidates in VR order, that is, they are still represented by a point $x_c$ on the $R$ line but have radius $0$.
+Example in Figure \ref{fig:vr-cc-dv}.
+
+\subsubsection{Choosing opponents}
+VR algorithm picks dangerous candidates to the left and right of candidate $p$,
+however later it proceeds only with defeating the right ones.
+Once finished with them, it does the "mirror flip" to process candidates on the left side.
+Even though the VCR algorithm picks leftmost candidate, we will show it is equivalent to the VR strategy
+under some basic assumptions.
+
+Following example in Figure \ref{fig:vr-cc-dv}, let's assume that candidate $p$ always will be the first candidate in the VR order.
+Then we can see that VCR strategy of choosing leftmost candidate will be the same as VR algorithm choosing first on the right candidate.
+
+This assumption is correct because, having candidates in order $[c_L, \: p, \: c_R]$,
+if there was a voter $v$ who approved of $c_L$ and $c_R$ it would also have to approve of $p$ (because of VR property), so we could not delete $v$ anyway.
+
+\subsubsection{Voter deletion}
+Both algorithms have the same voter deletion strategy.
+
+\begin{figure}[hbt!]
+    \includegraphics[width=0.9\linewidth]{vr77-i22-p0.png}
+    \centering
+    \caption{Temporary Image - VR Election}
+    \label{fig:vr-cc-dv}
+\end{figure}
+
 
 \subsection{Sketch Proof - VCR (not C1P) case}
+Example in Figure \ref{fig:ncop-cc-dv}.
 
-\begin{figure}[hbt!]
-    \includegraphics[width=\linewidth]{ncop66-i77-p0.png}
-    \centering
-    \caption{Temporary Image - VCR !C1P Election \\
-        yellow — candidate $p$ \\
-        red — opponents \\
-        lightblue — voters whitelist \\
-        darkblue — possible voters to delete \\
-        grey — agents that can be ignored            
-    }
-\end{figure}
 
-\begin{figure}[hbt!]
-    \includegraphics[width=\linewidth]{ccP-p0.png}
-    \centering
-    \caption{Temporary Image - CR Election \\
-        yellow — candidate $p$ \\
-        red — opponents \\
-        lightblue — voters whitelist \\
-        darkblue — possible voters to delete \\
-        grey — agents that can be ignored            
-    }
-\end{figure}
 
-\begin{figure}[hbt!]
-    \includegraphics[width=\linewidth]{vr77-i22-p0.png}
-    \centering
-    \caption{Temporary Image - VR Election \\
-        yellow — candidate $p$ \\
-        red — opponents \\
-        lightblue — voters whitelist \\
-        darkblue — possible voters to delete \\
-        grey — agents that can be ignored            
-    }
-\end{figure}
+
