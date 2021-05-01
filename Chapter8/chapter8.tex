@@ -163,6 +163,19 @@ Both algorithms have the same voter deletion strategy.
 \subsection{Sketch Proof - VCR (not C1P) case}
 Example in Figure \ref{fig:ncop-cc-dv}.
 
+Now we will show why our solution is correct in the VCR setting.
 
+\subsection{Special case - contained candidates}
+Explain why we can ignore
+
+\subsubsection{Choosing opponents}
+In each iteration we choose just one candidate to process, and we always choose the one with the leftmost beginning ($min(b(c))$).
+We consider only dangerous candidates ($scoreDelta(c,p) >= 0$),
+and recompute the set of them \textcolor{orange}{(WIP: Mam na myśli $\widehat{C}$)} after each iteration.
+Thanks to this we are sure that all the steps we perform are necessary to find a solution (if it exists), hence optimal.
+
+\subsubsection{Voter deletion}
+Having currently processed opponent $c_L$, we consider only voters who approve of him/her,
+that is the voters whose range beginning is inside the candidate's range $\{v \in V' \: | b(v) \in [b(c_L), e(c_L)]\}$.
 
 
