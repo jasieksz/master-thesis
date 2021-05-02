@@ -71,7 +71,7 @@ Algorithm from \cite{control-cr-how-hard-magiera-faliszewski}
     \label{fig:ncop-cc-dv}
 \end{figure}
 
-Notation used in the algorithm: \\
+Notation used in the algorithm and later in the proofs: \\
 $x_a$, $r_a$ — point and radius \\ 
 $b(a) = x_a - r_a$ — range beginning (left)\\
 $e(a) = x_a + r_a$ — range end (right) \\
@@ -79,7 +79,7 @@ $p$ — candidate chosen to be a winner \\
 $\widehat{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}$ — opponents (dangerous candidates) \\
 $V' = \{v \in V | \: p \notin A(v)\}$ — potential voters to delete \\
 
-We use greedy strategy for voter deletion:
+\noindent We use “smart” greedy strategy for voter deletion:
 \begin{enumerate}
     \item We pick a leftmost opponent $c_L$ that is the one with the minimal $b(c_L)$
     \item We consider only voters who approve of $c_L$ that is, $\widehat{V} = \{v \in V' | \: c_L \in A(v)\}$
@@ -89,40 +89,9 @@ We use greedy strategy for voter deletion:
 \end{enumerate}
 
 \subsection{Sketch Proof - CR case}
-We will show how VCR algorithms is equivalent to the CR one.
-Having voters in CR order, that is, they are still represented by a point $x_v$ on the $R$ line but have radius $0$.
+We will show how the VCR algorithm is equivalent to the CR one from \cite{control-cr-how-hard-magiera-faliszewski}.
+Having voters in CR order, that is, they are still represented by a point $x_v$ on the $\mathbb{R}$ line but have radius $0$.
 Example in Figure \ref{fig:cr-cc-dv}.
-
-\subsubsection{Choosing opponents}
-In the CR case algorithm, we choose candidates to process, ordered by $v_{e(c)}$ ascending.
-We can see that it is equivalent to picking the leftmost candidate $c_L$ from $\widehat{C}$ in the VCR ordering,
-because it will also have the minimal $v_{e(c)}$, unless it fully contains some "smaller" candidate inside its interval.
-We explain the special case below.
-
-\begin{figure}[hbt!]
-    \includegraphics[width=0.8\linewidth]{cr-inclusive-counter.png}
-    \centering
-    \caption{Special Case}
-    \label{fig:cr-counter}
-\end{figure}
-
-\noindent However, there is a special case for this strategy. Let's follow an example from Figure \ref{fig:cr-counter}.
-VCR algorithm would choose $c_0$ because it has the leftmost beginning ($b(c)$). 
-On the other hand CR algorithm would pick $c_1$, because it has minimal candidate range ending position ($v_{e(c)})$).
-
-We can ignore this special case \textit{W.L.O.G} \cite{falisz} 
-(WIP: Dokończyć rozumowanie + dodatkowo to nie ma wpływu na wynik algorytmu bo i tak wtedy musimy usunąć ten głos)
-
-\subsubsection{Voter deletion}
-Now, once we now how to pick an opponent, we will show that choosing voters is equivalent as well.
-
-Notion of the beginning/end of the interval in the CR order is equivalent to the left/right in the VCR setting.
-Both algorithms delete $scoreDelta(p,c) + 1$ voters,
-CR one starts deleting voters from the end of interval.
-VCR does virtually the same by deleting the rightmost voter.
-
-\textcolor{orange}{(WIP: Czy rozumowanie \textit{lewo prawo} na osi VCR,
-jest analogiczne do \textit{początek koniec} interwału dla CR, wystarczy jako dowód?)}
 
 \begin{figure}[hbt!]
     \includegraphics[width=0.9\linewidth]{ccP-p0.png}
@@ -131,26 +100,29 @@ jest analogiczne do \textit{początek koniec} interwału dla CR, wystarczy jako 
     \label{fig:cr-cc-dv}
 \end{figure}
 
-\subsection{Sketch Proof - VR case}
-We will show how VCR algorithms is equivalent to the VR one.
-Having candidates in VR order, that is, they are still represented by a point $x_c$ on the $R$ line but have radius $0$.
-Example in Figure \ref{fig:vr-cc-dv}.
-
 \subsubsection{Choosing opponents}
-VR algorithm picks dangerous candidates to the left and right of candidate $p$,
-however later it proceeds only with defeating the right ones.
-Once finished with them, it does the "mirror flip" to process candidates on the left side.
-Even though the VCR algorithm picks leftmost candidate, we will show it is equivalent to the VR strategy
-under some basic assumptions.
+In the CR algorithm, we choose candidates to process, ordered by $v_{e(c)}$ ascending.
+We can see that it is equivalent to picking the leftmost ($min(b(c))$) candidate from the set of opponents $\widehat{C}$ in the VCR algorithm,
+because it will also have the minimal $v_{e(c)}$.
 
-Following example in Figure \ref{fig:vr-cc-dv}, let's assume that candidate $p$ always will be the first candidate in the VR order.
-Then we can see that VCR strategy of choosing leftmost candidate will be the same as VR algorithm choosing first on the right candidate.
+There is a special case of "contained candidate", for which the above statement is not true.
+In Section \ref{sss:contained-candidate}, we explain in detail why it is irrelevant for the overall correctness of the algorithm.
 
-This assumption is correct because, having candidates in order $[c_L, \: p, \: c_R]$,
-if there was a voter $v$ who approved of $c_L$ and $c_R$ it would also have to approve of $p$ (because of VR property), so we could not delete $v$ anyway.
 
 \subsubsection{Voter deletion}
-Both algorithms have the same voter deletion strategy.
+Now, once we now how to pick an opponent $c_L$, we will show that choosing voters is equivalent as well.
+Notion of the beginning/end of the interval in the CR order is equivalent to the left/right end of the range in the VCR setting.
+Both algorithms try to delete $scoreDelta(p,c_L) + 1$ voters,
+CR one starts deleting voters from the end of interval, while
+VCR does virtually the same by deleting the rightmost voter first ($max(e(v))$).
+
+\textcolor{orange}{(WIP: Czy rozumowanie \textit{lewo prawo} na osi $\mathbb{R}$ dla VCR,
+jest analogiczne do \textit{początek koniec} interwału dla CR, wystarczy jako dowód?)}
+
+\subsection{Sketch Proof - VR case}
+We will show how the VCR algorithm is equivalent to the VR one from \cite{control-sp-shield-faliszewski-hemaspaandra}.
+Having candidates in VR order, that is, they are still represented by a point $x_c$ on the $\mathbb{R}$ line but have radius $0$.
+Example in Figure \ref{fig:vr-cc-dv}.
 
 \begin{figure}[hbt!]
     \includegraphics[width=0.9\linewidth]{vr77-i22-p0.png}
@@ -159,23 +131,60 @@ Both algorithms have the same voter deletion strategy.
     \label{fig:vr-cc-dv}
 \end{figure}
 
+\subsubsection{Choosing opponents}
+VR algorithm picks dangerous candidates to the left and right of candidate $p$,
+however later it proceeds only with defeating the right ones.
+Once finished with them, it does the "mirror flip" of the universe to process candidates on the left side.
+Even though the VCR algorithm picks leftmost candidate, we will show it is equivalent to the VR strategy
+under some basic assumptions.
+
+Following example in Figure \ref{fig:vr-cc-dv},
+let's assume that candidate $p$ always will be the first candidate in the VR order.
+Then we can see that the VCR algorithm strategy of choosing leftmost candidate
+will be the same as the VR algorithm choosing first on the right candidate.
+
+This assumption is correct because, having candidates in order $[c_L, \: p, \: c_R]$,
+if there was a voter $v$ who approved of $c_L$ and $c_R$ it would also have to approve of $p$ (because of VR property), so we could not delete $v$ anyway.
+
+\subsubsection{Voter deletion}
+Both algorithms have the same voter deletion strategy.
 
 \subsection{Sketch Proof - VCR (not C1P) case}
-Example in Figure \ref{fig:ncop-cc-dv}.
+Now we will show why our solution is correct in the general VCR setting, even when the profile does not have VR/CR property,
+example in Figure \ref{fig:ncop-cc-dv}. The proof is split into two stages, similarly to the previous ones.
+But first we will explain one special case of the election, that is worth examining.
 
-Now we will show why our solution is correct in the VCR setting.
+\subsubsection{Special case - contained candidates} \label{sss:contained-candidate}
+In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
+Every voter who would approve the smaller candidate would also approve the larger one, however not vice versa.
+For this case, our strategy of choosing voters to delete might seem suboptimal, at first glance. 
+In the minimal viable example from Figure \ref{fig:contained-candidate}, the algorithm would delete $v_1$ first,
+however, to defeat $c_0$, we need to delete 2 voters, so $v_0$ will be deleted as well.
 
-\subsection{Special case - contained candidates}
-Explain why we can ignore
+The example illustrates why we do not have to worry about this special case.
+Every contained voter will have as much or less total votes than the larger candidate, 
+he/she might not even be a dangerous candidate at all. 
+Now we see that in the process of defeating the larger candidate we will automatically defeat the smaller one.
+
+\begin{figure}[hbt!]
+    \includegraphics[width=0.8\linewidth]{cr-inclusive-counter.png}
+    \centering
+    \caption{Temporary Image - Special Case}
+    \label{fig:contained-candidate}
+\end{figure}
 
 \subsubsection{Choosing opponents}
-In each iteration we choose just one candidate to process, and we always choose the one with the leftmost beginning ($min(b(c))$).
-We consider only dangerous candidates ($scoreDelta(c,p) >= 0$),
-and recompute the set of them \textcolor{orange}{(WIP: Mam na myśli $\widehat{C}$)} after each iteration.
+We consider only dangerous candidates (opponents), that is the ones with score higher or equal to the score of $p$.
+We process opponents one by one, starting with the one who has the leftmost beginning of the range, i.e., $min(b(c))$.
+After each iteration, we recompute the set of dangerous candidates.
 Thanks to this we are sure that all the steps we perform are necessary to find a solution (if it exists), hence optimal.
 
 \subsubsection{Voter deletion}
-Having currently processed opponent $c_L$, we consider only voters who approve of him/her,
-that is the voters whose range beginning is inside the candidate's range $\{v \in V' \: | b(v) \in [b(c_L), e(c_L)]\}$.
-
+Having currently processed opponent $c_L$, we consider only the voters who approve of him/her and do not approve of $p$,
+that is the voters whose range beginning is inside the candidate's range $\{v \in V' \: | \: b(v) \in [b(c_L), e(c_L)]\}$.
+We need to delete $scoreDelta(c_L,p) + 1$ voters to defeat the opponent.
+By picking the voters in order of the rightmost end of the range, i.e., $v_R = max(e(v))$,
+we try to maximize the number of other candidates who might be in the range $[b(v_R), e(v_R)]$.
+We don't have to worry about any candidate to the left,
+because of our leftmost candidate picking strategy, they are already defeated.
 
