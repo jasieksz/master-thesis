@@ -112,30 +112,34 @@ split into sub-experiments based on the different random distributions
 (WIP: Czy distributions jest ok?) used to generate profiles.
 
 \subsubsection{Uniform distribution}
-For this sub-experiment we generated points and radii
-with uniform distribution from the ranges $[0, 750)$ and $[0,100)$ respectively.
+Uniform distribution generation parameters:
 
-(WIP: Napisać jaki wpływ mają parametry na "strukturę" profilu -> np dla 20x20. $sum(sum(A)) \in [180, 250]$) 
+\begin{enumerate}
+    \item Candidate : rMin=0, rMax=40, xMin=0, xMax=100
+    \item Voter : rMin=0, rMax=20, xMin=0, xMax=100
+\end{enumerate}
 
-(WIP: większy zbiór danych)
-
-\begin{table}[!htbp]
+\begin{figure}[h!]
+    \includegraphics[width=0.9\linewidth]{20-20-ncop-uniform.png}
     \centering
-    \begin{tabular}{||c c c c||}
-        \hline
-         & 10C 10V & 15C 15V & 20C 20V\\ [0.5ex] 
-        \hline\hline
-        VCR & 1000 & 1000 & 3000 \\
-        \hline
-        VR & - & - & - \\
-        \hline
-        CR & - & - & - \\
-        \hline
-        VCR !COP & 24 & 667 & 2928 \\ [1ex]
-        \hline
-   \end{tabular}
-   \caption{\label{vcr-ncop-big-stats}Temporary table - Large profiles NCOP/VCR}
-\end{table}
+    \caption{Temporary Image - Uniform NCOP HeatMap}
+    \label{fig:ncop-uniform-heatmap}
+\end{figure}
 
-\subsubsection{Some other distribution}
-WIP:
+\subsubsection{Double Overlapping Gauss}
+
+Double Gauss distribution generation parameters:
+\begin{enumerate}
+    \item C=20
+    \item V=20
+    \item proportionC=0.7, proportionV=0.7,
+    \item meanMajor=-1.5, meanMinor=1.5, std=0.8,
+    \item radiusConst=0.7
+\end{enumerate}
+
+\begin{figure}[hbt!]
+    \includegraphics[width=0.9\linewidth]{20-20-full-double-gauss.png}
+    \centering
+    \caption{Temporary Image - Double Gauss HeatMap}
+    \label{fig:double-gauss-heatmap}
+\end{figure}
