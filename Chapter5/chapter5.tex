@@ -3,7 +3,7 @@
 %*********************************** First Chapter *****************************
 %*******************************************************************************
 
-\chapter{Voter Candidate Range Profiles}  %Title of the First Chapter
+\chapter{Voter/Candidate Range Profiles}  %Title of the First Chapter
 
 \ifpdf
     \graphicspath{{Chapter5/Figs/Raster/}{Chapter5/Figs/PDF/}{Chapter5/Figs/}}
@@ -15,90 +15,42 @@
 % Voter Candidate Range Profiles
 % ===================================================
 
-In this section we explore VCR profiles domain and describe its found properties 
-(WIP: properties == Cechy/zalezności statystyczne). 
-The main goal is to compare size of the domain with other well known domains
-such as VR and CR.
+In this section we explore the VCR profiles domain and describe some of its properties.
+The main goal is to compare the size of the domain with other well known domains
+such as VR and CR. 
+
+In the second set of results,
+we present visualizations of our ABC rules under several 
+distributions of the ideal points
+and several strategies for choosing the voters’ or candidates’radii
+We obtain several high-level conclusions. 
+For example, we find that forcing the voters to approve a given number of candidates leads 
+to unap-pealing results, or that AV might have some deficiencies as a rule 
+to choose individually excellent candidates.
 
 \section{Domain analysis}
 
-We've performed several experiments. (WIP: tense: present perfect vs past simple vs present?)
-In each of them we check how many profiles have VCR property but not VR nor CR. 
-For this we use the detection algorithm described in the section \ref{vcr-detection-ilp-section}.
-For the first one we use every combination of the profiles for the given election size as the input.
-(WIP: czy to na pewno kombinacje i czy nie jest to zbyt pomieszane?) 
-For the second experiment we generate random VCR profiles.
+We have performed several experiments, in each of them we check how many profiles have
+the VCR property but not VR neither CR. 
+For the first one we focus on the small size elections, and 
+for the second experiment we employ several strategies to generate random, larger profiles with the VCR property.
 
-All the resources and implementation details related to the task are included in the 
-appendix \ref{appendix:vcr-detection}. 
+\section{How many VCR profiles are not VR neither CR?}
 
-(WIP: czy w ogóle pisać o szczegółach implementacyjnych)
-
-(WIP: Jak często rozbijać tekst na akapity?)
-
-\section{(WIP) How many VCR profiles are not VR nor CR?}
-
-\subsubsection{Experiment 1 - small profiles}
+\subsection{Experiment 1 - Small Profiles}
 For the small profiles we performed a complete search of the domain. 
 We checked the elections with the following sizes ($M$ candidates $N$ voters):
 $[(3,3), (4,4), (5,5), (4,6), (6,4)]$.
-The results as seen in the table \ref{vcr-ncop-small-stats} show that
+The results as seen in Figure \ref{fig:small-statistics-barchart} show that
 VCR domain is relatively large, however only limited number of profiles
 are not VR nor CR.
 
-\begin{table}[!htbp]
-\centering
-    \begin{tabular}{||c c c c c c||}
-        \hline
-         & 3C 3V & 4C 4V & 5C 5V & 4C 6V & 6C 4V \\ [0.5ex] 
-        \hline\hline
-        Count & $2^{9}$ & $2^{16}$ & $2^{25}$ & $2^{24}$  & $2^{24}$ \\ 
-        \hline
-        VCR & 506 & 57832 & 19846082 & 10893736 & 10893736 \\ 
-        \hline
-        VR & - & - & - & - & - \\ 
-        \hline
-        CR & - & - & - & - & - \\
-        \hline
-        VCR !COP & 0 & 96 & 501000 & 144480 & 144480 \\ [1ex] 
-        \hline
-    \end{tabular}
-\caption{\label{vcr-ncop-small-stats}Temporary table - Small profiles NCOP/VCR}
-\end{table}
-
-WIP : More advanced conclusions?
-
-WIP : Prettify the table 
-
-WIP : Make some charts, write statistics, show examples
-
-\subsubsection{Profile examples}
-Example of 5C 5V election that is VCR but not VR nor CR.
-
-WIP: Replace with a drawing and explain why not VR/CR
-
-\begin{verbatim}
-Approval Set
-    [1., 1., 0., 0., 1.]
-    [1., 1., 1., 1., 1.]
-    [1., 0., 0., 0., 0.]
-    [0., 0., 0., 1., 1.]
-    [0., 0., 1., 0., 1.]
-
-Candidates:
-    Candidate(id='A', x=3.0, r=1.0), 
-    Candidate(id='B', x=2.0, r=0.0), 
-    Candidate(id='C', x=0.0, r=0.0), 
-    Candidate(id='D', x=1.0, r=0.0), 
-    Candidate(id='E', x=1.0, r=1.0)
-
-Voters:
-    Voter(id='V0', x=2.0, r=0.0), 
-    Voter(id='V1', x=0.0, r=3.0), 
-    Voter(id='V2', x=3.0, r=0.0), 
-    Voter(id='V3', x=1.0, r=0.0), 
-    Voter(id='V4', x=0.0, r=0.0)
-\end{verbatim}
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{small-statistics-barchart.png}
+    \centering
+    \caption{Temporary Image - Uniform Unordered HeatMap}
+    \label{fig:small-statistics-barchart}
+\end{figure}
 
 \subsubsection{Experiment 2 — large profiles}
 For the larger size of the profiles we generated a suitable number of random VCR profiles
@@ -115,14 +67,14 @@ split into sub-experiments based on the different random distributions
 Uniform distribution generation parameters:
 
 \begin{figure}[h!]
-    \includegraphics[width=\linewidth]{30-30-uniform-unordered-heatmap.png}
+    \includegraphics[width=0.75\linewidth]{30-30-uniform-unordered-heatmap.png}
     \centering
     \caption{Temporary Image - Uniform Unordered HeatMap}
     \label{fig:30-30-uniform-unordered}
 \end{figure}
 
 \begin{figure}[h!]
-    \includegraphics[width=\linewidth]{30-30-uniform-ordered-heatmap.png}
+    \includegraphics[width=0.75\linewidth]{30-30-uniform-ordered-heatmap.png}
     \centering
     \caption{Temporary Image - Uniform Ordered HeatMap}
     \label{fig:30-30-uniform-ordered}
@@ -137,16 +89,16 @@ Double Gauss distribution generation parameters:
 \end{enumerate}
 
 \begin{figure}[htbp!]
-    \includegraphics[width=\linewidth]{30-30-2gauss-unordered-heatmap.png}
+    \includegraphics[width=0.75\linewidth]{30-30-2gauss-unordered-heatmap.png}
     \centering
-    \caption{Temporary Image - Uniform Unordered HeatMap}
+    \caption{Temporary Image - 2Gauss Unordered HeatMap}
     \label{fig:30-30-2gauss-unordered}
 \end{figure}
 
 \begin{figure}[htbp!]
-    \includegraphics[width=\linewidth]{30-30-2gauss-ordered-heatmap.png}
+    \includegraphics[width=0.75\linewidth]{30-30-2gauss-ordered-heatmap.png}
     \centering
-    \caption{Temporary Image - Uniform Ordered HeatMap}
+    \caption{Temporary Image - 2Gauss Ordered HeatMap}
     \label{fig:30-30-2guass-ordered}
 \end{figure}
 
