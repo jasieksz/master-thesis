@@ -45,7 +45,11 @@ are not VR nor CR.
 
 \subsection{Experiment 2 — large profiles}
 For the larger size of the profiles we generated a suitable number of random VCR profiles
-and again checked how many of them are not VR nor CR.
+and again checked how many of them are VR and CR (\textit{COP}),
+VR and not CR, CR and not VR, and finally neither CR nor VR (\textit{NCOP}).
+We employed several strategies for generating the profiles. 
+The first category is statistical distribution used to pick the points representing voters and candidates.
+The second one is the choice of radius parameter. We describe the categories in detail below.
 
 \subsubsection{Uniform distribution}
 
@@ -80,7 +84,6 @@ Agent generation parameters:
     \item $r \in \{0.7, \: 1.2, \: uniform[0.7,1.2], \: uniform[0,3]\}$
     \item $E \in \{20x20, \: 30x30, \: 60x60(?) \: 100x100(?)\}$
 \end{itemize}
-
 
 \begin{figure}[H]
     \includegraphics[height=0.47\textheight]{30-30-2gauss-unordered-heatmap.png}
