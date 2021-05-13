@@ -19,15 +19,6 @@ In this section we explore the VCR profiles domain and describe some of its prop
 The main goal is to compare the size of the domain with other well known domains
 such as VR and CR. 
 
-In the second set of results,
-we present visualizations of our ABC rules under several 
-distributions of the ideal points
-and several strategies for choosing the voters’ or candidates’radii
-We obtain several high-level conclusions. 
-For example, we find that forcing the voters to approve a given number of candidates leads 
-to unap-pealing results, or that AV might have some deficiencies as a rule 
-to choose individually excellent candidates.
-
 \section{Domain analysis}
 
 We have performed several experiments, in each of them we check how many profiles have
@@ -45,67 +36,92 @@ The results as seen in Figure \ref{fig:small-statistics-barchart} show that
 VCR domain is relatively large, however only limited number of profiles
 are not VR nor CR.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \includegraphics[width=\linewidth]{small-statistics-barchart.png}
     \centering
-    \caption{Temporary Image - Uniform Unordered HeatMap}
+    \caption{Temporary Image - Aggregated Statistics For Small Profiles}
     \label{fig:small-statistics-barchart}
 \end{figure}
 
-\subsubsection{Experiment 2 — large profiles}
+\subsection{Experiment 2 — large profiles}
 For the larger size of the profiles we generated a suitable number of random VCR profiles
 and again checked how many of them are not VR nor CR.
-To create random VCR profile we generated
-points $x_a$ and radii $r_a$ for every agent $a \in C \cup V$
-and then created preference matrix based on the VCR definition.
-
-Additionally, to have a broader view of the domain the experiment is 
-split into sub-experiments based on the different random distributions
-(WIP: Czy distributions jest ok?) used to generate profiles.
 
 \subsubsection{Uniform distribution}
-Uniform distribution generation parameters:
 
-\begin{figure}[h!]
-    \includegraphics[width=0.75\linewidth]{30-30-uniform-unordered-heatmap.png}
+Agent generation parameters:
+
+\begin{itemize}
+    \item $x \in [-10,10]$ from uniform distribution
+    \item $r \in \{0.7, \: 1.2, \: uniform[0.7,1.2], \: uniform[0,3]\}$
+    \item $E \in \{20x20, \: 30x30, \: 60x60(?) \: 100x100(?)\}$
+\end{itemize}
+
+\begin{figure}[H]
+    \includegraphics[height=0.47\textheight]{30-30-uniform-unordered-heatmap.png}
     \centering
     \caption{Temporary Image - Uniform Unordered HeatMap}
     \label{fig:30-30-uniform-unordered}
 \end{figure}
 
-\begin{figure}[h!]
-    \includegraphics[width=0.75\linewidth]{30-30-uniform-ordered-heatmap.png}
+\begin{figure}[H]
+    \includegraphics[width=0.47\textheight]{30-30-uniform-ordered-heatmap.png}
     \centering
     \caption{Temporary Image - Uniform Ordered HeatMap}
     \label{fig:30-30-uniform-ordered}
 \end{figure}
 
-\subsubsection{Double Overlapping Gauss}
+\subsubsection{Double Asymmetric Gauss}
 
-Double Gauss distribution generation parameters:
-\begin{enumerate}
-    \item proportionC=0.7, proportionV=0.7,
-    \item meanMajor=-3, meanMinor=3, std=0.8,
-\end{enumerate}
+Agent generation parameters:
+\begin{itemize}
+    \item 70\% of $x \in Gauss(mean=-3, std=0.8)$
+    \item 30\% of $x \in Gauss(mean=3, std=0.8)$
+    \item $r \in \{0.7, \: 1.2, \: uniform[0.7,1.2], \: uniform[0,3]\}$
+    \item $E \in \{20x20, \: 30x30, \: 60x60(?) \: 100x100(?)\}$
+\end{itemize}
 
-\begin{figure}[htbp!]
-    \includegraphics[width=0.75\linewidth]{30-30-2gauss-unordered-heatmap.png}
+
+\begin{figure}[H]
+    \includegraphics[height=0.47\textheight]{30-30-2gauss-unordered-heatmap.png}
     \centering
     \caption{Temporary Image - 2Gauss Unordered HeatMap}
     \label{fig:30-30-2gauss-unordered}
 \end{figure}
 
-\begin{figure}[htbp!]
-    \includegraphics[width=0.75\linewidth]{30-30-2gauss-ordered-heatmap.png}
+\begin{figure}[H]
+    \includegraphics[height=0.47\textheight]{30-30-2gauss-ordered-heatmap.png}
     \centering
     \caption{Temporary Image - 2Gauss Ordered HeatMap}
     \label{fig:30-30-2guass-ordered}
 \end{figure}
 
+\subsubsection{Asymmetric Gauss candidates, Uniform Voters}
+
+Agent generation parameters:
+\begin{itemize}
+    \item 70\% of $x_c \in Gauss(mean=-3, std=0.8)$
+    \item 30\% of $x_c \in Gauss(mean=3, std=0.8)$
+    \item $x_v \in [-10,10]$ from uniform distribution
+    \item $r \in \{0.7, \: 1.2, \: uniform[0.7,1.2], \: uniform[0,3]\}$
+    \item $E \in \{20x20, \: 30x30, \: 60x60(?) \: 100x100(?)\}$
+\end{itemize}
+
+\subsubsection{Uniform candidates, Asymmetric Gauss Voters}
+
+Agent generation parameters:
+\begin{itemize}
+    \item 70\% of $x_v \in Gauss(mean=-3, std=0.8)$
+    \item 30\% of $x_v \in Gauss(mean=3, std=0.8)$
+    \item $x_c \in [-10,10]$ from uniform distribution
+    \item $r \in \{0.7, \: 1.2, \: uniform[0.7,1.2], \: uniform[0,3]\}$
+    \item $E \in \{20x20, \: 30x30, \: 60x60(?) \: 100x100(?)\}$
+\end{itemize}
+
+
 \subsubsection{Results}
 
-
-\begin{figure}[h!]
+\begin{figure}[H]
     \includegraphics[width=\linewidth]{20-20-statistics-barchart.png}
     \centering
     \caption{Temporary Image - Aggregated Statistics}
