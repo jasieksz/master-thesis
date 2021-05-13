@@ -56,7 +56,7 @@ Algorithm from \cite{control-cr-how-hard-magiera-faliszewski}
 \end{enumerate}
 
 %********************************** %Second Section  *************************************
-\section{AV-CC-DV for the VCR profiles} %Section - 1.2
+\section{AV-CC-DV for the VCR profiles}
 
 \begin{figure}[hbt!]
     \includegraphics[width=0.9\linewidth]{ncop66-i77-p0.png}
@@ -94,7 +94,7 @@ Having voters in CR order, that is, they are still represented by a point $x_v$ 
 Example in Figure \ref{fig:cr-cc-dv}.
 
 \begin{figure}[hbt!]
-    \includegraphics[width=0.9\linewidth]{ccP-p0.png}
+    \includegraphics[width=0.8\linewidth]{ccP-p0.png}
     \centering
     \caption{Temporary Image - CR Election}
     \label{fig:cr-cc-dv}
@@ -108,7 +108,6 @@ because it will also have the minimal $v_{e(c)}$.
 There is a special case of "contained candidate", for which the above statement is not true.
 In Section \ref{sss:contained-candidate}, we explain in detail why it is irrelevant for the overall correctness of the algorithm.
 
-
 \subsubsection{Voter deletion}
 Now, once we now how to pick an opponent $c_L$, we will show that choosing voters is equivalent as well.
 Notion of the beginning/end of the interval in the CR order is equivalent to the left/right end of the range in the VCR setting.
@@ -116,16 +115,13 @@ Both algorithms try to delete $scoreDelta(p,c_L) + 1$ voters,
 CR one starts deleting voters from the end of interval, while
 VCR does virtually the same by deleting the rightmost voter first ($max(e(v))$).
 
-\textcolor{orange}{(WIP: Czy rozumowanie \textit{lewo prawo} na osi $\mathbb{R}$ dla VCR,
-jest analogiczne do \textit{początek koniec} interwału dla CR, wystarczy jako dowód?)}
-
 \subsection{Sketch Proof - VR case}
 We will show how the VCR algorithm is equivalent to the VR one from \cite{control-sp-shield-faliszewski-hemaspaandra}.
 Having candidates in VR order, that is, they are still represented by a point $x_c$ on the $\mathbb{R}$ line but have radius $0$.
 Example in Figure \ref{fig:vr-cc-dv}.
 
 \begin{figure}[hbt!]
-    \includegraphics[width=0.9\linewidth]{vr77-i22-p0.png}
+    \includegraphics[width=0.8\linewidth]{vr77-i22-p0.png}
     \centering
     \caption{Temporary Image - VR Election}
     \label{fig:vr-cc-dv}
@@ -139,15 +135,29 @@ Even though the VCR algorithm picks leftmost candidate, we will show it is equiv
 under some basic assumptions.
 
 Following example in Figure \ref{fig:vr-cc-dv},
-let's assume that candidate $p$ always will be the first candidate in the VR order.
-Then we can see that the VCR algorithm strategy of choosing leftmost candidate
-will be the same as the VR algorithm choosing first on the right candidate.
+let's assume that candidate $p$ always will be the first candidate in the VR order,
+which is equivalent to being the leftmost in the VCR order.
+Then we can see that the VCR algorithm strategy of
+choosing the leftmost candidate as an opponent
+will be the same as the VR algorithm choosing the first candidate on the right side of $p$.
+In the example it would be candidate $c_1$.
 
 This assumption is correct because, having candidates in order $[c_L, \: p, \: c_R]$,
-if there was a voter $v$ who approved of $c_L$ and $c_R$ it would also have to approve of $p$ (because of VR property), so we could not delete $v$ anyway.
+if there was a voter $v$ who approved of $c_L$ and $c_R$ it would also have to approve of $p$ (because of the VR property),
+so we could not delete $v$ anyway.
+
+Now, expanding on the above, ...
+
+\textcolor{orange}{(WIP: Faktycznie taki dowód nie jest w 100\% przekonujący
+Mam 2 możliwości:
+1) Wprowadzić krork "universe flip" do algorytmu i wtedy na pewno działa.
+2) Zmienić argumentację i pokazać, że wybieranie najdalszego kandydat od p (najbardziej lewy po lewej stronie) też jest w porządku)}
 
 \subsubsection{Voter deletion}
-Both algorithms have the same voter deletion strategy.
+The reasoning here is very similar to the one in the voter deletion part of the CR proof.
+Both algorithms try to delete $scoreDelta(c,p) + 1$ voters. 
+VR algorithm starts deleting voters from the end of interval ($max(e(v))$).
+VCR one does virtually the same by deleting the rightmost voter first.
 
 \subsection{Sketch Proof - VCR (not C1P) case}
 Now we will show why our solution is correct in the general VCR setting, even when the profile does not have VR/CR property,
@@ -166,7 +176,7 @@ Every contained voter will have as much or less total votes than the larger cand
 he/she might not even be a dangerous candidate at all. 
 Now we see that in the process of defeating the larger candidate we will automatically defeat the smaller one.
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
     \includegraphics[width=0.8\linewidth]{cr-inclusive-counter.png}
     \centering
     \caption{Temporary Image - Special Case}
@@ -187,4 +197,13 @@ By picking the voters in order of the rightmost end of the range, i.e., $v_R = m
 we try to maximize the number of other candidates who might be in the range $[b(v_R), e(v_R)]$.
 We don't have to worry about any candidate to the left,
 because of our leftmost candidate picking strategy, they are already defeated.
+This strategy ensures the solution is optimal if it exists.
 
+%********************************** %Third Section  *************************************
+\section{AV-CC-AV for the VCR profiles}
+Our strategy is based on the solution from \cite{control-cr-how-hard-magiera-faliszewski}.
+\begin{enumerate}
+    \item Add all $v \in W$ to the election
+    \item Is $p$ the winner?
+    \item Try to delete $k' = |W| - k$ voters 
+\end{enumerate}
