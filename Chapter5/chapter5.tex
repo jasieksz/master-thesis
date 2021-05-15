@@ -20,6 +20,10 @@ The main goal is to compare the size of the domain with other well known domains
 such as VR and CR. 
 
 \section{Domain analysis}
+\textcolor{orange}{WIP: Najpierw Napisać dlaczego / po co to robimy. Dopiero potem co / w jaki sposób.
+Chcemy sprawdzić czy warto wymyślać algorytmy 
+VCR i czy doemna jest znacząco większa od VR / CR}
+
 We have performed several experiments, in each of them we check how many profiles have
 the VCR property but not VR neither CR. 
 For the first one we focus on the small size elections, and 
@@ -45,14 +49,17 @@ are neither VR nor CR.
 
 \subsection{Experiment 2 — large profiles}
 For the larger size of the profiles we generated a suitable number of random VCR profiles
-and again checked how many of them are VR and CR (\textit{COP}),
-VR and not CR, CR and not VR, and finally neither CR nor VR (\textit{NCOP}).
+and again checked how many of them are neither CR nor VR (\textit{NCOP}), and additionally, VR and CR (\textit{COP}),
+VR and not CR, CR and not VR.
 We employed several strategies for generating the profiles. 
-The first category is a statistical distribution used to pick the points representing voters and candidates.
+The first parameterized category is a statistical distribution used to pick the points representing voters and candidates.
 The second one is the choice of radius parameter. We describe the categories in detail below.
+For each parameter pair we generated 1000 elections with 20 candidates and 20 voters,
+then we repeated the experiment for the profiles of 40 candidates and 40 voters.
+ 
 
-\subsubsection{Statistical Distributions}
-In this category we consider 4 ways of generating the points, representing positions of the candidates and the voters.
+\subsubsection{Position parameter}
+We consider 4 ways of generating the points, representing the positions of the candidates and the voters.
 
 \begin{enumerate}
     \item The \textit{Uniform Candidates, Uniform Voters} model,
@@ -76,13 +83,45 @@ In this category we consider 4 ways of generating the points, representing posit
 \end{enumerate}
 
 \subsubsection{Radius parameter}
-In this category we consider 4 ways of generating the radii, for the candidates and the voters.
+In this category we consider 5 ways of generating the radii.
+We split the methods between the candidates and the voters, similarly to picking the positions.
 
 \begin{enumerate}
-    \item 
+    \item The \textit{Gauss Candidates, Gauss Voters} model, 
+    where we choose the radii from the Gaussian distribution with mean value $1.5$ and standard deviation $0.5$
+    We use the same distribution for the candidates and the voters.
+
+    \item The \textit{Small Uniform Candidates, Gauss Voters} model.
+    We pick radii for the candidates uniformly at random from the range $[0.7,1.2]$,
+    and for the voters we use the same Gaussian, as in the previous model ($Gauss(1.5, 0.5)$).
+
+    \item The \textit{Gauss Candidates, Small Uniform Voters} model.
+    In this model we swap the distributions used in the previous one,
+    that is, the candidates are picked from the Gaussian and the voters from the uniform distributions.
+
+    \item\label{enum:suc-suv} The \textit{Small Uniform Candidates, Small Uniform Voters} model.
+    We pick radii for both the candidates and the voters, uniformly at random from the range $[0.7,1.2]$.
+
+    \item The \textit{Large Uniform Candidates, Large Uniform Voters} model.
+    We pick radii for both the candidates and the voters, uniformly at random from the range $[0,3]$.
+
 \end{enumerate}
 
+At first, it might be surprising why we don't include a constant radius, as one of the parameters.
+That is because, then all the profiles would be VR and CR (\textit{COP}),
+as we show in Proposition \ref{prop:vcr-constR-vrcr}.
+
+
+\begin{proposition}\label{prop:vcr-constR-vrcr}
+    If a profile $P$ satisfies VCR and every agent (candidate/voter) in the profile, has the same constant radius, then
+    $P$ satisfies both VR and CR properties. 
+    \begin{proof}
+        Because :).
+    \end{proof}
+\end{proposition}
+
 \subsubsection{Results}
+We present  
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{20-20-statistics-barchart.png}
@@ -91,7 +130,4 @@ In this category we consider 4 ways of generating the radii, for the candidates 
     \label{fig:20-20-statistics-barchart}
 \end{figure}
 
-\begin{proposition}[\cite{DBLP:journals/corr/ElkindL15}]
-    If a dichotomous profile P satisfies DUE then it satisfies both VI and CI.
-    The converse direction does not hold:  there are profiles that satisfy VI and CI but not DUE
-\end{proposition}
+\section{Transforming VCR (NCOP) Profile into VR or CR}
