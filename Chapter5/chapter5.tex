@@ -20,7 +20,6 @@ The main goal is to compare the size of the domain with other well known domains
 such as VR and CR. 
 
 \section{Domain analysis}
-
 We have performed several experiments, in each of them we check how many profiles have
 the VCR property but not VR neither CR. 
 For the first one we focus on the small size elections, and 
@@ -28,13 +27,14 @@ for the second experiment we employ several strategies to generate random, large
 
 \section{How many VCR profiles are not VR neither CR?}
 
-\subsection{Experiment 1 - Small Profiles}
-For the small profiles we performed a complete search of the domain. 
-We checked the elections with the following sizes ($M$ candidates $N$ voters):
-$[(3,3), (4,4), (5,5), (4,6), (6,4)]$.
+\subsection{Experiment 1 — Small Profiles}
+For the small profiles we did a complete search of the domain.
+That is we generated every possible profile of a given size and checked if it has the VCR property.
+We checked 6 dimensions of the elections with the following sizes, having $M$ candidates and $N$ voters,
+$(M,N) \in \{(3,3), (4,4), (5,5), (4,6), (6,4)\}$.
 The results as seen in Figure \ref{fig:small-statistics-barchart} show that
 VCR domain is relatively large, however only limited number of profiles
-are not VR nor CR.
+are neither VR nor CR.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{small-statistics-barchart.png}
@@ -48,79 +48,39 @@ For the larger size of the profiles we generated a suitable number of random VCR
 and again checked how many of them are VR and CR (\textit{COP}),
 VR and not CR, CR and not VR, and finally neither CR nor VR (\textit{NCOP}).
 We employed several strategies for generating the profiles. 
-The first category is statistical distribution used to pick the points representing voters and candidates.
+The first category is a statistical distribution used to pick the points representing voters and candidates.
 The second one is the choice of radius parameter. We describe the categories in detail below.
 
-\subsubsection{Uniform distribution}
+\subsubsection{Statistical Distributions}
+In this category we consider 4 ways of generating the points, representing positions of the candidates and the voters.
 
-Agent generation parameters:
+\begin{enumerate}
+    \item The \textit{Uniform Candidates, Uniform Voters} model,
+    where the points for both, the candidates and the voters are selected uniformly at random from the $[-10,10]$ range.
+    
+    \item The \textit{Asymmetric Gauss Candidates, Asymmetric Gauss Voters} model,
+    where we take 70\% of points from a Gaussian distribution with mean value $-3$ and standard deviation $1.8$,
+    and the remaining 30\% come from a Gaussian with mean $3$ and the same standard deviation. 
+    This model is inspired by the 2 dimensional model from the work of \cite{falisz}. 
+    The goal is to simulate the society with a large majority, and a minority with the opposite opinion. 
 
-\begin{itemize}
-    \item $x \in [-10,10]$ from uniform distribution
-    \item $r \in \{0.7, \: 1.2, \: uniform[0.7,1.2], \: uniform[0,3]\}$
-    \item $E \in \{20x20, \: 30x30, \: 60x60(?) \: 100x100(?)\}$
-\end{itemize}
+    \item The \textit{Uniform Candidates, Asymmetric Gauss Voters} model,
+    it is a combination of the previous two models, where
+    the candidate's points are selected uniformly at random,
+    and for the voters we use asymmetric Gaussian model.
+    We use the same parameters for both of the distributions.
 
-\begin{figure}[H]
-    \includegraphics[height=0.47\textheight]{30-30-uniform-unordered-heatmap.png}
-    \centering
-    \caption{Temporary Image - Uniform Unordered HeatMap}
-    \label{fig:30-30-uniform-unordered}
-\end{figure}
+    \item The \textit{Asymmetric Gauss Candidates, Uniform Voters} model,
+    it is mirror version of the previous model, with the distributions swapped.
 
-\begin{figure}[H]
-    \includegraphics[width=0.47\textheight]{30-30-uniform-ordered-heatmap.png}
-    \centering
-    \caption{Temporary Image - Uniform Ordered HeatMap}
-    \label{fig:30-30-uniform-ordered}
-\end{figure}
+\end{enumerate}
 
-\subsubsection{Double Asymmetric Gauss}
+\subsubsection{Radius parameter}
+In this category we consider 4 ways of generating the radii, for the candidates and the voters.
 
-Agent generation parameters:
-\begin{itemize}
-    \item 70\% of $x \in Gauss(mean=-3, std=0.8)$
-    \item 30\% of $x \in Gauss(mean=3, std=0.8)$
-    \item $r \in \{0.7, \: 1.2, \: uniform[0.7,1.2], \: uniform[0,3]\}$
-    \item $E \in \{20x20, \: 30x30, \: 60x60(?) \: 100x100(?)\}$
-\end{itemize}
-
-\begin{figure}[H]
-    \includegraphics[height=0.47\textheight]{30-30-2gauss-unordered-heatmap.png}
-    \centering
-    \caption{Temporary Image - 2Gauss Unordered HeatMap}
-    \label{fig:30-30-2gauss-unordered}
-\end{figure}
-
-\begin{figure}[H]
-    \includegraphics[height=0.47\textheight]{30-30-2gauss-ordered-heatmap.png}
-    \centering
-    \caption{Temporary Image - 2Gauss Ordered HeatMap}
-    \label{fig:30-30-2guass-ordered}
-\end{figure}
-
-\subsubsection{Asymmetric Gauss candidates, Uniform Voters}
-
-Agent generation parameters:
-\begin{itemize}
-    \item 70\% of $x_c \in Gauss(mean=-3, std=0.8)$
-    \item 30\% of $x_c \in Gauss(mean=3, std=0.8)$
-    \item $x_v \in [-10,10]$ from uniform distribution
-    \item $r \in \{0.7, \: 1.2, \: uniform[0.7,1.2], \: uniform[0,3]\}$
-    \item $E \in \{20x20, \: 30x30, \: 60x60(?) \: 100x100(?)\}$
-\end{itemize}
-
-\subsubsection{Uniform candidates, Asymmetric Gauss Voters}
-
-Agent generation parameters:
-\begin{itemize}
-    \item 70\% of $x_v \in Gauss(mean=-3, std=0.8)$
-    \item 30\% of $x_v \in Gauss(mean=3, std=0.8)$
-    \item $x_c \in [-10,10]$ from uniform distribution
-    \item $r \in \{0.7, \: 1.2, \: uniform[0.7,1.2], \: uniform[0,3]\}$
-    \item $E \in \{20x20, \: 30x30, \: 60x60(?) \: 100x100(?)\}$
-\end{itemize}
-
+\begin{enumerate}
+    \item 
+\end{enumerate}
 
 \subsubsection{Results}
 
