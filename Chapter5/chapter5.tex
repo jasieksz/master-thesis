@@ -47,7 +47,7 @@ are neither VR nor CR.
     \label{fig:small-statistics-barchart}
 \end{figure}
 
-\subsection{Experiment 2 — large profiles}
+\subsection{Experiment 2 — Large Profiles}
 For the larger size of the profiles we generated a suitable number of random VCR profiles
 and again checked how many of them are neither CR nor VR (\textit{NCOP}), and additionally, VR and CR (\textit{COP}),
 VR and not CR, CR and not VR.
@@ -87,7 +87,7 @@ In this category we consider 5 ways of generating the radii.
 We split the methods between the candidates and the voters, similarly to picking the positions.
 
 \begin{enumerate}
-    \item The \textit{Gauss Candidates, Gauss Voters} model, 
+    \item\label{enum:radius-gaus-gaus} The \textit{Gauss Candidates, Gauss Voters} model, 
     where we choose the radii from the Gaussian distribution with mean value $1.5$ and standard deviation $0.5$
     We use the same distribution for the candidates and the voters.
 
@@ -149,13 +149,40 @@ In the subsequent paragraphs we will focus mostly on the results for smaller ele
 Figure \ref{fig:20-20-statistics-barchart}, but only because the differences between the parameters are more pronounced.
 \newline
 
-\noindent \textbf{Radius and Position Choice} \indent Observing
-
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{20-20-statistics-barchart.png}
     \centering
     \caption{Temporary Image - Aggregated Statistics}
     \label{fig:20-20-statistics-barchart}
 \end{figure}
+
+\noindent \textbf{Position Choice} \indent We will analyze the histogram for the \textbf{\textit{Gauss Candidates, Gauss Voters}} radius model,
+as it exhibits the most neutral behavior. It will be our baseline scenario. We can compare position models in pairs. 
+Starting with \textit{Uniform Candidates, Uniform Voters} and \textit{Asymmetric Gauss Candidates, Asymmetric Gauss Voters} models.
+The double Gauss model has noticeably more \textit{NCOP} profiles.
+It can be easily explained by looking at the respective preference matrix heatmaps in Figure \ref{fig:20-20-examples-grid}.
+The profiles generated from the double Gauss model have higher count of approvals,
+which in turn increases the likelihood of any irregularities in the approvals block structure, which is directly linked to the \textit{NCOP} property.   
+\textcolor{orange}{(WIP: lepiej wyjaśnić, mam na myśli "dziury" w blokach jedynek w macierzy)}
+
+Now turning our attention to the second pair of the position models (still for the same radius model),
+\textit{Uniform Candidates, Asymmetric Gauss Voters} and \textit{Asymmetric Gauss Candidates, Uniform Voters}.
+These are two perfectly symmetrical models, we will explain only the first one, and keep in mind that second one is just the reversed scenario.
+Looking at the heatmaps again, we notice that the blocks of approvals are skewed horizontally,
+which is associated with the VR property, i.e., the ones form and interval in each row of the approval matrix.
+For the second model, the blocks are skewed vertically, which links to the CR property.
+
+\noindent \textbf{Radius Choice} \indent From Figure \ref{fig:20-20-statistics-barchart} it is clear that the choice of radius
+can significantly reinforce or subside trends (in the profiles properties statistics) resulting from the position choice.
+For example, the mixed radius models, i.e., \textit{Small Uniform Candidates, Gauss Voters} and \textit{Gauss Candidates, Small Uniform Voters}
+particularly increase the VR or CR  properties frequency.
+The core idea behind this phenomenon is exactly the same as the one described above, for the mixed position models (Uniform, Gauss),
+where the blocks of approvals are skewed, either horizontally or vertically, resulting in the increased number of VR or CR profiles respectively.
+
+The striking difference between histograms for
+\textit{Small Uniform Candidates, Small Uniform Voters} and \textit{Large Uniform Candidates, Large Uniform Voters}
+is again related to the inconsistencies in the approval blocks, which are easily observed in the heatmaps. 
+Smaller radius range produces much more structured profiles, hence large number of the \textit{COP} profiles.
+In contrast, large radius range outputs irregular approval blocks in the profiles, increasing number of the \textit{NCOP} profiles.
 
 \section{Transforming VCR (NCOP) Profile into VR or CR}
