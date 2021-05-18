@@ -115,14 +115,15 @@ as we show in Proposition \ref{prop:vcr-constR-vrcr}.
     If a profile $P$ satisfies VCR and every agent (candidate/voter) in the profile, has the same constant radius, then
     $P$ satisfies both VR and CR properties. 
     \begin{proof}
-        Because :).
+        Because. \textcolor{orange}{(WIP: Dokończyć, R=const --> 2 razy większy R kandydata i R=0 głosujacego, i vice versa)}
     \end{proof}
 \end{proposition}
 
 \subsubsection{Results}
-We present the examples of our election profiles, and how are they impacted by the generation parameters in Figure \ref{fig:20-20-examples-grid}.
-Later we analyze aggregated results of the experiment, of which most are inline with the basic intuition.
-
+We present the visualization of our example election profiles,
+and how are they impacted by the generation parameters in Figure \ref{fig:20-20-examples-grid}.
+Later we analyze aggregated results of the experiment.
+Most of the conclusions we draw are inline with the basic intuition.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{20-20-examples-grid.png}
@@ -131,6 +132,24 @@ Later we analyze aggregated results of the experiment, of which most are inline 
     \label{fig:20-20-examples-grid}
 \end{figure}
 
+\noindent \textbf{Election Dimensions} 
+\indent Our results for two election sizes have one crucial difference,
+looking briefly at Figure \ref{fig:20-20-statistics-barchart} (20 candidates, 20 voters)
+and Figure \ref{fig:40-40-statistics-barchart} (40 candidates, 40 voters), 
+we immediately see, that in the larger elections \textit{NCOP} property is much more frequent.
+\textcolor{orange}{(WIP: Jakaś hipoteza, dlaczego tak się dzieje?)}
+Election sizes in the experiment are relatively small when compared to the real world scenario.
+We can expect for this trend of increased number of \textit{NCOP} profiles to continue for even larger elections.
+This result is very promising, as it encourages further development and research related to the VCR domain.
+\newline 
+
+\textcolor{orange}{(WIP: Czy podwójna linia przewy może być? innaczej akapity zlewają się za bardzo,
+ten akapit jest jedynie "wstawka" pomiedzy faktyczna treścią)}
+In the subsequent paragraphs we will focus mostly on the results for smaller elections from
+Figure \ref{fig:20-20-statistics-barchart}, but only because the differences between the parameters are more pronounced.
+\newline
+
+\noindent \textbf{Radius and Position Choice} \indent Observing
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{20-20-statistics-barchart.png}
