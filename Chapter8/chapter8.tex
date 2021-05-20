@@ -195,10 +195,21 @@ Let's consider only the voters who approve of $c_1$ and/or $c_2$.
     $scoreDelta(p,c_1)$ and $scoreDelta(p,c_2)$ would increase equally by 1.
 \end{enumerate}
 
-Let $k' = scoreDelta(p,c_1) - scoreDelta(p,c_2)$, then $k' \geq 0$ is always true.
-The number $k'$ also represents the count of \textit{Type 1} voters, i.e., the ones who approve of $c_1$ and not $c_2$.
-Now if $k' > scoreDelta(p,c_1)$ it simply means that, $c_2$ was not dangerous in the first place.
+\begin{proposition}
+    Having external candidate $c_E$ and another internal one $c_I$, which is fully contained inside external's range.
+    
+    Let:
+    \begin{enumerate}
+        \item $K' = \{v \in \widehat{V} \: | \: v \in A(c_E) \land v \notin A(c_I)\}$.
+        \item $|K'| = scoreDelta(p,c_E) - scoreDelta(p,c_I)$.
+        \item $d(c) = score(c) - score(p) + 1$, i.e., how many voters we need to delete for $p$ to defeat $c$.
+    \end{enumerate}     
+    Then $|K'| \geq 0$ is always true, and the size of set $K'$ will be equal to the $d(c_E) - d(c_I)$
 
+    \begin{proof}
+        tbc.
+    \end{proof}
+\end{proposition}
 
 \subsubsection{Special case - contained candidates} \label{sss:contained-candidate}
 In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
