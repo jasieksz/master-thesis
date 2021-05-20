@@ -184,14 +184,21 @@ We explain the issue, starting with the example of the most basic election in Fi
 Stages 1 through 3 are trivial, in the subsequent stages we make the election more and more complex by adding new agents.
 Turning our attention to Stage 4, now both candidates $c_1$ and $c_2$ are dangerous, with scores 2 and 1 respectively.
 Candidate $p$ needs to defeat $c_2$ by one vote, and $c_1$ by two votes. 
-In Stage 5 we add multiple more voters, the core idea to solve our issue is understanding what types of the new votes we can add.
-\begin{enumerate}
-    \item A voter contained in the range $[b(c_1), b(c_2)]$
-    \item A voter contained in the range $[b(c_2), e(c_2)]$
-    \item A voter contained in the range $[b(c_2), e(c_1)]$
-    \item A voter contained in the range $[e(c_2), e(c_1)]$
+In Stage 5 we add multiple more voters ... 
 
+The core idea to solve our issue is understanding what types of the new votes we can add.
+Let's consider only the voters who approve of $c_1$ and/or $c_2$.
+\begin{enumerate}
+    \item A voter who approves only $c_1$ and not $c_2$,
+    in this case, $scoreDelta(p,c_1)$ would increase by 1, and $scoreDelta(p,c_2)$ would stay the same.
+    \item A voter who approves both $c_1$ and $c_2$, this time,
+    $scoreDelta(p,c_1)$ and $scoreDelta(p,c_2)$ would increase equally by 1.
 \end{enumerate}
+
+Let $k' = scoreDelta(p,c_1) - scoreDelta(p,c_2)$, then $k' \geq 0$ is always true.
+The number $k'$ also represents the count of \textit{Type 1} voters, i.e., the ones who approve of $c_1$ and not $c_2$.
+Now if $k' > scoreDelta(p,c_1)$ it simply means that, $c_2$ was not dangerous in the first place.
+
 
 \subsubsection{Special case - contained candidates} \label{sss:contained-candidate}
 In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
