@@ -58,7 +58,7 @@ For each parameter pair we generated 1000 elections with 20 candidates and 20 vo
 then we repeated the experiment for the profiles of 40 candidates and 40 voters.
  
 
-\subsubsection{Position parameter}
+\subsubsection{Position Parameter}
 We consider 4 ways of generating the points, representing the positions of the candidates and the voters.
 
 \begin{enumerate}
@@ -82,7 +82,7 @@ We consider 4 ways of generating the points, representing the positions of the c
 
 \end{enumerate}
 
-\subsubsection{Radius parameter}
+\subsubsection{Radius Parameter}
 In this category we consider 5 ways of generating the radii.
 We split the methods between the candidates and the voters, similarly to picking the positions.
 
@@ -140,7 +140,7 @@ we immediately see, that in the larger elections \textit{NCOP} property is much 
 \textcolor{orange}{(WIP: Jakaś hipoteza, dlaczego tak się dzieje?)}
 Election sizes in the experiment are relatively small when compared to the real world scenario.
 We can expect for this trend of increased number of \textit{NCOP} profiles to continue for even larger elections.
-This result is very promising, as it encourages further development and research related to the VCR domain.
+This result is very promising, as it strongly encourages further development and research related to the VCR domain.
 \newline 
 
 \textcolor{orange}{(WIP: Czy podwójna linia przewy może być? innaczej akapity zlewają się za bardzo,
@@ -171,6 +171,7 @@ These are two perfectly symmetrical models, we will explain only the first one, 
 Looking at the heatmaps again, we notice that the blocks of approvals are skewed horizontally,
 which is associated with the VR property, i.e., the ones form and interval in each row of the approval matrix.
 For the second model, the blocks are skewed vertically, which links to the CR property.
+\newline
 
 \noindent \textbf{Radius Choice} \indent From Figure \ref{fig:20-20-statistics-barchart} it is clear that the choice of radius
 can significantly reinforce or subside trends (in the profiles properties statistics) resulting from the position choice.
@@ -184,5 +185,37 @@ The striking difference between histograms for
 is again related to the inconsistencies in the approval blocks, which are easily observed in the heatmaps. 
 Smaller radius range produces much more structured profiles, hence large number of the \textit{COP} profiles.
 In contrast, large radius range outputs irregular approval blocks in the profiles, increasing number of the \textit{NCOP} profiles.
+\newline
+
+\noindent \textbf{Summary} \indent \textcolor{orange}{(WIP: Czy brakuje akapitu podsumowującego? Powtórzenie z Election Size)}
+This result is very promising, as it encourages further development and research related to the VCR domain.
+
 
 \section{Transforming VCR (NCOP) Profile into VR or CR}
+A natural question that arises from the previous experiment results, 
+is how different are the NCOP profiles from the VR or CR ones? 
+In other words, how much do we need to change a NCOP profile for it to become a VR / CR one. 
+To answer this question, we design another experiment.
+
+\subsection{Experiment 3 — Profile Transformation}
+In this experiment, we partially reuse profiles generated for the previous one.
+We narrow down our experiment parameters to only two radius generation methods,
+that is, first \textit{Gauss Candidates, Gauss Voters} and second \textit{Large Uniform Candidates, Large Uniform Voters} models.
+We keep the position models unchanged, and we explore all four of them.
+Obviously we only pick the NCOP profiles, to be exact, we use 400 of them for each parameter pair.
+\newline
+
+\noindent \textbf{Profile Change Parameter} \indent We consider 3 methods to transform a NCOP profile into a VR / CR one.
+\begin{enumerate}
+    \item The \textit{Candidate Deletion} method, 
+    where we search for a minimal number $d$,
+    such that, after deleting $d$ candidates from the profile it becomes a VR / CR profile.
+
+    \item The \textit{Voter Deletion} method, 
+    which is similar to the \textit{Candidate Deletion} method, but this time we delete $d$ voters instead.
+
+    \item The \textit{Candidate and Voter Deletion} method, 
+    where we combine the two previous methods, and we simultaneously delete $d$ candidates and $d$ voters.
+\end{enumerate}
+
+\subsubsection{Results}

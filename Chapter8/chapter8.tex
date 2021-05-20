@@ -164,14 +164,41 @@ Now we will show why our solution is correct in the general VCR setting, even wh
 example in Figure \ref{fig:ncop-cc-dv}. The proof is split into two stages, similarly to the previous ones.
 But first we will explain one special case of the election, that is worth examining.
 
+\subsubsection{Special case - contained candidates - alternative explanation}
+In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
+Every voter who would approve the smaller candidate would also approve the larger one, however not vice versa.
+For this case, our strategy of choosing voters to delete might seem suboptimal, at first glance. 
+
+\begin{figure}[H]
+    \includegraphics[width=0.3\linewidth]{sc-cc-stage-1.png}
+    \includegraphics[width=0.3\linewidth]{sc-cc-stage-2.png}
+    \includegraphics[width=0.3\linewidth]{sc-cc-stage-3.png}
+    \includegraphics[width=0.48\linewidth]{sc-cc-stage-4.png}
+    \includegraphics[width=0.48\linewidth]{sc-cc-stage-5.png}
+    \centering
+    \caption{Temporary Image - Special Case}
+    \label{fig:cc-s1}
+\end{figure}
+
+We explain the issue, starting with the example of the most basic election in Figure \ref{fig:cc-s1}.
+Stages 1 through 3 are trivial, in the subsequent stages we make the election more and more complex by adding new agents.
+Turning our attention to Stage 4, now both candidates $c_1$ and $c_2$ are dangerous, with scores 2 and 1 respectively.
+Candidate $p$ needs to defeat $c_2$ by one vote, and $c_1$ by two votes. 
+In Stage 5 we add multiple more voters, the core idea to solve our issue is understanding what types of the new votes we can add.
+\begin{enumerate}
+    \item A voter contained in the range $[b(c_1), b(c_2)]$
+    \item A voter contained in the range $[b(c_2), e(c_2)]$
+    \item A voter contained in the range $[b(c_2), e(c_1)]$
+    \item A voter contained in the range $[e(c_2), e(c_1)]$
+
+\end{enumerate}
+
 \subsubsection{Special case - contained candidates} \label{sss:contained-candidate}
 In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
 Every voter who would approve the smaller candidate would also approve the larger one, however not vice versa.
 For this case, our strategy of choosing voters to delete might seem suboptimal, at first glance. 
-In the minimal viable example from Figure \ref{fig:contained-candidate}, the algorithm would delete $v_1$ first,
-however, to defeat $c_0$, we need to delete 2 voters, so $v_0$ will be deleted as well.
 
-The example illustrates why we do not have to worry about this special case.
+The example from Figure \ref{fig:contained-candidate} illustrates why we do not have to worry about this special case.
 Every contained voter will have as much or less total votes than the larger candidate, 
 he/she might not even be a dangerous candidate at all. 
 Now we see that in the process of defeating the larger candidate we will automatically defeat the smaller one.
