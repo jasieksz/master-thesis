@@ -200,12 +200,12 @@ To answer this question, we design another experiment.
 \subsection{Experiment 3 — Profile Transformation}
 In this experiment, we partially reuse profiles generated for the previous one.
 We narrow down our experiment parameters to only two radius generation methods,
-that is, first \textit{Gauss Candidates, Gauss Voters} and second \textit{Large Uniform Candidates, Large Uniform Voters} models.
+that is, first model \textit{Gauss Candidates, Gauss Voters} and second \textit{Large Uniform Candidates, Large Uniform Voters}.
 We keep the position models unchanged, and we explore all four of them.
 Obviously we only pick the NCOP profiles, to be exact, we use 400 of them for each parameter pair.
 \newline
 
-\noindent \textbf{Profile Change Parameter} \indent We consider 3 methods to transform a NCOP profile into a VR / CR one.
+\noindent \textbf{Agent Deletion Parameter} \indent We consider 3 methods to transform a NCOP profile into a VR / CR one.
 \begin{enumerate}
     \item The \textit{Candidate Deletion} method, 
     where we search for a minimal number $d$,
@@ -215,7 +215,18 @@ Obviously we only pick the NCOP profiles, to be exact, we use 400 of them for ea
     which is similar to the \textit{Candidate Deletion} method, but this time we delete $d$ voters instead.
 
     \item The \textit{Candidate and Voter Deletion} method, 
-    where we combine the two previous methods, and we simultaneously delete $d$ candidates and $d$ voters.
+    where we combine the two previous methods, and we simultaneously delete $d_c$ candidates and $d_v$ voters.
+\end{enumerate}
+
+
+\noindent \textbf{Transformation Result Parameter} \indent Apart from choosing what type of agent (candidate / voter) to delete,
+for each profile we collect the transformation results into 3 groups.
+By the transformation result we mean the lowest possible cost of the transformation,
+i.e., the minimal number of agent deletions for a TVCR profile to become a VR / CR one.
+\begin{enumerate}
+    \item The \textit{Candidate Range}, where the cost is a number of deletions required to get a CR profile.
+    \item The \textit{Voter Range}, where the cost is a number of deletions required to get a VR profile.
+    \item The \textit{Candidate Range or Voter Range}, where the cost is a minimum from the previous two groups. 
 \end{enumerate}
 
 \subsubsection{Results}
