@@ -10,7 +10,7 @@
 In this chapter, we introduce the definitions and notations used in this work.
 
 
-\section{WIP}
+\section{WIP: Basics}
 
 \subsubsection{Approval Elections}
 
@@ -27,10 +27,7 @@ Voting rules are algorithms used to select winners (committee) of a given electi
 Each rule has different properties and must be selected accordingly to the goal of the election.
 For the detailed overview of multiwinner voting rules I point to \cite{faliszewskiSkowronMultiWinnerOverview}.
 
-\section{One Dimensional Euclidean Domain} \label{pref-restrictions-section}
-
-\subsection{Preference Restrictions}
-(WIP: Motywacja, po co restrykcje, czy moge powtorzyc Introduction?)
+\section{Preference Restrictions}\label{pref-restrictions-section}
 
 Many social choice problems such as winner determination, or control problem are known to be computationally hard.
 To deal with it we can use approximate or parametrized algorithms (WIP: Podać przykłady metod / cytacje).
@@ -40,7 +37,7 @@ for the popular committee selection rules, and other problems.
 
 \subsection{Euclidean Preference Restrictions}
 
-\subsubsection{Voter Candidate Range}\label{VCR-definition}
+\subsubsection{Voter Candidate Range (VCR)}\label{VCR-definition}
 Given an election \(E = (C, V)\), we say that the voters have \textit{1D-Euclidean} preferences if
 for every agent (voter or candidate) there exists a point $x_a$ and nonnegative real value radius $r_a$ such that:
 $\forall \text{ } c \in C \text{ } \forall \text{ } v \in V: c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$
@@ -49,19 +46,19 @@ We can easily think of it as: the point $x_a$ represents ideal position
 in the 1-dimensional space of opinions. The radius can be seen as candidate's charisma or
 voter's willingness to compromise.
 
-\subsubsection{Candidate Range}
+\subsubsection{Candidate Range (CR)}
 We say that P satisfies CR if candidates in $C$ can be
 ordered so that each of the sets $v_i$ forms an interval of that ordering.
 CR is special case of VCR, where we require all the voters to have radii equal to zero
 
-\subsubsection{Voter Range}
+\subsubsection{Voter Range (VR)}
 We say that P satisfies VR if the voters in $V$ can be reordered
 so that for every candidate $c_i$ the voters that approve c form an interval of that
 ordering.
 VR is a special case of VCR, where we require all the candidates to have radii equal to zero
 \newline 
 
-\subsubsection{Voter Interval and Candidate Interval}
+\subsubsection{Voter Interval (VI) and Candidate Interval (CI)}
 \cite{falisz} showed that CR and VR are equivalent to respectively VI and CI
 introduced by \cite{DBLP:journals/corr/ElkindL15}.
 
