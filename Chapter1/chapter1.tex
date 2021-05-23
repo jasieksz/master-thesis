@@ -14,22 +14,26 @@
 
 %********************************** %First Section  **************************************
 Elections are ubiquitous element of our society in one form or another.
-For example choosing members of parliament or a winner of a competition.
-In a day-to-day activities we need to decide on a meeting time or select recommended movies in a streaming service.
-Each of these choices may require different type of election and scoring rule,
-based on the underlying properties of the choice (i.e. voters should be represented proportionally by members of a government)
+For example, choosing members of parliament or a winner of a sports competition,
+in day-to-day activities, we need to schedule a meeting time, or a video streaming platform needs to provide recommended movies list to the user.
+Each of these choices may require different type of election and different strategy of selecting the winner (or winners).
+The differences come from the underlying properties and objectives of the choice.
+For example in the presidential election, we want to choose the candidate supported by the majority of the voters.
+It is not the case for the parliamentary elections, where the goal is to select members of the parliament in such a way that 
+the opinions of the voters are represented proportionally. 
+See the work of \cite{faliszewskiSkowronMultiWinnerOverview}, which provides the overview and discusses various election types. 
 
 
-\subsubsection{Reseach objectives}
-In this work I am going to focus on the \textit{Approval Elections},
+\subsubsection{(WIP: Inny tytuł?) Reseach objectives}
+In this work we are going to focus on the \textit{approval elections},
 that is where each voter provides a subset of candidates that he approves of and disapproves the rest.
 In general many social choice problems are known to be computationally hard.
-However they become tractable under some restrictions on the structure of the preferences.
+However, they become tractable under some restrictions on the structure of the preferences.
 \cite{DBLP:journals/corr/ElkindL15} explored well known restrictions in the setting of approval preferences,
-introduced several new one-dimensional domain restrictions such as
-Dichotomous Euclidean (sprawdzic kiedy/kto wprowadził pojęcie - spatial pref, multidim unfolding) and derivatives (czy to dobre okreslenie na VR CR?). 
-\cite{falisz} generalized this model for the N-dimensional euclidean space calling it Voter Candidate Range 
-and explored two-dimensional case. 
+introduced several new one-dimensional domain restriction models such as Voter Interval (VI) and Candidate Interval (CI),
+based on the Dichotomous Euclidean restriction. 
+\cite{falisz} generalized this model for the N-dimensional euclidean space calling it Voter Candidate Range (VCR)
+and explored two-dimensional case.
 
 The goal of this work is to explore properties of the one-dimensional model.
 Search for the profile detection polynomial complexity algorithm. I will try as well to extend solution of \cite{mav}
@@ -37,4 +41,4 @@ for computing MAV score with polynomial complexity to the VCR model.
 
 
 \subsubsection{Contributions}
-I provide linear programming preference detection algorithm and ...
+We provide linear programming preference detection algorithm and ...
