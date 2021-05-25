@@ -21,14 +21,27 @@ The differences come from the underlying properties and objectives of the choice
 For example, in the presidential election, we want to choose the candidate supported by the majority of the voters.
 It is not the case for the parliamentary elections, where the goal is to select members of the parliament in such a way that 
 the opinions of the voters are represented proportionally. 
-See the work of \cite{faliszewskiSkowronMultiWinnerOverview}, which provides the suitable overview and discusses various election types. 
-\textcolor{orange}{(WIP: Czy potrzeba jeszcze wiecej przykładów, np. z \cite{lacknerSkowronAVOverview}, facility location, blockchain, ...)}
+\textcolor{orange}{(WIP: Czy potrzeba jeszcze wiecej przykładów, np. z , facility location, blockchain, economics...)}
+
+More formally a committee election is the process of choosing a fixed-size subset of candidates (committee), 
+based on the voters' preferences. Voters' ballots (preferences) can be represented in various different ways.
+In this work we are going to focus on approval elections, that is,
+on elections where each voter provides a subset of candidates that he or she approves of.
+Another notable type of committee elections is ordinal model,
+where the voters order the candidates from the most to the least preferred. 
+See the work of \cite{faliszewskiSkowronMultiWinnerOverview},
+which provides the overview and discusses various committee election types,
+and for the extensive survey of approval model and current state of the research in this area, we point to \cite{lacknerSkowronAVOverview}. 
+
+Winner determination is one of the core problems in computational social choice theory, however not the only one.
+We need to mention control problems, it refers to certain ways of manipulating elections.
+In short, we try to make a given candidate win (or lose), by changing the structure of an election,
+that is adding or deleting voters or candidates.
+Other interesting problems are manipulation, bribery and justified representation as well. \textcolor{orange}{(WIP: Cytacje?)}
+
 
 
 \subsubsection{\textcolor{orange}{(WIP: Inny tytuł / Bez tytułu?)} Reseach objectives}
-In this work we are going to focus on approval elections,
-that is, on elections where each voter provides a subset of candidates that he or she approves of.
-
 
 In general many social choice problems are known to be computationally hard.
 However, they become tractable under some restrictions on the structure of the preferences.
@@ -43,5 +56,8 @@ Search for the profile detection polynomial complexity algorithm. I will try as 
 for computing MAV score with polynomial complexity to the VCR model.
 
 
-\subsubsection{Contributions}
-We provide linear programming preference detection algorithm and ...
+\subsubsection{\textcolor{orange}{(WIP: Bez tytułu?)} Contributions}
+This work's main contributions are following:
+
+We do not discuss the related work right now, instead we do it throughout this thesis,
+as the discussion will greatly benefit from the added context and introduced definitions in the subsequent chapters.
