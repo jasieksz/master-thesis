@@ -40,25 +40,22 @@ that is adding or deleting voters or candidates.
 Other interesting problems, that we are not going to explore in this work,
 are manipulation, bribery, justified representation and many others. \textcolor{orange}{(WIP: Cytacje?)}
 
-
-
-\subsubsection{\textcolor{orange}{(WIP: Inny tytuł / Bez tytułu?)} Reseach objectives}
-
 Many of the mentioned above social choice problems are known to be computationally hard.
-We can deal with this complexity using various approaches.
-More standard ones, like approximate or parametrized algorithms.
-
-However, they become tractable under some restrictions on the structure of the preferences.
-\cite{DBLP:journals/corr/ElkindL15} explored well known restrictions in the setting of approval preferences,
-introduced several new one-dimensional domain restriction models such as Voter Interval (VI) and Candidate Interval (CI),
-based on the Dichotomous Euclidean restriction. 
-\cite{falisz} generalized this model for the N-dimensional euclidean space calling it Voter Candidate Range (VCR)
-and explored two-dimensional case.
-
-The goal of this work is to explore properties of the one-dimensional model.
-Search for the profile detection polynomial complexity algorithm. I will try as well to extend solution of \cite{mav}
-for computing MAV score with polynomial complexity to the VCR model.
-
+We can deal with this complexity using various methods,
+more standard ones, like approximate (random or deterministic) or parametrized algorithms.
+An alternative approach to these classical solutions is introducing restrictions on preference domains,
+in other words, we restrict the structure of voters ballots (preferences). 
+There is a successful and active line of research in this area.
+Beginning with a notion of \textit{single-peaked} introduced by \cite{Black-single-peaked} 
+and \textit{single-crossing} by \cite{mirrlees-single-crossing}.
+Arriving to much more recent work, \cite{DBLP:journals/corr/ElkindL15} explored well known restrictions in the setting of approval preferences, and
+introduced several new one-dimensional domain restriction models such as \textit{Voter Interval (VI)} and \textit{Candidate Interval (CI)},
+both based on the \textit{Dichotomous Euclidean} restriction. 
+\cite{falisz} improved this model by making it more versatile,
+due to using additional radius parameter and providing N-dimensional definition.
+\textcolor{orange}{(WIP: Jaki był aspekt uzupełnienia modeli euklidesowych? Czy tu jest za wcześnie na mówienie o promieniu?)}
+Calling the new model \textit{Voter Candidate Range (VCR)}, and later they analyzed two-dimensional case and briefly one-dimensional,
+for committee election problems.
 
 \subsubsection{\textcolor{orange}{(WIP: Bez tytułu?)} Contributions}
 This work's main contributions are following:
