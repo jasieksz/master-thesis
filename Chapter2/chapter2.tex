@@ -7,19 +7,24 @@
     \graphicspath{{Chapter2/Figs/Vector/}{Chapter2/Figs/}}
 \fi
 
-In this chapter, we introduce the definitions and notations used in this work.
-
+In this chapter,
+we introduce the definitions, notations, techniques and methods, used in this work.
 
 \section{Basic Definitions}
 
 \subsubsection{Approval Elections}
 
-Election is a pair \(E = (C, V)\), where 
-\(C = \{c_1,...,c_m\}\) is a set of candidates and 
-\(V = \{v_1,...,v_n\}\) is a set of voters. 
-Each voter \(v \in V\) approves a subset of the candidates and disapproves the remaining candidates.
-I will be referring to it as a \mbox{\textit{approval set}} and for each voter $v \in V$ denote it as $A(v)$,
-when using $A$ just by itself I refer to all approval sets in the given election (preferences).
+An approval-based election is a tuple $E = (C, V, A)$, where 
+$C = \{c_1,...,c_M\}$ is a set of candidates and 
+$V = \{v_1,...,v_N\}$ is a set of voters,
+and their preferences are represented as a set of vectors $A = \{A(v_1),...,A(v_N)\}$.
+Each vote (preference) $A(v_i)$ is a binary vector (an approval vector) of size $M$ ($\|C\|$), i.e., 
+it consists only of $(1)$ or $(0)$ representing approval or disapproval of each candidate.
+
+In practice, we often use an additional, simplified notation of representing an election.
+We redefine $A$ as a two-dimensional binary matrix, with $N$ rows and $M$ columns,
+where value of $A[i][j]$ is $(1)$ if i-th voter approves of j-th candidate, and $(0)$ otherwise.
+It will always be clear from the context which notation we use.
 
 \subsubsection{Committee Selection Rules}
 
