@@ -28,9 +28,16 @@ It will always be clear from the context which notation we use.
 
 \subsubsection{Committee Selection Rules}
 
-Voting rules are algorithms used to select winners (committee) of a given election.
+Voting rules are algorithms used to, select a committee (winners) — fixed size subset of the candidates,
+based on the voters preferences, for a given election.
 Each rule has different properties and must be selected accordingly to the goal of the election.
-For the detailed overview of multiwinner voting rules I point to \cite{faliszewskiSkowronMultiWinnerOverview}.
+As this is not the main focus of this work we point to \cite{faliszewskiSkowronMultiWinnerOverview},
+for the detailed overview of multiwinner voting rules.
+
+Nonetheless, we introduce the most basic voting rule for the approval model, simply called \textit{Approval Voting (AV)},
+introduced by \cite{brams1983approval}.
+For a given election and a size of committee $k$, AV outputs $k$ candidates with the highest \textit{approval score},
+which, for each candidate $c$, is the number of voter who approve of $c$.
 
 \section{Preference Restrictions}\label{pref-restrictions-section}
 
