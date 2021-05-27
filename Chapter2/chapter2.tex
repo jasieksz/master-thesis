@@ -19,12 +19,17 @@ $C = \{c_1,...,c_M\}$ is a set of $M$ candidates and
 $V = \{v_1,...,v_N\}$ is a set of $N$ voters,
 and their preferences are represented as a set of vectors $A = \{A(v_1),...,A(v_N)\}$.
 Each vote (preference) $A(v_i)$ is a binary vector (an approval vector) of size $M$, i.e., 
-it consists only of $(1)$ or $(0)$ representing approval or disapproval of each candidate.
+it consists only of $(1)$ or $(0)$ representing approval or disapproval of each candidate respectively.
 
 In practice, we often use an additional, simplified notation of representing an election.
 We redefine $A$ as a two-dimensional binary matrix, with $N$ rows and $M$ columns,
 where value of $A[i][j]$ is $(1)$ if i-th voter approves of j-th candidate, and $(0)$ otherwise.
-It will always be clear from the context which notation we use.
+\textcolor{orange}{(WIP: Jak definiować macierze?)}  
+It will always be clear from the context which notation we are using.
+
+\begin{example}
+\textcolor{orange}{(WIP: Opis wyborów + figura)}    
+\end{example}
 
 \subsubsection{Committee Selection Rules}
 
@@ -36,8 +41,11 @@ for the detailed overview of multiwinner voting rules.
 
 Nonetheless, we introduce the most basic voting rule for the approval model, simply called \textit{Approval Voting (AV)},
 introduced by \cite{brams1983approval}.
-For a given election and a size of committee $k$, AV outputs $k$ candidates with the highest \textit{approval score},
+
+\begin{definition}[Multi-Winner Approval Voting (AV)]
+For a given election and a size of committee $k$, AV rule selects the $k$ candidates with the highest approval score,
 which, for each candidate $c$, is the number of voter who approve of $c$.
+\end{definition}
 
 \section{Preference Restrictions}\label{pref-restrictions-section}
 
