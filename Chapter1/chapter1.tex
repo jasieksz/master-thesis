@@ -7,16 +7,21 @@
 \fi
 
 %********************************** %First Section  **************************************
-Elections are ubiquitous element of our society in one form or another.
-For example, choosing members of parliament or a winner of a sports competition,
-in day-to-day activities, we need to schedule a meeting time, or a video streaming platform needs to provide recommended movies list to the user.
-Each of these choices may require different type of election and different strategy of selecting the winner (or winners).
+Elections are a ubiquitous element of our society in one form or another.
+For example, societies need to choose members of parliaments, judges have to pick winners of sports competitions.
+However, elections are not only applicable to politics or competitions.
+In more day-to-day examples of elections, teams have to schedule meeting times,
+video streaming platforms need to provide recommended movies list to the users.
+Each of these choices (problems) may require different type of an election and different strategy of selecting the winner (or winners).
 The differences come from the underlying properties and objectives of the choice.
-For example, in the presidential election, we want to choose the candidate supported by the majority of the voters.
+For example, in presidential elections, we want to choose the candidate supported by the majority of the voters.
 It is not the case for the parliamentary elections, where the goal is to select members of the parliament in such a way that 
 the opinions of the voters are represented proportionally. 
-\textcolor{orange}{(WIP: Czy potrzeba jeszcze wiecej przykładów, np. z , facility location, blockchain, economics...)}
-More formally, a committee election is the process of choosing a fixed-size subset of candidates (committee), 
+In the meeting scheduling example, we will try to pick the time, such that, we maximize the number of participants,
+even though, the selected time might not be optimal for anyone (e.g., early morning).  
+Another key distinction between the given examples,
+is whether a given election has just one winner, or it leads to selecting multiple candidates.
+More formally, a committee election is the process of choosing a fixed-size subset of candidates (i.e., the committee), 
 based on the voters' preferences. Voters' ballots (preferences) can be represented in various different ways.
 \textcolor{orange}{(WIP: Rozróżnić Single vs Multi winner)}
 In this work we are going to focus on approval elections, that is,
@@ -34,17 +39,27 @@ that is adding or deleting voters or candidates.
 Other interesting problems, that we are not going to explore in this work,
 are manipulation, bribery, justified representation and many others. \textcolor{orange}{(WIP: Cytacje?)}
 
+\section{Preference Restrictions}
 Many of the mentioned above social choice problems are known to be computationally hard.
 We can deal with this complexity using various methods,
 more standard ones, like approximate (random or deterministic) or parametrized algorithms.
 An alternative approach to these classical solutions is introducing restrictions on preference domains,
 in other words, we restrict the structure of voters ballots (preferences). 
+
 There is a successful and active line of research in this area.
-Beginning with a notion of \textit{single-peaked} introduced by \cite{Black-single-peaked} 
-and \textit{single-crossing} by \cite{mirrlees-single-crossing}.
-Arriving to much more recent work, \cite{DBLP:journals/corr/ElkindL15} explored well known restrictions in the setting of approval preferences, and
-introduced several new one-dimensional domain restriction models such as \textit{Voter Interval (VI)} and \textit{Candidate Interval (CI)},
-both based on the \textit{Dichotomous Euclidean} restriction. \textcolor{orange}{(WIP: Opisać formalnie DE?)}
+Beginning with a notion of \textit{single-peaked (SP)} (\cite{Black-single-peaked}; \cite{arrow-single-peaked})
+and \textit{single-crossing (SC)} (\cite{mirrlees-single-crossing}; \cite{roberts-single-crossing}).
+Arriving to much more recent work, \cite{barbera-top-monotonicity} introduced \textit{top-monotonicity},
+a generalization of SP and SC restrictions.
+These models provided a basis for numerous and promising results in circumventing the computational complexity in a variety of problems.
+(\cite{walsh-pref-restrictions}; \cite{control-sp-shield-faliszewski-hemaspaandra};
+ \cite{skowron-pref-restrictions}; \cite{brand-pref-restrictions}; \cite{elkind-pref-restrictions})
+
+However, in the context of this work we need to emphasize a survey by \cite{DBLP:journals/corr/ElkindL15}.
+Unlike most of the above-mentioned examples, which considered the ordinal model of preferences,
+the survey explored well known preference restrictions in the setting of approval preferences. 
+Besides that, it introduced several new one-dimensional domain restriction models such as \textit{Voter Interval (VI)} and \textit{Candidate Interval (CI)},
+both based on the \textit{Dichotomous Euclidean (DE)} restriction. \textcolor{orange}{(WIP: Opisać formalnie DE?)}
 \cite{falisz} improved this model by making it more versatile,
 due to using additional radius parameter and providing N-dimensional definition.
 \textcolor{orange}{(WIP: Jaki był aspekt uzupełnienia modeli euklidesowych? Czy tu jest za wcześnie na mówienie o promieniu?)}

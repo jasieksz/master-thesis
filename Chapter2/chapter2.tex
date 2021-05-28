@@ -9,9 +9,9 @@
 
 First, in Section \ref{sec:basic-def}, we introduce basic definitions and core concepts, together with simple examples.
 Later, in Section \ref{sec:pref-restrictions}, we discuss preference restrictions,
-and how we can leverage them to design better algorithms, for many of the computational social choice problems.
+and how can we leverage them to design better algorithms, for many of the computational social choice problems.
 Finally, in Section \ref{sec:methods}, we explain some computational methods (tricks) we have used in this work,
-that we believe are not straightforward. 
+that we believe are not necessarily straightforward. 
 
 \section{Basic Definitions}\label{sec:basic-def}
 
@@ -83,7 +83,7 @@ for the popular committee selection rules, and other problems.
 Given an election \(E = (C, V)\), we say that the voters have \textit{1D-Euclidean} preferences if
 for every agent (voter or candidate) there exists a point $x_a$ and nonnegative real value radius $r_a$ such that:
 $\forall \text{ } c \in C \text{ } \forall \text{ } v \in V: c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$
-
+N
 We can easily think of it as: the point $x_a$ represents ideal position 
 in the 1-dimensional space of opinions. The radius can be seen as candidate's charisma or
 voter's willingness to compromise.
