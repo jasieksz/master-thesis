@@ -7,9 +7,13 @@
     \graphicspath{{Chapter2/Figs/Vector/}{Chapter2/Figs/}}
 \fi
 
-First we introduce basic definitions and core concepts
+First, in Section \ref{sec:basic-def}, we introduce basic definitions and core concepts, together with simple examples.
+Later, in Section \ref{sec:pref-restrictions}, we discuss preference restrictions,
+and how we can leverage them to design better algorithms, for many of the computational social choice problems.
+Finally, in Section \ref{sec:methods}, we explain some computational methods (tricks) we have used in this work,
+that we believe are not straightforward. 
 
-\section{Basic Definitions}
+\section{Basic Definitions}\label{sec:basic-def}
 
 \subsubsection{Approval Elections}
 
@@ -29,7 +33,7 @@ We refer to it as an \textit{approval matrix} or a \textit{preference matrix}.
 It will always be clear from the context which notation we are using.
 \textcolor{orange}{(WIP: Jak definiować macierze?)}
 
-\begin{example}
+\begin{example}\label{ex:approval-election}
 \textcolor{orange}{(WIP: Opis wyborów + figura)}    
 Following the example from Figure \ref{fig:approval-election-example} ...
 \end{example}
@@ -41,13 +45,13 @@ Following the example from Figure \ref{fig:approval-election-example} ...
     \label{fig:approval-election-example}
 \end{figure}
 
-\subsubsection{Committee Selection Rules}
+\subsubsection{Multiwinner Committee Selection Rules}
 
 Voting rules are algorithms used to, select a committee (winners) — fixed size subset of the candidates,
 based on the voters preferences, for a given election.
-Each rule has different properties and must be selected accordingly to the goal of the election.
+Each rule has different properties and must be selected according to the goal of the election.
 As this is not the main focus of this work we point to \cite{faliszewskiSkowronMultiWinnerOverview},
-for the detailed overview of multiwinner voting rules.
+for a detailed overview of multiwinner voting rules.
 
 Nonetheless, we introduce the most basic voting rule for the approval model, simply called \textit{Approval Voting (AV)},
 introduced by \cite{brams1983approval}.
@@ -55,17 +59,25 @@ introduced by \cite{brams1983approval}.
 \begin{definition}[Multi-Winner Approval Voting (AV)]
 For a given election and a size of committee $k$, AV rule selects the $k$ candidates with the highest approval score,
 which, for each candidate $c$, is the number of voter who approve of $c$.
+\textcolor{orange}{(WIP: Poprawić definicje, dodac oznaczenia matematyczne)}
 \end{definition}
 
-\section{Preference Restrictions}\label{pref-restrictions-section}
+\begin{example}
+\textcolor{orange}{(WIP: Opis wyborów z poprzedniego przykładu + kto wygra)}
+Continuing with the election from Example \ref{ex:approval-election}
+\end{example}
 
-Many social choice problems such as winner determination, or control problem are known to be computationally hard.
-To deal with it we can use approximate or parametrized algorithms (WIP: Podać przykłady metod / cytacje).
-The alternative approach is to introduce restrictions on the preference domains. (WIP: Cytacje research'u)
+\section{Preference Restrictions}\label{sec:pref-restrictions}
+
+Many computational social choice problems such as winner determination, or control problem are known to be computationally hard.
+To deal with it, we can use approximate or parametrized algorithms 
+The alternative approach is to introduce restrictions on the preference domains.
 In the last few years this area of research advanced a lot, providing multiple efficient algorithms
 for the popular committee selection rules, and other problems.
 
 \subsection{Euclidean Preference Restrictions}
+
+\subsubsection{Dichotomous Euclidean (DE)}
 
 \subsubsection{Voter Candidate Range (VCR)}\label{VCR-definition}
 Given an election \(E = (C, V)\), we say that the voters have \textit{1D-Euclidean} preferences if
@@ -106,7 +118,7 @@ For example, election with candidate set
 $C = \{a, b, c, d\}$ and voters with approval sets $\{a, b\}$, $\{b, c\}$,
 $\{b, d\}$, and $\{a, b, c, d\}$ is VCR, but neither VR nor CR.
 
-\section{WIP: Methodology/Techniques}
+\section{WIP: Methodology/Techniques}\label{sec:methods}
 
 \subsection{Integer Linear Program}
 Integer linear programming (ILP) is a common approach to solve NP-hard problems, 

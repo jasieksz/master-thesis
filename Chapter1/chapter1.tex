@@ -16,9 +16,9 @@ For example, in the presidential election, we want to choose the candidate suppo
 It is not the case for the parliamentary elections, where the goal is to select members of the parliament in such a way that 
 the opinions of the voters are represented proportionally. 
 \textcolor{orange}{(WIP: Czy potrzeba jeszcze wiecej przykładów, np. z , facility location, blockchain, economics...)}
-
 More formally, a committee election is the process of choosing a fixed-size subset of candidates (committee), 
 based on the voters' preferences. Voters' ballots (preferences) can be represented in various different ways.
+\textcolor{orange}{(WIP: Rozróżnić Single vs Multi winner)}
 In this work we are going to focus on approval elections, that is,
 on elections where each voter provides a subset of candidates that he or she approves of.
 Another notable type of committee elections is ordinal model,
@@ -44,14 +44,14 @@ Beginning with a notion of \textit{single-peaked} introduced by \cite{Black-sing
 and \textit{single-crossing} by \cite{mirrlees-single-crossing}.
 Arriving to much more recent work, \cite{DBLP:journals/corr/ElkindL15} explored well known restrictions in the setting of approval preferences, and
 introduced several new one-dimensional domain restriction models such as \textit{Voter Interval (VI)} and \textit{Candidate Interval (CI)},
-both based on the \textit{Dichotomous Euclidean} restriction. 
+both based on the \textit{Dichotomous Euclidean} restriction. \textcolor{orange}{(WIP: Opisać formalnie DE?)}
 \cite{falisz} improved this model by making it more versatile,
 due to using additional radius parameter and providing N-dimensional definition.
 \textcolor{orange}{(WIP: Jaki był aspekt uzupełnienia modeli euklidesowych? Czy tu jest za wcześnie na mówienie o promieniu?)}
 Calling the new model \textit{Voter Candidate Range (VCR)}, and later they analyzed two-dimensional case and briefly one-dimensional,
 for committee election problems.
 
-\subsubsection{\textcolor{orange}{(WIP: Bez tytułu?)} Contributions}
+\section{Contributions}
 In this work we focus on one-dimensional Voter Candidate Range model, and our main contributions are following:
 \begin{enumerate}
     \item We provide detection algorithm for VCR property, based on the ILP. 
