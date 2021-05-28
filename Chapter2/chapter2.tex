@@ -7,29 +7,39 @@
     \graphicspath{{Chapter2/Figs/Vector/}{Chapter2/Figs/}}
 \fi
 
-In this chapter,
-we introduce the definitions, notations, techniques and methods, used in this work.
+First we introduce basic definitions and core concepts
 
 \section{Basic Definitions}
 
 \subsubsection{Approval Elections}
 
-An approval-based election is a tuple $E = (C, V, A)$, where 
-$C = \{c_1,...,c_M\}$ is a set of $M$ candidates and 
-$V = \{v_1,...,v_N\}$ is a set of $N$ voters,
-and their preferences are represented as a set of vectors $A = \{A(v_1),...,A(v_N)\}$.
-Each vote (preference) $A(v_i)$ is a binary vector (an approval vector) of size $M$, i.e., 
-it consists only of $(1)$ or $(0)$ representing approval or disapproval of each candidate respectively.
+An approval-based election is a pair $E = (C, V)$, where 
+$C = \{c_1,...,c_M\}$ is a set of candidates and  $V = \{v_1,...,v_N\}$ is a set of voters.
+We use $M$ and $N$ for the number of candidates and voters respectively. 
+For each voter $v \in V$, his or hers preferences are represented as a set of approved candidates $A(v)$,
+we call it an \textit{approval set}.
+Furthermore, for each candidate $c \in C$, we define $V(c) = \{v \in V \:|\: c \in A(v)\}$,
+a set of voters who approve candidate $c$.
 
 In practice, we often use an additional, simplified notation of representing an election.
 We redefine $A$ as a two-dimensional binary matrix, with $N$ rows and $M$ columns,
 where value of $A[i][j]$ is $(1)$ if i-th voter approves of j-th candidate, and $(0)$ otherwise.
-\textcolor{orange}{(WIP: Jak definiować macierze?)}  
+In other words, each row of the matrix is a vector representation of a given voter's approval set.
+We refer to it as an \textit{approval matrix} or a \textit{preference matrix}.
 It will always be clear from the context which notation we are using.
+\textcolor{orange}{(WIP: Jak definiować macierze?)}
 
 \begin{example}
 \textcolor{orange}{(WIP: Opis wyborów + figura)}    
+Following the example from Figure \ref{fig:approval-election-example} ...
 \end{example}
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{approval-election.png}
+    \centering
+    \caption{Temporary Image - Example of An Approval Election \cite{lacknerSkowronAVOverview}}
+    \label{fig:approval-election-example}
+\end{figure}
 
 \subsubsection{Committee Selection Rules}
 
