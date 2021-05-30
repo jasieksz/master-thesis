@@ -1,0 +1,155 @@
+%!TEX root = ../thesis.tex
+%*******************************************************************************
+%*********************************** Fourth Chapter *****************************
+%*******************************************************************************
+
+\chapter{Voter/Candidate Range Profile Detection}  %Title of the First Chapter
+
+\ifpdf
+    \graphicspath{{Chapter3/Figs/Raster/}{Chapter3/Figs/PDF/}{Chapter3/Figs/}}
+\else
+    \graphicspath{{Chapter3/Figs/Vector/}{Chapter3/Figs/}}
+\fi
+
+% ========================================================================
+% VCR Profile Detection Algorithm
+% ========================================================================
+
+In this chapter we present our algorithms for deciding
+if a given approval profile has the VCR property.
+
+\section{Profile Structure Detection}
+To take advantage of the restrictions defined in Section \ref{pref-restrictions-section},
+we need to design detection algorithms. They can be used to check whether given election profiles
+satisfy particular structural properties.
+For example, to check the VR (CR) property it is enough to check for the \textit{consecutive ones property}
+in the preference matrix. 
+
+\begin{definition}
+A binary matrix (i.e., a matrix consisting of zeros and ones) has the consecutive ones property (C1P)
+if its columns be permuted in such a way that
+for each row the ones are consecutive, i.e., the 1s form an interval.
+\end{definition}
+
+In this work we refer to the term \textit{C1P} more broadly, using it interchangeably,
+for an analogous scenario where we permute the rows and look for the 
+consecutive 1s in every column in a given matrix.
+\cite{COP-PQTree} provided a linear-time C1P detection algorithm based on the PQ-Tree data structure.
+
+\begin{proposition}[\cite{DBLP:journals/corr/ElkindL15}]
+Deciding whether an approval profile satisfies VR or CR is possible in 
+$O(m \cdot n)$ time.
+\end{proposition}
+
+\begin{proof}
+Let $C = \{c_1,...,c_m\}$ and $V = \{v_1,...,v_n\}$,
+we create a $n \times m$ matrix A ($a_{ij}$): for each $i \in [n]$ and $j \in [m]$:
+$a_{ij} = 1$ if $c_j \in A(v_i)$ and $0$ otherwise.
+We can see that for the VR property, permuting the columns of matrix $A$ so that ones form an interval in each row is equivalent 
+to permuting candidates so that the set of candidates approved by each voter forms an interval.
+For the CR case, we just need to transpose the matrix created for the VR.
+\end{proof}
+
+Our focus lies on the one dimensional VCR property. 
+Having preference matrix as input we have to provide 
+for each agent (voter/candidate) a point on the real line 
+and a nonnegative real value representing radius,
+so that these parameters satisfy the VCR property.  
+
+\section{Integer Linear Program}
+An algorithm based on ILP solving is an excellent choice for the first attempt
+at designing a detection algorithm. It provides an efficient and relatively simple solution.
+Furthermore, it can be used as a fast benchmark for validating future solutions.
+Below we provide an ILP for the VCR profile recognition, together with additional preliminary steps.
+
+\subsubsection{Transforming the Definition of VCR into Linear Constraints}
+Before formulating an ILP for detecting VCR profiles,
+we have to redefine the definition of VCR in order to make it appropriate for an ILP solver.
+The definition is based on the euclidean distance which cannot be directly represented in an ILP.
+Equation \ref{vcr-to-linear-eq} shows transformation of the VCR definition into 
+linear inequalities.
+
+As a short reminder from Section \ref{VCR-definition}, 
+for the candidates $C$ and voters $V$, 1D-VCR is defined as:
+\begin{equation}\label{vcr-def-equation-ch4}
+\forall \text{ } c \in C \text{ } \forall \text{ } v \in V: c \in A(v) \Leftrightarrow |x_c - x_v| \leq r_c + r_v
+\end{equation}
+Where $x_a$ and $r_a$ represent agent's point on the real line and their radius respectively.
+
+\textcolor{orange}{(WIP: W jaki sposób mogę zwięźle,
+bez ponownego wpropadzania wszystkich oznaczeń, przypomieć definicję? O ile w ogóle jest to potrzebne...)}
+
+
+\begin{equation}\label{vcr-to-linear-eq}
+    \begin{split}
+     & |x_c - x_v| \leq r_c + r_v \\
+     & \iff -(r_c + r_v) \le x_c - x_v \le r_c + r_v \\
+     & \iff x_c - x_v \le r_c + r_v\ \ \lor \ \ -(x_c - x_v) \le r_c + r_v
+    \end{split}
+\end{equation}
+\text{(WIP: Poprawić formatowanie, jak?)}
+
+The constraint obtained from the equation \ref{vcr-to-linear-eq} 
+is not suitable yet for an ILP because it contains logical \textit{OR} condition
+which again cannot be directly represented in an ILP.
+To transform it into linear form, we apply commonly called \textit{BigM} technique,
+as shown below.
+
+\begin{equation}
+    \begin{split}
+    x_c - x_v \leq r_c + r_v + M(1 - z_1) \\
+    -(x_c - x_v) \leq r_c + r_v + M(1 - z_2) \\
+    z_1 + z_2 \geq 1 \\
+    z_1, z_2 \in \{0,1\} \\
+    \end{split}
+\end{equation}
+
+First, we have to introduce a large constant $M$ (larger than $max(|x|)$) and two binary variables $z_1$ and $z_2$.
+Now if any of the $z_i$ is $0$ then the corresponding inequality will be true,
+and the additional constraint ($z_1 + z_2 \geq 1$) guarantees that at least one of the $z_i$ will be $1$.
+
+
+\textcolor{orange}{(WIP: Trochę namieszane wytłumaczenie,
+bo tak naprawdę problem z $OR$ jest tylko dla wariantu
+$\text{if } c \notin A(v)$, czyli $x_c - x_v + M(1 - z)\geq r_c + r_v + 1$ ...)}
+
+The BigM technique is common enough, for most solvers to provide
+additional built-in mechanisms for applying it. 
+Using them is usually recommended, as it allows a solver for better internal optimization.
+In Gurobi solver we use \textit{indicator constraint},
+which allows one to create versatile constraints in form of:
+$z = f \rightarrow a^Tx \leq b$.
+The constraint states that if the binary indicator variable $z$
+is equal to $f$, where $f \in \{0,1\}$, then the linear constraint 
+$a^Tx \leq b$, where $a$ and $b$ are data coefficients vectors and $x$ represents the decision variables,
+should hold. On the other hand, if $z = 1-f$, the linear constraint may be violated.
+
+\textcolor{orange}{(WIP: BigM jest używane do reprezentacji różnych 'funkcji',
+nie tylko $OR$, np. $max$, $abs$, etc., czy też o tym wspomnieć?)}
+
+\subsubsection{Detection Algorithm} \label{vcr-detection-ilp-section}
+Final formulation of the ILP for recognising VCR property in a given election profile 
+is shown in Figure \ref{vcr-detection-ilp}.
+The program accepts preference matrix $A$ as input,
+and if solution exists it outputs every agent's position $x_a$ and radius $r_a$.
+Additionally, we use two binary variables $p$ and $q$, required by the indicator constraints.
+
+\begin{equation}\label{vcr-detection-ilp}
+\begin{aligned}
+    \mathbf{check } \text{ } \mathbf{feasibility:} & \\
+    \mathbf{subject } \text{ } \mathbf{to:} & \\
+    & x_a \in \mathbb{R} & & & \forall \text{ a} \in C \cup V & \\
+    & r_a \in \mathbb{R}^{0+} & & & \forall \text{ a} \in C \cup V & \\
+    & p_{cv} \in \{0,1\} & & & \forall \text{ c} \in \text{C } \forall \text{ v} \in V & \\
+    & q_{cv} \in \{0,1\} & & & \forall \text{ c} \in \text{C } \forall \text{ v} \in V & \\
+    \text{if } c \in A(v): & \\
+    & x_c - x_v \leq r_c + r_v & \\
+    & -(x_c - x_v) \leq r_c + r_v & \\
+    \text{if } c \notin A(v): & \\
+    & p_{cv} == 1 \rightarrow x_c - x_v \geq r_c + r_v + 1 & \\
+    & q_{cv} == 1 \rightarrow -(x_c - x_v) \geq r_c + r_v + 1 & \\
+    & p_{cv} + q_{cv} >= 1 &
+\end{aligned}
+\end{equation}
+
+\section{\textcolor{orange}{WIP: Consecutive Ones Detection — ILP vs SAT}} 

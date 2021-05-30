@@ -3,7 +3,7 @@
 %*********************************** First Chapter *****************************
 %*******************************************************************************
 
-\chapter{Voter/Candidate Range Profiles}  %Title of the First Chapter
+\chapter{Control Problem}  %Title of the First Chapter
 
 \ifpdf
     \graphicspath{{Chapter5/Figs/Raster/}{Chapter5/Figs/PDF/}{Chapter5/Figs/}}
@@ -11,245 +11,244 @@
     \graphicspath{{Chapter5/Figs/Vector/}{Chapter5/Figs/}}
 \fi
 
-% ===================================================
-% Voter Candidate Range Profiles
-% ===================================================
 
-In this section we explore the Voter/Candidate Range domain and describe some of its properties.
-The main goal is to compare the size of the domain with other well known domains
-such as Voter Range and Candidate Range. 
+%********************************** %First Section  **************************************
+\section{Overview} %Section - 1.1 
 
-\section{Domain analysis}
-\textcolor{orange}{WIP: Najpierw Napisać dlaczego / po co to robimy. Dopiero potem co / w jaki sposób.
-Chcemy sprawdzić czy warto wymyślać algorytmy 
-VCR i czy doemna jest znacząco większa od VR / CR}
+\subsection{AV-CC-DV for Single Peaked ~(VR = CI = row C1P = $r_c=0$)}
 
-We have performed several experiments, in each of them we check how many profiles have
-the VCR property but not VR neither CR. 
-For the first one we focus on the small size elections, and 
-for the second experiment we employ several strategies to generate random, larger profiles.
+Algorithm from \cite{control-sp-shield-faliszewski-hemaspaandra}
 
-\section{How many VCR profiles are not VR neither CR?}
+\begin{enumerate}
+    \item kandydat $p$ na osi, pozostali na lewo i prawo
+    \item wybór przeciwników (groźny kandydat): 
+    \begin{enumerate}
+        \item pierwszy na lewo $c_L$ i pierwszy na prawo $c_R$ takich, że $score(c_?) \geq score(p)$
+        \item powtarzamy dla kolejnych lewych $c_{L_{i}}$ takich, że $score(c_{L_{i}}) > score(c_{L_{i-1}})$
+        \item analogicznie dla prawych $c_{R_{i}}$ takich, że $score(c_{R_{i}}) > score(c_{R_{i-1}})$
+    \end{enumerate}
+    \item usuwanie głosów - zaczynając od najbliższego prawego przeciwnika $c_R$ (dla lewych - odbicie lustrzane)
+    \begin{enumerate}
+        \item notacja $v$: $b(v)$ początek przedziału (lewy) i $e(v)$ koniec przedziały (prawy)
+        \item wybieramy głosujących $\widehat{V}$ takich że $\{v \in V | \: b(v) \in (p,c_R]\}$
+        \item sortujemy $\widehat{V}$ malejąco po $e(v)$ (od najbardziej prawego końca przedziału)
+        \item usuwamy $scoreDelta(p, c_R) + 1$ głosów
+    \end{enumerate}
+    \item powtarzamy do skutu, przeliczając aprobaty co iterację
+\end{enumerate}
 
-\begin{definition}
-    A profile P is \textbf{Truly VCR (TVCR)}, only if P satisfies VCR property and does not satisfy VR and CR properties.
-\end{definition}
 
-\begin{definition}
-    A profile P is \textbf{Fully COP (FCOP)}, only if P satisfies VR and CR properties.
-\end{definition}
+\subsection{AV-CC-DV for Candidate Range = VI = column C1P = $r_v=0$}
 
-\subsection{Experiment 1 — Small Profiles}
-For the small profiles we did a complete search of the domain.
-That is we generated every possible profile of a given size and checked if it has the VCR property.
-We checked 6 dimensions of the elections with the following sizes, having $M$ candidates and $N$ voters,
-$(M,N) \in \{(3,3), (4,4), (5,5), (4,6), (6,4)\}$.
-The results as seen in Figure \ref{fig:small-statistics-barchart} show that
-VCR domain is relatively large, however, for these small election sizes, only limited number of profiles
-are Truly VCR (i.e., neither VR nor CR).
+Algorithm from \cite{control-cr-how-hard-magiera-faliszewski}
 
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{small-statistics-barchart.png}
+\begin{enumerate}
+    \item notacja CR dla $c$: $v_{f(c)}$ początek przedziału (lewy/górny) i $v_{e(c)}$ koniec przedziału (prawy/dolny)
+    \item kandydat $p$
+    \item Głosujący - wybieramy głosujących $V' = \{v \in V | \: p \notin A(v)\}$ 
+    \item Przeciwnicy -  wybieramy kandydatów $\widehat{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}$
+    \item Usuwanie głosów 
+    \begin{enumerate}
+        \item zaczynając od przeciwnika $c_N$ takiego, że $v_{e(c_N)}$ jest minimalne
+        \item usuwamy $deltaScore(c_N,p)+1$ głosów, zaczynając od końca przedziału $v_{e(c_{N})}$
+    \end{enumerate} 
+    \item powtarzamy do skutu, przeliczając $V'$ i $\widehat{C}$ co iterację
+\end{enumerate}
+
+%********************************** %Second Section  *************************************
+\section{AV-CC-DV for the VCR profiles}
+
+\begin{figure}[hbt!]
+    \includegraphics[width=0.9\linewidth]{ncop66-i77-p0.png}
     \centering
-    \caption{Temporary Image - Aggregated Statistics For Small Profiles}
-    \label{fig:small-statistics-barchart}
+    \caption{Temporary Image - VCR !C1P Election \\
+        yellow — candidate $p$ \\
+        red — opponents \\
+        lightblue — voters whitelist \\
+        darkblue — possible voters to delete \\
+        grey — agents that can be ignored            
+    }
+    \label{fig:ncop-cc-dv}
 \end{figure}
 
-\subsection{Experiment 2 — Large Profiles}
-For the larger size of the profiles we generated a suitable number of random VCR profiles
-and again checked how many of them are neither CR nor VR (\textit{TVCR}), and additionally, VR and CR (\textit{FCOP}),
-VR and not CR, CR and not VR.
-We employed several strategies for generating the profiles. 
-The first parameterized category is a statistical distribution used to pick the points representing voters and candidates.
-The second one is the choice of radius parameter. We describe the categories in detail below.
-For each parameter pair (in total 20 pairs) we generated 1000 elections with 20 candidates and 20 voters,
-then we repeated the experiment for the profiles consisting of 40 candidates and 40 voters.
- 
+Notation used in the algorithm and later in the proofs: \\
+$x_a$, $r_a$ — point and radius \\ 
+$b(a) = x_a - r_a$ — range beginning (left)\\
+$e(a) = x_a + r_a$ — range end (right) \\
+$p$ — candidate chosen to be a winner \\
+$\widehat{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}$ — opponents (dangerous candidates) \\
+$V' = \{v \in V | \: p \notin A(v)\}$ — potential voters to delete \\
 
-\subsubsection{Position Parameter}
-We consider 4 ways of generating the points, representing the positions of the candidates and the voters.
-
+\noindent We use “smart” greedy strategy for voter deletion:
 \begin{enumerate}
-    \item The \textit{Uniform Candidates, Uniform Voters} model,
-    where the points for both, the candidates and the voters are selected uniformly at random from the $[-10,10]$ range.
+    \item We pick a leftmost opponent $c_L$ that is the one with the minimal $b(c_L)$
+    \item We consider only voters who approve of $c_L$ that is, $\widehat{V} = \{v \in V' | \: c_L \in A(v)\}$
+    \item We need to delete $deltaScore(c_L,p)+1$ rightmost voters from $\widehat{V}$
+        that is the ones with the maximal $e(v)$, if it's not possible we fail
+    \item We repeat the above steps until we succeed, recalculating $\widehat{C}$ and $\widehat{V}$ after each iteration
+\end{enumerate}
+
+\subsection{Sketch Proof - CR case}
+We will show how the VCR algorithm is equivalent to the CR one from \cite{control-cr-how-hard-magiera-faliszewski}.
+Having voters in CR order, that is, they are still represented by a point $x_v$ on the $\mathbb{R}$ line but have radius $0$.
+Example in Figure \ref{fig:cr-cc-dv}.
+
+\begin{figure}[hbt!]
+    \includegraphics[width=0.8\linewidth]{ccP-p0.png}
+    \centering
+    \caption{Temporary Image - CR Election}
+    \label{fig:cr-cc-dv}
+\end{figure}
+
+\subsubsection{Choosing opponents}
+In the CR algorithm, we choose candidates to process, ordered by $v_{e(c)}$ ascending.
+We can see that it is equivalent to picking the leftmost ($min(b(c))$) candidate from the set of opponents $\widehat{C}$ in the VCR algorithm,
+because it will also have the minimal $v_{e(c)}$.
+
+There is a special case of "contained candidate", for which the above statement is not true.
+In Section \ref{sss:contained-candidate}, we explain in detail why it is irrelevant for the overall correctness of the algorithm.
+
+\subsubsection{Voter deletion}
+Now, once we now how to pick an opponent $c_L$, we will show that choosing voters is equivalent as well.
+Notion of the beginning/end of the interval in the CR order is equivalent to the left/right end of the range in the VCR setting.
+Both algorithms try to delete $scoreDelta(p,c_L) + 1$ voters,
+CR one starts deleting voters from the end of interval, while
+VCR does virtually the same by deleting the rightmost voter first ($max(e(v))$).
+
+\subsection{Sketch Proof - VR case}
+We will show how the VCR algorithm is equivalent to the VR one from \cite{control-sp-shield-faliszewski-hemaspaandra}.
+Having candidates in VR order, that is, they are still represented by a point $x_c$ on the $\mathbb{R}$ line but have radius $0$.
+Example in Figure \ref{fig:vr-cc-dv}.
+
+\begin{figure}[hbt!]
+    \includegraphics[width=0.8\linewidth]{vr77-i22-p0.png}
+    \centering
+    \caption{Temporary Image - VR Election}
+    \label{fig:vr-cc-dv}
+\end{figure}
+
+\subsubsection{Choosing opponents}
+VR algorithm picks dangerous candidates to the left and right of candidate $p$,
+however later it proceeds only with defeating the right ones.
+Once finished with them, it does the "mirror flip" of the universe to process candidates on the left side.
+Even though the VCR algorithm picks leftmost candidate, we will show it is equivalent to the VR strategy
+under some basic assumptions.
+
+Following example in Figure \ref{fig:vr-cc-dv},
+let's assume that candidate $p$ always will be the first candidate in the VR order,
+which is equivalent to being the leftmost in the VCR order.
+Then we can see that the VCR algorithm strategy of
+choosing the leftmost candidate as an opponent
+will be the same as the VR algorithm choosing the first candidate on the right side of $p$.
+In the example it would be candidate $c_1$.
+
+This assumption is correct because, having candidates in order $[c_L, \: p, \: c_R]$,
+if there was a voter $v$ who approved of $c_L$ and $c_R$ it would also have to approve of $p$ (because of the VR property),
+so we could not delete $v$ anyway.
+
+Now, expanding on the above, ...
+
+\textcolor{orange}{(WIP: Faktycznie taki dowód nie jest w 100\% przekonujący
+Mam 2 możliwości:
+1) Wprowadzić krork "universe flip" do algorytmu i wtedy na pewno działa.
+2) Zmienić argumentację i pokazać, że wybieranie najdalszego kandydat od p (najbardziej lewy po lewej stronie) też jest w porządku)}
+
+\subsubsection{Voter deletion}
+The reasoning here is very similar to the one in the voter deletion part of the CR proof.
+Both algorithms try to delete $scoreDelta(c,p) + 1$ voters. 
+VR algorithm starts deleting voters from the end of interval ($max(e(v))$).
+VCR one does virtually the same by deleting the rightmost voter first.
+
+\subsection{Sketch Proof - VCR (not C1P) case}
+Now we will show why our solution is correct in the general VCR setting, even when the profile does not have VR/CR property,
+example in Figure \ref{fig:ncop-cc-dv}. The proof is split into two stages, similarly to the previous ones.
+But first we will explain one special case of the election, that is worth examining.
+
+\subsubsection{Special case - contained candidates - alternative explanation}
+In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
+Every voter who would approve the smaller candidate would also approve the larger one, however not vice versa.
+For this case, our strategy of choosing voters to delete might seem suboptimal, at first glance. 
+
+\begin{figure}[H]
+    \includegraphics[width=0.3\linewidth]{sc-cc-stage-1.png}
+    \includegraphics[width=0.3\linewidth]{sc-cc-stage-2.png}
+    \includegraphics[width=0.3\linewidth]{sc-cc-stage-3.png}
+    \includegraphics[width=0.48\linewidth]{sc-cc-stage-4.png}
+    \includegraphics[width=0.48\linewidth]{sc-cc-stage-5.png}
+    \centering
+    \caption{Temporary Image - Special Case}
+    \label{fig:cc-s1}
+\end{figure}
+
+We explain the issue, starting with the example of the most basic election in Figure \ref{fig:cc-s1}.
+Stages 1 through 3 are trivial, in the subsequent stages we make the election more and more complex by adding new agents.
+Turning our attention to Stage 4, now both candidates $c_1$ and $c_2$ are dangerous, with scores 2 and 1 respectively.
+Candidate $p$ needs to defeat $c_2$ by one vote, and $c_1$ by two votes. 
+In Stage 5 we add multiple more voters ... 
+
+The core idea to solve our issue is understanding what types of the new votes we can add.
+Let's consider only the voters who approve of $c_1$ and/or $c_2$.
+\begin{enumerate}
+    \item A voter who approves only $c_1$ and not $c_2$,
+    in this case, $scoreDelta(p,c_1)$ would increase by 1, and $scoreDelta(p,c_2)$ would stay the same.
+    \item A voter who approves both $c_1$ and $c_2$, this time,
+    $scoreDelta(p,c_1)$ and $scoreDelta(p,c_2)$ would increase equally by 1.
+\end{enumerate}
+
+\begin{proposition}
+    Having external candidate $c_E$ and another internal one $c_I$, which is fully contained inside external's range.
     
-    \item The \textit{Asymmetric Gauss Candidates, Asymmetric Gauss Voters} model,
-    where we take 70\% of points from a Gaussian distribution with mean value $-3$ and standard deviation $1.8$,
-    and the remaining 30\% come from a Gaussian with mean $3$ and the same standard deviation. 
-    This model is inspired by the 2 dimensional model from the work of \cite{falisz}. 
-    The goal is to simulate the society with a large majority, and a minority with the opposite opinion. 
+    Let:
+    \begin{enumerate}
+        \item $K' = \{v \in \widehat{V} \: | \: v \in A(c_E) \land v \notin A(c_I)\}$.
+        \item $|K'| = scoreDelta(p,c_E) - scoreDelta(p,c_I)$.
+        \item $d(c) = score(c) - score(p) + 1$, i.e., how many voters we need to delete for $p$ to defeat $c$.
+    \end{enumerate}     
+    Then $|K'| \geq 0$ is always true, and the size of set $K'$ will be equal to the $d(c_E) - d(c_I)$
 
-    \item The \textit{Uniform Candidates, Asymmetric Gauss Voters} model,
-    it is a combination of the previous two models, where
-    the candidate's points are selected uniformly at random,
-    and for the voters we use asymmetric Gaussian model.
-    We use the same parameters for both of the distributions.
-
-    \item The \textit{Asymmetric Gauss Candidates, Uniform Voters} model,
-    it is mirror version of the previous model, with the distributions swapped.
-
-\end{enumerate}
-
-\subsubsection{Radius Parameter}
-In this category we consider 5 ways of generating the radii.
-We split the methods between the candidates and the voters, similarly to picking the positions.
-
-\begin{enumerate}
-    \item\label{enum:radius-gaus-gaus} The \textit{Gauss Candidates, Gauss Voters} model, 
-    where we choose the radii from the Gaussian distribution with mean value $1.5$ and standard deviation $0.5$
-    We use the same distribution for the candidates and the voters.
-
-    \item The \textit{Small Uniform Candidates, Gauss Voters} model.
-    We pick radii for the candidates uniformly at random from the range $[0.7,1.2]$,
-    and for the voters we use the same Gaussian, as in the previous model ($Gauss(1.5, 0.5)$).
-
-    \item The \textit{Gauss Candidates, Small Uniform Voters} model.
-    In this model we swap the distributions used in the previous one,
-    that is, the candidates are picked from the Gaussian and the voters from the uniform distributions.
-
-    \item\label{enum:suc-suv} The \textit{Small Uniform Candidates, Small Uniform Voters} model.
-    We pick radii for both the candidates and the voters, uniformly at random from the range $[0.7,1.2]$.
-
-    \item The \textit{Large Uniform Candidates, Large Uniform Voters} model.
-    We pick radii for both the candidates and the voters, uniformly at random from the range $[0,3]$.
-
-\end{enumerate}
-
-At first, it might be surprising why we don't include a constant radius, as one of the parameters.
-That is because, then all the profiles would be VR and CR (\textit{FCOP}),
-as we show in Proposition \ref{prop:vcr-constR-vrcr}.
-
-\begin{proposition}\label{prop:vcr-constR-vrcr}
-    If a profile $P$ satisfies VCR and every agent (candidate/voter) in the profile, has the same constant radius, then
-    $P$ satisfies both VR and CR properties. 
     \begin{proof}
-        Because. \textcolor{orange}{(WIP: Dokończyć, R=const --> 2 razy większy R kandydata i R=0 głosujacego, i vice versa)}
+        tbc. 
     \end{proof}
 \end{proposition}
 
-\subsubsection{Results}
-First, we present the visualization of our example election profiles,
-and how their visual structure is impacted by the generation parameters in Figure \ref{fig:20-20-examples-grid}.
-Later we analyze aggregated results of the experiment.
-Most of the conclusions we draw are inline with the basic intuition.
+\subsubsection{Special case - contained candidates} \label{sss:contained-candidate}
+In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
+Every voter who would approve the smaller candidate would also approve the larger one, however not vice versa.
+For this case, our strategy of choosing voters to delete might seem suboptimal, at first glance. 
+
+The example from Figure \ref{fig:contained-candidate} illustrates why we do not have to worry about this special case.
+Every contained voter will have as much or less total votes than the larger candidate, 
+he/she might not even be a dangerous candidate at all. 
+Now we see that in the process of defeating the larger candidate we will automatically defeat the smaller one.
 
 \begin{figure}[H]
-    \includegraphics[width=\linewidth]{20-20-examples-grid.png}
+    \includegraphics[width=0.8\linewidth]{cr-inclusive-counter.png}
     \centering
-    \caption{Temporary Image - Cols= R, Rows = X}
-    \label{fig:20-20-examples-grid}
+    \caption{Temporary Image - Special Case}
+    \label{fig:contained-candidate}
 \end{figure}
 
-\noindent \textbf{Election Dimensions} 
-\indent Our results for two election sizes have one crucial difference,
-looking briefly at Figure \ref{fig:20-20-statistics-barchart} (20 candidates, 20 voters)
-and Figure \ref{fig:40-40-statistics-barchart} (40 candidates, 40 voters), 
-we immediately see, that in the larger elections \textit{TVCR} property is much more frequent.
-\textcolor{orange}{(WIP: Napisać jakąś hipotezę, dlaczego tak się dzieje?)}
-Election sizes in the experiment are relatively small when compared to the real world scenarios.
-We can expect for this trend of increased number of \textit{TVCR} profiles to continue for even larger elections.
-This result is very promising, as it strongly encourages further development and research related to the VCR domain.
-\newline 
+\subsubsection{Choosing opponents}
+We consider only dangerous candidates (opponents), that is the ones with score higher or equal to the score of $p$.
+We process opponents one by one, starting with the one who has the leftmost beginning of the range, i.e., $min(b(c))$.
+After each iteration, we recompute the set of dangerous candidates.
+Thanks to this we are sure that all the steps we perform are necessary to find a solution (if it exists), hence optimal.
 
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{20-20-statistics-barchart.png}
-    \centering
-    \caption{Temporary Image - 20C 20V Aggregated Statistics}
-    \label{fig:20-20-statistics-barchart}
-\end{figure}
+\subsubsection{Voter deletion}
+Having currently processed opponent $c_L$, we consider only the voters who approve of him/her and do not approve of $p$,
+that is the voters whose range beginning is inside the candidate's range $\{v \in V' \: | \: b(v) \in [b(c_L), e(c_L)]\}$.
+We need to delete $scoreDelta(c_L,p) + 1$ voters to defeat the opponent.
+By picking the voters in order of the rightmost end of the range, i.e., $v_R = max(e(v))$,
+we try to maximize the number of other candidates who might be in the range $[b(v_R), e(v_R)]$.
+We don't have to worry about any candidate to the left,
+because of our leftmost candidate picking strategy, they are already defeated.
+This strategy ensures the solution is optimal if it exists.
 
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{40-40-statistics-barchart.png}
-    \centering
-    \caption{Temporary Image - 40C 40V Aggregated Statistics}
-    \label{fig:40-40-statistics-barchart}
-\end{figure}
-
-In the subsequent paragraphs we will focus mostly on the results for smaller elections from
-Figure \ref{fig:20-20-statistics-barchart}, but only because the differences between the parameters are more pronounced.
-\newline
-
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{20-20-statistics-barchart-GG.png}
-    \centering
-    \caption{Temporary Image - Selected Histogram - Double Gauss Radius Aggregated Statistics}
-    \label{fig:20-20-GG-barchart}
-\end{figure}
-
-\noindent \textbf{Position Choice} \indent We will analyze Figure \ref{fig:20-20-GG-barchart} — histogram
-for the \textbf{\textit{Gauss Candidates, Gauss Voters}} radius model,
-as this model exhibits the most neutral behavior. It will be our baseline scenario. We can compare position models in pairs. 
-Starting with \textit{Uniform Candidates, Uniform Voters} and \textit{Asymmetric Gauss Candidates, Asymmetric Gauss Voters} models.
-The double Gauss model has noticeably more \textit{TVCR} profiles.
-It can be easily explained by looking at the respective preference matrix heatmaps in Figure \ref{fig:20-20-examples-grid}.
-The profiles generated from the double Gauss model have higher count of approvals,
-which in turn increases the likelihood of any irregularities in the approvals block structure, which is directly linked to the \textit{TVCR} property.   
-\textcolor{orange}{(WIP: lepiej wyjaśnić, mam na myśli "dziury" w blokach jedynek w macierzy)}
-
-Now turning our attention to the second pair of the position models (still for the same radius model),
-\textit{Uniform Candidates, Asymmetric Gauss Voters} and \textit{Asymmetric Gauss Candidates, Uniform Voters}.
-These are two perfectly symmetrical models, we will explain only the first one, and keep in mind that the second one is simply a reversed scenario.
-Looking at the heatmaps again, we notice that the blocks of approvals are skewed horizontally,
-which is associated with the VR property, i.e., the ones form and interval in each row of the approval matrix.
-On the contrary, in the second model, the blocks are skewed vertically, which links to the CR property.
-\newline
-
-\noindent \textbf{Radius Choice} \indent From Figure \ref{fig:20-20-statistics-barchart} it is clear that the choice of radius
-can significantly reinforce or subside trends (in the profiles properties statistics) resulting from the position choice.
-For example, the mixed radius models, i.e., \textit{Small Uniform Candidates, Gauss Voters} and \textit{Gauss Candidates, Small Uniform Voters}.
-In particular, these models increase occurrence of profiles with VR or CR properties.
-The core idea behind this phenomenon is exactly the same as the one described above, for the mixed position models (Uniform, Gauss),
-where the blocks of approvals are skewed, either horizontally or vertically, resulting in the increased number of VR or CR profiles respectively.
-
-The striking difference between histograms for
-\textit{Small Uniform Candidates, Small Uniform Voters} and \textit{Large Uniform Candidates, Large Uniform Voters}
-is again related to the inconsistencies in the approval blocks, which are easily observed in the heatmaps. 
-Smaller radius range produces much more structured profiles, hence large number of the \textit{FCOP} profiles.
-In contrast, large radius range outputs irregular approval blocks in the profiles, increasing number of the \textit{TVCR} profiles.
-\newline
-
-\noindent \textbf{Summary} \indent
-The results are very promising, we showed that the \textit{VCR} domain can be significantly larger than \textit{VR} and \textit{CR} combined.
-We hope, this will encourage further development and research related to the VCR domain.
-
-
-\section{Transforming a Truly VCR Profile into VR or CR one}
-A natural question that arises from the previous experiment results, 
-is how different are the TVCR profiles from the VR or CR ones? 
-In other words, how much do we need to change a TVCR profile for it to become a VR or CR one. 
-To answer this question, we design another experiment.
-
-\subsection{Experiment 3 — Profile Transformation}
-In this experiment, we partially reuse profiles generated for the previous one.
-We narrow down our experiment parameters to only two radius generation methods,
-that is, first model \textit{Gauss Candidates, Gauss Voters} and second \textit{Large Uniform Candidates, Large Uniform Voters}.
-We keep the position models unchanged, and we explore all four of them.
-Obviously we only pick the TVCR profiles, to be exact, we use 400 of them for each parameter pair.
-Due to limited computational resources, we chose to only use the profiles consisting of 20 candidates and 20 voters.
-\newline
-
-\noindent \textbf{Agent Deletion Parameter} \indent We consider 3 methods to transform a TVCR profile into a VR or CR one.
+%********************************** %Third Section  *************************************
+\section{AV-CC-AV for the VCR profiles}
+Our strategy is based on the solution from \cite{control-cr-how-hard-magiera-faliszewski}.
 \begin{enumerate}
-    \item The \textit{Candidate Deletion} method, 
-    where we search for a minimal number $d$,
-    such that, after deleting $d$ candidates from the profile it becomes a VR or CR profile.
-
-    \item The \textit{Voter Deletion} method, 
-    which is similar to the \textit{Candidate Deletion} method, but this time we delete $d$ voters instead.
-
-    \item The \textit{Candidate and Voter Deletion} method, 
-    where we combine the two previous methods, and we simultaneously delete $d_c$ candidates and $d_v$ voters.
+    \item Add all $v \in W$ to the election
+    \item Is $p$ the winner?
+    \item Try to delete $k' = |W| - k$ voters 
 \end{enumerate}
-
-
-\noindent \textbf{Transformation Result Parameter} \indent Apart from choosing what type of agent (candidate / voter) to delete,
-for each profile we collect the transformation results into 3 groups.
-By the transformation result we mean the lowest possible cost of the transformation,
-i.e., the minimal number of agent deletions for a TVCR profile to become a VR or CR one.
-\begin{enumerate}
-    \item The \textit{Candidate Range}, where the cost is a number of deletions required to get a CR profile.
-    \item The \textit{Voter Range}, where the cost is a number of deletions required to get a VR profile.
-    \item The \textit{Candidate Range or Voter Range}, where the cost is a minimum from the previous two groups. 
-\end{enumerate}
-
-\subsubsection{Results}

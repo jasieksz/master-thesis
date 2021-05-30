@@ -1,9 +1,9 @@
 %!TEX root = ../thesis.tex
 %*******************************************************************************
-%*********************************** Fourth Chapter *****************************
+%*********************************** First Chapter *****************************
 %*******************************************************************************
 
-\chapter{Voter/Candidate Range Profile Detection}  %Title of the First Chapter
+\chapter{Voter/Candidate Range Profiles}  %Title of the First Chapter
 
 \ifpdf
     \graphicspath{{Chapter4/Figs/Raster/}{Chapter4/Figs/PDF/}{Chapter4/Figs/}}
@@ -11,145 +11,245 @@
     \graphicspath{{Chapter4/Figs/Vector/}{Chapter4/Figs/}}
 \fi
 
-% ========================================================================
-% VCR Profile Detection Algorithm
-% ========================================================================
+% ===================================================
+% Voter Candidate Range Profiles
+% ===================================================
 
-In this chapter we present our algorithms for deciding
-if a given approval profile has the VCR property.
+In this section we explore the Voter/Candidate Range domain and describe some of its properties.
+The main goal is to compare the size of the domain with other well known domains
+such as Voter Range and Candidate Range. 
 
-\section{Profile Structure Detection}
-To take advantage of the restrictions defined in Section \ref{pref-restrictions-section},
-we need to design detection algorithms. They can be used to check whether given election profiles
-satisfy particular structural properties.
-For example, to check the VR (CR) property it is enough to check for the \textit{consecutive ones property}
-in the preference matrix. 
+\section{Domain analysis}
+\textcolor{orange}{WIP: Najpierw Napisać dlaczego / po co to robimy. Dopiero potem co / w jaki sposób.
+Chcemy sprawdzić czy warto wymyślać algorytmy 
+VCR i czy doemna jest znacząco większa od VR / CR}
+
+We have performed several experiments, in each of them we check how many profiles have
+the VCR property but not VR neither CR. 
+For the first one we focus on the small size elections, and 
+for the second experiment we employ several strategies to generate random, larger profiles.
+
+\section{How many VCR profiles are not VR neither CR?}
 
 \begin{definition}
-A binary matrix (i.e., a matrix consisting of zeros and ones) has the consecutive ones property (C1P)
-if its columns be permuted in such a way that
-for each row the ones are consecutive, i.e., the 1s form an interval.
+    A profile P is \textbf{Truly VCR (TVCR)}, only if P satisfies VCR property and does not satisfy VR and CR properties.
 \end{definition}
 
-In this work we refer to the term \textit{C1P} more broadly, using it interchangeably,
-for an analogous scenario where we permute the rows and look for the 
-consecutive 1s in every column in a given matrix.
-\cite{COP-PQTree} provided a linear-time C1P detection algorithm based on the PQ-Tree data structure.
+\begin{definition}
+    A profile P is \textbf{Fully COP (FCOP)}, only if P satisfies VR and CR properties.
+\end{definition}
 
-\begin{proposition}[\cite{DBLP:journals/corr/ElkindL15}]
-Deciding whether an approval profile satisfies VR or CR is possible in 
-$O(m \cdot n)$ time.
+\subsection{Experiment 1 — Small Profiles}
+For the small profiles we did a complete search of the domain.
+That is we generated every possible profile of a given size and checked if it has the VCR property.
+We checked 6 dimensions of the elections with the following sizes, having $M$ candidates and $N$ voters,
+$(M,N) \in \{(3,3), (4,4), (5,5), (4,6), (6,4)\}$.
+The results as seen in Figure \ref{fig:small-statistics-barchart} show that
+VCR domain is relatively large, however, for these small election sizes, only limited number of profiles
+are Truly VCR (i.e., neither VR nor CR).
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{small-statistics-barchart.png}
+    \centering
+    \caption{Temporary Image - Aggregated Statistics For Small Profiles}
+    \label{fig:small-statistics-barchart}
+\end{figure}
+
+\subsection{Experiment 2 — Large Profiles}
+For the larger size of the profiles we generated a suitable number of random VCR profiles
+and again checked how many of them are neither CR nor VR (\textit{TVCR}), and additionally, VR and CR (\textit{FCOP}),
+VR and not CR, CR and not VR.
+We employed several strategies for generating the profiles. 
+The first parameterized category is a statistical distribution used to pick the points representing voters and candidates.
+The second one is the choice of radius parameter. We describe the categories in detail below.
+For each parameter pair (in total 20 pairs) we generated 1000 elections with 20 candidates and 20 voters,
+then we repeated the experiment for the profiles consisting of 40 candidates and 40 voters.
+ 
+
+\subsubsection{Position Parameter}
+We consider 4 ways of generating the points, representing the positions of the candidates and the voters.
+
+\begin{enumerate}
+    \item The \textit{Uniform Candidates, Uniform Voters} model,
+    where the points for both, the candidates and the voters are selected uniformly at random from the $[-10,10]$ range.
+    
+    \item The \textit{Asymmetric Gauss Candidates, Asymmetric Gauss Voters} model,
+    where we take 70\% of points from a Gaussian distribution with mean value $-3$ and standard deviation $1.8$,
+    and the remaining 30\% come from a Gaussian with mean $3$ and the same standard deviation. 
+    This model is inspired by the 2 dimensional model from the work of \cite{falisz}. 
+    The goal is to simulate the society with a large majority, and a minority with the opposite opinion. 
+
+    \item The \textit{Uniform Candidates, Asymmetric Gauss Voters} model,
+    it is a combination of the previous two models, where
+    the candidate's points are selected uniformly at random,
+    and for the voters we use asymmetric Gaussian model.
+    We use the same parameters for both of the distributions.
+
+    \item The \textit{Asymmetric Gauss Candidates, Uniform Voters} model,
+    it is mirror version of the previous model, with the distributions swapped.
+
+\end{enumerate}
+
+\subsubsection{Radius Parameter}
+In this category we consider 5 ways of generating the radii.
+We split the methods between the candidates and the voters, similarly to picking the positions.
+
+\begin{enumerate}
+    \item\label{enum:radius-gaus-gaus} The \textit{Gauss Candidates, Gauss Voters} model, 
+    where we choose the radii from the Gaussian distribution with mean value $1.5$ and standard deviation $0.5$
+    We use the same distribution for the candidates and the voters.
+
+    \item The \textit{Small Uniform Candidates, Gauss Voters} model.
+    We pick radii for the candidates uniformly at random from the range $[0.7,1.2]$,
+    and for the voters we use the same Gaussian, as in the previous model ($Gauss(1.5, 0.5)$).
+
+    \item The \textit{Gauss Candidates, Small Uniform Voters} model.
+    In this model we swap the distributions used in the previous one,
+    that is, the candidates are picked from the Gaussian and the voters from the uniform distributions.
+
+    \item\label{enum:suc-suv} The \textit{Small Uniform Candidates, Small Uniform Voters} model.
+    We pick radii for both the candidates and the voters, uniformly at random from the range $[0.7,1.2]$.
+
+    \item The \textit{Large Uniform Candidates, Large Uniform Voters} model.
+    We pick radii for both the candidates and the voters, uniformly at random from the range $[0,3]$.
+
+\end{enumerate}
+
+At first, it might be surprising why we don't include a constant radius, as one of the parameters.
+That is because, then all the profiles would be VR and CR (\textit{FCOP}),
+as we show in Proposition \ref{prop:vcr-constR-vrcr}.
+
+\begin{proposition}\label{prop:vcr-constR-vrcr}
+    If a profile $P$ satisfies VCR and every agent (candidate/voter) in the profile, has the same constant radius, then
+    $P$ satisfies both VR and CR properties. 
+    \begin{proof}
+        Because. \textcolor{orange}{(WIP: Dokończyć, R=const --> 2 razy większy R kandydata i R=0 głosujacego, i vice versa)}
+    \end{proof}
 \end{proposition}
 
-\begin{proof}
-Let $C = \{c_1,...,c_m\}$ and $V = \{v_1,...,v_n\}$,
-we create a $n \times m$ matrix A ($a_{ij}$): for each $i \in [n]$ and $j \in [m]$:
-$a_{ij} = 1$ if $c_j \in A(v_i)$ and $0$ otherwise.
-We can see that for the VR property, permuting the columns of matrix $A$ so that ones form an interval in each row is equivalent 
-to permuting candidates so that the set of candidates approved by each voter forms an interval.
-For the CR case, we just need to transpose the matrix created for the VR.
-\end{proof}
+\subsubsection{Results}
+First, we present the visualization of our example election profiles,
+and how their visual structure is impacted by the generation parameters in Figure \ref{fig:20-20-examples-grid}.
+Later we analyze aggregated results of the experiment.
+Most of the conclusions we draw are inline with the basic intuition.
 
-Our focus lies on the one dimensional VCR property. 
-Having preference matrix as input we have to provide 
-for each agent (voter/candidate) a point on the real line 
-and a nonnegative real value representing radius,
-so that these parameters satisfy the VCR property.  
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{20-20-examples-grid.png}
+    \centering
+    \caption{Temporary Image - Cols= R, Rows = X}
+    \label{fig:20-20-examples-grid}
+\end{figure}
 
-\section{Integer Linear Program}
-An algorithm based on ILP solving is an excellent choice for the first attempt
-at designing a detection algorithm. It provides an efficient and relatively simple solution.
-Furthermore, it can be used as a fast benchmark for validating future solutions.
-Below we provide an ILP for the VCR profile recognition, together with additional preliminary steps.
+\noindent \textbf{Election Dimensions} 
+\indent Our results for two election sizes have one crucial difference,
+looking briefly at Figure \ref{fig:20-20-statistics-barchart} (20 candidates, 20 voters)
+and Figure \ref{fig:40-40-statistics-barchart} (40 candidates, 40 voters), 
+we immediately see, that in the larger elections \textit{TVCR} property is much more frequent.
+\textcolor{orange}{(WIP: Napisać jakąś hipotezę, dlaczego tak się dzieje?)}
+Election sizes in the experiment are relatively small when compared to the real world scenarios.
+We can expect for this trend of increased number of \textit{TVCR} profiles to continue for even larger elections.
+This result is very promising, as it strongly encourages further development and research related to the VCR domain.
+\newline 
 
-\subsubsection{Transforming the Definition of VCR into Linear Constraints}
-Before formulating an ILP for detecting VCR profiles,
-we have to redefine the definition of VCR in order to make it appropriate for an ILP solver.
-The definition is based on the euclidean distance which cannot be directly represented in an ILP.
-Equation \ref{vcr-to-linear-eq} shows transformation of the VCR definition into 
-linear inequalities.
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{20-20-statistics-barchart.png}
+    \centering
+    \caption{Temporary Image - 20C 20V Aggregated Statistics}
+    \label{fig:20-20-statistics-barchart}
+\end{figure}
 
-As a short reminder from Section \ref{VCR-definition}, 
-for the candidates $C$ and voters $V$, 1D-VCR is defined as:
-\begin{equation}\label{vcr-def-equation-ch4}
-\forall \text{ } c \in C \text{ } \forall \text{ } v \in V: c \in A(v) \Leftrightarrow |x_c - x_v| \leq r_c + r_v
-\end{equation}
-Where $x_a$ and $r_a$ represent agent's point on the real line and their radius respectively.
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{40-40-statistics-barchart.png}
+    \centering
+    \caption{Temporary Image - 40C 40V Aggregated Statistics}
+    \label{fig:40-40-statistics-barchart}
+\end{figure}
 
-\textcolor{orange}{(WIP: W jaki sposób mogę zwięźle,
-bez ponownego wpropadzania wszystkich oznaczeń, przypomieć definicję? O ile w ogóle jest to potrzebne...)}
+In the subsequent paragraphs we will focus mostly on the results for smaller elections from
+Figure \ref{fig:20-20-statistics-barchart}, but only because the differences between the parameters are more pronounced.
+\newline
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{20-20-statistics-barchart-GG.png}
+    \centering
+    \caption{Temporary Image - Selected Histogram - Double Gauss Radius Aggregated Statistics}
+    \label{fig:20-20-GG-barchart}
+\end{figure}
+
+\noindent \textbf{Position Choice} \indent We will analyze Figure \ref{fig:20-20-GG-barchart} — histogram
+for the \textbf{\textit{Gauss Candidates, Gauss Voters}} radius model,
+as this model exhibits the most neutral behavior. It will be our baseline scenario. We can compare position models in pairs. 
+Starting with \textit{Uniform Candidates, Uniform Voters} and \textit{Asymmetric Gauss Candidates, Asymmetric Gauss Voters} models.
+The double Gauss model has noticeably more \textit{TVCR} profiles.
+It can be easily explained by looking at the respective preference matrix heatmaps in Figure \ref{fig:20-20-examples-grid}.
+The profiles generated from the double Gauss model have higher count of approvals,
+which in turn increases the likelihood of any irregularities in the approvals block structure, which is directly linked to the \textit{TVCR} property.   
+\textcolor{orange}{(WIP: lepiej wyjaśnić, mam na myśli "dziury" w blokach jedynek w macierzy)}
+
+Now turning our attention to the second pair of the position models (still for the same radius model),
+\textit{Uniform Candidates, Asymmetric Gauss Voters} and \textit{Asymmetric Gauss Candidates, Uniform Voters}.
+These are two perfectly symmetrical models, we will explain only the first one, and keep in mind that the second one is simply a reversed scenario.
+Looking at the heatmaps again, we notice that the blocks of approvals are skewed horizontally,
+which is associated with the VR property, i.e., the ones form and interval in each row of the approval matrix.
+On the contrary, in the second model, the blocks are skewed vertically, which links to the CR property.
+\newline
+
+\noindent \textbf{Radius Choice} \indent From Figure \ref{fig:20-20-statistics-barchart} it is clear that the choice of radius
+can significantly reinforce or subside trends (in the profiles properties statistics) resulting from the position choice.
+For example, the mixed radius models, i.e., \textit{Small Uniform Candidates, Gauss Voters} and \textit{Gauss Candidates, Small Uniform Voters}.
+In particular, these models increase occurrence of profiles with VR or CR properties.
+The core idea behind this phenomenon is exactly the same as the one described above, for the mixed position models (Uniform, Gauss),
+where the blocks of approvals are skewed, either horizontally or vertically, resulting in the increased number of VR or CR profiles respectively.
+
+The striking difference between histograms for
+\textit{Small Uniform Candidates, Small Uniform Voters} and \textit{Large Uniform Candidates, Large Uniform Voters}
+is again related to the inconsistencies in the approval blocks, which are easily observed in the heatmaps. 
+Smaller radius range produces much more structured profiles, hence large number of the \textit{FCOP} profiles.
+In contrast, large radius range outputs irregular approval blocks in the profiles, increasing number of the \textit{TVCR} profiles.
+\newline
+
+\noindent \textbf{Summary} \indent
+The results are very promising, we showed that the \textit{VCR} domain can be significantly larger than \textit{VR} and \textit{CR} combined.
+We hope, this will encourage further development and research related to the VCR domain.
 
 
-\begin{equation}\label{vcr-to-linear-eq}
-    \begin{split}
-     & |x_c - x_v| \leq r_c + r_v \\
-     & \iff -(r_c + r_v) \le x_c - x_v \le r_c + r_v \\
-     & \iff x_c - x_v \le r_c + r_v\ \ \lor \ \ -(x_c - x_v) \le r_c + r_v
-    \end{split}
-\end{equation}
-\text{(WIP: Poprawić formatowanie, jak?)}
+\section{Transforming a Truly VCR Profile into VR or CR one}
+A natural question that arises from the previous experiment results, 
+is how different are the TVCR profiles from the VR or CR ones? 
+In other words, how much do we need to change a TVCR profile for it to become a VR or CR one. 
+To answer this question, we design another experiment.
 
-The constraint obtained from the equation \ref{vcr-to-linear-eq} 
-is not suitable yet for an ILP because it contains logical \textit{OR} condition
-which again cannot be directly represented in an ILP.
-To transform it into linear form, we apply commonly called \textit{BigM} technique,
-as shown below.
+\subsection{Experiment 3 — Profile Transformation}
+In this experiment, we partially reuse profiles generated for the previous one.
+We narrow down our experiment parameters to only two radius generation methods,
+that is, first model \textit{Gauss Candidates, Gauss Voters} and second \textit{Large Uniform Candidates, Large Uniform Voters}.
+We keep the position models unchanged, and we explore all four of them.
+Obviously we only pick the TVCR profiles, to be exact, we use 400 of them for each parameter pair.
+Due to limited computational resources, we chose to only use the profiles consisting of 20 candidates and 20 voters.
+\newline
 
-\begin{equation}
-    \begin{split}
-    x_c - x_v \leq r_c + r_v + M(1 - z_1) \\
-    -(x_c - x_v) \leq r_c + r_v + M(1 - z_2) \\
-    z_1 + z_2 \geq 1 \\
-    z_1, z_2 \in \{0,1\} \\
-    \end{split}
-\end{equation}
+\noindent \textbf{Agent Deletion Parameter} \indent We consider 3 methods to transform a TVCR profile into a VR or CR one.
+\begin{enumerate}
+    \item The \textit{Candidate Deletion} method, 
+    where we search for a minimal number $d$,
+    such that, after deleting $d$ candidates from the profile it becomes a VR or CR profile.
 
-First, we have to introduce a large constant $M$ (larger than $max(|x|)$) and two binary variables $z_1$ and $z_2$.
-Now if any of the $z_i$ is $0$ then the corresponding inequality will be true,
-and the additional constraint ($z_1 + z_2 \geq 1$) guarantees that at least one of the $z_i$ will be $1$.
+    \item The \textit{Voter Deletion} method, 
+    which is similar to the \textit{Candidate Deletion} method, but this time we delete $d$ voters instead.
+
+    \item The \textit{Candidate and Voter Deletion} method, 
+    where we combine the two previous methods, and we simultaneously delete $d_c$ candidates and $d_v$ voters.
+\end{enumerate}
 
 
-\textcolor{orange}{(WIP: Trochę namieszane wytłumaczenie,
-bo tak naprawdę problem z $OR$ jest tylko dla wariantu
-$\text{if } c \notin A(v)$, czyli $x_c - x_v + M(1 - z)\geq r_c + r_v + 1$ ...)}
+\noindent \textbf{Transformation Result Parameter} \indent Apart from choosing what type of agent (candidate / voter) to delete,
+for each profile we collect the transformation results into 3 groups.
+By the transformation result we mean the lowest possible cost of the transformation,
+i.e., the minimal number of agent deletions for a TVCR profile to become a VR or CR one.
+\begin{enumerate}
+    \item The \textit{Candidate Range}, where the cost is a number of deletions required to get a CR profile.
+    \item The \textit{Voter Range}, where the cost is a number of deletions required to get a VR profile.
+    \item The \textit{Candidate Range or Voter Range}, where the cost is a minimum from the previous two groups. 
+\end{enumerate}
 
-The BigM technique is common enough, for most solvers to provide
-additional built-in mechanisms for applying it. 
-Using them is usually recommended, as it allows a solver for better internal optimization.
-In Gurobi solver we use \textit{indicator constraint},
-which allows one to create versatile constraints in form of:
-$z = f \rightarrow a^Tx \leq b$.
-The constraint states that if the binary indicator variable $z$
-is equal to $f$, where $f \in \{0,1\}$, then the linear constraint 
-$a^Tx \leq b$, where $a$ and $b$ are data coefficients vectors and $x$ represents the decision variables,
-should hold. On the other hand, if $z = 1-f$, the linear constraint may be violated.
-
-\textcolor{orange}{(WIP: BigM jest używane do reprezentacji różnych 'funkcji',
-nie tylko $OR$, np. $max$, $abs$, etc., czy też o tym wspomnieć?)}
-
-\subsubsection{Detection Algorithm} \label{vcr-detection-ilp-section}
-Final formulation of the ILP for recognising VCR property in a given election profile 
-is shown in Figure \ref{vcr-detection-ilp}.
-The program accepts preference matrix $A$ as input,
-and if solution exists it outputs every agent's position $x_a$ and radius $r_a$.
-Additionally, we use two binary variables $p$ and $q$, required by the indicator constraints.
-
-\begin{equation}\label{vcr-detection-ilp}
-\begin{aligned}
-    \mathbf{check } \text{ } \mathbf{feasibility:} & \\
-    \mathbf{subject } \text{ } \mathbf{to:} & \\
-    & x_a \in \mathbb{R} & & & \forall \text{ a} \in C \cup V & \\
-    & r_a \in \mathbb{R}^{0+} & & & \forall \text{ a} \in C \cup V & \\
-    & p_{cv} \in \{0,1\} & & & \forall \text{ c} \in \text{C } \forall \text{ v} \in V & \\
-    & q_{cv} \in \{0,1\} & & & \forall \text{ c} \in \text{C } \forall \text{ v} \in V & \\
-    \text{if } c \in A(v): & \\
-    & x_c - x_v \leq r_c + r_v & \\
-    & -(x_c - x_v) \leq r_c + r_v & \\
-    \text{if } c \notin A(v): & \\
-    & p_{cv} == 1 \rightarrow x_c - x_v \geq r_c + r_v + 1 & \\
-    & q_{cv} == 1 \rightarrow -(x_c - x_v) \geq r_c + r_v + 1 & \\
-    & p_{cv} + q_{cv} >= 1 &
-\end{aligned}
-\end{equation}
-
-\section{\textcolor{orange}{WIP: Consecutive Ones Detection — ILP vs SAT}} 
+\subsubsection{Results}
