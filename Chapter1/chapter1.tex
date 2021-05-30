@@ -22,7 +22,7 @@ we maximize the number of participants, even though, the selected time might not
 In sports competitions, especially in the seasonal ones, i.e., the ones consisting of series of events,
 we need to come up with a strategy of calculating overall ranking at the end of the season,
 based on the aggregated results from the single events.
-For example, in FIS Alpine Ski World Cup, or Formula 1 World Championship,
+For example, in FIS Alpine Ski World Cup, or in Formula 1 World Championship,
 the overall winners achieve very high scores consistently throughout the season,
 but might not have necessarily achieved the highest scores (1st place) in the majority of the individual events.
 
@@ -69,13 +69,17 @@ These models provided a basis for numerous and promising results in circumventin
 
 However, in the context of this work we need to emphasize a survey by \cite{DBLP:journals/corr/ElkindL15}.
 Unlike most of the above-mentioned examples, which considered the ordinal model of preferences,
-the survey explored well known preference restrictions in the setting of approval preferences. 
-Besides that, it introduced several new one-dimensional domain restriction models such as \textit{Voter Interval (VI)} and \textit{Candidate Interval (CI)},
-both based on the \textit{Dichotomous Euclidean (DE)} restriction. \textcolor{orange}{(WIP: Opisać formalnie DE?)}
-\cite{falisz} improved this model by making it more versatile,
-due to using additional radius parameter and providing N-dimensional definition.
-\textcolor{orange}{(WIP: Jaki był aspekt uzupełnienia modeli euklidesowych? Czy tu jest za wcześnie na mówienie o promieniu?)}
-Calling the new model \textit{Voter Candidate Range (VCR)}, and later they analyzed two-dimensional case and briefly one-dimensional,
+the survey explored well-known preference restrictions in the setting of approval preferences and,
+introduced several new ones. This includes models such as \textit{Voter Interval (VI)} and \textit{Candidate Interval (CI)},
+both based on the \textit{Dichotomous Euclidean (DE)} restriction.
+Euclidean models are very intuitive, a simplified explanation of such model, is that,
+each candidate and each voter is assigned an ideal point in some Euclidean space $\mathbb{R}^{d}$,
+this point represents their opinion on some $d$ issues.
+The points are assigned in such a way, that voters prefer the candidates that are closer to them.
+\cite{faliszewski-vcr} extended this model, making it more versatile,
+by using a radius in addition to a point, to represent candidates and voters opinions.
+\cite{faliszewski-vcr} named the new model a \textit{Voter/Candidate Range (VCR)} model,
+and later analyzed the two-dimensional case and briefly the one-dimensional one,
 for committee election problems.
 
 \section{Contributions}
