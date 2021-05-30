@@ -83,16 +83,25 @@ and later analyzed the two-dimensional case and briefly the one-dimensional one,
 for committee election problems.
 
 \section{Contributions}
-In this work we focus on one-dimensional Voter Candidate Range model, and our main contributions are following:
+In this work we focus on the one-dimensional Voter/Candidate Range model and our main contributions are as follows:
 \begin{enumerate}
-    \item We provide detection algorithm for VCR property, based on the ILP. 
-    Additionally, we extended it to detect VR and CR properties, and compare it with existing solutions. 
-    \item We analyze VCR profiles domain extensively, and compare it to other well known models.
-    \item We propose control problem polynomial time algorithm for the VCR model,
-    expanding on the solutions for CR and VR models,
-    from \cite{control-cr-how-hard-magiera-faliszewski} and \cite{control-sp-shield-faliszewski-hemaspaandra} respectively.
-    \item \textcolor{orange}{(WIP: Napisać trochę więcej i podać numery rozdziałów/sekcji)}
+    \item In Chapter \ref{ch:detection}, we provide detection algorithm for the 1D-VCR property,
+    based on a reduction to integer linear programming (ILP). 
+    Additionally, we apply it to detecting 1D-VR and 1D-CR profiles,
+    later we do a performance comparison with a solution based on a 2-SAT reduction from \cite{fitzsimmons-lackner-sat-cop}. 
+
+    \item In Chapter \ref{ch:domain}, we analyze the 1D-VCR domain and compare it to other well known models.
+    We use multiple statistical cultures to generate random elections in the 1D-VCR model, 
+    then we check how many of them do not satisfy 1D-VR or 1D-CR properties.
+    Furthermore, we inspect how different are the 1D-VCR elections from the 1D-VR and 1D-CR ones.
+    
+    \item In Chapter \ref{ch:control}, we propose a polynomial time algorithm for a certain control problem under the 1D-VCR model,
+    expanding on the solutions for 1D-CR and 1D-VR models,
+    due to \cite{control-cr-how-hard-magiera-faliszewski} and \cite{control-sp-shield-faliszewski-hemaspaandra}, respectively.
+
 \end{enumerate}
 
-We do not discuss the related work right now, instead we do it throughout this thesis,
+\textcolor{orange}{(WIP: Powyżej, używam VR i CR, mimo że nigdzie o nich nie wspomniałem, czy powinienem napisać że VI=CR, CI=VR?)}
+
+We do not discuss the related work right now, and instead we do it throughout this thesis,
 as the discussion will greatly benefit from the added context and introduced definitions in the subsequent chapters.
