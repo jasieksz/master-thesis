@@ -31,7 +31,6 @@ where value of $A[i][j]$ is $(1)$ if i-th voter approves of j-th candidate, and 
 In other words, each row of the matrix is a vector representation of a given voter's approval set.
 We refer to it as an \textit{approval matrix} or a \textit{preference matrix}.
 It will always be clear from the context which notation we are using.
-\textcolor{orange}{(WIP: Jak definiować macierze?)}
 
 \begin{example}\label{ex:approval-election}
 \textcolor{orange}{(WIP: Opis wyborów + figura)}    
@@ -57,9 +56,10 @@ Nonetheless, we introduce the most basic voting rule for the approval model, sim
 introduced by \cite{brams1983approval}.
 
 \begin{definition}[Multi-Winner Approval Voting (AV)]
-For a given election and a size of committee $k$, AV rule selects the $k$ candidates with the highest approval score,
-which, for each candidate $c$, is the number of voter who approve of $c$.
-\textcolor{orange}{(WIP: Poprawić definicje, dodac oznaczenia matematyczne)}
+For a given election $E$ and a size of committee $k$, AV rule selects the $k$ candidates with the highest approval scores.
+AV-score of a given candidate $c$, is the number of voters who approve of $c$, and 
+formally, is defined as $score_{AV}(E,c) = |\{v \in V : c \in A(v)\}|$.
+
 \end{definition}
 
 \begin{example}
