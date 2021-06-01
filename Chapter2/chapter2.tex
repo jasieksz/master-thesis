@@ -102,7 +102,7 @@ or in other words their ability to reach a number of different voters
 (e.g., a centrist candidate would have a larger reach, than an extremist one (left or right))
 For a voter $v \in V$, radius $r_v$ corresponds to $v$'s willingness to compromise,
 that is, how different (faraway) opinion they would still accept from their ideal one.
-
+ 
 Moreover, there are two special cases of VCR model.
 \begin{enumerate}
     \item \textit{Candidate Range (CR)}, we say that a VCR election $E = (C,V)$, 
@@ -133,15 +133,16 @@ To see why, ...
 \textcolor{orange}{(WIP: Podać punkty i promienie (VCR), następnie opisać dlaczego nie jest CR ani VR ... Obrazek?)}   
 \end{example}
 
-\section{WIP: Methodology/Techniques}\label{sec:methods}
+\section{\textcolor{orange}{WIP: Methodology/Techniques}}\label{sec:methods}
 
 \subsection{Integer Linear Program}
 Integer linear programming (ILP) is a common approach to solve NP-hard problems, 
 furthermore it can be used effectively for other problems as well.
-(WIP: czy zdanie od furthermore ... jest potrzebne) 
+Formally, a linear program is a system of linear inequalities and an objective function.
+
 To define a computational problem as an integer linear program,
 we have to create a system of linear inequalities (constraints) 
-(WIP: Sprawdzic czy na pewno inequalities == constraints) and 
+and 
 optionally a linear function to optimize, alternatively we can just check feasibility of the constraints.
 Next to obtain a solution we have to use an optimization solver.
 Popular choices are Gurobi or CPLEX which are state-of-the-art general purpose solvers.
