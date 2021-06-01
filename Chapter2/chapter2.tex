@@ -87,45 +87,51 @@ for every voter $v \in V$ there exists a radius $r_v$, and it holds that $v = \{
 \textcolor{orange}{(WIP: Czy w ogóle definiować DE?, czy jest potrzebna cytacja?, to jest definicja z \cite{elkind-approval-restrictions}
 nie jest specjalnie oczywista)}   
 
-\subsubsection{Voter Candidate Range (VCR)}\label{VCR-definition}
-Given an election \(E = (C, V)\), we say that the voters have \textit{1D-Euclidean} preferences if
-for every agent (voter or candidate) there exists a point $x_a$ and nonnegative real value radius $r_a$ such that:
+\subsubsection{Voter/Candidate Range (VCR)}\label{VCR-definition}
+(\cite{faliszewski-vcr}) Given an election \(E = (C, V)\), we say that the voters have \textit{one-dimensional Euclidean} preferences (VCR) if
+for every agent $a \in C \cup V$ (i.e., for each candidate and each voter)
+there exists a point $x_a$ and nonnegative real value radius $r_a$ such that:
 \begin{displaymath}
-    \forall \text{ } c \in C \text{ } \forall \text{ } v \in V: c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v
+    c \in A(v) \Longleftrightarrow |x_c - x_v| \leq r_c + r_v
 \end{displaymath}
-We can easily think of it as: the point $x_a$ represents ideal position 
-in the 1-dimensional space of opinions. The radius can be seen as candidate's charisma or
-voter's willingness to compromise.
+We can easily think of it as,
+for an agent $a \in C \cup V$ the point $x_a$ describes $a$'s ideal position 
+in $\mathbb{R}$, representing his or hers opinion. 
+For a candidate $c \in C$, radius $r_c$ can be seen as $c$'s charisma,
+or in other words their ability to reach a number of different voters
+(e.g., a centrist candidate would have a larger reach, than an extremist one (left or right))
+For a voter $v \in V$, radius $r_v$ corresponds to $v$'s willingness to compromise,
+that is, how different (faraway) opinion they would still accept from their ideal one.
 
-\subsubsection{Candidate Range (CR)}
-We say that P satisfies CR if candidates in $C$ can be
-ordered so that each of the sets $v_i$ forms an interval of that ordering.
-CR is special case of VCR, where we require all the voters to have radii equal to zero
+Moreover, there are two special cases of VCR model.
+\begin{enumerate}
+    \item \textit{Candidate Range (CR)}, we say that a VCR election $E = (C,V)$, 
+    satisfies CR if for each voter $v \in V$, their radius $r_v$ is equal to zero. 
+    
+    \item \textit{Voter Range (VR)}, we say that a VCR election $E = (C,V)$, 
+    satisfies VR if for each candidate $c \in C$, their radius $r_c$ is equal to zero. 
+\end{enumerate}
 
-\subsubsection{Voter Range (VR)}
-We say that P satisfies VR if the voters in $V$ can be reordered
-so that for every candidate $c_i$ the voters that approve c form an interval of that
-ordering.
-VR is a special case of VCR, where we require all the candidates to have radii equal to zero
-\newline 
-
-\subsubsection{Voter Interval (VI) and Candidate Interval (CI)}
-\cite{faliszewski-vcr} showed that CR and VR are equivalent to respectively VI and CI
-introduced by \cite{elkind-approval-restrictions}.
+The CR and VR models are equivalent to the \textit{voter interval (VI)} and \textit{candidate interval (CI)} ones,
+both introduced by \cite{elkind-approval-restrictions}. \cite{faliszewski-vcr} simply use a different terminology.
 
 \begin{figure}[h]
     \includegraphics[width=8cm]{vr-cr.png}
     \centering
-    \caption{CR and VR Temporary image}
+    \caption{CR and VR Temporary image from \cite{cr-vr-mav-liu-guo}}
 \end{figure}
 
-\subsubsection{Larger Domain}
-(WIP: Zmienić na mój przykład i opisać dlaczego nie vr i nie cr)
+The VCR domain is larger than the CR and VR domains combined.
+Below in Example \ref{ch:pre:ex:tvcr}, we show an election that is VCR, but neither CR nor VR.
+We explore this topic further in Chapter \ref{ch:domain}.
 
-The VCR model has larger domain than the VR and CR combined.
-For example, election with candidate set
-$C = \{a, b, c, d\}$ and voters with approval sets $\{a, b\}$, $\{b, c\}$,
-$\{b, d\}$, and $\{a, b, c, d\}$ is VCR, but neither VR nor CR.
+\begin{example}\label{ch:pre:ex:tvcr}
+Given an election $E$ with the candidates $C = \{a, b, c, d\}$ and 
+the voter's approval sets $\{a, b\}$, $\{b, c\}$, $\{b, d\}$, and $\{a, b, c, d\}$.
+
+To see why, ... 
+\textcolor{orange}{(WIP: Podać punkty i promienie (VCR), następnie opisać dlaczego nie jest CR ani VR ... Obrazek?)}   
+\end{example}
 
 \section{WIP: Methodology/Techniques}\label{sec:methods}
 
