@@ -17,7 +17,7 @@ that we believe are not necessarily straightforward.
 
 \subsubsection{Approval Elections}
 
-An approval-based election is a pair $E = (C, V)$, where 
+An approval-based election (in short, an \textit{election}, or interchangeably a \textit{profile}) is a pair $E = (C, V)$, where 
 $C = \{c_1,...,c_M\}$ is a set of candidates and  $V = \{v_1,...,v_N\}$ is a set of voters.
 We use $M$ and $N$ for the number of candidates and voters respectively. 
 For each voter $v \in V$, his or hers preferences are represented as a set of approved candidates $A(v)$,
@@ -32,17 +32,17 @@ In other words, each row of the matrix is a vector representation of a given vot
 We refer to it as an \textit{approval matrix} or a \textit{preference matrix}.
 It will always be clear from the context which notation we are using.
 
-\begin{example}\label{ex:approval-election}
-\textcolor{orange}{(WIP: Opis wyborów + figura)}    
-Following the example from Figure \ref{fig:approval-election-example} ...
-\end{example}
-
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{approval-election.png}
     \centering
     \caption{Temporary Image - Example of An Approval Election \cite{lacknerSkowronAVOverview}}
     \label{fig:approval-election-example}
 \end{figure}
+
+\begin{example}\label{ex:approval-election}
+    \textcolor{orange}{(WIP: Opis wyborów + figura)}    
+    Following the example from Figure \ref{fig:approval-election-example} ...
+\end{example}
 
 \subsubsection{Multiwinner Committee Selection Rules}
 
@@ -56,34 +56,43 @@ Nonetheless, we introduce the most basic voting rule for the approval model, sim
 introduced by \cite{brams1983approval}.
 
 \begin{definition}[Multi-Winner Approval Voting (AV)]
-For a given election $E$ and a size of committee $k$, AV rule selects the $k$ candidates with the highest approval scores.
-AV-score of a given candidate $c$, is the number of voters who approve of $c$, and 
-formally, is defined as $score_{AV}(E,c) = |\{v \in V : c \in A(v)\}|$.
-
+    For a given election $E$ and a size of committee $k$, AV rule selects the $k$ candidates with the highest approval scores.
+    AV-score of a given candidate $c$, is the number of voters who approve of $c$, and 
+    formally, is defined as $score_{AV}(E,c) = |\{v \in V : c \in A(v)\}|$.
 \end{definition}
 
 \begin{example}
-\textcolor{orange}{(WIP: Opis wyborów z poprzedniego przykładu + kto wygra)}
-Continuing with the election from Example \ref{ex:approval-election}
+    \textcolor{orange}{(WIP: Opis wyborów z poprzedniego przykładu + kto wygra)}
+    Continuing with the election from Example \ref{ex:approval-election}
 \end{example}
 
 \section{Preference Restrictions}\label{sec:pref-restrictions}
-
-Many computational social choice problems such as winner determination, or control problem are known to be computationally hard.
-To deal with it, we can use approximate or parametrized algorithms 
-The alternative approach is to introduce restrictions on the preference domains.
-In the last few years this area of research advanced a lot, providing multiple efficient algorithms
-for the popular committee selection rules, and other problems.
+As a reminder from Section \ref{ch:intro:sec:restrictions},
+many computational social choice problems such as winner determination, or control problems are known to be computationally hard.
+Preference restrictions, i.e., restrictions on the structure of voters’ ballots,
+is a very effective solution to circumvent the computational complexity of these problems.
 
 \subsection{Euclidean Preference Restrictions}
+Euclidean preference restrictions, in the approval voting model, are foundation of this work.
+All the problems we solve in the subsequent chapters are structured around this concept.
+Unless stated otherwise, throughout this work, we consider one-dimensional variants of the Euclidean models.
+
+First, the most basic restriction, that is an important building block to describe other ones, in this family of restrictions. 
 
 \subsubsection{Dichotomous Euclidean (DE)}
+(\cite{elkind-approval-restrictions}) Given an election $E = (C,V)$, we say that $E$ satisfies \textit{DE}
+if there is a mapping $\rho$ of voters and candidates into the real line such that
+for every voter $v \in V$ there exists a radius $r_v$, and it holds that $v = \{c : |\rho(v) - \rho(c)| \leq r_v\}$.
+
+\textcolor{orange}{(WIP: Czy w ogóle definiować DE?, czy jest potrzebna cytacja?, to jest definicja z \cite{elkind-approval-restrictions}
+nie jest specjalnie oczywista)}   
 
 \subsubsection{Voter Candidate Range (VCR)}\label{VCR-definition}
 Given an election \(E = (C, V)\), we say that the voters have \textit{1D-Euclidean} preferences if
 for every agent (voter or candidate) there exists a point $x_a$ and nonnegative real value radius $r_a$ such that:
-$\forall \text{ } c \in C \text{ } \forall \text{ } v \in V: c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v$
-N
+\begin{displaymath}
+    \forall \text{ } c \in C \text{ } \forall \text{ } v \in V: c \in A(v) \Leftrightarrow \sqrt{(x_c - x_v)^2} \leq r_c + r_v
+\end{displaymath}
 We can easily think of it as: the point $x_a$ represents ideal position 
 in the 1-dimensional space of opinions. The radius can be seen as candidate's charisma or
 voter's willingness to compromise.
@@ -102,7 +111,7 @@ VR is a special case of VCR, where we require all the candidates to have radii e
 
 \subsubsection{Voter Interval (VI) and Candidate Interval (CI)}
 \cite{faliszewski-vcr} showed that CR and VR are equivalent to respectively VI and CI
-introduced by \cite{DBLP:journals/corr/ElkindL15}.
+introduced by \cite{elkind-approval-restrictions}.
 
 \begin{figure}[h]
     \includegraphics[width=8cm]{vr-cr.png}
