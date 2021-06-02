@@ -160,11 +160,43 @@ VR algorithm starts deleting voters from the end of interval ($max(e(v))$).
 VCR one does virtually the same by deleting the rightmost voter first.
 
 \subsection{Sketch Proof - VCR (not C1P) case}
+
+\begin{definition}
+    We introduce an alternative representation of an agent in a VCR profile.
+    Every agent $a$ is represented by the point $x_a$ and the radius $r_a$.
+    We define $a$'s range beginning as $b(a) = x_a - r_a$, and $a$'s range end as $e(a) = x_a + r_a$. 
+\end{definition}
+
+\begin{definition}
+    Having a solution $S$ to the AV-CC-VD problem, which deletes $k$ voters.
+    We define the score of this solution as, \[score(S) = \sum_{i=1}^{k} e(v_i) \]
+\end{definition}
+
+\begin{proposition}
+    VCR-AV-CC-VD finds an optimal solution.
+    \begin{proof}
+        Let $S$ be the solution found by the VCR-AV-CC-VD algorithm, 
+        and $S^{*}$ an optimal solution to the problem.
+        We will prove that $S = S^{*}$ by contradiction.
+        Assume $S \neq S^{*}$, therefore, $S - S^* \neq \emptyset$.
+        Let $v$, be any voter in $S - S^*$.
+        When $v$ was added to $S$, it was the rightmost voter ($\max(e(v))$).
+        Since $S^*$ is optimal, then there must be some voter $x \in S^*$, such that $e(x) < e(v)$, because $v$ is the rightmost voter.
+        Let $S^{*\prime} = S^* \cup \{v\} - \{x\}$, we know that $S^{*\prime}$ is a correct solution.
+        \textcolor{orange}{(WIP: Dlaczego $S^{*\prime}$ jest poprawny?)}
+        However, \[score(S^{*\prime}) = score(S^*) + e(v) - e(x) > score(S^*)\]
+        contradicting that $S^*$ is an optimal solution.
+        We have reached a contradiction, so our assumption must have been wrong.
+        Thus $S = S^*$, hence $S$ is an optimal solution.
+    \end{proof}
+\end{proposition}
+
+
+\subsubsection{Special case - contained candidates - alternative explanation}
 Now we will show why our solution is correct in the general VCR setting, even when the profile does not have VR/CR property,
 example in Figure \ref{fig:ncop-cc-dv}. The proof is split into two stages, similarly to the previous ones.
 But first we will explain one special case of the election, that is worth examining.
 
-\subsubsection{Special case - contained candidates - alternative explanation}
 In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
 Every voter who would approve the smaller candidate would also approve the larger one, however not vice versa.
 For this case, our strategy of choosing voters to delete might seem suboptimal, at first glance. 
