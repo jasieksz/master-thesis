@@ -227,7 +227,7 @@ In this experiment, we partially reuse the strategy for profile generation from 
 We narrow down our experiment parameters to only two radius generation methods,
 that is, first model \textit{Gauss Candidates, Gauss Voters} and second \textit{Large Uniform Candidates, Large Uniform Voters}.
 However, we keep the position models unchanged, and explore all four of them.
-Obviously we only pick the TVCR profiles, to be exact, we use 400 of them for each parameter pair.
+Obviously we only pick the TVCR profiles, to be exact, we use 400 of them for each category pair (in total 8 pairs).
 Due to the limited computational resources, we only use the profiles consisting of 15 candidates and 15 voters.
 \newline
 
@@ -240,8 +240,9 @@ Due to the limited computational resources, we only use the profiles consisting 
     \item The \textit{Voter Deletion} method, 
     which is similar to the \textit{Candidate Deletion} method, but this time we delete $d$ voters instead.
 
-    \item The \textit{Candidate and Voter Deletion} method, 
-    where we combine the two previous methods, and we simultaneously delete $d_c$ candidates and $d_v$ voters.
+    \item \sout{The \textit{Candidate and Voter Deletion} method, 
+    where we combine the two previous methods, and we simultaneously delete $d_c$ candidates and $d_v$ voters.}
+    \textcolor{orange}{(WIP: Ciagle sie liczy, większość wyników to wystarczy usunąć 1 C i 1 V)}
 \end{enumerate}
 
 
@@ -257,10 +258,23 @@ i.e., the minimal number of agent deletions for a TVCR profile to become a VR or
 
 \subsubsection{Results}
 
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{15-15-transform-grid-dist-R.png}
+    \centering
+    \caption{Colums = Point Distribution, Rows = Radius, X-Axis = Property}
+    \label{fig:transform-grid}
+\end{figure}
 
 \begin{figure}[H]
-    \includegraphics[width=\linewidth]{15-15-transform-2gauss.png}
+    \includegraphics[width=\linewidth]{15-15-transform-grid-prop-R.png}
     \centering
-    \caption{Temporary Image - Transformation of TVCR into VR/CR profile}
-    \label{fig:transform-2gauss}
+    \caption{Colums = Property, Rows = Radius, X-Axis = Point Distribution}
+    \label{fig:transform-grid-prop-R}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[height=\textheight]{15-15-transform-grid-R-prop.png}
+    \centering
+    \caption{Colums = Radius, Rows = Point Distribution, X-Axis = Property}
+    \label{fig:transform-grid-trans}
 \end{figure}
