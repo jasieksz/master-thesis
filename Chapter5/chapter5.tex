@@ -170,6 +170,7 @@ VCR one does virtually the same by deleting the rightmost voter first.
 \begin{definition}
     Having a solution $S$ to the AV-CC-VD problem, which deletes $k$ voters.
     We define the score of this solution as, \[score(S) = \sum_{i=1}^{k} e(v_i) \]
+    \textcolor{orange}{(WIP: Dlaczego możemy zdefiniować jakiś wynik, czy wynik jest po prostu równy k?)}
 \end{definition}
 
 \begin{proposition}
@@ -183,14 +184,15 @@ VCR one does virtually the same by deleting the rightmost voter first.
         When $v$ was added to $S$, it was the rightmost voter ($\max(e(v))$).
         Since $S^*$ is optimal, then there must be some voter $x \in S^*$, such that $e(x) < e(v)$, because $v$ is the rightmost voter.
         Let $S^{*\prime} = S^* \cup \{v\} - \{x\}$, we know that $S^{*\prime}$ is a correct solution.
-        \textcolor{orange}{(WIP: Dlaczego $S^{*\prime}$ jest poprawny?)}
+        \textcolor{orange}{(WIP: Dlaczego $S^{*\prime}$ jest poprawny? -
+        Czy to właśnie tu musimy uzasadnić specjalny przpadek "wewnętrznych kandydatów"?
+        Czy może być to jakiś osobny, wcześniej pokazany lemat?)}
         However, \[score(S^{*\prime}) = score(S^*) + e(v) - e(x) > score(S^*)\]
         contradicting that $S^*$ is an optimal solution.
         We have reached a contradiction, so our assumption must have been wrong.
         Thus $S = S^*$, hence $S$ is an optimal solution.
     \end{proof}
 \end{proposition}
-
 
 \subsubsection{Special case - contained candidates - alternative explanation}
 Now we will show why our solution is correct in the general VCR setting, even when the profile does not have VR/CR property,
