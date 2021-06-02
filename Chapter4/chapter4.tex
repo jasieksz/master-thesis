@@ -122,7 +122,24 @@ Below in Proposition \ref{prop:vcr-constR-vrcr}, we show why.
     \begin{proof}
         Consider a VCR election $E = (C,V)$, where $C = \{c_1,...,c_M\}$ and $V = \{v_1,...,v_N\}$,
         and a constant radius $R$. An agent $a \in C \cup V$ is represented by a point $x_a$ and a radius $r_a$,
-        now every agent has the same radius $r_a = R$.
+        and in this special case every agent has the same radius $r_a = R$.
+        We construct a CR election $E^{\prime} = (C^{\prime}, V^{\prime})$,
+        where each voter $v^{\prime} \in V^{\prime}$ has radius $r_{v^{\prime}} = 0$, 
+        and each candidate $c^{\prime} \in C^{\prime}$ has radius $r_{c^{\prime}} = 2R$.
+        We will show, that the elections are the same ones.
+        From the VCR definition, for each candidate $c \in C$, if $c$ is approved by voters $v_i, v_{i+1}, ..., v_j$,
+        then
+        \begin{align}
+            x_c + r_c \geq x_{v_{j}} - r_{v_{j}} \ \land \ x_c - r_c \leq x_{v_{i}} + r_{v_{i}} \Longleftrightarrow \\
+            x_c + R \geq x_{v_{j}} - R \ \land \  x_c - R \leq x_{v_{i}} + R \Longleftrightarrow \\          
+            x_c + 2R \geq x_{v_{j}} \ \land \  x_c - 2R \leq x_{v_{i}} \Longleftrightarrow              
+        \end{align}
+        Similarly, for each candidate $c^{\prime} \in C^{\prime}$ if $c^{\prime}$
+        is approved by voters $v^{\prime}_i, v^{\prime}_{i+1}, ..., v^{\prime}_j$, then
+        \[x_{c^{\prime}} + 2R \geq x_{v_{j}^{\prime}} \ \land \ x_{c^{\prime}} - 2R \leq x_{v_{i}^{\prime}}\]
+        We showed that the elections $E$ and $E^{\prime}$ are equivalent.
+        We repeat this reasoning for the VR elections, where each candidate has radius zero,
+        completing the proof.
     \end{proof}
 \end{proposition}
 
