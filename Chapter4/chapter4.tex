@@ -67,22 +67,22 @@ then we repeat the experiment for the elections consisting of 40 candidates and 
 We consider 4 ways of generating the points, representing the positions of the candidates and the voters.
 
 \begin{enumerate}
-    \item The \textit{Uniform Candidates, Uniform Voters} model,
+    \item The \textit{Uniform Candidates, Uniform Voters (UCP/UVP)} model,
     where the points for both, the candidates and the voters are selected uniformly at random from the $[-10,10]$ range.
     
-    \item The \textit{Asymmetric Gauss Candidates, Asymmetric Gauss Voters} model,
+    \item The \textit{Asymmetric Gauss Candidates, Asymmetric Gauss Voters (GCP/GVP)} model,
     where we take 70\% of points from a Gaussian distribution with mean value $-3$ and standard deviation $1.8$,
     and the remaining 30\% come from a Gaussian with mean $3$ and the same standard deviation. 
     This model is inspired by the 2 dimensional model from the work of \cite{faliszewski-vcr}. 
     The goal is to simulate the society with a large majority, and a minority with the opposite opinion. 
 
-    \item The \textit{Uniform Candidates, Asymmetric Gauss Voters} model,
+    \item The \textit{Uniform Candidates, Asymmetric Gauss Voters (UCP/GVP)} model,
     it is a combination of the previous two models, where
     the candidate's points are selected uniformly at random,
     and for the voters we use asymmetric Gaussian model.
     We use the same parameters for both of the distributions.
 
-    \item The \textit{Asymmetric Gauss Candidates, Uniform Voters} model,
+    \item The \textit{Asymmetric Gauss Candidates, Uniform Voters (GCP/UVP)} model,
     it is mirror version of the previous model, with the distributions swapped.
 
 \end{enumerate}
@@ -92,22 +92,22 @@ In this category we consider 5 ways of generating the radii.
 We split the methods between the candidates and the voters, similarly to picking the positions.
 
 \begin{enumerate}
-    \item\label{enum:radius-gaus-gaus} The \textit{Gauss Candidates, Gauss Voters} model, 
+    \item\label{enum:radius-gaus-gaus} The \textit{Gauss Candidates, Gauss Voters (GCR/GVR)} model, 
     where we choose the radii from the Gaussian distribution with mean value $1.5$ and standard deviation $0.5$
     We use the same distribution for the candidates and the voters.
 
-    \item The \textit{Small Uniform Candidates, Gauss Voters} model.
+    \item The \textit{Small Uniform Candidates, Gauss Voters (SUCR/GVR)} model.
     We pick radii for the candidates uniformly at random from the range $[0.7,1.2]$,
     and for the voters we use the same Gaussian, as in the previous model ($Gauss(1.5, 0.5)$).
 
-    \item The \textit{Gauss Candidates, Small Uniform Voters} model.
+    \item The \textit{Gauss Candidates, Small Uniform Voters (GCR/SUVR)} model.
     In this model we swap the distributions used in the previous one,
     that is, the candidates are picked from the Gaussian and the voters from the uniform distributions.
 
-    \item\label{enum:suc-suv} The \textit{Small Uniform Candidates, Small Uniform Voters} model.
+    \item\label{enum:suc-suv} The \textit{Small Uniform Candidates, Small Uniform Voters (SUCR/SUVR)} model.
     We pick radii for both the candidates and the voters, uniformly at random from the range $[0.7,1.2]$.
 
-    \item The \textit{Large Uniform Candidates, Large Uniform Voters} model.
+    \item The \textit{Large Uniform Candidates, Large Uniform Voters (LUCR/LUVR)} model.
     We pick radii for both the candidates and the voters, uniformly at random from the range $[0,3]$.
 
 \end{enumerate}
@@ -166,32 +166,99 @@ we immediately see, that in the larger elections \textit{TVCR} property is much 
 Election sizes in the experiment are relatively small when compared to the real world scenarios.
 We can expect for this trend of increased number of \textit{TVCR} profiles to continue for even larger elections.
 This result is very promising, as it strongly encourages further development and research related to the VCR domain.
-\newline 
+% ===========================
+% 20 C 20 V - Ex.2 Aggregated Stats
+% ===========================
 
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{20-20-statistics-barchart.png}
-    \centering
-    \caption{Temporary Image - 20C 20V Aggregated Statistics}
-    \label{fig:20-20-statistics-barchart}
+\begin{figure}[ht]
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      % include first image
+      \includegraphics[width=\linewidth]{ex2-2020-stats-RSUCR-SUVR.png}  
+      \caption{}
+      \label{fig:sub-first}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      % include second image
+      \includegraphics[width=\linewidth]{ex2-2020-stats-RLUCR-LUVR.png}  
+      \caption{}
+      \label{fig:sub-second}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      % include second image
+      \includegraphics[width=\linewidth]{ex2-2020-stats-RGCR-GVR.png}
+      \caption{}
+      \label{fig:sub-third}
+    \end{subfigure}
+
+    \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{ex2-2020-stats-RGCR-SUVR.png}  
+            \caption{}
+            \label{fig:sub-4}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{ex2-2020-stats-RSUCR-GVR.png}
+            \caption{}
+            \label{fig:sub-5}
+    \end{subfigure}
+\caption{Put your caption here}
+\label{fig:fig}
 \end{figure}
 
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{40-40-statistics-barchart.png}
-    \centering
-    \caption{Temporary Image - 40C 40V Aggregated Statistics}
-    \label{fig:40-40-statistics-barchart}
+% ===========================
+% 40 C 40 V - Ex.2 Aggregated Stats
+% ===========================
+
+\begin{figure}[ht]
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      % include first image
+      \includegraphics[width=\linewidth]{ex2-4040-stats-RSUCR-SUVR.png}  
+      \caption{}
+      \label{fig:sub-first}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      % include second image
+      \includegraphics[width=\linewidth]{ex2-4040-stats-RLUCR-LUVR.png}  
+      \caption{}
+      \label{fig:sub-second}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+      \centering
+      % include second image
+      \includegraphics[width=\linewidth]{ex2-4040-stats-RGCR-GVR.png}
+      \caption{}
+      \label{fig:sub-third}
+    \end{subfigure}
+
+    \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{ex2-4040-stats-RGCR-SUVR.png}  
+            \caption{}
+            \label{fig:sub-4}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{ex2-4040-stats-RSUCR-GVR.png}
+            \caption{}
+            \label{fig:sub-5}
+    \end{subfigure}
+\caption{Put your caption here}
+\label{fig:fig}
 \end{figure}
 
 In the subsequent paragraphs we will focus mostly on the results for smaller elections from
 Figure \ref{fig:20-20-statistics-barchart}, but only because the differences between the parameters are more pronounced.
 \newline
-
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{20-20-statistics-barchart-GG.png}
-    \centering
-    \caption{Temporary Image - Selected Histogram - Double Gauss Radius Aggregated Statistics}
-    \label{fig:20-20-GG-barchart}
-\end{figure}
 
 \noindent \textbf{Position Choice} \indent We analyze
 Figure \ref{fig:20-20-GG-barchart} (subgraph from Figure \ref{fig:20-20-statistics-barchart}) — histogram 
@@ -288,32 +355,9 @@ Looking back at the result of the previous experiment for these models in Figure
 we see that, the numbers of the CR and VR profiles were equal. This tells us, that all the other profiles (TVCR ones),
 were similarly different from the CR or VR ones, hence we don't see much difference between the visualizations (violins).
 
-
 \begin{figure}[H]
-    \includegraphics[width=\linewidth]{15-15-tr-grid-xprop-coldist-rowR.png}
-    \centering
-    \caption{XAxis = property | COL = point| ROW = radius \newline
-    Each violin represents the distribution of required number of agent deletions, for given parameters}
-    \label{fig:transform-grid1}
-\end{figure}
-
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{15-15-tr-grid-xdist-colprop-rowR.png}
-    \centering
-    \caption{XAxis = point | COL = property | ROW = radius}
-    \label{fig:transform-grid2}
-\end{figure}
-
-\begin{figure}[H]
-    \includegraphics[height=\textheight]{15-15-tr-grid-xdist-colR-rowprop.png}
+    \includegraphics[height=0.8\textheight]{15-15-tr-grid-xdist-colR-rowprop.png}
     \centering
     \caption{XAxis = point | COL = radius | ROW = property}
     \label{fig:transform-grid3}
-\end{figure}
-
-\begin{figure}[H]
-    \includegraphics[height=\textheight]{15-15-tr-grid-xprop-colR-rowdist.png}
-    \centering
-    \caption{XAxis = property | COL = radius | ROW = point}
-    \label{fig:transform-grid4}
 \end{figure}
