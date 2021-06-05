@@ -151,7 +151,7 @@ Most of the conclusions we draw are inline with the basic intuition.
 \newpage
 
 \begin{figure}[H]
-    \includegraphics[width=\linewidth]{40-40-examples-grid.png}
+    \includegraphics[width=\linewidth]{40-40-examples-grid-blue.png}
     \centering
     \caption{40C 40V profile examples — approval matrix heatmaps}
     \label{fig:20-20-examples-grid}
@@ -349,9 +349,46 @@ Looking back at the result of the previous experiment for these models in Figure
 we see that, the numbers of the CR and VR profiles were equal. This tells us, that all the other profiles (TVCR ones),
 were similarly different from the CR or VR ones, hence we don't see much difference between the visualizations (violins).
 
-\begin{figure}[H]
-    \includegraphics[height=0.8\textheight]{15-15-tr-grid-xdist-colR-rowprop.png}
-    \centering
-    \caption{XAxis = point | COL = radius | ROW = property}
-    \label{fig:transform-grid3}
+\begin{figure}[ht]
+    \begin{subfigure}{0.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{ex3-RGCR-GVR-PCR.png}
+      \caption{}
+      \label{fig:ex43-vln-RGCR-GVR-PCR}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{ex3-RLUCR-LUVR-PCR.png}
+      \caption{}
+      \label{fig:ex43-vln-RLUCR-LUVR-PCR}
+    \end{subfigure}
+
+    \begin{subfigure}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{ex3-RGCR-GVR-PVR.png}
+            \caption{}
+            \label{fig:ex43-vln-RGCR-GVR-PVR}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{ex3-RLUCR-LUVR-PVR.png}
+            \caption{}
+            \label{fig:ex43-vln-RLUCR-LUVR-PVR}
+    \end{subfigure}
+
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{ex3-RGCR-GVR-PFCOP.png}
+        \caption{}
+        \label{fig:ex43-vln-RGCR-GVR-PFCOP}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{ex3-RLUCR-LUVR-PFCOP.png}
+        \caption{}
+        \label{fig:ex43-vln-RLUCR-LUVR-PFCOP}
+\end{subfigure}
+
+\caption{Experiment 3 - Deletion distribution}
+\label{fig:ex43-violins}
 \end{figure}
