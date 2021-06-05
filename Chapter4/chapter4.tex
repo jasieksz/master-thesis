@@ -264,13 +264,12 @@ whereas the second one describes the larger elections of 40 candidates and 40 vo
 \newline
 
 \noindent \textbf{Election Dimensions} 
-\indent Our results for two election sizes have one crucial difference,
-looking briefly at Figure \ref{fig:ex42-20C20V-bars} (20 candidates, 20 voters)
+\indent Our results for two election sizes have one crucial difference.
+Looking briefly at Figure \ref{fig:ex42-20C20V-bars} (20 candidates, 20 voters)
 and Figure \ref{fig:ex42-40C40V-bars} (40 candidates, 40 voters), 
-we immediately see, that in the larger elections \textit{TVCR} property is much more frequent.
-\textcolor{orange}{(WIP: Napisać jakąś hipotezę, dlaczego tak się dzieje?)}
-Election sizes in the experiment are relatively small when compared to the real world scenarios.
-We can expect for this trend of increased number of \textit{TVCR} profiles to continue for even larger elections.
+we immediately see that in the larger elections the TVCR property is much more frequent.
+Election sizes in the experiment are relatively small when compared to real world scenarios.
+We can expect for this trend of increased number of TVCR profiles to continue for even larger elections.
 This result is very promising, as it strongly encourages further development and research related to the VCR domain.
 
 % ===========================
@@ -319,49 +318,64 @@ and position candidate/voter models are represented on x-axis.
 \label{fig:ex42-40C40V-bars}
 \end{figure}
 
-In the subsequent paragraphs we will focus mostly on the results for smaller elections from
-Figure \ref{fig:ex42-20C20V-bars}, but only because the differences between the parameters are more pronounced.
+In the subsequent discussion we will focus mostly on the results for smaller elections from
+Figure \ref{fig:ex42-20C20V-bars}. We do so because there the differences between the parameters are more pronounced.
 \newline
 
-\noindent \textbf{Position Choice} \indent We analyze
-Figure \ref{fig:ex42-20C20V-bars-RGG}, histogram 
-for the \textbf{\textit{Gauss Candidates, Gauss Voters}} radius model.
-Because this model exhibits the most neutral behavior, we consider it as our baseline scenario.
-We can compare the position models in pairs. 
-Starting with the \textit{Uniform Candidates, Uniform Voters} and \textit{Asymmetric Gauss Candidates, Asymmetric Gauss Voters} models.
-The latter one has noticeably more \textit{TVCR} profiles,
-it can be easily explained by looking at the respective heatmaps of the approval matrices in Figure \ref{fig:20-20-examples-grid}.
-The profiles generated from the double Gauss model have higher count of approvals,
+\noindent \textbf{Position Choice.} \indent Let us analyze Figure \ref{fig:ex42-20C20V-bars-RGG},
+which presents histograms for the GCR/GVR radius model and various candidate/voter position models.
+We consider this model our baseline scenario,
+because it has the most balanced distribution of number of profiles, between the selected preference restrictions.
+We compare the position models in pairs. 
+Starting with the UCP/UVP and the GCP/GVP models,
+the latter one has noticeably more TVCR profiles.
+It can be easily explained by looking at the respective approval matrices in 
+Figure \ref{fig:40-40-examples-grid} (in the 2nd column, 1st and 2nd row).
+The profiles generated from the GCR/GVR model have higher count of approvals,
 which in turn increases the likelihood of any irregularities in the approvals block structure,
-which we directly link to the \textit{TVCR} property.   
-\textcolor{orange}{(WIP: lepiej wyjaśnić, mam na myśli "dziury" w blokach jedynek w macierzy)}
+which we directly link to the TVCR property.   
 
-Now turning our attention to the second pair of the position models (still for the same radius model),
-\textit{Uniform Candidates, Asymmetric Gauss Voters} and \textit{Asymmetric Gauss Candidates, Uniform Voters}.
-These are two perfectly symmetrical models, we explain only the first one, and keep in mind that the second one is simply a reversed scenario.
-Looking at the heatmaps again, we notice that the blocks of approvals are skewed horizontally,
-which is associated with the VR property, i.e., the ones form and interval in each row of the approval matrix.
+Now, turning our attention to the second pair of the position models (still for the same radius model),
+the UCP/GVP and the GCP/UVP, we see that these are two perfectly symmetrical models.
+We only explain the first one, and keep in mind that the second one is simply a reversed scenario.
+Looking at the approval matrices in Figure \ref{fig:40-40-examples-grid} (3rd row),
+we notice that the blocks of approvals are skewed vertically,
+which is associated with the VR property, i.e., the approvals form intervals in each row of the matrix.
 On the contrary, in the second model, the blocks are skewed vertically, which links to the CR property.
 \newline
 
-\noindent \textbf{Radius Choice} \indent From Figure \ref{fig:20-20-statistics-barchart} it is clear that the choice of radius
-can significantly reinforce or subside trends (in the profiles properties statistics) resulting from the position choice.
-For example, the mixed radius models, i.e., \textit{Small Uniform Candidates, Gauss Voters} and \textit{Gauss Candidates, Small Uniform Voters}.
-In particular, these models increase occurrence of profiles with the VR or CR properties.
-The core idea behind this phenomenon is exactly the same as the one described above, for the mixed position models (Uniform, Gauss),
-where the blocks of approvals are skewed, either horizontally or vertically, resulting in the increased number of the VR or CR profiles respectively.
+\noindent \textbf{Radius Choice.} \indent From Figure \ref{fig:ex42-20C20V-bars},
+it is clear that the choice of the radii distribution can significantly reinforce or subside
+trends in the numbers of profiles with a selected property.
+Figure \ref{fig:ex42-20C20V-bars-RGG} was our baseline scenario when analyzing influence of the position candidate/voter models.
+Now, let us compare this subplot with the other ones.
+For example, the mixed radius models, that is, the GCR/SUVR (Figure \ref{fig:ex42-20C20V-bars-RGU})
+and the SUCR/GVR (Figure \ref{fig:ex42-20C20V-bars-RUG}) models.
+Looking at the histograms for these models,
+we observe significant increase in the number of profiles with the CR and VR properties,
+respectively for the GCR/SUVR and the SUCR/GVR.
+The core idea explaining this phenomenon is exactly the same as the one that we already described,
+when explaining the UCP/GVP and the GCP/UVP position models.
+Looking at approval matrices in Figure \ref{fig:40-40-examples-grid} (4th and 5th columns),
+the GCR/SUVR and the SUCR/GVR models output more consistent approval blocks (without 0's between the 1's),
+resulting in a large decrease of the number of the TVCR profiles.
+At the same time, these models work in synergy with the UCP/GVP and the GCP/UVP position models,
+and the created approval structures are skewed either horizontally or vertically,
+increasing the number of the VR or CR profiles.
 
 The striking difference between histograms for
-\textit{Small Uniform Candidates, Small Uniform Voters} and \textit{Large Uniform Candidates, Large Uniform Voters}
-is again related to the inconsistencies in the approval blocks, which are easily observed in the heatmaps. 
-Smaller radius range produces much more structured profiles, hence large number of the \textit{FCOP} profiles.
-In contrast, large radius range outputs irregular approval blocks in the profiles, increasing the number of the \textit{TVCR} profiles.
+the LUCR/LUVR (Figure \ref{fig:ex42-20C20V-bars-RLULU}) and the SUCR/SUVR (Figure \ref{fig:ex42-20C20V-bars-RSUSU}) radius models
+is again related to the inconsistencies in the approval blocks.
+They are easily observed in approval matrices visualized in Figure \ref{fig:40-40-examples-grid} (1st and 3rd column). 
+Smaller radius range (the SUCR/SUVR) produces much more structured profiles, hence large number of the FCOP profiles.
+In contrast, large radius range (the LUCR/LUVR) outputs irregular approval blocks in the profiles,
+increasing the number of the TVCR profiles.
 \newline
 
-\noindent \textbf{Summary} \indent
+\noindent \textbf{Summary.} \indent
 Most of the conclusions we draw are in line with the basic intuition.
 The results are very promising,
-we showed that the \textit{VCR} domain can be significantly larger than the \textit{VR} and \textit{CR} combined.
+we showed that the VCR domain can be significantly larger than the VR and CR ones combined.
 We hope, this will encourage further development and research related to the VCR domain.
 
 
