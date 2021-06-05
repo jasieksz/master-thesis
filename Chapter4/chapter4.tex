@@ -10,162 +10,201 @@ In this section we explore the Voter/Candidate Range domain, describe some of it
 and compare it with the Voter Range and Candidate Range ones.
 We already know that the VCR domain is larger than the VR and CR ones combined (Section \ref{VCR-definition}, Example \ref{ch:pre:ex:tvcr}).
 However, we would like to know how much bigger it actually is,
-and if we can significantly benefit from the further development of algorithms based on the VCR model. 
+and if we can significantly benefit from further development of algorithms based on the VCR model. 
 
 \section{Domain analysis}
 
-We have performed several experiments, in each of them we check how many profiles have
-the VCR property but not the VR or CR ones. 
-For the first one we focus on the small size elections, and 
-for the second experiment we employ several strategies to generate random, larger profiles.
+We have performed several experiments, in each of them we 
+check how often a profile has the TVCR restriction, compared to the other ones.   
+For the first experiment we focus on the small size elections and only observe the overview of the properties.
+For the second one, we do a more thorough examination. We check larger profiles, and compare the properties in detail.
 In every experiment we use the detection algorithm described in Section \ref{ch:detection:ilp}.
 
-\section{How many VCR profiles are not VR neither CR?}
-
+For the sake of text clarity and more explicit naming,
+we introduce additional notations to describe some special cases of the preference restrictions.
 \begin{definition}
-    A profile P is \textbf{Truly VCR (TVCR)}, only if P satisfies the VCR property and does not satisfy the VR and CR properties.
+    A profile P is \textbf{Truly VCR (TVCR)},
+    if P satisfies the VCR property and does not satisfy either of the VR and CR properties.
 \end{definition}
 
 \begin{definition}
-    A profile P is \textbf{Fully COP (FCOP)}, only if P satisfies the VR and CR properties.
+    A profile P is \textbf{Fully COP (FCOP)},
+    if P satisfies both the VR and CR properties
+    (see Definition \ref{ch3:def:c1p}, for a reminder of the COP).
 \end{definition}
 
-\subsection{Experiment 1 — Small Profiles}
+% ===========================
+% Experiment 1
+% ===========================
 
-For the small profiles we performed a complete search of the domain.
-That is we generated every possible profile of a given size and checked if it has the VCR property.
-We checked 6 different dimensions of the elections, having $M$ candidates and $N$ voters,
-we used the following, $(M,N) \in \{(3,3), (4,4), (5,5), (4,6), (6,4)\}$.
-The results, presented in Figure \ref{fig:small-statistics-barchart} show that
-the VCR domain is relatively large. However, for these small election sizes, only a limited number of profiles
-are Truly VCR (i.e., neither VR nor CR).
+\subsection{Experiment 1: How many profiles are TVCR or VCR?}\label{ch4:ex1}
+For this experiment we performed a complete search of the domain.
+That is, we generated every possible profile of a given size and checked if it has the VCR property,
+and if so we checked again if it was the TVCR variant.
+We focused on the small size of elections, checking six different sizes.
+Having $M$ candidates and $N$ voters, we considered $(M,N) \in \{(3,3), (4,4), (5,5), (4,6), (6,4)\}$.
 
-\begin{figure}[H]
+The results are presented in Figure \ref{fig:small-statistics-barchart}.
+They show that the VCR domain is relatively large. However, for these small election sizes, only a limited number of profiles
+are Truly VCR (i.e., neither VR nor CR). 
+For example, looking at the two smallest elections,
+for the 3 candidates, 3 voters case, there is no TVCR profiles at all.
+For the 4 by 4 case, there is only 96 of them, out of $2^{16}$ profiles.
+Another observation is a decrease in a number of the VCR profiles, in favor of the not VCR ones,
+with the increase of the election size
+(e.g., for the 5 candidates, 5 voters case, only about 60\% of profiles are VCR).
+
+\begin{figure}[h]
     \includegraphics[width=0.8\linewidth]{ex1-small-stats.png}
     \centering
-    \caption{Temporary Image - Aggregated Statistics For Small Profiles}
+    \caption{Relative number of the profiles with a given property (VCR and TVCR),
+    out of all possible ones for a given election size, from Experiment 1}
     \label{fig:small-statistics-barchart}
 \end{figure}
 
-\subsection{Experiment 2 — Large Profiles}
+% ===========================
+% Experiment 2
+% ===========================
 
-For the larger size of the profiles, we generated a suitable number of random VCR profiles
-and again checked how many of them are neither CR nor VR (\textit{TVCR}). 
+\subsection{Experiment 2: How many profiles are TVCR, CR, VR or FCOP?}
+In this experiment, we only consider the VCR profiles. 
+We want to find out, how their numbers are distributed across different variants of the VCR restriction.
+We generated a suitable number of random VCR profiles
+and checked how many of them are neither CR nor VR (TVCR). 
 We grouped the results into three additional categories, besides the TVCR one,
-that is, VR and CR (\textit{FCOP}), VR and not CR, CR and not VR.
+that is, VR and CR (FCOP), VR and not CR, CR and not VR.
 
-We employ several strategies to generate a large number of profiles with distinct characteristic.
+We employ several strategies to generate a large number of profiles with distinct characteristics.
 We use various statistical cultures (distributions) to pick random points and radii representing the candidates and voters.
 Furthermore, we choose the random distribution independently for the position and radius parameters,
-and independently as well for the candidates and voters.
+and independently for the candidates and voters.
 We describe these categories in detail below.
-For each category pair (in total 20 pairs) we generate 1000 elections with 20 candidates and 20 voters,
-then we repeat the experiment for the elections consisting of 40 candidates and 40 voters.
+For each category pair (in total, 20 pairs) we generate 1000 elections with 20 candidates and 20 voters.
+Then we repeat the experiment for the elections consisting of 40 candidates and 40 voters.
  
-
 \subsubsection{Position Parameter}
-We consider 4 ways of generating the points, representing the positions of the candidates and the voters.
+We consider four ways of generating the points, representing the positions of the candidates and the voters:
 
 \begin{enumerate}
-    \item The \textit{Uniform Candidates, Uniform Voters (UCP/UVP)} model,
-    where the points for both, the candidates and the voters are selected uniformly at random from the $[-10,10]$ range.
+    \item The \textit{Uniform Candidate Positions, Uniform Voter Positions (UCP/UVP)} model,
+    where the points for both, the candidates and the voters are selected uniformly at random from the $[-10,10]$ interval.
     
-    \item The \textit{Asymmetric Gauss Candidates, Asymmetric Gauss Voters (GCP/GVP)} model,
+    \item The \textit{Asymmetric Gauss Candidate Positions, Asymmetric Gauss Voter Positions (GCP/GVP)} model,
     where we take 70\% of points from a Gaussian distribution with mean value $-3$ and standard deviation $1.8$,
     and the remaining 30\% come from a Gaussian with mean $3$ and the same standard deviation. 
     This model is inspired by the 2 dimensional model from the work of \cite{faliszewski-vcr}. 
-    The goal is to simulate the society with a large majority, and a minority with the opposite opinion. 
+    The goal is to simulate a society with a large majority, and a minority with the opposite opinion. 
 
-    \item The \textit{Uniform Candidates, Asymmetric Gauss Voters (UCP/GVP)} model,
+    \item The \textit{Uniform Candidate Positions, Asymmetric Gauss Voter Positions (UCP/GVP)} model,
     it is a combination of the previous two models, where
-    the candidate's points are selected uniformly at random,
-    and for the voters we use asymmetric Gaussian model.
-    We use the same parameters for both of the distributions.
+    the candidates' points are selected uniformly at random,
+    and for the voters we use the asymmetric Gaussian model.
+    We use the same parameters for both of the distributions as above.
 
-    \item The \textit{Asymmetric Gauss Candidates, Uniform Voters (GCP/UVP)} model,
-    it is mirror version of the previous model, with the distributions swapped.
+    \item The \textit{Asymmetric Gauss Candidate Positions, Uniform Voter Positions (GCP/UVP)} model,
+    is a reversed version of the previous model, with the distributions swapped.
 
 \end{enumerate}
 
 \subsubsection{Radius Parameter}
-In this category we consider 5 ways of generating the radii.
-We split the methods between the candidates and the voters, similarly to picking the positions.
+In this category we consider five ways of generating the radii for the candidates and the voters.
+We use the following models:
 
 \begin{enumerate}
-    \item\label{enum:radius-gaus-gaus} The \textit{Gauss Candidates, Gauss Voters (GCR/GVR)} model, 
-    where we choose the radii from the Gaussian distribution with mean value $1.5$ and standard deviation $0.5$
+    \item\label{enum:radius-gaus-gaus} The \textit{Gauss Candidate Radii, Gauss Voter Radii (GCR/GVR)} model, 
+    where we choose the radii from the Gaussian distribution with mean value $1.5$ and standard deviation $0.5$.
     We use the same distribution for the candidates and the voters.
 
-    \item The \textit{Small Uniform Candidates, Gauss Voters (SUCR/GVR)} model.
-    We pick radii for the candidates uniformly at random from the range $[0.7,1.2]$,
-    and for the voters we use the same Gaussian, as in the previous model ($Gauss(1.5, 0.5)$).
+    \item The \textit{Small Uniform Candidate Radii, Gauss Voter Radii (SUCR/GVR)} model.
+    We pick the radii for the candidates uniformly at random from the interval $[0.7,1.2]$,
+    and for the voters we use the same Gaussian as in the previous model (with mean $1.5$ and standard deviation $0.5$).
 
-    \item The \textit{Gauss Candidates, Small Uniform Voters (GCR/SUVR)} model.
+    \item The \textit{Gauss Candidate Radii, Small Uniform Voter Radii (GCR/SUVR)} model.
     In this model we swap the distributions used in the previous one,
-    that is, the candidates are picked from the Gaussian and the voters from the uniform distributions.
+    that is, the radii for the candidates are picked from the Gaussian
+    and the radii for the voters from the uniform distributions.
 
-    \item\label{enum:suc-suv} The \textit{Small Uniform Candidates, Small Uniform Voters (SUCR/SUVR)} model.
-    We pick radii for both the candidates and the voters, uniformly at random from the range $[0.7,1.2]$.
+    \item\label{enum:suc-suv} The \textit{Small Uniform Candidate Radii, Small Uniform Voter Radii (SUCR/SUVR)} model.
+    We pick the radii for both the candidates and the voters uniformly at random from the interval $[0.7,1.2]$.
 
-    \item The \textit{Large Uniform Candidates, Large Uniform Voters (LUCR/LUVR)} model.
-    We pick radii for both the candidates and the voters, uniformly at random from the range $[0,3]$.
+    \item The \textit{Large Uniform Candidate Radii, Large Uniform Voter Radii (LUCR/LUVR)} model.
+    We pick the radii for both the candidates and the voters uniformly at random from the interval $[0,3]$.
 
 \end{enumerate}
 
-At first, it might be surprising why we do not include a constant radius, as one of the distributions.
-That is because, then, all the profiles would be VR and CR (\textit{FCOP}).
+At first, it might be surprising why we do not include a constant radius as one of the distributions.
+We disregard this possibility because, then, all the profiles would be VR and CR (FCOP).
 Below in Proposition \ref{prop:vcr-constR-vrcr}, we show why.
 
+% ===========================
+% VCR + constR --> VR and CR
+% ===========================
+
 \begin{proposition}\label{prop:vcr-constR-vrcr}
-    If every agent (candidate/voter) in a VCR profile, has the same constant radius, then
-    this profile satisfies both the VR and CR properties (FCOP). 
+    If every agent (candidate/voter) in a VCR profile has the same constant radius, then
+    this profile satisfies both the VR and CR properties (it is FCOP). 
     \begin{proof}
         Consider a VCR election $E = (C,V)$, where $C = \{c_1,...,c_M\}$ and $V = \{v_1,...,v_N\}$,
         and a constant radius $R$. An agent $a \in C \cup V$ is represented by a point $x_a$ and a radius $r_a$,
         and in this special case every agent has the same radius $r_a = R$.
         We construct a CR election $E^{\prime} = (C^{\prime}, V^{\prime})$,
-        where each voter $v^{\prime} \in V^{\prime}$ has radius $r_{v^{\prime}} = 0$, 
+        where each voter $v^{\prime} \in V^{\prime}$ has radius $r_{v^{\prime}} = 0$ 
         and each candidate $c^{\prime} \in C^{\prime}$ has radius $r_{c^{\prime}} = 2R$.
-        We will show, that the elections are the same ones.
-        From the VCR definition, for each candidate $c \in C$, if $c$ is approved by voters $v_i, v_{i+1}, ..., v_j$,
-        then
-        \begin{align}
-            x_c + r_c \geq x_{v_{j}} - r_{v_{j}} \ \land \ x_c - r_c \leq x_{v_{i}} + r_{v_{i}} \Longleftrightarrow \\
-            x_c + R \geq x_{v_{j}} - R \ \land \  x_c - R \leq x_{v_{i}} + R \Longleftrightarrow \\          
-            x_c + 2R \geq x_{v_{j}} \ \land \  x_c - 2R \leq x_{v_{i}} \Longleftrightarrow              
-        \end{align}
+        We will show that these elections are identical.
+        From the VCR definition,
+        we know that for each candidate $c \in C$, if $c$ is approved by a voter $v_i$, then
+        \begin{align*}
+            & |x_c - x_{v_i}| \leq r_c + r_{v_i} \Longleftrightarrow \\
+            & |x_c - x_{v_i}| \leq R + R  
+        \end{align*}
         Similarly, for each candidate $c^{\prime} \in C^{\prime}$ if $c^{\prime}$
-        is approved by voters $v^{\prime}_i, v^{\prime}_{i+1}, ..., v^{\prime}_j$, then
-        \[x_{c^{\prime}} + 2R \geq x_{v_{j}^{\prime}} \ \land \ x_{c^{\prime}} - 2R \leq x_{v_{i}^{\prime}}\]
+        is approved by a voter $v^{\prime}_i$, then
+        \[|x_{c^{\prime}} - x_{v^{\prime}_i}| \leq 2R + 0\]
         We showed that the elections $E$ and $E^{\prime}$ are equivalent.
-        We repeat this reasoning for the VR elections, where each candidate has radius zero,
+        Analogous reasoning works for the VR case, where each candidate has radius zero,
         completing the proof.
     \end{proof}
 \end{proposition}
 
-\subsubsection{Results}
-First, we present the visualization of our example election profiles,
-and how their visual structure is impacted by the generation parameters in Figure \ref{fig:20-20-examples-grid}.
-Later we analyze aggregated results of the experiment.
-Most of the conclusions we draw are inline with the basic intuition.
-\newpage
+% ===========================
+% Experiment 2 - RESULTS
+% ===========================
+
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{40-40-examples-grid-blue.png}
     \centering
-    \caption{40C 40V profile examples — approval matrix heatmaps}
-    \label{fig:20-20-examples-grid}
+    \caption{Examples of approval matrices for the elections of 40 candidates and 40 voters, from Experiment 2.
+    Each subplot is a visual representation of an approval matrix of a selected profile.
+    Solid color corresponds to $1$ and white to $0$ in cells of the matrix. 
+    To create a grid, we use radius candidate/voter models for the columns, and position candidate/voter models for the rows,
+    e.g., top-left subplot is visualization of a profile generated with the LUCR/LUVR radius model and the UCP/UVP position model.
+    }
+    \label{fig:40-40-examples-grid}
 \end{figure}
 
-\noindent \textbf{Election Dimensions} 
-\indent Our results for two election sizes have one crucial difference,
-looking briefly at Figure \ref{fig:20-20-statistics-barchart} (20 candidates, 20 voters)
-and Figure \ref{fig:40-40-statistics-barchart} (40 candidates, 40 voters), 
-we immediately see, that in the larger elections \textit{TVCR} property is much more frequent.
-\textcolor{orange}{(WIP: Napisać jakąś hipotezę, dlaczego tak się dzieje?)}
-Election sizes in the experiment are relatively small when compared to the real world scenarios.
-We can expect for this trend of increased number of \textit{TVCR} profiles to continue for even larger elections.
-This result is very promising, as it strongly encourages further development and research related to the VCR domain.
+\subsubsection{Results}
+
+First, in Figure \ref{fig:40-40-examples-grid},
+we present the visualization of our example profiles approval matrices
+and how their visual structure is impacted by the generation parameters. 
+Each subplot represents a different combination of the generation parameters pairs.
+Columns correspond to the radius candidate/voter models, and rows to the position candidate/voter models.
+
+Before, we further describe the results of the experiment, 
+we need to observe trends in the visualization and explain some basic ideas.
+Based on the visualizations, we know that the VCR profiles produce semi-structured approval matrices.
+That is, the ones in an approval matrix create roughly continuous blocks (intervals), they form a cluster.
+However, in certain circumstances, these blocks might have some irregularities (i.e., a 0 in sequence of 1's).
+The perfect example of this phenomenon are profiles from the first column in Figure \ref{fig:40-40-examples-grid}, that is,
+profiles generated using the LUCR/LUVR radius model. We can spot the "holes" in otherwise regular structure of 1's.
+Another important trend in these visualizations is the general direction in which the block structure is skewed.
+For profiles in the first and second row of Figure \ref{fig:40-40-examples-grid} (i.e., the UCP/UVP and the GCP/GVP models),
+the skew is on a diagonal from the top-left to the bottom-right corner.
+However, profiles from the last two rows (i.e., the UCP/GVP and the GCP/UVP models),
+while maintaining general diagonal direction, they have a significant shift.
+The UCP/GVP ones are skewed vertically, opposite to the GCP/UVP ones, which are skewed horizontally.
+
 % ===========================
 % 20 C 20 V - Ex.2 Aggregated Stats
 % ===========================
@@ -204,9 +243,35 @@ This result is very promising, as it strongly encourages further development and
             \caption{}
             \label{fig:ex42-20C20V-bars-RUG}
     \end{subfigure}
-\caption{20 C 20 V agg}
+\caption{Number of profiles with a given property, for the elections of 20 candidates and 20 voters,
+from Experiment 2. Results are grouped by the parameters used for the profile generation.
+Each subplot corresponds to the selected radius candidate/voter model,
+and position candidate/voter models are represented on the x-axis. 
+}
 \label{fig:ex42-20C20V-bars}
 \end{figure}
+
+In the following discussion,
+we tie these observations with the aggregated results of the experiment
+visualized in Figure \ref{fig:ex42-20C20V-bars} and Figure \ref{fig:ex42-40C40V-bars}.
+In Figure \ref{fig:ex42-20C20V-bars} we show how many of the generated profiles have a given preference restriction.
+To understand the results better, we split the collected data into groups.
+We use separate subplots to distinguish the radius candidate/voter models,
+and the position candidate/voter models are presented on the x-axis of each subplot.
+Figure \ref{fig:ex42-40C40V-bars} is almost identical, 
+the only difference is the first one shows the results for the 20 candidates and 20 voters elections,
+whereas the second one describes the larger elections of 40 candidates and 40 voters. 
+\newline
+
+\noindent \textbf{Election Dimensions} 
+\indent Our results for two election sizes have one crucial difference,
+looking briefly at Figure \ref{fig:ex42-20C20V-bars} (20 candidates, 20 voters)
+and Figure \ref{fig:ex42-40C40V-bars} (40 candidates, 40 voters), 
+we immediately see, that in the larger elections \textit{TVCR} property is much more frequent.
+\textcolor{orange}{(WIP: Napisać jakąś hipotezę, dlaczego tak się dzieje?)}
+Election sizes in the experiment are relatively small when compared to the real world scenarios.
+We can expect for this trend of increased number of \textit{TVCR} profiles to continue for even larger elections.
+This result is very promising, as it strongly encourages further development and research related to the VCR domain.
 
 % ===========================
 % 40 C 40 V - Ex.2 Aggregated Stats
@@ -246,12 +311,16 @@ This result is very promising, as it strongly encourages further development and
             \caption{}
             \label{fig:ex42-40C40V-bars-RUG}
     \end{subfigure}
-\caption{40 C 40 V agg}
+\caption{Number of profiles with a given property, for the elections of 40 candidates and 40 voters,
+from Experiment 2. Results are grouped by the parameters used for the profile generation.
+Each subplot corresponds to the selected radius candidate/voter model,
+and position candidate/voter models are represented on x-axis. 
+}
 \label{fig:ex42-40C40V-bars}
 \end{figure}
 
 In the subsequent paragraphs we will focus mostly on the results for smaller elections from
-Figure \ref{fig:20-20-statistics-barchart}, but only because the differences between the parameters are more pronounced.
+Figure \ref{fig:ex42-20C20V-bars}, but only because the differences between the parameters are more pronounced.
 \newline
 
 \noindent \textbf{Position Choice} \indent We analyze
@@ -290,19 +359,23 @@ In contrast, large radius range outputs irregular approval blocks in the profile
 \newline
 
 \noindent \textbf{Summary} \indent
+Most of the conclusions we draw are in line with the basic intuition.
 The results are very promising,
 we showed that the \textit{VCR} domain can be significantly larger than the \textit{VR} and \textit{CR} combined.
 We hope, this will encourage further development and research related to the VCR domain.
 
-\textcolor{orange}{(WIP: Więcej/Lepsze wnioski? - to jest powtórzenie z końcówki subsekcji Election Dimensions)}
 
-\section{Transforming a Truly VCR Profile into VR or CR one}
+% ===========================
+% Experiment 3
+% ===========================
+
+\section{Transforming a TVCR Profile into a CR or a VR One}
 A natural question that arises from the previous experiment results, 
 is how different are the TVCR profiles from the VR or CR ones? 
 In other words, how much do we need to change a TVCR profile for it to become a VR or CR one. 
 To answer this question, we design yet another experiment.
 
-\subsection{Experiment 3 — Profile Transformation}
+\subsection{Experiment 3: How different is a TVCR profile?}
 
 In this experiment, we partially reuse the strategy for profile generation from the previous one.
 We narrow down our experiment parameters to only two radius generation methods,
@@ -336,6 +409,10 @@ i.e., the minimal number of agent deletions for a TVCR profile to become a VR or
     \item The \textit{Voter Range}, where the cost is a number of deletions required to get a VR profile.
     \item The \textit{Candidate Range or Voter Range}, where the cost is a minimum from the previous two groups. 
 \end{enumerate}
+
+% ===========================
+% Experiment 3 - RESULTS
+% ===========================
 
 \subsubsection{Results}
 This experiment further confirms, our basic conclusions from the previous one.
