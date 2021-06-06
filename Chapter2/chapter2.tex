@@ -27,7 +27,7 @@ a set of voters who approve candidate $c$.
 
 In practice, we often use an additional, simplified notation of representing an election.
 We redefine $A$ as a two-dimensional binary matrix, with $N$ rows and $M$ columns,
-where value of $A[i][j]$ is $(1)$ if i-th voter approves of j-th candidate, and $(0)$ otherwise.
+where value of $A[i][j]$ is $1$ if i-th voter approves of j-th candidate, and $0$ otherwise.
 In other words, each row of the matrix is a vector representation of a given voter's approval set.
 We refer to it as an \textit{approval matrix} or a \textit{preference matrix}.
 It will always be clear from the context which notation we are using.
@@ -77,42 +77,46 @@ Euclidean preference restrictions, in the approval voting model, are foundation 
 All the problems we solve in the subsequent chapters are structured around this concept.
 Unless stated otherwise, throughout this work, we consider one-dimensional variants of the Euclidean models.
 
-First, the most basic restriction, that is an important building block to describe other ones, in this family of restrictions. 
+Let us introduce restrictions that we explore in this work.
+Starting with the most basic one, that is a predecessor to the other ones,
+in this family of restrictions. 
 
-\subsubsection{Dichotomous Euclidean (DE)}
-(\cite{elkind-approval-restrictions}) Given an election $E = (C,V)$, we say that $E$ satisfies \textit{DE}
+\begin{pref-restriction}[Dichotomous Euclidean (DE)][\cite{elkind-approval-restrictions}]
+
+Given an election $E = (C,V)$, we say that $E$ satisfies DE
 if there is a mapping $\rho$ of voters and candidates into the real line such that
 for every voter $v \in V$ there exists a radius $r_v$, and it holds that $v = \{c : |\rho(v) - \rho(c)| \leq r_v\}$.
+\textcolor{orange}{(WIP: Czy w ogóle definiować DE?, czy jest potrzebna cytacja?, ta definicja
+nie jest specjalnie spójna z pozostałymi oznaczeniami / nie oczywista)}   
+\end{pref-restriction}
 
-\textcolor{orange}{(WIP: Czy w ogóle definiować DE?, czy jest potrzebna cytacja?, to jest definicja z \cite{elkind-approval-restrictions}
-nie jest specjalnie oczywista)}   
-
-\subsubsection{Voter/Candidate Range (VCR)}\label{VCR-definition}
-(\cite{faliszewski-vcr}) Given an election \(E = (C, V)\), we say that the voters have \textit{one-dimensional Euclidean} preferences (VCR) if
-for every agent $a \in C \cup V$ (i.e., for each candidate and each voter)
-there exists a point $x_a$ and nonnegative real value radius $r_a$ such that:
+\begin{pref-restriction}[Voter/Candidate Range (VCR)][\cite{faliszewski-vcr}]\label{ch2:def:vcr}
+Given an election \(E = (C, V)\), we say that the voters have one-dimensional Euclidean preferences if
+for each agent $a \in C \cup V$ (i.e., for each candidate and each voter)
+there exists a point $x_a \in \mathbb{R}$ and nonnegative real value $r_a \in \mathbb{R}$ such that:
 \begin{displaymath}
     c \in A(v) \Longleftrightarrow |x_c - x_v| \leq r_c + r_v
 \end{displaymath}
-We can easily think of it as,
+\end{pref-restriction}
+
+We can easily think of the VCR restriction as,
 for an agent $a \in C \cup V$ the point $x_a$ describes $a$'s ideal position 
 in $\mathbb{R}$, representing his or hers opinion. 
 For a candidate $c \in C$, radius $r_c$ can be seen as $c$'s charisma,
 or in other words their ability to reach a number of different voters
-(e.g., a centrist candidate would have a larger reach, than an extremist one (left or right))
+(e.g., a centrist candidate would have a larger reach, than an extremist one)
 For a voter $v \in V$, radius $r_v$ corresponds to $v$'s willingness to compromise,
 that is, how different (faraway) opinion they would still accept from their ideal one.
- 
-Moreover, there are two special cases of VCR model.
+Moreover, there are two special cases of the VCR model.
 \begin{enumerate}
     \item \textit{Candidate Range (CR)}, we say that a VCR election $E = (C,V)$, 
-    satisfies CR if for each voter $v \in V$, their radius $r_v$ is equal to zero. 
+    is CR if for each voter $v \in V$, their radius $r_v$ is equal to zero. 
     
     \item \textit{Voter Range (VR)}, we say that a VCR election $E = (C,V)$, 
-    satisfies VR if for each candidate $c \in C$, their radius $r_c$ is equal to zero. 
+    is VR if for each candidate $c \in C$, their radius $r_c$ is equal to zero. 
 \end{enumerate}
 
-The CR and VR models are equivalent to the \textit{voter interval (VI)} and \textit{candidate interval (CI)} ones,
+The CR and the VR models are equivalent to the voter interval (VI) and the candidate interval (CI) ones,
 both introduced by \cite{elkind-approval-restrictions}. \cite{faliszewski-vcr} simply use a different terminology.
 
 \begin{figure}[h]
