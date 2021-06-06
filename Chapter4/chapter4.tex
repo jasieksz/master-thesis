@@ -41,8 +41,9 @@ we introduce additional notations to describe some special cases of the VCR pref
 For this experiment we performed a complete search of the domain.
 That is, we generated every possible profile of a given size and checked if it has the VCR property,
 and if so we checked again if it was the TVCR variant.
-We focused on the small size of elections, checking six different sizes.
-Having $M$ candidates and $N$ voters, we considered $(M,N) \in \{(3,3), (4,4), (5,5), (4,6), (6,4)\}$.
+We focused on the small size of elections,
+having elections of $M$ candidates and $N$ voters,
+we considered $(M,N) \in \{(3,3), (4,4), (5,5), (4,6), (6,4)\}$.
 
 The results are presented in Figure \ref{fig:small-statistics-barchart}.
 They show that the VCR domain is relatively large. However, for these small election sizes, only a limited number of profiles
@@ -80,7 +81,7 @@ Furthermore, we choose the random distribution independently for the position an
 and independently for the candidates and voters.
 We describe these categories in detail below.
 For each category pair (in total, 20 pairs) we generate 1000 elections with 20 candidates and 20 voters.
-Then we repeat the experiment for the elections consisting of 40 candidates and 40 voters.
+Then we repeated the experiment for the elections consisting of 40 candidates and 40 voters.
  
 \subsubsection{Position Parameter}
 We consider four ways of generating the points, representing the positions of the candidates and the voters:
@@ -330,7 +331,7 @@ We compare the position models in pairs.
 Starting with the UCP/UVP and the GCP/GVP models,
 the latter one has noticeably more TVCR profiles.
 It can be easily explained by looking at the respective approval matrices in 
-Figure \ref{fig:40-40-examples-grid} (in the 2nd column, 1st and 2nd row).
+Figure \ref{fig:40-40-examples-grid} (2nd column, 1st and 2nd row).
 The profiles generated from the GCR/GVR model have higher count of approvals,
 which in turn increases the likelihood of any irregularities in the approvals block structure,
 which we directly link to the TVCR property.   
@@ -341,19 +342,20 @@ We only explain the first one, and keep in mind that the second one is simply a 
 Looking at the approval matrices in Figure \ref{fig:40-40-examples-grid} (3rd row),
 we notice that the blocks of approvals are skewed vertically,
 which is associated with the VR property, i.e., the approvals form intervals in each row of the matrix.
-On the contrary, in the second model, the blocks are skewed vertically, which links to the CR property.
+On the contrary, in the second model (Figure \ref{fig:40-40-examples-grid} (4th row))
+the blocks are skewed horizontally, which links to the CR property.
 \newline
 
 \noindent \textbf{Radius Choice.} \indent From Figure \ref{fig:ex42-20C20V-bars},
-it is clear that the choice of the radii distribution can significantly reinforce or subside
-trends in the numbers of profiles with a selected property.
+it is clear that the choice of the radius candidate/voter model can significantly reinforce or subside
+trends in the distribution of numbers of profiles with a selected property.
 Figure \ref{fig:ex42-20C20V-bars-RGG} was our baseline scenario when analyzing influence of the position candidate/voter models.
 Now, let us compare this subplot with the other ones.
 For example, the mixed radius models, that is, the GCR/SUVR (Figure \ref{fig:ex42-20C20V-bars-RGU})
 and the SUCR/GVR (Figure \ref{fig:ex42-20C20V-bars-RUG}) models.
 Looking at the histograms for these models,
-we observe significant increase in the number of profiles with the CR and VR properties,
-respectively for the GCR/SUVR and the SUCR/GVR.
+we observe significant increase in the number of profiles with the CR and the VR properties,
+for the GCR/SUVR and the SUCR/GVR respectively.
 The core idea explaining this phenomenon is exactly the same as the one that we already described,
 when explaining the UCP/GVP and the GCP/UVP position models.
 Looking at approval matrices in Figure \ref{fig:40-40-examples-grid} (4th and 5th columns),
@@ -361,7 +363,7 @@ the GCR/SUVR and the SUCR/GVR models output more consistent approval blocks (wit
 resulting in a large decrease of the number of the TVCR profiles.
 At the same time, these models work in synergy with the UCP/GVP and the GCP/UVP position models,
 and the created approval structures are skewed either horizontally or vertically,
-increasing the number of the VR or CR profiles.
+increasing the number of the VR or the CR profiles.
 
 The striking difference between histograms for
 the LUCR/LUVR (Figure \ref{fig:ex42-20C20V-bars-RLULU}) and the SUCR/SUVR (Figure \ref{fig:ex42-20C20V-bars-RSUSU}) radius models
@@ -375,7 +377,7 @@ increasing the number of the TVCR profiles.
 \noindent \textbf{Summary.} \indent
 Most of the conclusions we draw are in line with the basic intuition.
 The results are very promising,
-we showed that the VCR domain can be significantly larger than the VR and CR ones combined.
+we showed that the VCR domain can be significantly larger than the VR and the CR ones combined.
 We hope, this will encourage further development and research related to the VCR domain.
 
 
@@ -385,7 +387,7 @@ We hope, this will encourage further development and research related to the VCR
 
 \section{Transforming a TVCR Profile into a CR or a VR One}
 A natural question that arises from the previous experiments, 
-is how different are the TVCR profiles from the VR or CR ones? 
+is how different are the TVCR profiles from the VR or the CR ones? 
 In other words, to what extent do we need to change a TVCR profile for it to become a VR or a CR one. 
 To answer this question, we design yet another experiment.
 
@@ -408,7 +410,7 @@ for it to become a VR or a CR one. To achieve more meaningful results we categor
     such that, after deleting $d$ candidates from the profile it becomes a VR or a CR profile.
 
     \item The \textit{Voter Deletion (VD)} method, 
-    which is similar to the \textit{Candidate Deletion} method, but this time we delete $d$ voters instead.
+    which is similar to the CD method, but this time we delete $d$ voters instead.
 
     \item The \textit{Candidate and Voter Deletion (CVD)} method, 
     where we combine the two previous methods, and we simultaneously delete $d_c$ candidates and $d_v$ voters.
@@ -416,7 +418,8 @@ for it to become a VR or a CR one. To achieve more meaningful results we categor
 
 Additionally, we put an upper bound on the number of removed agents.
 For the CD and the VD methods the limit is $4$, that is, we only try to remove $4$ agents at most.
-If we fail to find a solution, we use a number $5$ as a result, which we interpret as 5 or more agent deletions required. 
+If we fail to find a solution, we use a number $5$ as a result,
+which we interpret as 5 or more agent deletions required to succesfully transform a profile. 
 For the CVD method, the limit is $4$ per each agent type, i.e, the maximum number of deleted agents is 4 candidates and 4 voters. 
 \newline
 
@@ -514,7 +517,7 @@ the first one corresponds to the CR and the second one to the VR properties.
 We notice that they are somewhat symmetrical. 
 For example, for the GCP/GVP position model, to obtain the CR profile it is preferable to delete voters.
 However, if we look at the VR case, it is better to delete candidates.
-When saying preferred or better, we mean it requires fewer agent removals.
+When saying preferred or better, we mean, it requires fewer agent removals.
 Another interesting observation in these plots, are the violins for the UCP/GVP and the GCP/UVP models.
 They are virtually swapped between the CR and the VR cases.
 To explain this, we go back to the respective histograms from Experiment 2 in Figure \ref{fig:ex42-20C20V-bars-RGG}.
@@ -536,8 +539,9 @@ Let us discuss the second part of the experiment,
 that is results for the CVD method,
 in which we delete both the candidates and the voters simultaneously.
 We create plots in Figure \ref{fig:ex43-violins-multi} in the same way as in already described Figure \ref{fig:ex43-violins}.
-Only difference is conceptual. Previously violins were split to distinguish between removed agent type,
+Only difference is conceptual, previously violins were split to distinguish between removed agent type,
 i.e, left half (light color) represented candidates and right half (dark color) showed voters.
+Now, the halves still represent the number of deleted agents, but process of deletion is simultaneous for candidates and voters.
 We note that if all the values in distribution are identical, then the violin plot is replaced with a single horizontal line.
 In most cases, it is enough to delete just one candidate and one voter to obtain a CR or a VR profile.
 Besides that, we explain why it appears that we need to delete more voters than candidates.
@@ -545,7 +549,6 @@ It comes merely from implementation nuances. To find a number of required remova
 we iterate thorough pairs of all $(d_c, d_v)$ element combinations.
 That is we start by deleting one candidate and one voter, if there is no solution, then we try to delete one candidate and two voters,
 and only then if there is still no solution, we try two candidates and one voter, followed by 2 candidates and 2 voters, and so on.
-
 
 
 % =========================
