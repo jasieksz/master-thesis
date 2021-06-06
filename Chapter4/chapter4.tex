@@ -324,7 +324,7 @@ Figure \ref{fig:ex42-20C20V-bars}. We do so because there the differences betwee
 
 \noindent \textbf{Position Choice.} \indent Let us analyze Figure \ref{fig:ex42-20C20V-bars-RGG},
 which presents histograms for the GCR/GVR radius model and various candidate/voter position models.
-We consider this model our baseline scenario,
+We consider this model to be our baseline scenario,
 because it has the most balanced distribution of number of profiles, between the selected preference restrictions.
 We compare the position models in pairs. 
 Starting with the UCP/UVP and the GCP/GVP models,
@@ -384,44 +384,52 @@ We hope, this will encourage further development and research related to the VCR
 % ===========================
 
 \section{Transforming a TVCR Profile into a CR or a VR One}
-A natural question that arises from the previous experiment results, 
+A natural question that arises from the previous experiments, 
 is how different are the TVCR profiles from the VR or CR ones? 
-In other words, how much do we need to change a TVCR profile for it to become a VR or CR one. 
+In other words, to what extent do we need to change a TVCR profile for it to become a VR or a CR one. 
 To answer this question, we design yet another experiment.
 
 \subsection{Experiment 3: How different is a TVCR profile?}
 
-In this experiment, we partially reuse the strategy for profile generation from the previous one.
+In this experiment we partially reuse the strategy for profile generation from the previous one.
 We narrow down our experiment parameters to only two radius generation methods,
-that is, first model \textit{Gauss Candidates, Gauss Voters} and second \textit{Large Uniform Candidates, Large Uniform Voters}.
-However, we keep the position models unchanged, and explore all four of them.
-Obviously we only pick the TVCR profiles, to be exact, we use 400 of them for each category pair (in total 8 pairs).
-Due to the limited computational resources, we only use the profiles consisting of 15 candidates and 15 voters.
+that is, the GCR/GVR and the LUCR/LUVR models.
+Nonetheless, we keep the position models unchanged and explore all four of them.
+Obviously, we only pick the TVCR profiles. To be exact, we use 400 of them for each category pair (in total, 8 pairs).
+Due to the limited computational resources, we only use profiles consisting of 15 candidates and 15 voters.
+Having a TVCR profile as input, we search for a minimal number of agents that we have to remove from this profile,
+for it to become a VR or a CR one. To achieve more meaningful results we categorize experiment parameters, and describe them below.
 \newline
 
-\noindent \textbf{Agent Deletion Parameter} \indent We consider 3 methods to transform a TVCR profile into a VR or CR one.
+\noindent \textbf{Agent Deletion Parameter.} \indent We consider three methods to transform a TVCR profile into a VR or a CR one:
 \begin{enumerate}
-    \item The \textit{Candidate Deletion} method, 
+    \item The \textit{Candidate Deletion (CD)} method, 
     where we search for a minimal number $d$,
-    such that, after deleting $d$ candidates from the profile it becomes a VR or CR profile.
+    such that, after deleting $d$ candidates from the profile it becomes a VR or a CR profile.
 
-    \item The \textit{Voter Deletion} method, 
+    \item The \textit{Voter Deletion (VD)} method, 
     which is similar to the \textit{Candidate Deletion} method, but this time we delete $d$ voters instead.
 
-    \item \sout{The \textit{Candidate and Voter Deletion} method, 
-    where we combine the two previous methods, and we simultaneously delete $d_c$ candidates and $d_v$ voters.}
-    \textcolor{orange}{(WIP: Ciagle sie liczy, większość wyników to wystarczy usunąć 1 C i 1 V)}
+    \item The \textit{Candidate and Voter Deletion (CVD)} method, 
+    where we combine the two previous methods, and we simultaneously delete $d_c$ candidates and $d_v$ voters.
 \end{enumerate}
 
+Additionally, we put an upper bound on the number of removed agents.
+For the CD and the VD methods the limit is $4$, that is, we only try to remove $4$ agents at most.
+If we fail to find a solution, we use a number $5$ as a result, which we interpret as 5 or more agent deletions required. 
+For the CVD method, the limit is $4$ per each agent type, i.e, the maximum number of deleted agents is 4 candidates and 4 voters. 
+\newline
 
-\noindent \textbf{Transformation Result Parameter} \indent Apart from choosing what type of agent (candidate / voter) to delete,
-for each profile we collect the transformation results into 3 groups.
+\noindent \textbf{Transformation Result Parameter.} \indent Apart from choosing what type of agent (candidate / voter) to delete,
+for each profile we collect the transformation results in three groups.
 By the transformation result we mean the lowest possible cost of the transformation,
-i.e., the minimal number of agent deletions for a TVCR profile to become a VR or CR one.
+i.e., the minimal number of agent deletions for a TVCR profile to become a VR or a CR one.
+We collect the following information:
+
 \begin{enumerate}
-    \item The \textit{Candidate Range}, where the cost is a number of deletions required to get a CR profile.
-    \item The \textit{Voter Range}, where the cost is a number of deletions required to get a VR profile.
-    \item The \textit{Candidate Range or Voter Range}, where the cost is a minimum from the previous two groups. 
+    \item The \textit{Candidate Range (CR)}, where the cost is a number of deletions required to get a CR profile.
+    \item The \textit{Voter Range (VR)}, where the cost is a number of deletions required to get a VR profile.
+    \item The \textit{Candidate Range or Voter Range (CRVR)}, where the cost is a minimum from the previous two groups. 
 \end{enumerate}
 
 % ===========================
@@ -429,8 +437,8 @@ i.e., the minimal number of agent deletions for a TVCR profile to become a VR or
 % ===========================
 
 \subsubsection{Results}
-This experiment further confirms, our basic conclusions from the previous one.
-We use the same ideas and concepts, as before, to explain the results.
+We divide the results in two groups 
+We use the same ideas and concepts as before to explain the results.
 Looking at Figure \ref{fig:transform-grid1}, we can distinguish two groups.
 First, the charts in the left half of the figure,
 they look somewhat more balanced, or  one may say symmetrical.
@@ -439,6 +447,11 @@ These are the results for the
 Looking back at the result of the previous experiment for these models in Figure \ref{fig:20-20-GG-barchart},
 we see that, the numbers of the CR and VR profiles were equal. This tells us, that all the other profiles (TVCR ones),
 were similarly different from the CR or VR ones, hence we don't see much difference between the visualizations (violins).
+
+
+% =========================
+% Ex.3 part 1 single delete
+% =========================
 
 \begin{figure}[ht]
     \begin{subfigure}{0.49\textwidth}
@@ -469,17 +482,87 @@ were similarly different from the CR or VR ones, hence we don't see much differe
 
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{ex3-RGCR-GVR-PFCOP.png}
+        \includegraphics[width=\linewidth]{ex3-RGCR-GVR-PCRVR.png}
         \caption{}
-        \label{fig:ex43-vln-RGCR-GVR-PFCOP}
+        \label{fig:ex43-vln-RGCR-GVR-PCRVR}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{ex3-RLUCR-LUVR-PFCOP.png}
+        \includegraphics[width=\linewidth]{ex3-RLUCR-LUVR-PCRVR.png}
         \caption{}
-        \label{fig:ex43-vln-RLUCR-LUVR-PFCOP}
+        \label{fig:ex43-vln-RLUCR-LUVR-PCRVR}
 \end{subfigure}
 
-\caption{Experiment 3 - Deletion distribution}
+\caption{Required number of agents to remove, to transform a TVCR profile into a CR or a VR one, from Experiment 3.
+Each subplot consists of 4 violins, which are similar to a box and whisker plot. 
+A violin plot shows the distribution of quantitative data, and uses kernel density estimation for the visualization. 
+In our case, violins are additionally split in half, i.e., the left part (light color) shows a number of candidates deleted,
+and the right part (dark color) a number of voters deleted.
+Results are grouped by the experiment parameters.
+To create a subplot gird, we use radius candidate/voter models for the columns,
+and transformation result parameters for the rows,
+e.g., top-left subplot is a visualization of results for the GCR/GVR radius model and the CR property.
+Furthermore, position candidate/voter models are represented on x-axis.
+}
 \label{fig:ex43-violins}
 \end{figure}
+
+% =========================
+% Ex.3 part 2 multi delete
+% =========================
+
+\begin{figure}[ht]
+    \begin{subfigure}{0.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{ex3-multi-RGCR-GVR-PCR.png}
+      \caption{}
+      \label{fig:ex43-vln-multi-RGCR-GVR-PCR}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{ex3-multi-RLUCR-LUVR-PCR.png}
+      \caption{}
+      \label{fig:ex43-vln-multi-RLUCR-LUVR-PCR}
+    \end{subfigure}
+
+    \begin{subfigure}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{ex3-multi-RGCR-GVR-PVR.png}
+            \caption{}
+            \label{fig:ex43-vln-multi-RGCR-GVR-PVR}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{ex3-multi-RLUCR-LUVR-PVR.png}
+            \caption{}
+            \label{fig:ex43-vln-multi-RLUCR-LUVR-PVR}
+    \end{subfigure}
+
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{ex3-multi-RGCR-GVR-PCRVR.png}
+        \caption{}
+        \label{fig:ex43-vln-multi-RGCR-GVR-PCRVR}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{ex3-multi-RLUCR-LUVR-PCRVR.png}
+        \caption{}
+        \label{fig:ex43-vln-multi-RLUCR-LUVR-PCRVR}
+\end{subfigure}
+
+\caption{Required number of agents to remove, to transform a TVCR profile into a CR or a VR one, from Experiment 3.
+Each subplot consists of 4 violins, which are similar to a box and whisker plot. 
+In our case, violins are additionally split in half, i.e., the left part (light color) shows a number of candidates deleted,
+and the right part (dark color) a number of voters deleted.
+Results are grouped by the experiment parameters.
+To create a subplot gird, we use radius candidate/voter models for the columns,
+and transformation result parameters for the rows,
+e.g., top-left subplot is a visualization of results for the GCR/GVR radius model and the CR property.
+Furthermore, position candidate/voter models are represented on x-axis.
+}
+\label{fig:ex43-violins-multi}
+\end{figure}
+
+\input{Chapter4/Figs/table-ex31.tex}
+\input{Chapter4/Figs/table-ex32.tex}
