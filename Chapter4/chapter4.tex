@@ -21,15 +21,15 @@ For the second one, we do a more thorough examination. We check larger profiles,
 In every experiment we use the detection algorithm described in Section \ref{ch:detection:ilp}.
 
 For the sake of text clarity and more explicit naming,
-we introduce additional notations to describe some special cases of the preference restrictions.
+we introduce additional notations to describe some special cases of the VCR preference restriction.
 \begin{definition}
     A profile P is \textbf{Truly VCR (TVCR)},
-    if P satisfies the VCR property and does not satisfy either of the VR and CR properties.
+    if P satisfies the VCR property and does not satisfy either of the VR and the CR properties.
 \end{definition}
 
 \begin{definition}
     A profile P is \textbf{Fully COP (FCOP)},
-    if P satisfies both the VR and CR properties
+    if P satisfies both the VR and the CR properties
     (see Definition \ref{ch3:def:c1p}, for a reminder of the COP).
 \end{definition}
 
@@ -142,7 +142,7 @@ Below in Proposition \ref{prop:vcr-constR-vrcr}, we show why.
 
 \begin{proposition}\label{prop:vcr-constR-vrcr}
     If every agent (candidate/voter) in a VCR profile has the same constant radius, then
-    this profile satisfies both the VR and CR properties (it is FCOP). 
+    this profile satisfies both the VR and the CR properties (it is FCOP). 
     \begin{proof}
         Consider a VCR election $E = (C,V)$, where $C = \{c_1,...,c_M\}$ and $V = \{v_1,...,v_N\}$,
         and a constant radius $R$. An agent $a \in C \cup V$ is represented by a point $x_a$ and a radius $r_a$,
@@ -437,23 +437,24 @@ We collect the following information:
 % ===========================
 
 \subsubsection{Results}
-We divide the results in two groups 
-We use the same ideas and concepts as before to explain the results.
-Looking at Figure \ref{fig:transform-grid1}, we can distinguish two groups.
-First, the charts in the left half of the figure,
-they look somewhat more balanced, or  one may say symmetrical.
-These are the results for the 
-\textit{Gauss Candidates, Gauss Voters} and \textit{Uniform Candidates, Uniform Voters} position models.
-Looking back at the result of the previous experiment for these models in Figure \ref{fig:20-20-GG-barchart},
-we see that, the numbers of the CR and VR profiles were equal. This tells us, that all the other profiles (TVCR ones),
-were similarly different from the CR or VR ones, hence we don't see much difference between the visualizations (violins).
+We divide the observations in two groups based on the agent deletion parameter.
+First, we analyze the results for the CD and VD methods, and later we discuss the CVD method by itself.
+We use the similar ideas and concepts as in previous experiments to explain the results.
 
+We present the results for the first group in Figure \ref{fig:ex43-violins}.
+The figure is split into six subplots. 
+Each one of them is a visualization for different subset of results, divided by two parameters.
+First category is the radius candidate/voter model used to generate the profiles, 
+and second one is based on the transformation result parameter, i.e, the CR, VR and CRVR types.
+A single subplot shows the distribution of a required number of agents to remove (a violin plot),
+to transform a TVCR profile into one with a given property.
+% To represent deleted agent type, i.e., candidate (the CD method) or voter (the VD method), we use different colors. 
+% Furthermore, we distinguish the position candidate/voter models on the x-axis. 
 
 % =========================
 % Ex.3 part 1 single delete
 % =========================
-
-\begin{figure}[ht]
+\begin{figure}[ht!]
     \begin{subfigure}{0.49\textwidth}
       \centering
       \includegraphics[width=\linewidth]{ex3-RGCR-GVR-PCR.png}
@@ -479,7 +480,7 @@ were similarly different from the CR or VR ones, hence we don't see much differe
             \caption{}
             \label{fig:ex43-vln-RLUCR-LUVR-PVR}
     \end{subfigure}
-
+    \clearpage
     \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{ex3-RGCR-GVR-PCRVR.png}
@@ -507,11 +508,51 @@ Furthermore, position candidate/voter models are represented on x-axis.
 \label{fig:ex43-violins}
 \end{figure}
 
+Continuing, let us analyze Figure \ref{fig:ex43-vln-RGCR-GVR-PCR} and Figure \ref{fig:ex43-vln-RGCR-GVR-PVR}.
+They both show results for the GCR/GVR radius model, 
+the first one corresponds to the CR and the second one to the VR properties.
+We notice that they are somewhat symmetrical. 
+For example, for the GCP/GVP position model, to obtain the CR profile it is preferable to delete voters.
+However, if we look at the VR case, it is better to delete candidates.
+When saying preferred or better, we mean it requires fewer agent removals.
+Another interesting observation in these plots, are the violins for the UCP/GVP and the GCP/UVP models.
+They are virtually swapped between the CR and the VR cases.
+To explain this, we go back to the respective histograms from Experiment 2 in Figure \ref{fig:ex42-20C20V-bars-RGG}.
+For the UCP/GVP model, the majority of profiles are VR (not counting the TVCR ones).
+This suggests that the TVCR profiles from this model are more similar to the VR ones than to the CR ones.
+This idea is reflected in the corresponding violin plots (Figure \ref{fig:ex43-vln-RGCR-GVR-PVR}),
+it is preferred to delete candidates to obtain the VR property,
+for profiles from the UCP/GVP position model and the GCR/GVR radius model.
+For the GCP/UVP position model we see the reversed scenario,
+in the histograms in Figure \ref{fig:ex42-20C20V-bars-RGG} the majority of profiles are CR,
+and the violin plots (Figure \ref{fig:ex43-vln-RGCR-GVR-PCR}) show that it is better to delete voters to obtain the CR profiles.
+We observe the same phenomenon for the LUCR/LUVR radius model in Figure \ref{fig:ex43-vln-RLUCR-LUVR-PCR} (the CR)
+and in Figure \ref{fig:ex43-vln-RLUCR-LUVR-PVR} (the VR).
+There is nothing unexpected in results for the CRVR property (Figure \ref{fig:ex43-vln-RGCR-GVR-PCRVR} and Figure \ref{fig:ex43-vln-RLUCR-LUVR-PCRVR}).
+Having said that, they give us a promising conclusion,
+that if we are indifferent whether we obtain the CR or the VR profile, we can greatly reduce the required number of agent deletions. 
+
+Let us discuss the second part of the experiment,
+that is results for the CVD method,
+in which we delete both the candidates and the voters simultaneously.
+We create plots in Figure \ref{fig:ex43-violins-multi} in the same way as in already described Figure \ref{fig:ex43-violins}.
+Only difference is conceptual. Previously violins were split to distinguish between removed agent type,
+i.e, left half (light color) represented candidates and right half (dark color) showed voters.
+We note that if all the values in distribution are identical, then the violin plot is replaced with a single horizontal line.
+In most cases, it is enough to delete just one candidate and one voter to obtain a CR or a VR profile.
+Besides that, we explain why it appears that we need to delete more voters than candidates.
+It comes merely from implementation nuances. To find a number of required removals,
+we iterate thorough pairs of all $(d_c, d_v)$ element combinations.
+That is we start by deleting one candidate and one voter, if there is no solution, then we try to delete one candidate and two voters,
+and only then if there is still no solution, we try two candidates and one voter, followed by 2 candidates and 2 voters, and so on.
+
+
+
 % =========================
 % Ex.3 part 2 multi delete
 % =========================
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \begin{subfigure}{0.49\textwidth}
       \centering
       \includegraphics[width=\linewidth]{ex3-multi-RGCR-GVR-PCR.png}
@@ -551,18 +592,27 @@ Furthermore, position candidate/voter models are represented on x-axis.
         \label{fig:ex43-vln-multi-RLUCR-LUVR-PCRVR}
 \end{subfigure}
 
-\caption{Required number of agents to remove, to transform a TVCR profile into a CR or a VR one, from Experiment 3.
-Each subplot consists of 4 violins, which are similar to a box and whisker plot. 
-In our case, violins are additionally split in half, i.e., the left part (light color) shows a number of candidates deleted,
-and the right part (dark color) a number of voters deleted.
-Results are grouped by the experiment parameters.
-To create a subplot gird, we use radius candidate/voter models for the columns,
-and transformation result parameters for the rows,
-e.g., top-left subplot is a visualization of results for the GCR/GVR radius model and the CR property.
-Furthermore, position candidate/voter models are represented on x-axis.
+\caption{Required number of candidates and voters to remove, to transform a TVCR profile into a CR or a VR one, from Experiment 3.
+The plot is structured in the same way as in Figure \ref{fig:ex43-violins}, except one difference.
+Split in half violins no longer represent,
+independent deletion of the candidates or the voters,
+but correspond to simultaneous deletion of both, the candidates and the voters.
+If there is no violin (horizontal line), it means that all the values were identical.
 }
 \label{fig:ex43-violins-multi}
 \end{figure}
+In addition to the visual representation of the results
+we provide statistical metrics of the results, i.e., mean, standard deviation, minimum and maximum.
+Values are grouped by experiment parameters, in the same way as in the graphs,
+except the data is aggregated for all the position models.
+We present them in Table \ref{tab:ex31} for the first part of the experiment,
+and in Table \ref{tab:ex32} for the second one.
 
 \input{Chapter4/Figs/table-ex31.tex}
 \input{Chapter4/Figs/table-ex32.tex}
+
+\noindent \textbf{Summary.} \indent
+First, we showed how results from Experiment 3 further confirm our conclusions from Experiment 2.
+Moreover, our results provide strong basis,
+to consider transforming a TVCR profile into a CR or a VR one,
+if it would be required by other applications. 
