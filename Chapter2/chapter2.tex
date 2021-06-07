@@ -243,7 +243,7 @@ Below in Example \ref{ch2:ex:ilp-bigm-or}, we showcase the BigM technique to rep
 The BigM method is a valuable and widely used tool, however it has some downsides, mostly related to the numerical issues.
 That is why, most ILP solvers provide additional built-in mechanisms for applying it.
 For further reading, we point to the reference manual of \cite{ilp-gurobi}.
-We use on of those mechanisms for our linear program in Chapter \ref{ch:detection}, namely an \textit{indicator constraint}.
+We use one of those mechanisms for our linear program in Chapter \ref{ch:detection}, namely an \textit{indicator constraint}.
 It allows one to create constraints representing if-then logic.
 Formally, we have to introduce a binary variable $z \in \{0,1\}$, and then we can define an indicator constraint in the form of:
 \[z = f \longrightarrow \sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i}\]
