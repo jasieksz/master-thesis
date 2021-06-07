@@ -15,13 +15,25 @@
 % VCR Profile Detection Algorithm
 % ========================================================================
 
-In this chapter we present our algorithms for deciding
-if a given approval profile has the VCR property.
+First, in Section \ref{ch3:sec1:detection}, we discuss various approaches to preference recognition, and we present selection of related work.
+Followed by Section \ref{ch3:sec2:ilp}, we describe our main contribution of this chapter.
+That is, an algorithm based on a reduction to ILP for deciding if a given approval profile has the VCR structure.
+Finally, in Section \ref{ch3:sec3:sat}
+we experimentally compare the performance of our ILP based solution with the one based on a reduction to 2-SAT,
+for a task of recognizing the CR and the VR preference restrictions.
 
-\section{Profile Structure Detection}
-To take advantage of the restrictions defined in Section \ref{pref-restrictions-section},
+% ========================= 
+% Detection
+% =========================
+
+\section{Profile Structure Detection}\label{ch3:sec1:detection}
+To take advantage of the restrictions defined in Section \ref{ch2:sec:pref-restrictions},
 we need to design detection algorithms. They can be used to check whether given election profiles
 satisfy particular structural properties.
+
+NP-Hard for $d \geq 2$ from \cite{peters-recognising-euc-pref}
+Other examples: SPOC \cite{peters-spoc}, top-monotonicity \cite{magiera-recognising-topmono}, spsc \cite{elkind-recognising-spsc}.
+
 For example, to check the VR (CR) property it is enough to check for the \textit{consecutive ones property}
 in the preference matrix. 
 
@@ -56,7 +68,11 @@ for each agent (voter/candidate) a point on the real line
 and a nonnegative real value representing radius,
 so that these parameters satisfy the VCR property.  
 
-\section{Integer Linear Program}\label{ch:detection:ilp}
+% ========================= 
+% ILP
+% =========================
+
+\section{Integer Linear Program}\label{ch3:sec2:ilp}
 An algorithm based on ILP solving is an excellent choice for the first attempt
 at designing a detection algorithm. It provides an efficient and relatively simple solution.
 Furthermore, it can be used as a fast benchmark for validating future solutions.
@@ -152,4 +168,8 @@ Additionally, we use two binary variables $p$ and $q$, required by the indicator
 \end{aligned}
 \end{equation}
 
-\section{\textcolor{orange}{WIP: Consecutive Ones Detection — ILP vs SAT}} 
+% ========================= 
+% ILP vs SAT
+% =========================
+
+\section{\textcolor{orange}{WIP: Consecutive Ones Detection — ILP vs SAT}}\label{ch3:sec3:sat}
