@@ -42,12 +42,14 @@ It will always be clear from the context which notation we are using.
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{approval-election.png}
     \centering
-    \caption{Temporary Image - Example of An Approval Election \cite{lacknerSkowronAVOverview}}
+    \caption{Example of an approval election.
+    A candidate is approved by a voter if his or hers block is above the voter's point. 
+    Temporary image from \cite{lacknerSkowronAVOverview}}
     \label{fig:approval-election-example}
 \end{figure}
 
 \begin{example}\label{ex:approval-election}
-    \textcolor{orange}{(WIP: Opis wyborów + figura)}    
+    \textcolor{orange}{(WIP: Opis wyborów z figury)}    
     Following the example from Figure \ref{fig:approval-election-example} ...
 \end{example}
 
@@ -63,7 +65,7 @@ Nonetheless, we introduce the most basic voting rule for the approval model, sim
 introduced by \cite{brams1983approval}.
 
 \begin{definition}[Multi-Winner Approval Voting (AV)]
-    For a given election $E$ and a size of committee $k$, AV rule selects the $k$ candidates with the highest approval scores.
+    For a given election $E = (C, V)$ and a size of committee $k$, AV rule selects the $k$ candidates with the highest approval scores.
     AV-score of a given candidate $c$, is the number of voters who approve of $c$, and 
     formally, is defined as $score_{AV}(E,c) = |\{v \in V : c \in A(v)\}|$.
 \end{definition}
@@ -146,10 +148,23 @@ Moreover, there are two special cases of the VCR model.
 The CR and the VR models are equivalent to the voter interval (VI) and the candidate interval (CI) ones,
 both introduced by \cite{elkind-approval-restrictions}. \cite{faliszewski-vcr} simply use a different terminology.
 
-\begin{figure}[h]
-    \includegraphics[width=8cm]{vr-cr.png}
-    \centering
-    \caption{CR and VR Temporary image from \cite{cr-vr-mav-liu-guo}}
+\begin{figure}[H]
+    \begin{subfigure}{0.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{cr-example.png}
+      \caption{CR election}
+      \label{fig:cr-example}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{vr-example.png}
+      \caption{VR election}
+      \label{fig:vr-example}
+    \end{subfigure}
+    \caption{Example of elections with the CR and VR preference restrictions.
+    Temporary Image from \cite{elkind-approval-restrictions}
+    }
 \end{figure}
 
 The VCR domain is larger than the CR and the VR domains combined.
