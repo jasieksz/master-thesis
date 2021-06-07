@@ -13,6 +13,9 @@ and how can we leverage them to design better algorithms, for many of the comput
 Finally, in Section \ref{{ch2:sec:methods}}, we explain some computational methods (tricks) we have used in this work,
 that we believe are not necessarily straightforward. 
 
+% =====================
+% Basic Definitions
+% =====================
 \section{Basic Definitions}\label{sec:basic-def}
 
 For an integer $t$, by $[t]$ we mean the set $\{1,...,t\}$.
@@ -70,11 +73,15 @@ introduced by \cite{brams1983approval}.
     Continuing with the election from Example \ref{ex:approval-election}
 \end{example}
 
+% =====================
+% Preference Restrictions
+% =====================
+
 \section{Preference Restrictions}\label{sec:pref-restrictions}
 As a reminder from Section \ref{ch:intro:sec:restrictions},
 many computational social choice problems such as winner determination, or control problems are known to be computationally hard.
 Preference restrictions, i.e., restrictions on the structure of voters’ ballots,
-is a very effective solution to circumvent the computational complexity of these problems.
+are a very effective solution to circumvent the computational complexity of these problems.
 
 \subsection{Euclidean Preference Restrictions}
 Euclidean preference restrictions, in the approval voting model, are foundation of this work.
@@ -92,23 +99,40 @@ if there is a mapping $\rho$ of voters and candidates into the real line such th
 for every voter $v \in V$ there exists a radius $r_v$, and it holds that $v = \{c : |\rho(v) - \rho(c)| \leq r_v\}$.
 \textcolor{orange}{(WIP: Czy w ogóle definiować DE?, czy jest potrzebna cytacja?, ta definicja
 nie jest specjalnie spójna z pozostałymi oznaczeniami / nie oczywista)}   
+
 \end{pref-restriction}
 
+The DE preference restriction is somewhat limited, it permits for only one agent type, i.e., candidate or voter,
+to have a radius parameter, while the other one is represented just by his or hers point.
+We consider the DE model in one of the two variants:
+\begin{enumerate}
+    \item The voter-range model, where voters have the radius parameter.
+    In other words, if a voter approves a candidate then he or she also approves all the closer ones.
+
+    \item The candidate-range model, where candidates have the radius parameter.
+    We say that if a candidate is approved by a voter, then he or she is also approved
+    by all the voters closer to him or her.
+\end{enumerate}
+Below we provide a formal definition of these two models,
+as well as their generalization which allows all agents to have a radius parameter.
+
 \begin{pref-restriction}[Voter/Candidate Range (VCR)][\cite{faliszewski-vcr}]\label{ch2:def:vcr}
+
 Given an election \(E = (C, V)\), we say that the voters have one-dimensional Euclidean preferences if
 for each agent $a \in C \cup V$ (i.e., for each candidate and each voter)
 there exists a point $x_a \in \mathbb{R}$ and nonnegative real value $r_a \in \mathbb{R}$ such that:
 \begin{displaymath}
     c \in A(v) \Longleftrightarrow |x_c - x_v| \leq r_c + r_v
 \end{displaymath}
+
 \end{pref-restriction}
 
-We can easily think of the VCR restriction as,
+We can think of the VCR restriction as
 for an agent $a \in C \cup V$ the point $x_a$ describes $a$'s ideal position 
 in $\mathbb{R}$, representing his or hers opinion. 
 For a candidate $c \in C$, radius $r_c$ can be seen as $c$'s charisma,
 or in other words their ability to reach a number of different voters
-(e.g., a centrist candidate would have a larger reach, than an extremist one)
+(e.g., a centrist candidate possibly would have a larger reach, than an extremist one).
 For a voter $v \in V$, radius $r_v$ corresponds to $v$'s willingness to compromise,
 that is, how different (faraway) opinion they would still accept from their ideal one.
 Moreover, there are two special cases of the VCR model.
@@ -119,7 +143,6 @@ Moreover, there are two special cases of the VCR model.
     \item \textit{Voter Range (VR)}, we say that a VCR election $E = (C,V)$, 
     is VR if for each candidate $c \in C$, their radius $r_c$ is equal to zero. 
 \end{enumerate}
-
 The CR and the VR models are equivalent to the voter interval (VI) and the candidate interval (CI) ones,
 both introduced by \cite{elkind-approval-restrictions}. \cite{faliszewski-vcr} simply use a different terminology.
 
@@ -129,7 +152,7 @@ both introduced by \cite{elkind-approval-restrictions}. \cite{faliszewski-vcr} s
     \caption{CR and VR Temporary image from \cite{cr-vr-mav-liu-guo}}
 \end{figure}
 
-The VCR domain is larger than the CR and VR domains combined.
+The VCR domain is larger than the CR and the VR domains combined.
 Below in Example \ref{ch:pre:ex:tvcr}, we show an election that is VCR, but neither CR nor VR.
 We explore this topic further in Chapter \ref{ch:domain}.
 
@@ -141,11 +164,15 @@ To see why, ...
 \textcolor{orange}{(WIP: Podać punkty i promienie (VCR), następnie opisać dlaczego nie jest CR ani VR ... Obrazek?)}   
 \end{example}
 
+% =====================
+% Techniques
+% =====================
+
 \section{\textcolor{orange}{Methodology/Techniques (WIP: Inny tytuł?)}}\label{{ch2:sec:methods}}
 
 \subsection{Integer Linear Program}
 Integer linear programming (ILP) is a common approach to solve NP-hard problems, 
-furthermore it can be used effectively for other problems as well.
+furthermore it can be used successfully for other problems as well.
 To solve a problem by reduction to the linear program,
 first we need to define the given problem as a system of linear inequalities and an objective function.
 Formally, for $j \in [n]$, a single inequality consists of
@@ -160,16 +187,16 @@ Besides constraints, we define an objective function with parameters $c_j$:
 Now, having defined inequalities and the objective, 
 the goal is to find a vector of values for the $x_j$,
 such that it maximizes (or minimizes) the value of the objective function, while keeping all the inequalities true.
-In general, all the variables of a linear program can be fractional, and the program can be solved in polynomial time.
+In general, all the variables of a linear program can be fractional, and such program can be solved in polynomial time.
 However, there is a special case called \textit{(mixed) integer linear program},
 that is, when we require some variables to be integers. Solving integer linear programs is NP-hard.
 Despite this, there are available state-of-the-art linear program solvers, that solve ILPs effectively.
 In this work we use one of them, the Gurobi solver.
-For complete explanation of this topic, we point to the book by \cite{}.
+For the complete theory of (integer) linear programming, we point to the book by \cite{ilp-book-wolsey}.
 
 Not every problem can be directly defined as an integer linear program.
 However, we can apply basic techniques and tricks to make the problem suitable.
-This is the case in our solution to the VCR profile detection problem described in Chapter \ref{ch:detection}.
+For example, this is the case for our solution to the VCR profile detection problem described in Chapter \ref{ch:detection}.
 Below we present these methods:
 \newline
 
