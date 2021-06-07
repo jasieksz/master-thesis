@@ -138,13 +138,17 @@ or in other words their ability to reach a number of different voters
 For a voter $v \in V$, radius $r_v$ corresponds to $v$'s willingness to compromise,
 that is, how different (faraway) opinion they would still accept from their ideal one.
 Moreover, there are two special cases of the VCR model.
-\begin{enumerate}
-    \item \textit{Candidate Range (CR)}, we say that a VCR election $E = (C,V)$, 
-    is CR if for each voter $v \in V$, their radius $r_v$ is equal to zero. 
-    
-    \item \textit{Voter Range (VR)}, we say that a VCR election $E = (C,V)$, 
-    is VR if for each candidate $c \in C$, their radius $r_c$ is equal to zero. 
-\end{enumerate}
+
+\begin{pref-restriction}[Candidate Range (CR)]
+We say that a VCR election $E = (C,V)$, 
+is CR if for each voter $v \in V$, their radius $r_v$ is equal to zero. 
+\end{pref-restriction}
+
+\begin{pref-restriction}[Voter Range (VR)]
+We say that a VCR election $E = (C,V)$, 
+is VR if for each candidate $c \in C$, their radius $r_c$ is equal to zero. 
+\end{pref-restriction}
+
 The CR and the VR models are equivalent to the voter interval (VI) and the candidate interval (CI) ones,
 both introduced by \cite{elkind-approval-restrictions}. \cite{faliszewski-vcr} simply use a different terminology.
 
@@ -162,7 +166,7 @@ both introduced by \cite{elkind-approval-restrictions}. \cite{faliszewski-vcr} s
       \caption{VR election}
       \label{fig:vr-example}
     \end{subfigure}
-    \caption{Example of elections with the CR and VR preference restrictions.
+    \caption{Example of elections with the CR and the VR preference restrictions.
     Temporary Image from \cite{elkind-approval-restrictions}
     }
 \end{figure}
