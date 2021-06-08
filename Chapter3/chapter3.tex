@@ -27,46 +27,60 @@ for a task of recognizing the CR and the VR preference restrictions.
 % =========================
 
 \section{Profile Structure Detection}\label{ch3:sec1:detection}
-To take advantage of the restrictions defined in Section \ref{ch2:sec:pref-restrictions},
-we need to design detection algorithms. They can be used to check whether given election profiles
-satisfy particular structural properties.
-
-NP-Hard for $d \geq 2$ from \cite{peters-recognising-euc-pref}
-Other examples: SPOC \cite{peters-spoc}, top-monotonicity \cite{magiera-recognising-topmono}, spsc \cite{elkind-recognising-spsc}.
-
-For example, to check the VR (CR) property it is enough to check for the \textit{consecutive ones property}
-in the preference matrix. 
+To take advantage of the preference restrictions defined in Section \ref{ch2:sec:pref-restrictions} or any other one,
+we need to design detection (recognition) algorithms. They can be used to check whether a given election
+has particular structural properties. 
+Research in this area is active and successful.
+Provided solutions can be divided into two categories.
+First one, where preference recognition algorithm is based on a certain characterization of a domain.
+For example, \cite{peters-spoc} show that a profile is \textit{single-peaked on a circle} by defining a forbidden-substructure of profiles.  
+For the \textit{single-peaked single-crossing} domain, \cite{elkind-recognising-spsc} characterize profiles by connecting them to other smaller domain.
+Second category is more vague, and the solutions are somewhat conventional. For example,
+\cite{doigon-recognising-1deuclidean} provide detection algorithm for the \textit{1d-Euclidean} domain.
+\cite{magiera-recognising-topmono} reduce the \textit{top-monotonicity} recognition problem to the SAT-2CNF problem.
+\textcolor{orange}{(Czy muszę tu więcej wyjaśnić na czym polegają rozwiązania z cytacji?)}
+Above-mentioned examples consider elections in the ordinal model,
+nonetheless, there are recognition algorithms for the approval-based elections as well.
+For a large group of preference restrictions among others, the CR and the VR,
+the problem of recognition can be reduced to detecting consecutive ones property (Definition \ref{ch3:def:c1p})
+in the approval matrix of a profile (\cite{elkind-approval-restrictions}).
+However, for some restrictions designing a polynomial time domain recognition algorithm is not possible.
+\cite{peters-recognising-euc-pref} showed this to be true for the case of \textit{d-Euclidean} ($d \geq 2$) restrictions in the ordinal election model.
 
 \begin{definition}\label{ch3:def:c1p}
-A binary matrix (i.e., a matrix consisting of zeros and ones) has the consecutive ones property (C1P)
-if its columns be permuted in such a way that
+
+A binary matrix (i.e., a matrix consisting of zeros and ones) has the consecutive ones property (C1P or COP)
+if its columns can be permuted in such a way that
 for each row the ones are consecutive, i.e., the 1s form an interval.
+
 \end{definition}
 
-In this work we refer to the term \textit{C1P} more broadly, using it interchangeably,
+In this work we refer to the term C1P more broadly, using it interchangeably,
 for an analogous scenario where we permute the rows and look for the 
 consecutive 1s in every column in a given matrix.
 \cite{COP-PQTree} provided a linear-time C1P detection algorithm based on the PQ-Tree data structure.
 
 \begin{proposition}[\cite{elkind-approval-restrictions}]
-Deciding whether an approval profile satisfies VR or CR is possible in 
-$O(m \cdot n)$ time.
+There is an algorithm that given an approval election with m candidates and n voters
+decides if it satisfies the VR (the CR) condition in $O(mn)$ time.
+
 \end{proposition}
 
 \begin{proof}
-Let $C = \{c_1,...,c_m\}$ and $V = \{v_1,...,v_n\}$,
-we create a $n \times m$ matrix A ($a_{ij}$): for each $i \in [n]$ and $j \in [m]$:
-$a_{ij} = 1$ if $c_j \in A(v_i)$ and $0$ otherwise.
+Let us represent the election as an approval matrix $A_{n \times m}$.
 We can see that for the VR property, permuting the columns of matrix $A$ so that ones form an interval in each row is equivalent 
 to permuting candidates so that the set of candidates approved by each voter forms an interval.
-For the CR case, we just need to transpose the matrix created for the VR.
+For the CR case, we use our extended definition of the C1P (the transposed variant),
+where we permute the rows so that ones form an interval in each column,
+which is equivalent to permuting voters so that the set of voters who approve a certain candidate forms an interval.  
+
+\textcolor{orange}{(Pojęcie \textit{approval matrix} jest zdefiniowane w preliminaries)}
 \end{proof}
 
-Our focus lies on the one dimensional VCR property. 
-Having preference matrix as input we have to provide 
-for each agent (voter/candidate) a point on the real line 
-and a nonnegative real value representing radius,
-so that these parameters satisfy the VCR property.  
+In this work, our focus lies on designing an algorithm for recognition of the one dimensional VCR property. 
+That is, having an approval matrix as input we have to decide if 
+for each agent (i.e., for each voter and each candidate) there is a point on the real line 
+and a nonnegative real value representing the radius, so that these parameters satisfy the VCR property.  
 
 % ========================= 
 % ILP
@@ -173,3 +187,24 @@ Additionally, we use two binary variables $p$ and $q$, required by the indicator
 % =========================
 
 \section{\textcolor{orange}{WIP: Consecutive Ones Detection — ILP vs SAT}}\label{ch3:sec3:sat}
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{ex1-swarm.png}
+    \centering
+    \caption{Swarm Plot: VR (COP) Detection time comparison between ILP and SAT}
+    \label{fig:detection:time:1}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{ex1-box.png}
+    \centering
+    \caption{Box Plot: VR (COP) Detection time comparison between ILP and SAT}
+    \label{fig:detection:time:2}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{ex1-violin.png}
+    \centering
+    \caption{Violin Plot: VR (COP) Detection time comparison between ILP and SAT}
+    \label{fig:detection:time:3}
+\end{figure}
