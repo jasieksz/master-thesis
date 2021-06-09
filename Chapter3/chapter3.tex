@@ -16,7 +16,7 @@
 % ========================================================================
 
 First, in Section \ref{ch3:sec1:detection}, we discuss various approaches to preference recognition, and we present selection of related work.
-Followed by Section \ref{ch3:sec2:ilp}, we describe our main contribution of this chapter.
+Followed by Section \ref{ch3:sec2:ilp}, where we describe our main contribution of this chapter.
 That is, an algorithm based on a reduction to ILP for deciding if a given approval profile has the VCR structure.
 Finally, in Section \ref{ch3:sec3:sat}
 we experimentally compare the performance of our ILP based solution with the one based on a reduction to 2-SAT,
@@ -38,7 +38,7 @@ For the \textit{single-peaked single-crossing} domain, \cite{elkind-recognising-
 Second category is more vague, and the solutions are somewhat conventional. For example,
 \cite{doigon-recognising-1deuclidean} provide detection algorithm for the \textit{1d-Euclidean} domain.
 \cite{magiera-recognising-topmono} reduce the \textit{top-monotonicity} recognition problem to the SAT-2CNF problem.
-\textcolor{orange}{(Czy muszę tu więcej wyjaśnić na czym polegają rozwiązania z cytacji?)}
+\textcolor{orange}{(WIP Czy muszę tu więcej wyjaśnić na czym polegają rozwiązania z cytacji?)}
 Above-mentioned examples consider elections in the ordinal model,
 nonetheless, there are recognition algorithms for the approval-based elections as well.
 For a large group of preference restrictions among others, the CR and the VR,
@@ -74,7 +74,7 @@ For the CR case, we use our extended definition of the C1P (the transposed varia
 where we permute the rows so that ones form an interval in each column,
 which is equivalent to permuting voters so that the set of voters who approve a certain candidate forms an interval.  
 
-\textcolor{orange}{(Pojęcie \textit{approval matrix} jest zdefiniowane w preliminaries)}
+\textcolor{orange}{(WIP: Pojęcie \textit{approval matrix} jest zdefiniowane w preliminaries)}
 \end{proof}
 
 In this work, our focus lies on designing an algorithm for recognition of the one dimensional VCR property. 
@@ -177,7 +177,7 @@ We conduct the experiment in the following steps:
 
     \item We generate 100 random VCR profiles for each election size (generation details are discussed in Section \ref{ch4:sec2:experiment2}).
     
-    \item For both algorithms, we measure time of the model creation and optimization. 
+    \item For both algorithms, we measure time of the model creation and optimization to detect the VR property. 
     To minimize external factors on measurement time, we repeat this step three times, and pick the smallest result. 
     
 \end{enumerate}
