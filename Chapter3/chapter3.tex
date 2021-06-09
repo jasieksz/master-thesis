@@ -87,101 +87,68 @@ and a nonnegative real value representing the radius, so that these parameters s
 % =========================
 
 \section{Integer Linear Program}\label{ch3:sec2:ilp}
-An algorithm based on ILP solving is an excellent choice for the first attempt
+An algorithm based on integer linear program (ILP) solving is an excellent choice for the first attempt
 at designing a detection algorithm. It provides an efficient and relatively simple solution.
 Furthermore, it can be used as a fast benchmark for validating future solutions.
-Below we provide an ILP for the VCR profile recognition, together with additional preliminary steps.
+Below we provide an ILP for the VCR profile recognition problem, together with additional preliminary steps.
 
 \subsubsection{Transforming the Definition of VCR into Linear Constraints}
 Before formulating an ILP for detecting VCR profiles,
 we have to redefine the definition of VCR in order to make it appropriate for an ILP solver.
-The definition is based on the euclidean distance which cannot be directly represented in an ILP.
+As a short reminder from Section \ref{ch2:sec:euc-pref-restrictions}, for the candidate set $C$ and voter set $V$, 
+we say that the 1D-VCR property is satisfied if for each candidate $c \in C$ and each voter $v \in V$:
+\[c \in A(v) \Leftrightarrow |x_c - x_v| \leq r_c + r_v,\]
+where $x_a$ and $r_a$ represent agent's point on the real line and their radius, respectively.
+The definition is based on the Euclidean distance which cannot be directly represented in an ILP.
 Equation \ref{vcr-to-linear-eq} shows transformation of the VCR definition into 
 linear inequalities.
 
-As a short reminder from Section \ref{ch2:def:vcr}, 
-for the candidates $C$ and voters $V$, 1D-VCR is defined as:
-\begin{equation}\label{vcr-def-equation-ch4}
-\forall \text{ } c \in C \text{ } \forall \text{ } v \in V: c \in A(v) \Leftrightarrow |x_c - x_v| \leq r_c + r_v
-\end{equation}
-Where $x_a$ and $r_a$ represent agent's point on the real line and their radius respectively.
-
-\textcolor{orange}{(WIP: W jaki sposób mogę zwięźle,
-bez ponownego wpropadzania wszystkich oznaczeń, przypomieć definicję? O ile w ogóle jest to potrzebne...)}
-
-
 \begin{equation}\label{vcr-to-linear-eq}
     \begin{split}
-     & |x_c - x_v| \leq r_c + r_v \\
-     & \iff -(r_c + r_v) \le x_c - x_v \le r_c + r_v \\
-     & \iff x_c - x_v \le r_c + r_v\ \ \lor \ \ -(x_c - x_v) \le r_c + r_v
-    \end{split}
-\end{equation}
-\text{(WIP: Poprawić formatowanie, jak?)}
-
-The constraint obtained from the equation \ref{vcr-to-linear-eq} 
-is not suitable yet for an ILP because it contains logical \textit{OR} condition
-which again cannot be directly represented in an ILP.
-To transform it into linear form, we apply commonly called \textit{BigM} technique,
-as shown below.
-
-\begin{equation}
-    \begin{split}
-    x_c - x_v \leq r_c + r_v + M(1 - z_1) \\
-    -(x_c - x_v) \leq r_c + r_v + M(1 - z_2) \\
-    z_1 + z_2 \geq 1 \\
-    z_1, z_2 \in \{0,1\} \\
+     & |x_c - x_v| \leq r_c + r_v \iff \\
+     & -(r_c + r_v) \le x_c - x_v \le r_c + r_v \iff \\
+     & x_c - x_v \le r_c + r_v\ \ \lor \ \ -(x_c - x_v) \le r_c + r_v
     \end{split}
 \end{equation}
 
-First, we have to introduce a large constant $M$ (larger than $max(|x|)$) and two binary variables $z_1$ and $z_2$.
-Now if any of the $z_i$ is $0$ then the corresponding inequality will be true,
-and the additional constraint ($z_1 + z_2 \geq 1$) guarantees that at least one of the $z_i$ will be $1$.
-
-
-\textcolor{orange}{(WIP: Trochę namieszane wytłumaczenie,
-bo tak naprawdę problem z $OR$ jest tylko dla wariantu
-$\text{if } c \notin A(v)$, czyli $x_c - x_v + M(1 - z)\geq r_c + r_v + 1$ ...)}
-
-The BigM technique is common enough, for most solvers to provide
-additional built-in mechanisms for applying it. 
-Using them is usually recommended, as it allows a solver for better internal optimization.
-In Gurobi solver we use \textit{indicator constraint},
-which allows one to create versatile constraints in form of:
-$z = f \rightarrow a^Tx \leq b$.
-The constraint states that if the binary indicator variable $z$
-is equal to $f$, where $f \in \{0,1\}$, then the linear constraint 
-$a^Tx \leq b$, where $a$ and $b$ are data coefficients vectors and $x$ represents the decision variables,
-should hold. On the other hand, if $z = 1-f$, the linear constraint may be violated.
-
-\textcolor{orange}{(WIP: BigM jest używane do reprezentacji różnych 'funkcji',
-nie tylko $OR$, np. $max$, $abs$, etc., czy też o tym wspomnieć?)}
+The constraint obtained from Equation \ref{vcr-to-linear-eq} is not suitable yet for an ILP
+because it contains a logical \textit{OR} condition, which again cannot be directly represented in an ILP.
+To transform it into linear form,
+we use special type of the constraints provided by the Gurobi solver, i.e., indicator constraints,
+which allow representing if-then logic.
+They are based on the so-called BigM technique, which we described in Section \ref{ch2:subsec:ilp}.
 
 \subsubsection{Detection Algorithm} \label{vcr-detection-ilp-section}
-Final formulation of the ILP for recognising VCR property in a given election profile 
-is shown in Figure \ref{vcr-detection-ilp}.
-The program accepts preference matrix $A$ as input,
-and if solution exists it outputs every agent's position $x_a$ and radius $r_a$.
+Our final formulation of the ILP for recognising VCR elections is presented in Figure \ref{vcr-detection-ilp}.
+The program takes as input preference matrix $A$,
+and if a solution exists it outputs every agent's position $x_a$ and radius $r_a$.
 Additionally, we use two binary variables $p$ and $q$, required by the indicator constraints.
 
-\begin{equation}\label{vcr-detection-ilp}
-\begin{aligned}
-    \mathbf{check } \text{ } \mathbf{feasibility:} & \\
-    \mathbf{subject } \text{ } \mathbf{to:} & \\
-    & x_a \in \mathbb{R} & & & \forall \text{ a} \in C \cup V & \\
-    & r_a \in \mathbb{R}^{0+} & & & \forall \text{ a} \in C \cup V & \\
-    & p_{cv} \in \{0,1\} & & & \forall \text{ c} \in \text{C } \forall \text{ v} \in V & \\
-    & q_{cv} \in \{0,1\} & & & \forall \text{ c} \in \text{C } \forall \text{ v} \in V & \\
-    \text{if } c \in A(v): & \\
-    & x_c - x_v \leq r_c + r_v & \\
-    & -(x_c - x_v) \leq r_c + r_v & \\
-    \text{if } c \notin A(v): & \\
-    & p_{cv} == 1 \rightarrow x_c - x_v \geq r_c + r_v + 1 & \\
-    & q_{cv} == 1 \rightarrow -(x_c - x_v) \geq r_c + r_v + 1 & \\
-    & p_{cv} + q_{cv} >= 1 &
-\end{aligned}
-\end{equation}
 
+
+\begin{figure}
+    \begin{align*}
+        \mathbf{Variables:} & \\
+        & x_a \in \mathbb{R} & & & a \in C \cup V & \\
+        & r_a \in \mathbb{R}^{0+} & & & a \in C \cup V & \\
+        & p_{c,v} \in \{0,1\} & & & c \in C, \: v \in V & \\
+        & q_{c,v} \in \{0,1\} & & & c \in C, \: v \in V & \\
+        \mathbf{Constraints:} & \\
+        & & & & \text{for} \: c \in A(v) & \\
+        & x_c - x_v \leq r_c + r_v & \\
+        & -(x_c - x_v) \leq r_c + r_v & \\
+        & & & & \text{for} \: c \notin A(v) & \\
+        & p_{c,v} = 1 \rightarrow x_c - x_v \geq r_c + r_v + 1 & \\
+        & q_{c,v} = 1 \rightarrow -(x_c - x_v) \geq r_c + r_v + 1 & \\
+        & p_{c,v} + q_{c,v} >= 1 &
+    \end{align*}
+\caption{An ILP for detecting the VCR property.
+Variables $x_a$ and $r_a$ represent agent's position and radius,
+and variables $p_{c,v}$ and $q_{c,v}$ are required to use indicator constraints.
+}
+\label{vcr-detection-ilp}
+\end{figure}
+  
 % ========================= 
 % ILP vs SAT
 % =========================
