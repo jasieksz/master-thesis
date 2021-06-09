@@ -60,7 +60,7 @@ for an analogous scenario where we permute the rows and look for the
 consecutive 1s in every column in a given matrix.
 \cite{COP-PQTree} provided a linear-time C1P detection algorithm based on the PQ-Tree data structure.
 
-\begin{proposition}[\cite{elkind-approval-restrictions}]
+\begin{proposition}[\cite{elkind-approval-restrictions}]\label{ch3:sec1:vr-cop-propostion}
 There is an algorithm that given an approval election with m candidates and n voters
 decides if it satisfies the VR (the CR) condition in $O(mn)$ time.
 
@@ -119,14 +119,12 @@ which allow representing if-then logic.
 They are based on the so-called BigM technique, which we described in Section \ref{ch2:subsec:ilp}.
 
 \subsubsection{Detection Algorithm} \label{vcr-detection-ilp-section}
-Our final formulation of the ILP for recognising VCR elections is presented in Figure \ref{vcr-detection-ilp}.
+We present our final formulation of the ILP for recognising VCR elections in Figure \ref{vcr-detection-ilp}.
 The program takes as input preference matrix $A$,
 and if a solution exists it outputs every agent's position $x_a$ and radius $r_a$.
 Additionally, we use two binary variables $p$ and $q$, required by the indicator constraints.
 
-
-
-\begin{figure}
+\begin{figure}[H]
     \begin{align*}
         \mathbf{Variables:} & \\
         & x_a \in \mathbb{R} & & & a \in C \cup V & \\
@@ -153,14 +151,60 @@ and variables $p_{c,v}$ and $q_{c,v}$ are required to use indicator constraints.
 % ILP vs SAT
 % =========================
 
-\section{\textcolor{orange}{WIP: Consecutive Ones Detection — ILP vs SAT}}\label{ch3:sec3:sat}
+\section{Performance comparison of ILP and SAT based solutions for COP detection}\label{ch3:sec3:sat}
+In this section we propose a small extension of our ILP, so it can be used to detect the VR and the CR properties.
+Later, we compare it with an alternative solution, which is based on a reduction to the 2-SAT problem, due to \cite{fitzsimmons-lackner-sat-cop}.
+
+\subsubsection{Extending the VCR recognition ILP}
+We know that the VR and the CR properties are special cases of the VCR restriction, to be specific,
+they require all candidates or all voters to have radius equal to zero, respectively.
+The extension is straightforward,
+we need to introduce additional constraints that require each agents' (candidates' or voters’) radius to be zero. 
+For the VR case it is: $r_c = 0 \quad c \in C$, and for the CR: $r_v = 0 \quad v \in V$.
+
+\subsubsection{Comparison experiment}
+The 2-SAT based solution is an algorithm for the consecutive ones property detection in a matrix.
+From Proposition \ref{ch3:sec1:vr-cop-propostion} we know it is equivalent to detecting the VR property in an approval matrix of an election.
+With that said, we expect the ILP solution to be slower than the 2-SAT one,
+the latter one is specialized in one task only, that is detecting the COP. 
+On the other hand, the ILP solution is more general, 
+as it outputs not only a VR certificate, but also a mapping of agents to points and radii.
+We design a simple experiment to find out how much faster is the 2-SAT solution.
+
+We conduct the experiment in the following steps:
+\begin{enumerate}
+    \item We consider three elections sizes. Having $m$ candidates and $n$ voters, election dimensions are: $(m,n) \in \{(15,15), (20,20), (40,40)\}$. 
+
+    \item We generate 100 random VCR profiles for each election size (generation details are discussed in Section \ref{ch4:sec2:experiment2}).
+    
+    \item For both algorithms, we measure time of the model creation and optimization. 
+    To minimize external factors on measurement time, we repeat this step three times, and pick the smallest result. 
+    
+\end{enumerate}
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{ex1-swarm.png}
     \centering
-    \caption{Swarm Plot: VR (COP) Detection time comparison between ILP and SAT}
+    \caption{Swarm Plot: VR (COP) Detection time comparison between ILP and SAT.
+    Results are divided into 3 subplots based on the election size. 
+    Categories, that is algorithms used (i.e., ILP or SAT) are described on y-axes.
+    On x-axes detection time is shown in seconds.
+    Additionally, we distinguish detection outcome (i.e., positive or negative) of each measurement with different colors.
+    Precise statistical metrics are included in Table \ref{tab:ch3:ex}.
+    }
     \label{fig:detection:time:1}
 \end{figure}
+
+\noindent \textbf{Results.} \indent Let us analyze the results visualized in Figure \ref{fig:detection:time:1}.
+Each subplot shows results for a given election size.
+Algorithms are represented on y-axis, and measured detection time on x-axis in seconds.
+Furthermore, each point is colored based on the detection result. 
+2-SAT based algorithm is significantly faster and more consistent, it is anywhere between 10 and 100 times faster.
+These conclusions are reflected in statistical metrics presented in Table \ref{tab:ch3:ex}.
+Additionally, we have performed one-off measurements for some larger elections (i.e., $80C \times 80V$ and $100C \times 100V$),
+for which detection time differences were even bigger.
+
+\input{Chapter3/Figs/table-ex.tex}
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{ex1-box.png}
