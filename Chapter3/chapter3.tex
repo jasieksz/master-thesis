@@ -38,7 +38,6 @@ For the \textit{single-peaked single-crossing} domain, \cite{elkind-recognising-
 Second category is more vague, and the solutions are somewhat conventional. For example,
 \cite{doigon-recognising-1deuclidean} provide detection algorithm for the \textit{1d-Euclidean} domain.
 \cite{magiera-recognising-topmono} reduce the \textit{top-monotonicity} recognition problem to the SAT-2CNF problem.
-\textcolor{orange}{(WIP Czy muszę tu więcej wyjaśnić na czym polegają rozwiązania z cytacji?)}
 Above-mentioned examples consider elections in the ordinal model,
 nonetheless, there are recognition algorithms for the approval-based elections as well.
 For a large group of preference restrictions among others, the CR and the VR,
@@ -63,7 +62,6 @@ consecutive 1s in every column in a given matrix.
 \begin{proposition}[\cite{elkind-approval-restrictions}]\label{ch3:sec1:vr-cop-propostion}
 There is an algorithm that given an approval election with m candidates and n voters
 decides if it satisfies the VR (the CR) condition in $O(mn)$ time.
-
 \end{proposition}
 
 \begin{proof}
@@ -73,8 +71,6 @@ to permuting candidates so that the set of candidates approved by each voter for
 For the CR case, we use our extended definition of the C1P (the transposed variant),
 where we permute the rows so that ones form an interval in each column,
 which is equivalent to permuting voters so that the set of voters who approve a certain candidate forms an interval.  
-
-\textcolor{orange}{(WIP: Pojęcie \textit{approval matrix} jest zdefiniowane w preliminaries)}
 \end{proof}
 
 In this work, our focus lies on designing an algorithm for recognition of the one dimensional VCR property. 
@@ -179,7 +175,6 @@ We conduct the experiment in the following steps:
     
     \item For both algorithms, we measure time of the model creation and optimization to detect the VR property. 
     To minimize external factors on measurement time, we repeat this step three times, and pick the smallest result. 
-    
 \end{enumerate}
 
 \noindent \textbf{Results.} \indent Let us analyze the results visualized in Figure \ref{fig:detection:time}.
@@ -196,11 +191,11 @@ for which detection time differences were even bigger.
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{ex1-violin.png}
     \centering
-    \caption{Swarm Plot: VR (COP) Detection time comparison between ILP and SAT.
+    \caption{Violin Plot: VR (COP) Detection time comparison between ILP and SAT.
     Results are divided into 3 subplots based on the election size. 
     Categories, that is algorithms used (i.e., ILP or SAT) are described on y-axes.
     On x-axes detection time is shown in seconds.
     Additionally, we distinguish detection outcome (i.e., positive or negative) of each measurement with different colors.
     Precise statistical metrics are included in Table \ref{tab:ch3:ex}.
-    }    \label{fig:detection:time:}
+    }    \label{fig:detection:time}
 \end{figure}
