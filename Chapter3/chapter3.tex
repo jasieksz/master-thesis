@@ -182,20 +182,7 @@ We conduct the experiment in the following steps:
     
 \end{enumerate}
 
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{ex1-swarm.png}
-    \centering
-    \caption{Swarm Plot: VR (COP) Detection time comparison between ILP and SAT.
-    Results are divided into 3 subplots based on the election size. 
-    Categories, that is algorithms used (i.e., ILP or SAT) are described on y-axes.
-    On x-axes detection time is shown in seconds.
-    Additionally, we distinguish detection outcome (i.e., positive or negative) of each measurement with different colors.
-    Precise statistical metrics are included in Table \ref{tab:ch3:ex}.
-    }
-    \label{fig:detection:time:1}
-\end{figure}
-
-\noindent \textbf{Results.} \indent Let us analyze the results visualized in Figure \ref{fig:detection:time:1}.
+\noindent \textbf{Results.} \indent Let us analyze the results visualized in Figure \ref{fig:detection:time}.
 Each subplot shows results for a given election size.
 Algorithms are represented on y-axis, and measured detection time on x-axis in seconds.
 Furthermore, each point is colored based on the detection result. 
@@ -207,15 +194,13 @@ for which detection time differences were even bigger.
 \input{Chapter3/Figs/table-ex.tex}
 
 \begin{figure}[H]
-    \includegraphics[width=\linewidth]{ex1-box.png}
-    \centering
-    \caption{Box Plot: VR (COP) Detection time comparison between ILP and SAT}
-    \label{fig:detection:time:2}
-\end{figure}
-
-\begin{figure}[H]
     \includegraphics[width=\linewidth]{ex1-violin.png}
     \centering
-    \caption{Violin Plot: VR (COP) Detection time comparison between ILP and SAT}
-    \label{fig:detection:time:3}
+    \caption{Swarm Plot: VR (COP) Detection time comparison between ILP and SAT.
+    Results are divided into 3 subplots based on the election size. 
+    Categories, that is algorithms used (i.e., ILP or SAT) are described on y-axes.
+    On x-axes detection time is shown in seconds.
+    Additionally, we distinguish detection outcome (i.e., positive or negative) of each measurement with different colors.
+    Precise statistical metrics are included in Table \ref{tab:ch3:ex}.
+    }    \label{fig:detection:time:}
 \end{figure}
