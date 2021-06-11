@@ -112,7 +112,7 @@ because it contains a logical \textit{OR} condition, which again cannot be direc
 To transform it into linear form,
 we use special type of the constraints provided by the Gurobi solver, i.e., indicator constraints,
 which allow representing if-then logic.
-They are based on the so-called BigM technique, which we described in Section \ref{ch2:subsec:ilp}.
+They are based on the so-called BigM technique, which we described in Section \ref{ch2:sec:methods}.
 
 \subsubsection{Detection Algorithm} \label{vcr-detection-ilp-section}
 We present our final formulation of the ILP for recognising VCR elections in Figure \ref{vcr-detection-ilp}.
@@ -199,3 +199,6 @@ for which detection time differences were even bigger.
     Precise statistical metrics are included in Table \ref{tab:ch3:ex}.
     }    \label{fig:detection:time}
 \end{figure}
+
+\section{Conclusions}
+2SAT is great, but we have not studied VCR domain enough to construct one
