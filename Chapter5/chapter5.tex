@@ -18,8 +18,8 @@
 
 In this chapter we demonstrate how a certain control problem that is known to be 
 NP-hard for unrestricted preferences, becomes polynomial-time solvable for the VCR elections.
-First in Section \ref{ch5:sec1:overview}, we discuss control problem and its variants. 
-Additionally, we present two existing polynomial-time algorithms for the selected control problem in the VR and the CR settings.
+First in Section \ref{ch5:sec1:overview}, we discuss variants of the control problem. 
+Additionally, we present two existing polynomial-time algorithms for a control problem, for elections in the VR and the CR domain.
 Later in Section \ref{ch5:sec2:vcr-control}, we describe our solution for the VCR elections,
 and we show that it unifies the two aforementioned algorithms for the VR and the CR cases.
 
@@ -27,8 +27,8 @@ and we show that it unifies the two aforementioned algorithms for the VR and the
 % Section 1 Control
 %===============================
 \section{\textcolor{orange}{Control (WIP: Inny tytuł?)}}\label{ch5:sec1:overview}
-The control problem was first introduced by \cite{bartholdi-control}, and later extended by \cite{hemaspaandra-control}.
-Control refers to an act of manipulating the structure of an election in a certain way.
+Control problems were first introduced by \cite{bartholdi-control}, and later extended by \cite{hemaspaandra-control}.
+The control refers to an act of manipulating the structure of an election in a certain way.
 We assume that there is some person or authority who is in charge of organizing the election.
 We refer to them as the \textit{election chair}.
 The chair has a goal to change the outcome of the election in a certain way.
@@ -40,16 +40,29 @@ that is, the chair's intention is to prevent a selected candidate from winning.
 Furthermore, control problems are grouped by the method used to change the structure of an election, we call it the \textit{control action}.
 Usually in literature, for each control type (i.e, the CC or the DC) we consider four possible actions, that is,
 adding candidates (AC), deleting candidates (DC), adding voters (AV) or deleting voters (DV).
+For further reading, see the chapter by \cite{control-hcsc-faliszewski},
+which provides a complete overview of the control problem and the closely related bribery problem.
 
-The algorithms that we discuss in this chapter consider the constructive control by deleting voters (CC-DV).
-
+The algorithms that we discuss in the following sections, consider the constructive control by deleting voters (CC-DV),
+and of course, for the winner determination, we use the approval voting rule (see Definition \ref{ch2:def:av}).
+Below, we give a formal definition of our problem:
 \begin{definition}\label{ch5:def:av-cc-dv}
-    In the constructive control by deleting voters (CC-DV)
+    We are given a set of candidates $C$, a set of voters $V$, a nonnegative integer k, and a selected candidate $p \in C$.
+    In the constructive control by deleting voters problem for the approval voting (AV-CC-DV),
+    we ask whether there exists a set $V^{\prime} \subseteq V$,
+    such that $p$ is the unique winner of the approval voting election $E = (C, V \setminus V^{\prime})$, where $|V^{\prime}| \leq k$.
 \end{definition}
 
-\subsection{AV-CC-DV for Single Peaked (VR = CI = row C1P = $r_c=0$)}
+Now, in the following two subsections we describe the AV-CC-DV algorithms for the elections in the VR and the CR domain.
 
-Algorithm from \cite{control-sp-shield-faliszewski-hemaspaandra}
+\subsection{Constructive Control by Voter Deletion for the VR Elections}\label{ch5:sec:1:cc-dv-vr}
+% AV-CC-DV for Single Peaked (VR = CI = row C1P = $r_c=0$)
+This algorithm was created as a part of the work of \cite{control-sp-shield-faliszewski-hemaspaandra}.
+It was the first paper to consider solving control problems under preference restrictions.
+The restriction that they consider is the single-peaked one.
+However, in the approval elections it is virtually identical to the voter range model (i.e., candidates' radii are zero).
+We only present a brief description of the algorithm, that explains the core idea and some necessary concepts.
+For the detailed explanation, proofs and examples, we again point to the original work.
 
 \begin{enumerate}
     \item kandydat $p$ na osi, pozostali na lewo i prawo
@@ -69,8 +82,8 @@ Algorithm from \cite{control-sp-shield-faliszewski-hemaspaandra}
     \item powtarzamy do skutu, przeliczając aprobaty co iterację
 \end{enumerate}
 
-
-\subsection{AV-CC-DV for Candidate Range = VI = column C1P = $r_v=0$}
+\subsection{Constructive Control by Voter Deletion for the CR Elections}\label{ch5:sec:1:cc-dv-cr}
+% \subsection{AV-CC-DV for Candidate Range = VI = column C1P = $r_v=0$}
 
 Algorithm from \cite{control-cr-how-hard-magiera-faliszewski}
 
