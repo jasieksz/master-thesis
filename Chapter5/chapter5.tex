@@ -19,18 +19,35 @@
 In this chapter we demonstrate how a certain control problem that is known to be 
 NP-hard for unrestricted preferences, becomes polynomial-time solvable for the VCR elections.
 First in Section \ref{ch5:sec1:overview}, we discuss control problem and its variants. 
-Additionally, we present two existing polynomial-time algorithms for the control problem in the VR and the CR settings.
-Later in Section \ref{ch5:sec2:vcr-control}, we describe our solution for the control problem for the VCR elections,
-and we show that it unifies the two algorithms for the VR and the CR cases.
+Additionally, we present two existing polynomial-time algorithms for the selected control problem in the VR and the CR settings.
+Later in Section \ref{ch5:sec2:vcr-control}, we describe our solution for the VCR elections,
+and we show that it unifies the two aforementioned algorithms for the VR and the CR cases.
 
 %===============================
 % Section 1 Control
 %===============================
-\section{\textcolor{orange}{Overview (WIP: Inny tytuł?)}}\label{ch5:sec1:overview}
+\section{\textcolor{orange}{Control (WIP: Inny tytuł?)}}\label{ch5:sec1:overview}
+The control problem was first introduced by \cite{bartholdi-control}, and later extended by \cite{hemaspaandra-control}.
+Control refers to an act of manipulating the structure of an election in a certain way.
+We assume that there is some person or authority who is in charge of organizing the election.
+We refer to them as the \textit{election chair}.
+The chair has a goal to change the outcome of the election in a certain way.
+Formally we call it the \textit{control type},
+and we distinguish two types. The first one, the \textit{constructive} control (CC), 
+where the chair's goal is to ensure a victory of a selected candidate.
+The second one, the \textit{destructive} control (DC), which is an opposite,
+that is, the chair's intention is to prevent a selected candidate from winning.
+Furthermore, control problems are grouped by the method used to change the structure of an election, we call it the \textit{control action}.
+Usually in literature, for each control type (i.e, the CC or the DC) we consider four possible actions, that is,
+adding candidates (AC), deleting candidates (DC), adding voters (AV) or deleting voters (DV).
 
-Control is ...
+The algorithms that we discuss in this chapter consider the constructive control by deleting voters (CC-DV).
 
-\subsection{AV-CC-DV for Single Peaked ~(VR = CI = row C1P = $r_c=0$)}
+\begin{definition}\label{ch5:def:av-cc-dv}
+    In the constructive control by deleting voters (CC-DV)
+\end{definition}
+
+\subsection{AV-CC-DV for Single Peaked (VR = CI = row C1P = $r_c=0$)}
 
 Algorithm from \cite{control-sp-shield-faliszewski-hemaspaandra}
 
