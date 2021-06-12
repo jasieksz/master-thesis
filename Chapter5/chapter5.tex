@@ -41,28 +41,65 @@ Furthermore, control problems are grouped by the method used to change the struc
 Usually in literature, for each control type (i.e, the CC or the DC) we consider four possible actions, that is,
 adding candidates (AC), deleting candidates (DC), adding voters (AV) or deleting voters (DV).
 For further reading, see the chapter by \cite{control-hcsc-faliszewski},
-which provides a complete overview of the control problem and the closely related bribery problem.
+which provides a complete overview of the control problem and the closely related bribery problem as well.
 
 The algorithms that we discuss in the following sections, consider the constructive control by deleting voters (CC-DV),
 and of course, for the winner determination, we use the approval voting rule (see Definition \ref{ch2:def:av}).
 Below, we give a formal definition of our problem:
 \begin{definition}\label{ch5:def:av-cc-dv}
     We are given a set of candidates $C$, a set of voters $V$, a nonnegative integer k, and a selected candidate $p \in C$.
-    In the constructive control by deleting voters problem for the approval voting (AV-CC-DV),
+    In the constructive control by deleting voters problem for the approval voting (Approval-CC-DV),
     we ask whether there exists a set $V^{\prime} \subseteq V$,
     such that $p$ is the unique winner of the approval voting election $E = (C, V \setminus V^{\prime})$, where $|V^{\prime}| \leq k$.
 \end{definition}
 
-Now, in the following two subsections we describe the AV-CC-DV algorithms for the elections in the VR and the CR domain.
+\noindent Now, we define some basic concepts and terminology, that will help us to explain the algorithms in the subsequent sections.
+First, we introduce an alternative representation of an agent in a VCR profile.
+\begin{definition}
+    In the VCR model, every agent $a$ is represented by the point $x_a$ and the radius $r_a$.
+    We define $a$'s range beginning and range end as: \[b(a) = x_a - r_a,\] \[e(a) = x_a + r_a.\]
+\end{definition}
+\noindent Additionally, to represent the AV-score difference between two candidates, we use:
+\begin{definition}
+    Having an approval election $E$ and two candidates $a$ and $b$. 
+    Under the approval-voting scoring rule, we say that:
+    \[scoreDelta(E,a,b) = score_{AV}(E,a) - score_{AV}(E,b).\]
+\end{definition}
+\noindent However, we note that we use a concise notation of the score delta, i.e., $scoreDelta(a,b)$.
 
 \subsection{Constructive Control by Voter Deletion for the VR Elections}\label{ch5:sec:1:cc-dv-vr}
-% AV-CC-DV for Single Peaked (VR = CI = row C1P = $r_c=0$)
-This algorithm was created as a part of the work of \cite{control-sp-shield-faliszewski-hemaspaandra}.
-It was the first paper to consider solving control problems under preference restrictions.
+This algorithm is presented in the work of \cite{control-sp-shield-faliszewski-hemaspaandra}.
+It is the first paper to consider solving control problems under preference restrictions.
 The restriction that they consider is the single-peaked one.
-However, in the approval elections it is virtually identical to the voter range model (i.e., candidates' radii are zero).
+However, in the approval elections it is virtually identical to the voter range model (i.e., candidates' radii are zero and voters form intervals).
 We only present a brief description of the algorithm, that explains the core idea and some necessary concepts.
-For the detailed explanation, proofs and examples, we again point to the original work.
+For the detailed explanation, proofs and examples we again point to the original work.
+
+\begin{figure}[b!]
+    \centering
+    \includegraphics[width=0.8\linewidth]{vr-ref-ccvd.png}
+    \caption{Illustration of the CC-DV for the VR elections from \cite{control-sp-shield-faliszewski-hemaspaandra}.
+    Bar chart of approvals from $V$. The candidates are in the VR order,
+    and each candidate is labeled with respect to whether he or she is left or right
+    of the candidate $p$. Additionally, the “dangerous” candidates are marked with shaded bars.
+    }
+    \label{fig:vr-ccdv-ref}
+\end{figure}
+
+The algorithm deploys greedy strategy. In the explanation we follow the example from Figure~\ref{fig:vr-ccdv-ref}.
+Having a set of candidates $C$, who are in the VR order, a set of voters $V$,
+a designated winner candidate $p$, and a maximum number of voter deletions $k$.
+To find a solution (if it exists) we take the following steps:
+First, we group the candidates based on their position relative to $p$, i.e., left or right from $p$.
+Then, we proceeded to selecting the dangerous candidates (opponents). The first opponent to the right of $p$
+is the leftmost candidate from the right group, that gets at lest as many approvals as $p$ (i.e., $r_3$). 
+Every next right dangerous candidate is the candidate
+that gets strictly more approvals than the previous dangerous candidate (i.e., $r_6$, and then $r_{10}$).
+We take analogous steps for the candidates on the left. 
+From this point, we try to defeat dangerous candidates. We process one at a time in each iteration.
+We start with the closest right opponent (i.e., $r_3$). Now we have to choose which and how many voters to delete.
+
+
 
 \begin{enumerate}
     \item kandydat $p$ na osi, pozostali na lewo i prawo
