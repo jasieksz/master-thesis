@@ -26,7 +26,7 @@ and we show that it unifies the two aforementioned algorithms for the VR and the
 %===============================
 % Section 1 Control
 %===============================
-\section{\textcolor{orange}{Control (WIP: Inny tytuł?)}}\label{ch5:sec1:overview}
+\section{Control (WIP: Inny tytuł?)}\label{ch5:sec1:overview}
 Control problems were first introduced by \cite{bartholdi-control}, and later extended by \cite{hemaspaandra-control}.
 The control refers to an act of manipulating the structure of an election in a certain way.
 We assume that there is some person or authority who is in charge of organizing the election.
@@ -65,17 +65,17 @@ First, we introduce an alternative representation of an agent in a VCR profile.
     Under the approval-voting scoring rule, we say that:
     \[scoreDelta(E,a,b) = score_{AV}(E,a) - score_{AV}(E,b).\]
 \end{definition}
-\noindent However, we note that we use a concise notation of the score delta, i.e., $scoreDelta(a,b)$.
+\noindent However, we note that we use a more concise notation, that is, the $scoreDelta(a,b)$.
 
 \subsection{Constructive Control by Voter Deletion for the VR Elections}\label{ch5:sec:1:cc-dv-vr}
 This algorithm is presented in the work of \cite{control-sp-shield-faliszewski-hemaspaandra}.
 It is the first paper to consider solving control problems under preference restrictions.
 The restriction that they consider is the single-peaked one.
-However, in the approval elections it is virtually identical to the voter range model (i.e., candidates' radii are zero and voters form intervals).
+However, in the approval elections it is virtually identical to the voter range model (i.e., candidates' radii are zero).
 We only present a brief description of the algorithm, that explains the core idea and some necessary concepts.
-For the detailed explanation, proofs and examples we again point to the original work.
+For the detailed explanation, proofs and examples we again point to the source work.
 
-\begin{figure}[b!]
+\begin{figure}[t!]
     \centering
     \includegraphics[width=0.8\linewidth]{vr-ref-ccvd.png}
     \caption{Illustration of the CC-DV for the VR elections from \cite{control-sp-shield-faliszewski-hemaspaandra}.
@@ -86,8 +86,9 @@ For the detailed explanation, proofs and examples we again point to the original
     \label{fig:vr-ccdv-ref}
 \end{figure}
 
-The algorithm deploys greedy strategy. In the explanation we follow the example from Figure~\ref{fig:vr-ccdv-ref}.
-Having a set of candidates $C$, who are in the VR order, a set of voters $V$,
+The algorithm deploys a greedy strategy. In the explanation we follow the example from Figure~\ref{fig:vr-ccdv-ref}.
+Let us consider a problem of the CC-VD under the approval voting rule.
+Having a set of candidates $C$ in the VR order, a set of voters $V$,
 a designated winner candidate $p$, and a maximum number of voter deletions $k$.
 To find a solution (if it exists) we take the following steps:
 First, we group the candidates based on their position relative to $p$, i.e., left or right from $p$.
@@ -97,51 +98,53 @@ Every next right dangerous candidate is the candidate
 that gets strictly more approvals than the previous dangerous candidate (i.e., $r_6$, and then $r_{10}$).
 We take analogous steps for the candidates on the left. 
 From this point, we try to defeat dangerous candidates. We process one at a time in each iteration.
-We start with the closest right opponent (i.e., $r_3$). Now we have to choose which and how many voters to delete.
+We start with the closest right opponent (i.e., $r_3$), and call him $c_R$. Now we have to choose which and how many voters to delete.
+We consider only a subset of voters, such that each voters' range beginning is in the open-closed interval between $p$ and $c_R$,
+i.e., $\widehat{V} = \{v \in V | \: b(v) \in (p,c_R]\}$.
+Next we try to delete $scoreDelta(p, c_R) + 1$ rightmost voters from $\widehat{V}$, that is the ones with the highest range end (i.e., $e(v)$).
+If we fail, or we exceed the voter deletion limit $k$, the solution does not exist.
+We repeat these steps until the candidate $p$ becomes a unique winner (or we fail in the process).
+We recalculate the approvals and the dangerous candidates set after each iteration.
+Once we reached the point where all the dangerous candidates are in the left group, then
+we simply “flip the universe”, and consider them to be the right ones.
 
-
-
-\begin{enumerate}
-    \item kandydat $p$ na osi, pozostali na lewo i prawo
-    \item wybór przeciwników (groźny kandydat): 
-    \begin{enumerate}
-        \item pierwszy na lewo $c_L$ i pierwszy na prawo $c_R$ takich, że $score(c_?) \geq score(p)$
-        \item powtarzamy dla kolejnych lewych $c_{L_{i}}$ takich, że $score(c_{L_{i}}) > score(c_{L_{i-1}})$
-        \item analogicznie dla prawych $c_{R_{i}}$ takich, że $score(c_{R_{i}}) > score(c_{R_{i-1}})$
-    \end{enumerate}
-    \item usuwanie głosów - zaczynając od najbliższego prawego przeciwnika $c_R$ (dla lewych - odbicie lustrzane)
-    \begin{enumerate}
-        \item notacja $v$: $b(v)$ początek przedziału (lewy) i $e(v)$ koniec przedziały (prawy)
-        \item wybieramy głosujących $\widehat{V}$ takich że $\{v \in V | \: b(v) \in (p,c_R]\}$
-        \item sortujemy $\widehat{V}$ malejąco po $e(v)$ (od najbardziej prawego końca przedziału)
-        \item usuwamy $scoreDelta(p, c_R) + 1$ głosów
-    \end{enumerate}
-    \item powtarzamy do skutu, przeliczając aprobaty co iterację
-\end{enumerate}
 
 \subsection{Constructive Control by Voter Deletion for the CR Elections}\label{ch5:sec:1:cc-dv-cr}
 % \subsection{AV-CC-DV for Candidate Range = VI = column C1P = $r_v=0$}
 
-Algorithm from \cite{control-cr-how-hard-magiera-faliszewski}
-
-\begin{enumerate}
-    \item notacja CR dla $c$: $v_{f(c)}$ początek przedziału (lewy/górny) i $v_{e(c)}$ koniec przedziału (prawy/dolny)
-    \item kandydat $p$
-    \item Głosujący - wybieramy głosujących $V' = \{v \in V | \: p \notin A(v)\}$ 
-    \item Przeciwnicy -  wybieramy kandydatów $\widehat{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}$
-    \item Usuwanie głosów 
-    \begin{enumerate}
-        \item zaczynając od przeciwnika $c_N$ takiego, że $v_{e(c_N)}$ jest minimalne
-        \item usuwamy $deltaScore(c_N,p)+1$ głosów, zaczynając od końca przedziału $v_{e(c_{N})}$
-    \end{enumerate} 
-    \item powtarzamy do skutu, przeliczając $V'$ i $\widehat{C}$ co iterację
-\end{enumerate}
+The next algorithm is due to \cite{control-cr-how-hard-magiera-faliszewski}.
+They study multiple election types, but we will discuss only the approval elections case.
+They consider control problems for the single-crossing preferences restriction.
+Which, in the approval elections, is virtually identical to the candidate range model (i.e., voters' radii are zero).
+We again provide only a brief explanation of the algorithm, and for specifics we refer to the original paper. 
+This algorithm has many similarities to the previous one, mainly it utilizes a greedy strategy as well.
+Let us consider a problem of the CC-VD under the approval voting rule.
+Having a set of candidates $C$, a set of voters $V$ in the CR order,
+a designated winner candidate $p$, and a maximum number of voter deletions $k$.
+For each candidate $c \in C$, we say that the voters who approve of $c$ form an interval: $v_{s(c)}, v_{s(c)+1}, ..., v_{f(c)}$.
+Additionally, we define a set of dangerous candidates: $\widetilde{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}$,
+and a subset of voters who do not approve of $p$: $V^{\prime} = \{v \in V | \: p \notin A(v)\}$.
+The rest of the algorithm is straightforward.
+It executes the following operation until $p$ is a winner, or we fail by reaching the limit of deletions $k$.
+First, we need to select a dangerous candidate that we will try to defeat.
+To do so, we find an opponent $c_N \in \widetilde{C}$, for whom $f(c_N)$ is the smallest.
+Then, we try to delete $scoreDelta(c_N, p) + 1$ voters, starting with the voter at the end of interval (i.e., $v_{f(c_N)}$).
+If we fail, the solution does not exist. After each iteration of this step, we recalculate the sets $\widetilde{C}$ and $V^{\prime}$.
 
 
 %===============================
 % Section 2 VCR Control
 %===============================
-\section{\textcolor{orange}{Constructive Control by Voter Deletion for the VCR Elections}}\label{ch5:sec2:vcr-control}
+\section{Constructive Control by Voter Deletion for the VCR Elections}\label{ch5:sec2:vcr-control}
+
+This time, we describe our algorithm in full, and consider all the caveats.
+For the sake of completeness, we will define some notions once again.
+
+Let us consider a problem of CC-VD under the approval voting rule.
+Having a VCR election, with a set of candidates $C$, a set of voters $V$,
+a designated winner candidate $p$, and a maximum number of voter deletions $k$.
+We reuse the definitions, let $\widetilde{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}$
+be a set of dangerous candidates, and $V^{\prime} = \{v \in V | \: p \notin A(v)\}$ be a subset of voters, that we can delete.  
 
 \begin{figure}[hbt!]
     \includegraphics[width=0.9\linewidth]{ncop66-i77-p0.png}
