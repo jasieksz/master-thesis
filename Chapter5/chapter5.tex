@@ -55,7 +55,7 @@ Below, we give a formal definition of our problem:
 
 \noindent Now, we define some basic concepts and terminology, that will help us to explain the algorithms in the subsequent sections.
 First, we introduce an alternative representation of an agent in a VCR profile.
-\begin{definition}
+\begin{definition}\label{ch5:def:vcr-range-notation}
     In the VCR model, every agent $a$ is represented by the point $x_a$ and the radius $r_a$.
     We define $a$'s range beginning and range end as: \[b(a) = x_a - r_a,\] \[e(a) = x_a + r_a.\]
 \end{definition}
@@ -67,13 +67,13 @@ First, we introduce an alternative representation of an agent in a VCR profile.
 \end{definition}
 \noindent However, we note that we use a more concise notation, that is, the $scoreDelta(a,b)$.
 
-\subsection{Constructive Control by Voter Deletion for the VR Elections}\label{ch5:sec:1:cc-dv-vr}
+\subsection{Constructive Control by Deleting Voters for the VR Elections}\label{ch5:sec:1:cc-dv-vr}
 This algorithm is presented in the work of \cite{control-sp-shield-faliszewski-hemaspaandra}.
 It is the first paper to consider solving control problems under preference restrictions.
 The restriction that they consider is the single-peaked one.
 However, in the approval elections it is virtually identical to the voter range model (i.e., candidates' radii are zero).
 We only present a brief description of the algorithm, that explains the core idea and some necessary concepts.
-For the detailed explanation, proofs and examples we again point to the source work.
+For the detailed explanation, proofs and examples we point to the source work.
 
 \begin{figure}[t!]
     \centering
@@ -109,7 +109,7 @@ Once we reached the point where all the dangerous candidates are in the left gro
 we simply “flip the universe”, and consider them to be the right ones.
 
 
-\subsection{Constructive Control by Voter Deletion for the CR Elections}\label{ch5:sec:1:cc-dv-cr}
+\subsection{Constructive Control by Deleting Voters for the CR Elections}\label{ch5:sec:1:cc-dv-cr}
 % \subsection{AV-CC-DV for Candidate Range = VI = column C1P = $r_v=0$}
 
 The next algorithm is due to \cite{control-cr-how-hard-magiera-faliszewski}.
@@ -135,7 +135,7 @@ If we fail, the solution does not exist. After each iteration of this step, we r
 %===============================
 % Section 2 VCR Control
 %===============================
-\section{Constructive Control by Voter Deletion for the VCR Elections}\label{ch5:sec2:vcr-control}
+\section{Constructive Control by Deleting Voters for the VCR Elections}\label{ch5:sec2:vcr-control}
 
 This time, we describe our algorithm in full, and consider all the caveats.
 For the sake of completeness, we will define some notions once again.
@@ -143,40 +143,69 @@ For the sake of completeness, we will define some notions once again.
 Let us consider a problem of CC-VD under the approval voting rule.
 Having a VCR election, with a set of candidates $C$, a set of voters $V$,
 a designated winner candidate $p$, and a maximum number of voter deletions $k$.
-We reuse the definitions, let $\widetilde{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}$
-be a set of dangerous candidates, and $V^{\prime} = \{v \in V | \: p \notin A(v)\}$ be a subset of voters, that we can delete.  
+First, we discuss some concepts and obvious observations, that will help us explain the algorithm afterwards.
+We use an alternative representation of an agent in the VCR election,
+that is, by his or hers range beginning and end (see Definition \ref{ch5:def:vcr-range-notation}).
+Next, for $p$ to become a unique winner, we need to defeat every candidate that has at least as many votes as $p$.
+We call this subset of candidates a set of dangerous candidates (opponents),
+formally: \[\widetilde{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}.\]
+Another observation is that we never delete a voter who approves of $p$,
+clearly it would not bring us any closer to a solution.
+When deleting voters, we consider only the ones from a set: \[V^{\prime} = \{v \in V | \: p \notin A(v)\}.\]  
 
-\begin{figure}[hbt!]
-    \includegraphics[width=0.9\linewidth]{ncop66-i77-p0.png}
+\begin{figure}[ht!]
+    \includegraphics[width=0.8\linewidth]{ccP-p0.png}
     \centering
-    \caption{Temporary Image - VCR !C1P Election \\
-        yellow — candidate $p$ \\
-        red — opponents \\
-        lightblue — voters whitelist \\
-        darkblue — possible voters to delete \\
-        grey — agents that can be ignored            
-    }
-    \label{fig:ncop-cc-dv}
+    \caption{Temporary Image, Election example}
+    \label{fig:cc-dv-vcr}
 \end{figure}
 
-Notation used in the algorithm and later in the proofs: \\
-$x_a$, $r_a$ — point and radius \\ 
-$b(a) = x_a - r_a$ — range beginning (left)\\
-$e(a) = x_a + r_a$ — range end (right) \\
-$p$ — candidate chosen to be a winner \\
-$\widehat{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}$ — opponents (dangerous candidates) \\
-$V' = \{v \in V | \: p \notin A(v)\}$ — potential voters to delete \\
-
-\noindent We use “smart” greedy strategy for voter deletion:
+Our algorithm is a greedy one.
+It repeats the following steps until $p$ becomes a unique winner,
+or it fails by exceeding the maximum number of voter deletions $k$.
+First, we find a dangerous candidate that we will try to defeat. 
+Then, to achieve this goal, we decide which voters to delete.
+After each iteration, we recompute the set of dangerous candidates $\widetilde{C}$ and the set of selected voters $V^{\prime}$.
+We describe these steps in detail below:
 \begin{enumerate}
-    \item We pick a leftmost opponent $c_L$ that is the one with the minimal $b(c_L)$
-    \item We consider only voters who approve of $c_L$ that is, $\widehat{V} = \{v \in V' | \: c_L \in A(v)\}$
-    \item We need to delete $deltaScore(c_L,p)+1$ rightmost voters from $\widehat{V}$
-        that is the ones with the maximal $e(v)$, if it's not possible we fail
-    \item We repeat the above steps until we succeed, recalculating $\widehat{C}$ and $\widehat{V}$ after each iteration
-\end{enumerate}
+    \item \textbf{Choosing opponents.} 
+    The only candidates that we consider are from the set of opponents $\widetilde{C}$.
+    We pick the leftmost candidate, that is, the one with the minimal beginning of the range $b(c)$ (we break ties arbitrarily).
+    We refer to the selected candidate as $c_L$.
 
-\subsection{Sketch Proof - CR case}
+    \item \textbf{Deleting voters.}
+    Having currently processed opponent $c_L$.
+    We consider only the voters who approve of him or her and do not approve of $p$,
+    that is, $\widehat{V} = \{v \in V' | \: c_L \in A(v)\}$.
+    To defeat $c_L$, we need to delete $scoreDelta(c_L,p) + 1$ voters from $\widehat{V}$.
+    If $|\widehat{V}| < scoreDelta(c_L,p) + 1$, then we fail (it is impossible to delete enough voters to defeat $c_L$).
+    We proceed with deleting the rightmost voters, that is, the ones with the maximum end of the range $e(v)$ (we break ties arbitrarily).
+    By choosing the rightmost voters, we try to maximize the number of other dangerous candidates who might be contained inside each voter's range.
+    We can do so because of our leftmost candidate picking strategy.
+    Any dangerous candidate to the left of $c_L$ would already be defeated.    
+\end{enumerate}
+We illustrate the algorithm in Example \ref{ex:cc-dv-vcr}, which describes an election from Figure \ref{fig:cc-dv-vcr}.
+
+%
+% Example
+%
+\begin{example}\label{ex:cc-dv-vcr}
+    Having a VCR election, ...
+\end{example}
+
+In the subsequent sections, first, we discuss a certain special case for which our strategy is not obvious.
+Later, we provide informal sketch proofs that show how our algorithm is equivalent to the VR and the CR ones.
+Finally, we give a formal proof of correctness of the algorithm.
+
+%
+% Special Case
+%
+\subsection{Special Case of Contained Candidates}
+
+%
+% Sketch Proof CR
+%
+\subsection{Sketch Proof for the CR Algorithm}
 We will show how the VCR algorithm is equivalent to the CR one from \cite{control-cr-how-hard-magiera-faliszewski}.
 Having voters in CR order, that is, they are still represented by a point $x_v$ on the $\mathbb{R}$ line but have radius $0$.
 Example in Figure \ref{fig:cr-cc-dv}.
@@ -203,7 +232,10 @@ Both algorithms try to delete $scoreDelta(p,c_L) + 1$ voters,
 CR one starts deleting voters from the end of interval, while
 VCR does virtually the same by deleting the rightmost voter first ($max(e(v))$).
 
-\subsection{Sketch Proof - VR case}
+%
+% Sketch Proof VR
+%
+\subsection{Sketch Proof for the VR Algorithm}
 We will show how the VCR algorithm is equivalent to the VR one from \cite{control-sp-shield-faliszewski-hemaspaandra}.
 Having candidates in VR order, that is, they are still represented by a point $x_c$ on the $\mathbb{R}$ line but have radius $0$.
 Example in Figure \ref{fig:vr-cc-dv}.
@@ -247,7 +279,10 @@ Both algorithms try to delete $scoreDelta(c,p) + 1$ voters.
 VR algorithm starts deleting voters from the end of interval ($max(e(v))$).
 VCR one does virtually the same by deleting the rightmost voter first.
 
-\subsection{Sketch Proof - VCR (not C1P) case}
+%
+% Proof VCR
+%
+\subsection{Proof for the VCR Algorithm}
 
 \begin{definition}
     We introduce an alternative representation of an agent in a VCR profile.
@@ -284,7 +319,7 @@ VCR one does virtually the same by deleting the rightmost voter first.
 
 \subsubsection{Special case - contained candidates - alternative explanation}
 Now we will show why our solution is correct in the general VCR setting, even when the profile does not have VR/CR property,
-example in Figure \ref{fig:ncop-cc-dv}. The proof is split into two stages, similarly to the previous ones.
+example in Figure ?. The proof is split into two stages, similarly to the previous ones.
 But first we will explain one special case of the election, that is worth examining.
 
 In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
@@ -366,7 +401,7 @@ We don't have to worry about any candidate to the left,
 because of our leftmost candidate picking strategy, they are already defeated.
 This strategy ensures the solution is optimal if it exists.
 
-\subsection{AV-CC-AV for the VCR profiles}
+\subsection{Constructive Control by Adding Voters for the VCR Elections}
 Our strategy is based on the solution from \cite{control-cr-how-hard-magiera-faliszewski}.
 \begin{enumerate}
     \item Add all $v \in W$ to the election
