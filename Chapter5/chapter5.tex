@@ -60,7 +60,7 @@ First, we introduce an alternative representation of an agent in a VCR profile.
     We define $a$'s range beginning and range end as: \[b(a) = x_a - r_a,\] \[e(a) = x_a + r_a.\]
 \end{definition}
 \noindent Additionally, to represent the AV-score difference between two candidates, we use:
-\begin{definition}
+\begin{definition}\label{ch5:def:av-score-notation}
     Having an approval election $E$ and two candidates $a$ and $b$. 
     Under the approval-voting scoring rule, we say that:
     \[scoreDelta(E,a,b) = score_{AV}(E,a) - score_{AV}(E,b).\]
@@ -101,7 +101,7 @@ From this point, we try to defeat dangerous candidates. We process one at a time
 We start with the closest right opponent (i.e., $r_3$), and call him $c_R$. Now we have to choose which and how many voters to delete.
 We consider only a subset of voters, such that each voters' range beginning is in the open-closed interval between $p$ and $c_R$,
 i.e., $\widehat{V} = \{v \in V | \: b(v) \in (p,c_R]\}$.
-Next we try to delete $scoreDelta(p, c_R) + 1$ rightmost voters from $\widehat{V}$, that is the ones with the highest range end (i.e., $e(v)$).
+Next we try to delete $scoreDelta(c_R,p) + 1$ rightmost voters from $\widehat{V}$, that is the ones with the highest range end (i.e., $e(v)$).
 If we fail, or we exceed the voter deletion limit $k$, the solution does not exist.
 We repeat these steps until the candidate $p$ becomes a unique winner (or we fail in the process).
 We recalculate the approvals and the dangerous candidates set after each iteration.
@@ -175,14 +175,14 @@ We describe these steps in detail below:
 
     \item \textbf{Deleting voters.}
     Having currently processed opponent $c_L$.
-    We consider only the voters who approve of him or her and do not approve of $p$,
-    that is, $\widehat{V} = \{v \in V' | \: c_L \in A(v)\}$.
+    We consider only the voters who approve of him or her,
+    i.e., $\widehat{V} = \{v \in V' | \: c_L \in A(v)\}$.
     To defeat $c_L$, we need to delete $scoreDelta(c_L,p) + 1$ voters from $\widehat{V}$.
     If $|\widehat{V}| < scoreDelta(c_L,p) + 1$, then we fail (it is impossible to delete enough voters to defeat $c_L$).
     We proceed with deleting the rightmost voters, that is, the ones with the maximum end of the range $e(v)$ (we break ties arbitrarily).
     By choosing the rightmost voters, we try to maximize the number of other dangerous candidates who might be contained inside each voter's range.
     We can do so because of our leftmost candidate picking strategy.
-    Any dangerous candidate to the left of $c_L$ would already be defeated.    
+    Any dangerous candidate to the left of $c_L$ would have already been defeated.    
 \end{enumerate}
 We illustrate the algorithm in Example \ref{ex:cc-dv-vcr}, which describes an election from Figure \ref{fig:cc-dv-vcr}.
 
@@ -197,14 +197,74 @@ In the subsequent sections, first, we discuss a certain special case for which o
 Later, we provide informal sketch proofs that show how our algorithm is equivalent to the VR and the CR ones.
 Finally, we give a formal proof of correctness of the algorithm.
 
-%
+%===============================
 % Special Case
-%
+%===============================
 \subsection{Special Case of Contained Candidates}
 
-%
+In the VCR model it is possible that some candidates have their interval fully contained in the other candidate's interval. 
+If so, every voter who would approve the smaller candidate (i.e., internal) would also approve the larger one (i.e., external),
+however not vice versa. For this case, our algorithm's strategy of choosing rightmost voters to delete, might seem suboptimal at first glance. 
+We define additional terminology and symbols to help us explain why we do not have to worry about this special case. 
+
+\begin{definition}\label{ch5:def:delta-notation}
+    Having an instance of the CC-VD problem, with an approval election $E$, a set of candidates $C$, and the designated winner candidate $p$.
+    We extend representation of the score difference between two candidates (see Definition \ref{ch5:def:av-score-notation}).
+    For each candidate $c \in C \setminus \{p\}$ we represent a number of voter deletions required for $p$ to defeat $c$ with:
+    \[\Delta(c) = score_{AV}(E,c) - score_{AV}(E,p) + 1.\]
+\end{definition}
+
+\begin{definition}\label{ch5:def:contained-vi-ve}
+    Having an election $E$, where a candidate is contained inside another one.
+    The two candidates are, the one with larger range $c_E$, and the one with smaller range $c_I$.
+    The voters who approve of $c_E$ or $c_I$ are in a set $\widehat{V}$.
+    We divide the voters into two groups. First, a subset of voters who approve of $c_E$ but not $c_I$:
+    \[\widehat{V}_E = \{v \in \widehat{V} \: | \: c_E \in A(v) \land c_I \notin A(V)\},\]
+    and the remaining ones:
+    \[\widehat{V}_I = \widehat{V} \setminus \widehat{V}_E.\]
+    We know the size of these subsets based on the approval scores of each candidate:
+    \[|\widehat{V}_E| = score_{AV}(E, c_E) - score_{AV}(E, c_I),\]
+    \[|\widehat{V}_I| = |\widehat{V}| - |\widehat{V}_E|.\]
+
+\end{definition}
+
+Let us consider an instance of the CC-VD problem, with an election that has the special case.
+We know that a contained candidate $c_I$ has as much or less total votes than the larger candidate $c_E$ (i.e., $|\widehat{V}| \geq |\widehat{V}_I|$).
+The internal candidate $c_I$ might not even be a dangerous candidate at all. 
+For $p$ to defeat $c_E$ we need to delete $\Delta(c_E)$ voters,
+and to defeat $c_I$ (independently of $c_E$), we need to delete $\Delta(c_I)$ voters (see Definition \ref{ch5:def:delta-notation}).
+Now we show that in the process of defeating the larger candidate we always automatically defeat the smaller one.
+
+\begin{equation}
+    \label{ch5:eq:contained:transf}
+    \begin{split}
+        \Delta(c_E) =\\
+        score_{AV}(c_E) - score_{AV}(p) + 1 =\\
+        |\widehat{V}_E| + score_{AV}(c_I) - score_{AV}(p) + 1 =\\
+        |\widehat{V}_E| + \Delta(c_I).
+    \end{split}    
+\end{equation}
+Using simple transformations in Equation \ref{ch5:eq:contained:transf} based on Definition \ref{ch5:def:contained-vi-ve},
+we show that: \[\Delta(c_E) = |\widehat{V}_E| + \Delta(c_I).\]
+It means that to defeat $c_E$ we need to delete all voters from $\widehat{V}_E$,
+and then $\Delta(c_I)$ voters from $\widehat{V}_I$.
+This will result in defeating both $c_E$ and $c_I$ (automatically). 
+
+\begin{figure}[t!]
+    \includegraphics[width=\linewidth]{vcr-contained-candidate.png}
+    \centering
+    \caption{An election with two candidates contained inside each other's ranges.
+    The larger one $c_E$ (external), and the smaller one $c_I$ (internal).
+    Furthermore, voters from the set $\widehat{V}$, are divided into two groups, i.e.,
+    $\widehat{V}_E$ a subset of voters who approve of $c_E$ but not $c_I$,
+    and a subset of remaining voters $\widehat{V}_I$.
+    Because we discuss the CC-VD problem, there is also the candidate $p$ and his voters.}
+    \label{fig:contained-cand}
+\end{figure}
+
+%===============================
 % Sketch Proof CR
-%
+%===============================
 \subsection{Sketch Proof for the CR Algorithm}
 We will show how the VCR algorithm is equivalent to the CR one from \cite{control-cr-how-hard-magiera-faliszewski}.
 Having voters in CR order, that is, they are still represented by a point $x_v$ on the $\mathbb{R}$ line but have radius $0$.
@@ -228,13 +288,13 @@ In Section \ref{sss:contained-candidate}, we explain in detail why it is irrelev
 \subsubsection{Voter deletion}
 Now, once we now how to pick an opponent $c_L$, we will show that choosing voters is equivalent as well.
 Notion of the beginning/end of the interval in the CR order is equivalent to the left/right end of the range in the VCR setting.
-Both algorithms try to delete $scoreDelta(p,c_L) + 1$ voters,
+Both algorithms try to delete $scoreDelta(c_L,p) + 1$ voters,
 CR one starts deleting voters from the end of interval, while
 VCR does virtually the same by deleting the rightmost voter first ($max(e(v))$).
 
-%
+%===============================
 % Sketch Proof VR
-%
+%===============================
 \subsection{Sketch Proof for the VR Algorithm}
 We will show how the VCR algorithm is equivalent to the VR one from \cite{control-sp-shield-faliszewski-hemaspaandra}.
 Having candidates in VR order, that is, they are still represented by a point $x_c$ on the $\mathbb{R}$ line but have radius $0$.
@@ -317,6 +377,15 @@ VCR one does virtually the same by deleting the rightmost voter first.
     \end{proof}
 \end{proposition}
 
+% 
+% NOTEBOOK
+% 
+% 
+% NOTEBOOK
+% 
+% 
+% NOTEBOOK
+% 
 \subsubsection{Special case - contained candidates - alternative explanation}
 Now we will show why our solution is correct in the general VCR setting, even when the profile does not have VR/CR property,
 example in Figure ?. The proof is split into two stages, similarly to the previous ones.
@@ -325,17 +394,6 @@ But first we will explain one special case of the election, that is worth examin
 In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
 Every voter who would approve the smaller candidate would also approve the larger one, however not vice versa.
 For this case, our strategy of choosing voters to delete might seem suboptimal, at first glance. 
-
-\begin{figure}[H]
-    \includegraphics[width=0.3\linewidth]{sc-cc-stage-1.png}
-    \includegraphics[width=0.3\linewidth]{sc-cc-stage-2.png}
-    \includegraphics[width=0.3\linewidth]{sc-cc-stage-3.png}
-    \includegraphics[width=0.48\linewidth]{sc-cc-stage-4.png}
-    \includegraphics[width=0.48\linewidth]{sc-cc-stage-5.png}
-    \centering
-    \caption{Temporary Image - Special Case}
-    \label{fig:cc-s1}
-\end{figure}
 
 We explain the issue, starting with the example of the most basic election in Figure \ref{fig:cc-s1}.
 Stages 1 through 3 are trivial, in the subsequent stages we make the election more and more complex by adding new agents.
@@ -377,13 +435,6 @@ The example from Figure \ref{fig:contained-candidate} illustrates why we do not 
 Every contained voter will have as much or less total votes than the larger candidate, 
 he/she might not even be a dangerous candidate at all. 
 Now we see that in the process of defeating the larger candidate we will automatically defeat the smaller one.
-
-\begin{figure}[H]
-    \includegraphics[width=0.8\linewidth]{cr-inclusive-counter.png}
-    \centering
-    \caption{Temporary Image - Special Case}
-    \label{fig:contained-candidate}
-\end{figure}
 
 \subsubsection{Choosing opponents}
 We consider only dangerous candidates (opponents), that is the ones with score higher or equal to the score of $p$.
