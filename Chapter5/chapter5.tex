@@ -154,9 +154,14 @@ clearly it would not bring us any closer to a solution.
 When deleting voters, we consider only the ones from a set: \[V^{\prime} = \{v \in V | \: p \notin A(v)\}.\]  
 
 \begin{figure}[ht!]
-    \includegraphics[width=0.8\linewidth]{ccP-p0.png}
+    \includegraphics[width=\linewidth]{vcr-example.png}
     \centering
-    \caption{Temporary Image, Election example}
+    \caption{A VCR election example for the CC-VD problem.
+    The candidates are labeled with $C_i$ (expect for the preferred candidate $P$), and the voters with $V_i$.
+    We use colors to distinguish some key groups of agents. 
+    That is, $P$ is in dark-blue, and voters that approve of him or her (we never delete them) are in light-blue color.
+    Additionally, all the initially dangerous candidates are in red.
+    }
     \label{fig:cc-dv-vcr}
 \end{figure}
 
@@ -190,7 +195,18 @@ We illustrate the algorithm in Example \ref{ex:cc-dv-vcr}, which describes an el
 % Example
 %
 \begin{example}\label{ex:cc-dv-vcr}
-    Having a VCR election, ...
+    Let us discuss an instance of the CC-VD problem. Having the VCR election from Figure \ref{fig:cc-dv-vcr},
+    the designated candidate $P$ with 3 votes (i.e., $\{V_6, V_7, V_8\}$) and
+    the set of dangerous candidates $\widetilde{C} = \{C_2, C_3, C_4\}$.
+    We proceed to find the smallest number of voters that we need to delete for $P$ to win the election.
+    First, we choose the leftmost dangerous candidate $C_2$.
+    We need to delete 2 voters ($scoreDelta(C_2,P) + 1$). 
+    We pick the rightmost voters $V_4$ and $V_3$.
+    Now, an important observation is that by removing $V_4$ we defeated next dangerous candidate $C_3$.
+    We finish this iteration, and recompute sets $\widetilde{C}$ and $V^{\prime}$.
+    The only left dangerous candidate is $C_4$, and we just need to delete 1 voter. 
+    We pick $V_10$ (in this case it wouldn't matter if we chose $V_9$).
+
 \end{example}
 
 In the subsequent sections, first, we discuss a certain special case for which our strategy is not obvious.
@@ -246,8 +262,8 @@ Now we show that in the process of defeating the larger candidate we always auto
 \end{equation}
 Using simple transformations in Equation \ref{ch5:eq:contained:transf} based on Definition \ref{ch5:def:contained-vi-ve},
 we show that: \[\Delta(c_E) = |\widehat{V}_E| + \Delta(c_I).\]
-It means that to defeat $c_E$ we need to delete all voters from $\widehat{V}_E$,
-and then $\Delta(c_I)$ voters from $\widehat{V}_I$.
+It means that to defeat $c_E$ we need to delete at least $\Delta(c_I)$ voters from $\widehat{V}_I$,
+the remaining $|\widehat{V}_E|$ voters can be deleted from any of the subsets (i.e., $\widehat{V}_E$ or $\widehat{V}_I$).
 This will result in defeating both $c_E$ and $c_I$ (automatically). 
 
 \begin{figure}[t!]
