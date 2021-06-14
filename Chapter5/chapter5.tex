@@ -287,7 +287,7 @@ Let us consider an instance of the CC-VD problem for a CR election (agents are s
 In the explanation we follow the example from Figure \ref{fig:cr-cc-dv}.
 
 \begin{figure}[t!]
-    \includegraphics[width=0.6\linewidth]{cr-example.png}
+    \includegraphics[width=0.7\linewidth]{cr-example.png}
     \centering
     \caption{A CR election for the CC-VD problem, based on an example from \cite{control-cr-how-hard-magiera-faliszewski}. 
     The candidates are labeled with $C_i$ (expect for the preferred candidate $P$), and the voters with $V_i$.
@@ -319,9 +319,13 @@ Let us consider an instance of the CC-VD problem for a VR election (agents are s
 In the explanation we follow the example from Figure \ref{fig:vr-cc-dv}.
 
 \begin{figure}[t!]
-    \includegraphics[width=0.8\linewidth]{vr77-i22-p0.png}
+    \includegraphics[width=0.65\linewidth]{vr-example.png}
     \centering
-    \caption{Temporary Image - VR Election}
+    \caption{A VR election for the CC-VD problem. 
+    The candidates are labeled with $C_i$ (expect for the preferred candidate $P$), and the voters with $V_i$.
+    We use colors to distinguish some key groups of agents. 
+    That is, $P$ is in dark-blue, and voters that approve of him or her (we never delete them) are in light-blue color.
+    Additionally, all the initially dangerous candidates are in red.}    
     \label{fig:vr-cc-dv}
 \end{figure}
 
@@ -363,12 +367,6 @@ VCR one does virtually the same by deleting the rightmost voter first.
 \subsection{Proof for the VCR Algorithm}
 
 \begin{definition}
-    We introduce an alternative representation of an agent in a VCR profile.
-    Every agent $a$ is represented by the point $x_a$ and the radius $r_a$.
-    We define $a$'s range beginning as $b(a) = x_a - r_a$, and $a$'s range end as $e(a) = x_a + r_a$. 
-\end{definition}
-
-\begin{definition}
     Having a solution $S$ to the AV-CC-VD problem, which deletes $k$ voters.
     We define the score of this solution as, \[score(S) = \sum_{i=1}^{k} e(v_i) \]
     \textcolor{orange}{(WIP: Dlaczego możemy zdefiniować jakiś wynik, czy wynik jest po prostu równy k?)}
@@ -395,80 +393,9 @@ VCR one does virtually the same by deleting the rightmost voter first.
     \end{proof}
 \end{proposition}
 
-% 
-% NOTEBOOK
-% 
-% 
-% NOTEBOOK
-% 
-% 
-% NOTEBOOK
-% 
-\subsubsection{Special case - contained candidates - alternative explanation}
-Now we will show why our solution is correct in the general VCR setting, even when the profile does not have VR/CR property,
-example in Figure ?. The proof is split into two stages, similarly to the previous ones.
-But first we will explain one special case of the election, that is worth examining.
-
-In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
-Every voter who would approve the smaller candidate would also approve the larger one, however not vice versa.
-For this case, our strategy of choosing voters to delete might seem suboptimal, at first glance. 
-
-We explain the issue, starting with the example of the most basic election in Figure \ref{fig:cc-s1}.
-Stages 1 through 3 are trivial, in the subsequent stages we make the election more and more complex by adding new agents.
-Turning our attention to Stage 4, now both candidates $c_1$ and $c_2$ are dangerous, with scores 2 and 1 respectively.
-Candidate $p$ needs to defeat $c_2$ by one vote, and $c_1$ by two votes. 
-In Stage 5 we add multiple more voters ... 
-
-The core idea to solve our issue is understanding what types of the new votes we can add.
-Let's consider only the voters who approve of $c_1$ and/or $c_2$.
-\begin{enumerate}
-    \item A voter who approves only $c_1$ and not $c_2$,
-    in this case, $scoreDelta(p,c_1)$ would increase by 1, and $scoreDelta(p,c_2)$ would stay the same.
-    \item A voter who approves both $c_1$ and $c_2$, this time,
-    $scoreDelta(p,c_1)$ and $scoreDelta(p,c_2)$ would increase equally by 1.
-\end{enumerate}
-
-\begin{proposition}
-    Having external candidate $c_E$ and another internal one $c_I$, which is fully contained inside external's range.
-    
-    Let:
-    \begin{enumerate}
-        \item $K' = \{v \in \widehat{V} \: | \: v \in A(c_E) \land v \notin A(c_I)\}$.
-        \item $|K'| = scoreDelta(p,c_E) - scoreDelta(p,c_I)$.
-        \item $d(c) = score(c) - score(p) + 1$, i.e., how many voters we need to delete for $p$ to defeat $c$.
-    \end{enumerate}     
-    Then $|K'| \geq 0$ is always true, and the size of set $K'$ will be equal to the $d(c_E) - d(c_I)$
-
-    \begin{proof}
-        tbc. 
-    \end{proof}
-\end{proposition}
-
-\subsubsection{Special case - contained candidates} \label{sss:contained-candidate}
-In the VCR model it is possible that some candidates have their interval fully contained in the other's interval. 
-Every voter who would approve the smaller candidate would also approve the larger one, however not vice versa.
-For this case, our strategy of choosing voters to delete might seem suboptimal, at first glance. 
-
-The example from Figure \ref{fig:contained-candidate} illustrates why we do not have to worry about this special case.
-Every contained voter will have as much or less total votes than the larger candidate, 
-he/she might not even be a dangerous candidate at all. 
-Now we see that in the process of defeating the larger candidate we will automatically defeat the smaller one.
-
-\subsubsection{Choosing opponents}
-We consider only dangerous candidates (opponents), that is the ones with score higher or equal to the score of $p$.
-We process opponents one by one, starting with the one who has the leftmost beginning of the range, i.e., $min(b(c))$.
-After each iteration, we recompute the set of dangerous candidates.
-Thanks to this we are sure that all the steps we perform are necessary to find a solution (if it exists), hence optimal.
-
-\subsubsection{Voter deletion}
-Having currently processed opponent $c_L$, we consider only the voters who approve of him/her and do not approve of $p$,
-that is the voters whose range beginning is inside the candidate's range $\{v \in V' \: | \: b(v) \in [b(c_L), e(c_L)]\}$.
-We need to delete $scoreDelta(c_L,p) + 1$ voters to defeat the opponent.
-By picking the voters in order of the rightmost end of the range, i.e., $v_R = max(e(v))$,
-we try to maximize the number of other candidates who might be in the range $[b(v_R), e(v_R)]$.
-We don't have to worry about any candidate to the left,
-because of our leftmost candidate picking strategy, they are already defeated.
-This strategy ensures the solution is optimal if it exists.
+% ================================
+% CC-AV
+% ================================
 
 \subsection{Constructive Control by Adding Voters for the VCR Elections}
 Our strategy is based on the solution from \cite{control-cr-how-hard-magiera-faliszewski}.
