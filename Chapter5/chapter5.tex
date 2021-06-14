@@ -156,7 +156,7 @@ When deleting voters, we consider only the ones from a set: \[V^{\prime} = \{v \
 \begin{figure}[ht!]
     \includegraphics[width=\linewidth]{vcr-example.png}
     \centering
-    \caption{A VCR election example for the CC-VD problem.
+    \caption{A VCR election for the CC-VD problem.
     The candidates are labeled with $C_i$ (expect for the preferred candidate $P$), and the voters with $V_i$.
     We use colors to distinguish some key groups of agents. 
     That is, $P$ is in dark-blue, and voters that approve of him or her (we never delete them) are in light-blue color.
@@ -200,23 +200,23 @@ We illustrate the algorithm in Example \ref{ex:cc-dv-vcr}, which describes an el
     the set of dangerous candidates $\widetilde{C} = \{C_2, C_3, C_4\}$.
     We proceed to find the smallest number of voters that we need to delete for $P$ to win the election.
     First, we choose the leftmost dangerous candidate $C_2$.
-    We need to delete 2 voters ($scoreDelta(C_2,P) + 1$). 
+    We need to delete two voters ($scoreDelta(C_2,P) + 1$). 
     We pick the rightmost voters $V_4$ and $V_3$.
     Now, an important observation is that by removing $V_4$ we defeated next dangerous candidate $C_3$.
     We finish this iteration, and recompute sets $\widetilde{C}$ and $V^{\prime}$.
-    The only left dangerous candidate is $C_4$, and we just need to delete 1 voter. 
-    We pick $V_10$ (in this case it wouldn't matter if we chose $V_9$).
-
+    The only dangerous candidate left is $C_4$, and we just need to delete 1 voter. 
+    We pick $V_{10}$ (in this case it would not matter if we chose $V_9$).
+    We succeed, $P$ is the winner, and in total we removed three voters, i.e, $V_4, V_3$ and $V_{10}$.
 \end{example}
 
-In the subsequent sections, first, we discuss a certain special case for which our strategy is not obvious.
+In the subsequent sections, first, we discuss a certain special case for which our voter picking strategy might not be obvious.
 Later, we provide informal sketch proofs that show how our algorithm is equivalent to the VR and the CR ones.
 Finally, we give a formal proof of correctness of the algorithm.
 
 %===============================
 % Special Case
 %===============================
-\subsection{Special Case of Contained Candidates}
+\subsection{Special Case of Contained Candidates}\label{ch5:sec21:contained:cand}
 
 In the VCR model it is possible that some candidates have their interval fully contained in the other candidate's interval. 
 If so, every voter who would approve the smaller candidate (i.e., internal) would also approve the larger one (i.e., external),
@@ -269,7 +269,7 @@ This will result in defeating both $c_E$ and $c_I$ (automatically).
 \begin{figure}[t!]
     \includegraphics[width=\linewidth]{vcr-contained-candidate.png}
     \centering
-    \caption{An election with two candidates contained inside each other's ranges.
+    \caption{A VCR election with two candidates contained inside each other's ranges.
     The larger one $c_E$ (external), and the smaller one $c_I$ (internal).
     Furthermore, voters from the set $\widehat{V}$, are divided into two groups, i.e.,
     $\widehat{V}_E$ a subset of voters who approve of $c_E$ but not $c_I$,
@@ -282,41 +282,43 @@ This will result in defeating both $c_E$ and $c_I$ (automatically).
 % Sketch Proof CR
 %===============================
 \subsection{Sketch Proof for the CR Algorithm}
-We will show how the VCR algorithm is equivalent to the CR one from \cite{control-cr-how-hard-magiera-faliszewski}.
-Having voters in CR order, that is, they are still represented by a point $x_v$ on the $\mathbb{R}$ line but have radius $0$.
-Example in Figure \ref{fig:cr-cc-dv}.
+We show how our CC-VD algorithm for the VCR elections is equivalent to the one from \cite{control-cr-how-hard-magiera-faliszewski} for the CR elections.
+Let us consider an instance of the CC-VD problem for a CR election (agents are still represented using the VCR model).
+In the explanation we follow the example from Figure \ref{fig:cr-cc-dv}.
 
-\begin{figure}[hbt!]
-    \includegraphics[width=0.8\linewidth]{ccP-p0.png}
+\begin{figure}[t!]
+    \includegraphics[width=0.6\linewidth]{cr-example.png}
     \centering
-    \caption{Temporary Image - CR Election}
+    \caption{A CR election for the CC-VD problem, based on an example from \cite{control-cr-how-hard-magiera-faliszewski}. 
+    The candidates are labeled with $C_i$ (expect for the preferred candidate $P$), and the voters with $V_i$.
+    We use colors to distinguish some key groups of agents. 
+    That is, $P$ is in dark-blue, and voters that approve of him or her (we never delete them) are in light-blue color.
+    Additionally, all the initially dangerous candidates are in red.}
     \label{fig:cr-cc-dv}
 \end{figure}
 
 \subsubsection{Choosing opponents}
-In the CR algorithm, we choose candidates to process, ordered by $v_{e(c)}$ ascending.
-We can see that it is equivalent to picking the leftmost ($min(b(c))$) candidate from the set of opponents $\widehat{C}$ in the VCR algorithm,
-because it will also have the minimal $v_{e(c)}$.
-
-There is a special case of "contained candidate", for which the above statement is not true.
-In Section \ref{sss:contained-candidate}, we explain in detail why it is irrelevant for the overall correctness of the algorithm.
+In the CR algorithm, we choose dangerous candidates to process ordered by their voter's interval end (i.e., $v_{e(c)}$) ascending.
+We can see that it is equivalent to picking the leftmost (i.e., min $b(c)$) candidate from the set of opponents $\widehat{C}$ in the VCR algorithm.
+The selected candidate will also have the smallest $v_{e(c)}$ (candidate $C_5$ in the example).
+Of course the above statement is not true for the special case of the contained candidates.
+However, in Section \ref{ch5:sec21:contained:cand}, we already explained why it is irrelevant for the overall result.
 
 \subsubsection{Voter deletion}
-Now, once we now how to pick an opponent $c_L$, we will show that choosing voters is equivalent as well.
-Notion of the beginning/end of the interval in the CR order is equivalent to the left/right end of the range in the VCR setting.
-Both algorithms try to delete $scoreDelta(c_L,p) + 1$ voters,
-CR one starts deleting voters from the end of interval, while
-VCR does virtually the same by deleting the rightmost voter first ($max(e(v))$).
+Now, once we now how to pick an opponent $c_L$, we show that choosing voters is identical as well.
+Notion of the beginning/end of the voter's interval in the CR model is equivalent to the left/right end of voter's range in the VCR setting.
+Both algorithms try to delete $scoreDelta(c_L,p) + 1$ voters, the CR one starts deleting voters from the end of interval, while
+the VCR one does virtually the same by deleting the rightmost voters first (i.e., max $e(v)$).
 
 %===============================
 % Sketch Proof VR
 %===============================
 \subsection{Sketch Proof for the VR Algorithm}
-We will show how the VCR algorithm is equivalent to the VR one from \cite{control-sp-shield-faliszewski-hemaspaandra}.
-Having candidates in VR order, that is, they are still represented by a point $x_c$ on the $\mathbb{R}$ line but have radius $0$.
-Example in Figure \ref{fig:vr-cc-dv}.
+We show how our CC-VD algorithm for the VCR elections is equivalent to the one from \cite{control-sp-shield-faliszewski-hemaspaandra} for the VR elections.
+Let us consider an instance of the CC-VD problem for a VR election (agents are still represented using the VCR model).
+In the explanation we follow the example from Figure \ref{fig:vr-cc-dv}.
 
-\begin{figure}[hbt!]
+\begin{figure}[t!]
     \includegraphics[width=0.8\linewidth]{vr77-i22-p0.png}
     \centering
     \caption{Temporary Image - VR Election}
