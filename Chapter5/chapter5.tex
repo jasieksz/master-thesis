@@ -26,7 +26,7 @@ and we show that it unifies the two aforementioned algorithms for the VR and the
 %===============================
 % Section 1 Control
 %===============================
-\section{Control (WIP: Inny tytuł?)}\label{ch5:sec1:overview}
+\section{Related Work (WIP: Inny tytuł?)}\label{ch5:sec1:overview}
 Control problems were first introduced by \cite{bartholdi-control}, and later extended by \cite{hemaspaandra-control}.
 The control refers to an act of manipulating the structure of an election in a certain way.
 We assume that there is some person or authority who is in charge of organizing the election.
@@ -67,7 +67,7 @@ First, we introduce an alternative representation of an agent in a VCR profile.
 \end{definition}
 \noindent However, we note that we use a more concise notation, that is, the $scoreDelta(a,b)$.
 
-\subsection{Constructive Control by Deleting Voters for the VR Elections}\label{ch5:sec:1:cc-dv-vr}
+\subsection{Constructive Control by Deleting Voters For the VR Elections}\label{ch5:sec:1:cc-dv-vr}
 This algorithm is presented in the work of \cite{control-sp-shield-faliszewski-hemaspaandra}.
 It is the first paper to consider solving control problems under preference restrictions.
 The restriction that they consider is the single-peaked one.
@@ -109,7 +109,7 @@ Once we reached the point where all the dangerous candidates are in the left gro
 we simply “flip the universe”, and consider them to be the right ones.
 
 
-\subsection{Constructive Control by Deleting Voters for the CR Elections}\label{ch5:sec:1:cc-dv-cr}
+\subsection{Constructive Control by Deleting Voters For the CR Elections}\label{ch5:sec:1:cc-dv-cr}
 % \subsection{AV-CC-DV for Candidate Range = VI = column C1P = $r_v=0$}
 
 The next algorithm is due to \cite{control-cr-how-hard-magiera-faliszewski}.
@@ -135,7 +135,7 @@ If we fail, the solution does not exist. After each iteration of this step, we r
 %===============================
 % Section 2 VCR Control
 %===============================
-\section{Constructive Control by Deleting Voters for the VCR Elections}\label{ch5:sec2:vcr-control}
+\section{Constructive Control by Deleting Voters For the VCR Elections}\label{ch5:sec2:vcr-control}
 
 This time, we describe our algorithm in full, and consider all the caveats.
 For the sake of completeness, we will define some notions once again.
@@ -281,7 +281,7 @@ This will result in defeating both $c_E$ and $c_I$ (automatically).
 %===============================
 % Sketch Proof CR
 %===============================
-\subsection{Sketch Proof for the CR Elections}
+\subsection{Sketch Proof For the CR Elections}
 We show how our CC-DV algorithm for the VCR elections is equivalent to the one from \cite{control-cr-how-hard-magiera-faliszewski} for the CR elections.
 Let us consider an instance of the CC-DV problem for a CR election (agents are still represented using the VCR model).
 In the explanation we follow the example from Figure \ref{fig:cr-cc-dv}.
@@ -313,7 +313,7 @@ the VCR one does virtually the same by deleting the rightmost voters first (i.e.
 %===============================
 % Sketch Proof VR
 %===============================
-\subsection{Sketch Proof for the VR Elections}
+\subsection{Sketch Proof For the VR Elections}
 We show how our CC-DV algorithm for the VCR elections is equivalent to the one from \cite{control-sp-shield-faliszewski-hemaspaandra} for the VR elections.
 Let us consider an instance of the CC-DV problem for a VR election (agents are still represented using the VCR model).
 In the explanation we follow the example from Figure \ref{fig:vr-cc-dv}.
@@ -364,7 +364,7 @@ The VCR one does virtually the same by deleting the rightmost voter first.
 %
 % Proof VCR
 %
-\subsection{Proof for the VCR Algorithm}
+\subsection{Proof For the VCR Algorithm}
 Now, we provide a formal proof of correctness of our VCR algorithm.
 The proof requires additional definitions and notation that we introduce below.
 \begin{definition}
@@ -398,7 +398,7 @@ The proof requires additional definitions and notation that we introduce below.
 % CC-AV
 % ================================
 
-\subsection{Constructive Control by Adding Voters for the VCR Elections}
+\subsection{Constructive Control by Adding Voters For the VCR Elections}
 We give only a sketch of an algorithm for the constructive control by adding voters variant.
 \begin{definition}\label{ch5:def:av-cc-av}
     We are given a set of candidates $C$, a set of voters $V$ and a set of unused voters $W$,
