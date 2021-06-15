@@ -31,7 +31,7 @@ Control problems were first introduced by \cite{bartholdi-control}, and later ex
 The control refers to an act of manipulating the structure of an election in a certain way.
 We assume that there is some person or authority who is in charge of organizing the election.
 We refer to them as the \textit{election chair}.
-The chair has a goal to change the outcome of the election in a certain way.
+The chair has a goal to change the outcome of the election.
 Formally we call it the \textit{control type},
 and we distinguish two types. The first one, the \textit{constructive} control (CC), 
 where the chair's goal is to ensure a victory of a selected candidate.
@@ -56,7 +56,7 @@ Below, we give a formal definition of our problem:
 \noindent Now, we define some basic concepts and terminology, that will help us to explain the algorithms in the subsequent sections.
 First, we introduce an alternative representation of an agent in a VCR profile.
 \begin{definition}\label{ch5:def:vcr-range-notation}
-    In the VCR model, every agent $a$ is represented by the point $x_a$ and the radius $r_a$.
+    In the VCR model, every agent $a$ is represented by their point $x_a$ and radius $r_a$.
     We define $a$'s range beginning and range end as: \[b(a) = x_a - r_a,\] \[e(a) = x_a + r_a.\]
 \end{definition}
 \noindent Additionally, to represent the AV-score difference between two candidates, we use:
@@ -87,7 +87,7 @@ For the detailed explanation, proofs and examples we point to the source work.
 \end{figure}
 
 The algorithm deploys a greedy strategy. In the explanation we follow the example from Figure~\ref{fig:vr-ccdv-ref}.
-Let us consider a problem of the CC-VD under the approval voting rule.
+Let us consider a problem of the CC-DV under the approval voting rule.
 Having a set of candidates $C$ in the VR order, a set of voters $V$,
 a designated winner candidate $p$, and a maximum number of voter deletions $k$.
 To find a solution (if it exists) we take the following steps:
@@ -113,15 +113,15 @@ we simply “flip the universe”, and consider them to be the right ones.
 % \subsection{AV-CC-DV for Candidate Range = VI = column C1P = $r_v=0$}
 
 The next algorithm is due to \cite{control-cr-how-hard-magiera-faliszewski}.
-They study multiple election types, but we will discuss only the approval elections case.
+They study multiple election types, but we discuss only the approval elections case.
 They consider control problems for the single-crossing preferences restriction.
 Which, in the approval elections, is virtually identical to the candidate range model (i.e., voters' radii are zero).
 We again provide only a brief explanation of the algorithm, and for specifics we refer to the original paper. 
 This algorithm has many similarities to the previous one, mainly it utilizes a greedy strategy as well.
-Let us consider a problem of the CC-VD under the approval voting rule.
+Let us consider a problem of the CC-DV under the approval voting rule.
 Having a set of candidates $C$, a set of voters $V$ in the CR order,
 a designated winner candidate $p$, and a maximum number of voter deletions $k$.
-For each candidate $c \in C$, we say that the voters who approve of $c$ form an interval: $v_{s(c)}, v_{s(c)+1}, ..., v_{f(c)}$.
+For each candidate $c \in C$, we say that the voters who approve of $c$ form an interval: $v_{s(c)}, v_{s(c)+1}, ..., v_{f(c)}$ (the CR property).
 Additionally, we define a set of dangerous candidates: $\widetilde{C} = \{c \in C \setminus \{p\} | \: scoreDelta(c,p) \geq 0\}$,
 and a subset of voters who do not approve of $p$: $V^{\prime} = \{v \in V | \: p \notin A(v)\}$.
 The rest of the algorithm is straightforward.
@@ -140,10 +140,10 @@ If we fail, the solution does not exist. After each iteration of this step, we r
 This time, we describe our algorithm in full, and consider all the caveats.
 For the sake of completeness, we will define some notions once again.
 
-Let us consider a problem of CC-VD under the approval voting rule.
+Let us consider a problem of CC-DV under the approval voting rule.
 Having a VCR election, with a set of candidates $C$, a set of voters $V$,
 a designated winner candidate $p$, and a maximum number of voter deletions $k$.
-First, we discuss some concepts and obvious observations, that will help us explain the algorithm afterwards.
+First, we discuss some concepts and observations, that will help us explain the algorithm afterwards.
 We use an alternative representation of an agent in the VCR election,
 that is, by his or hers range beginning and end (see Definition \ref{ch5:def:vcr-range-notation}).
 Next, for $p$ to become a unique winner, we need to defeat every candidate that has at least as many votes as $p$.
@@ -156,7 +156,7 @@ When deleting voters, we consider only the ones from a set: \[V^{\prime} = \{v \
 \begin{figure}[ht!]
     \includegraphics[width=\linewidth]{vcr-example.png}
     \centering
-    \caption{A VCR election for the CC-VD problem.
+    \caption{A VCR election for the CC-DV problem.
     The candidates are labeled with $C_i$ (expect for the preferred candidate $P$), and the voters with $V_i$.
     We use colors to distinguish some key groups of agents. 
     That is, $P$ is in dark-blue, and voters that approve of him or her (we never delete them) are in light-blue color.
@@ -170,7 +170,7 @@ It repeats the following steps until $p$ becomes a unique winner,
 or it fails by exceeding the maximum number of voter deletions $k$.
 First, we find a dangerous candidate that we will try to defeat. 
 Then, to achieve this goal, we decide which voters to delete.
-After each iteration, we recompute the set of dangerous candidates $\widetilde{C}$ and the set of selected voters $V^{\prime}$.
+After each iteration, we recompute approvals and the set of dangerous candidates $\widetilde{C}$.
 We describe these steps in detail below:
 \begin{enumerate}
     \item \textbf{Choosing opponents.} 
@@ -187,7 +187,7 @@ We describe these steps in detail below:
     We proceed with deleting the rightmost voters, that is, the ones with the maximum end of the range $e(v)$ (we break ties arbitrarily).
     By choosing the rightmost voters, we try to maximize the number of other dangerous candidates who might be contained inside each voter's range.
     We can do so because of our leftmost candidate picking strategy.
-    Any dangerous candidate to the left of $c_L$ would have already been defeated.    
+    At this point, any dangerous candidate to the left of $c_L$ would have already been defeated.    
 \end{enumerate}
 We illustrate the algorithm in Example \ref{ex:cc-dv-vcr}, which describes an election from Figure \ref{fig:cc-dv-vcr}.
 
@@ -195,7 +195,7 @@ We illustrate the algorithm in Example \ref{ex:cc-dv-vcr}, which describes an el
 % Example
 %
 \begin{example}\label{ex:cc-dv-vcr}
-    Let us discuss an instance of the CC-VD problem. Having the VCR election from Figure \ref{fig:cc-dv-vcr},
+    Let us discuss an instance of the CC-DV problem. Having the VCR election from Figure \ref{fig:cc-dv-vcr},
     the designated candidate $P$ with 3 votes (i.e., $\{V_6, V_7, V_8\}$) and
     the set of dangerous candidates $\widetilde{C} = \{C_2, C_3, C_4\}$.
     We proceed to find the smallest number of voters that we need to delete for $P$ to win the election.
@@ -203,7 +203,7 @@ We illustrate the algorithm in Example \ref{ex:cc-dv-vcr}, which describes an el
     We need to delete two voters ($scoreDelta(C_2,P) + 1$). 
     We pick the rightmost voters $V_4$ and $V_3$.
     Now, an important observation is that by removing $V_4$ we defeated next dangerous candidate $C_3$.
-    We finish this iteration, and recompute sets $\widetilde{C}$ and $V^{\prime}$.
+    We finish this iteration, and recompute approvals and the set $\widetilde{C}$.
     The only dangerous candidate left is $C_4$, and we just need to delete 1 voter. 
     We pick $V_{10}$ (in this case it would not matter if we chose $V_9$).
     We succeed, $P$ is the winner, and in total we removed three voters, i.e, $V_4, V_3$ and $V_{10}$.
@@ -218,13 +218,13 @@ Finally, we give a formal proof of correctness of the algorithm.
 %===============================
 \subsection{Special Case of Contained Candidates}\label{ch5:sec21:contained:cand}
 
-In the VCR model it is possible that some candidates have their interval fully contained in the other candidate's interval. 
+In the VCR model it is possible that some candidates have their interval fully contained inside other candidate's interval. 
 If so, every voter who would approve the smaller candidate (i.e., internal) would also approve the larger one (i.e., external),
 however not vice versa. For this case, our algorithm's strategy of choosing rightmost voters to delete, might seem suboptimal at first glance. 
 We define additional terminology and symbols to help us explain why we do not have to worry about this special case. 
 
 \begin{definition}\label{ch5:def:delta-notation}
-    Having an instance of the CC-VD problem, with an approval election $E$, a set of candidates $C$, and the designated winner candidate $p$.
+    Having an instance of the CC-DV problem, with an approval election $E$, a set of candidates $C$, and the designated winner candidate $p$.
     We extend representation of the score difference between two candidates (see Definition \ref{ch5:def:av-score-notation}).
     For each candidate $c \in C \setminus \{p\}$ we represent a number of voter deletions required for $p$ to defeat $c$ with:
     \[\Delta(c) = score_{AV}(E,c) - score_{AV}(E,p) + 1.\]
@@ -244,9 +244,9 @@ We define additional terminology and symbols to help us explain why we do not ha
 
 \end{definition}
 
-Let us consider an instance of the CC-VD problem, with an election that has the special case.
+Let us consider an instance of the CC-DV problem, with an election that has the special case.
 We know that a contained candidate $c_I$ has as much or less total votes than the larger candidate $c_E$ (i.e., $|\widehat{V}| \geq |\widehat{V}_I|$).
-The internal candidate $c_I$ might not even be a dangerous candidate at all. 
+The internal candidate $c_I$ might not even be a dangerous candidate at all (i.e., $\Delta(c_I) \leq 0$). 
 For $p$ to defeat $c_E$ we need to delete $\Delta(c_E)$ voters,
 and to defeat $c_I$ (independently of $c_E$), we need to delete $\Delta(c_I)$ voters (see Definition \ref{ch5:def:delta-notation}).
 Now we show that in the process of defeating the larger candidate we always automatically defeat the smaller one.
@@ -262,7 +262,7 @@ Now we show that in the process of defeating the larger candidate we always auto
 \end{equation}
 Using simple transformations in Equation \ref{ch5:eq:contained:transf} based on Definition \ref{ch5:def:contained-vi-ve},
 we show that: \[\Delta(c_E) = |\widehat{V}_E| + \Delta(c_I).\]
-It means that to defeat $c_E$ we need to delete at least $\Delta(c_I)$ voters from $\widehat{V}_I$,
+It means that to defeat $c_E$ we have not other choice but to delete at least $\Delta(c_I)$ voters from $\widehat{V}_I$,
 the remaining $|\widehat{V}_E|$ voters can be deleted from any of the subsets (i.e., $\widehat{V}_E$ or $\widehat{V}_I$).
 This will result in defeating both $c_E$ and $c_I$ (automatically). 
 
@@ -272,9 +272,9 @@ This will result in defeating both $c_E$ and $c_I$ (automatically).
     \caption{A VCR election with two candidates contained inside each other's ranges.
     The larger one $c_E$ (external), and the smaller one $c_I$ (internal).
     Furthermore, voters from the set $\widehat{V}$, are divided into two groups, i.e.,
-    $\widehat{V}_E$ a subset of voters who approve of $c_E$ but not $c_I$,
-    and a subset of remaining voters $\widehat{V}_I$.
-    Because we discuss the CC-VD problem, there is also the candidate $p$ and his voters.}
+    $\widehat{V}_E = \{V_4, V_5\}$ a subset of voters who approve of $c_E$ but not $c_I$,
+    and a subset of remaining voters $\widehat{V}_I = \{V_1, V_2, V_3\}$.
+    Because we discuss the CC-DV problem, there is also the preferred candidate $p$ and his voters.}
     \label{fig:contained-cand}
 \end{figure}
 
@@ -282,14 +282,14 @@ This will result in defeating both $c_E$ and $c_I$ (automatically).
 % Sketch Proof CR
 %===============================
 \subsection{Sketch Proof for the CR Elections}
-We show how our CC-VD algorithm for the VCR elections is equivalent to the one from \cite{control-cr-how-hard-magiera-faliszewski} for the CR elections.
-Let us consider an instance of the CC-VD problem for a CR election (agents are still represented using the VCR model).
+We show how our CC-DV algorithm for the VCR elections is equivalent to the one from \cite{control-cr-how-hard-magiera-faliszewski} for the CR elections.
+Let us consider an instance of the CC-DV problem for a CR election (agents are still represented using the VCR model).
 In the explanation we follow the example from Figure \ref{fig:cr-cc-dv}.
 
 \begin{figure}[t!]
     \includegraphics[width=0.7\linewidth]{cr-example.png}
     \centering
-    \caption{A CR election for the CC-VD problem, based on an example from \cite{control-cr-how-hard-magiera-faliszewski}. 
+    \caption{A CR election for the CC-DV problem, based on an example from \cite{control-cr-how-hard-magiera-faliszewski}. 
     The candidates are labeled with $C_i$ (expect for the preferred candidate $P$), and the voters with $V_i$.
     We use colors to distinguish some key groups of agents. 
     That is, $P$ is in dark-blue, and voters that approve of him or her (we never delete them) are in light-blue color.
@@ -314,8 +314,8 @@ the VCR one does virtually the same by deleting the rightmost voters first (i.e.
 % Sketch Proof VR
 %===============================
 \subsection{Sketch Proof for the VR Elections}
-We show how our CC-VD algorithm for the VCR elections is equivalent to the one from \cite{control-sp-shield-faliszewski-hemaspaandra} for the VR elections.
-Let us consider an instance of the CC-VD problem for a VR election (agents are still represented using the VCR model).
+We show how our CC-DV algorithm for the VCR elections is equivalent to the one from \cite{control-sp-shield-faliszewski-hemaspaandra} for the VR elections.
+Let us consider an instance of the CC-DV problem for a VR election (agents are still represented using the VCR model).
 In the explanation we follow the example from Figure \ref{fig:vr-cc-dv}.
 Strategy of the VR algorithm is significantly different from the VCR one (when compared to the CR one).
 However, if we introduce one simple assumption and an additional step to our algorithm, they become identical.
@@ -335,7 +335,7 @@ This assumption is correct based on two facts:
 \begin{figure}[t!]
     \includegraphics[width=0.65\linewidth]{vr-example.png}
     \centering
-    \caption{A VR election for the CC-VD problem. 
+    \caption{A VR election for the CC-DV problem. 
     The candidates are labeled with $C_i$ (expect for the preferred candidate $P$), and the voters with $V_i$.
     We use colors to distinguish some key groups of agents. 
     That is, $P$ is in dark-blue, and voters that approve of him or her (we never delete them) are in light-blue color.
@@ -351,13 +351,14 @@ the VCR one considers every candidate with score equal or higher than $p$ to be 
 (i.e., $\{C_1, C_2, C_3, C_4, C_5\}$ in the example).
 Whereas the CR one limits this set, by picking only candidates that have
 strictly more votes than a previously picked dangerous candidate (i.e., $\{C_1, C_2\}$ in the example).
-Nonetheless, in the VCR algorithm we recompute the set of dangerous candidates after each iteration,
+Nonetheless, in the VCR algorithm we recompute the set of dangerous candidates after each iteration
+(we defeat $\{C_3, C_4, C_5\}$ as a side effect of defeating $C_1$),
 which ensures that we never process any unnecessary dangerous candidates.
 
 \subsubsection{Voter deletion}
 The reasoning here is very similar to the one in the voter deletion part of the CR sketch proof.
 Both algorithms try to delete $scoreDelta(c,p) + 1$ voters. 
-The VR algorithm starts deleting voters from the end of interval ($max e(v)$).
+The VR algorithm starts deleting voters from the end of interval (max $e(v)$).
 The VCR one does virtually the same by deleting the rightmost voter first.
 
 %
@@ -367,13 +368,13 @@ The VCR one does virtually the same by deleting the rightmost voter first.
 Now, we provide a formal proof of correctness of our VCR algorithm.
 The proof requires additional definitions and notation that we introduce below.
 \begin{definition}
-    Having a solution $S$ to the CC-VD problem, a set of $k$ deleted voters.
+    Having a solution $S$ to the CC-DV problem, that is, a set of $k$ deleted voters.
     We define the score of this solution as a sum of removed voters' range ends: \[score(S) = \sum_{i=1}^{k} e(v_i) \]
-    \textcolor{orange}{(WIP: Dlaczego możemy zdefiniować jakiś wynik, czy wynik jest po prostu równy k?)}
+    \textcolor{orange}{(WIP: Czy możemy zdefiniować jakiś alternatywny wynik, czy wynik musi być po prostu równy k?)}
 \end{definition}
 
 \begin{proposition}
-    The VCR CC-VD algorithm finds an optimal solution in polynomial time.
+    The VCR CC-DV algorithm finds an optimal solution in polynomial time.
     \begin{proof}
         Let $S$ be the solution found by the algorithm, 
         and $S^{*}$ an optimal solution to the problem.
