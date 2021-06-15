@@ -8,87 +8,111 @@
 
 %********************************** %First Section  **************************************
 Elections are a ubiquitous element of our society in one form or another.
-For example, societies need to choose members of parliaments, judges have to pick winners of sports competitions.
+For example, societies need to choose members of parliaments, judges have to pick winners of sport competitions,
+or citizens need to elect mayors of cities.
 However, elections are not only applicable to politics or competitions.
 In more day-to-day examples of elections, teams have to schedule meetings times,
-or video streaming platforms need to provide recommended movies list to the users.
+video streaming platforms need to provide lists of recommended movies to the users,
+or a company needs to allocate a yearly budget.
 Each of these problems may require a different type of an election and a different strategy of selecting the winner (or winners).
 The differences come from the underlying properties and objectives of the problem.
-For example, in presidential elections, we want to choose the candidate supported by the majority of the voters.
-It is not the case for the parliamentary elections, where the goal is to select members of the parliament in such a way that 
+For example, in presidential elections we want to choose the candidate supported by the majority of the voters.
+It is not necessarily the case for the parliamentary elections, where the goal is to select members of the parliament in such a way that 
 the opinions of the voters are represented proportionally. 
-Another example would be a meeting scheduling problem, where we will try to pick the time, such that,
-we maximize the number of participants, even though, the selected time might not be optimal for anyone (e.g., early morning).
-In sports competitions, especially in the seasonal ones, i.e., the ones consisting of series of events,
+Another example would be the problem of scheduling a meeting, where we would try to pick the time that,
+maximizes the number of participants who can attend, even though, the selected time might not be optimal for anyone (e.g., early morning).
+In sport competitions, especially in the seasonal ones, i.e., the ones consisting of series of events,
 we need to come up with a strategy of calculating overall ranking at the end of the season,
-based on the aggregated results from the single events.
+based on the aggregated results from the particular events.
 For example, in FIS Alpine Ski World Cup, or in Formula 1 World Championship,
 the overall winners achieve very high scores consistently throughout the season,
 but might not have necessarily achieved the highest scores (1st place) in the majority of the individual events.
 
-Another key distinction between the given examples,
-is whether a given election has just one winner, or does it lead to selecting multiple candidates.
-More formally, in computational social choice theory,
+Another key distinction between the considered examples,
+is whether a given election has just one winner, or requires selecting multiple candidates.
+More formally, in computational social choice
 these election types are called \textit{single-winner} or \textit{multiwinner} elections.
-Multiwinner (committee) elections, are even more widespread than the single-winner ones,
+Multiwinner (committee) elections are even more widespread than the single-winner ones,
 and in most cases they have different properties and require different voting rules.
 For an overview of various committee election types and their related properties,
-see works of \cite{faliszewskiSkowronMultiWinnerOverview} and \cite{elkind-multiwinner-17}.
+see the works of \cite{faliszewskiSkowronMultiWinnerOverview} and \cite{elkind-multiwinner-17}.
 A committee election is the process of choosing a fixed-size subset of candidates (i.e., the committee), 
 based on the voters' preferences. Voters' ballots (preferences) can be represented in various different ways.
 In this work we focus on approval elections, that is,
 on elections where each voter provides a subset of candidates that he or she approves of.
 Another notable type of elections is the ordinal model,
 where the voters order the candidates from the most to the least preferred ones. 
-For an extensive survey of the approval model and current state of research in this area,
-regarding committee elections, we point to a survey by \cite{lacknerSkowronAVOverview}. 
+For an extensive survey of the approval model and current state of the art
+regarding committee elections, we point the reader to a survey by \cite{lacknerSkowronAVOverview}. 
 
-Winner determination is one of the core problems in computational social choice theory, however not the only one.
-Other ones include, e.g., control problems (\cite{bartholdi-control}; \cite{hemaspaandra-control}),
+Computational social choice theory has a wide variety of problems it tries to solve.
+Above-mentioned examples consider a winner determination problem. It is one of the core problems, however not the only one.
+Other ones include,
+e.g.,
+control problems (see, e.g., the works of \cite{bartholdi-control}; \cite{hemaspaandra-control}),
 which refer to certain ways of manipulating elections.
 In short, we try to make a given candidate win (or lose) by changing the structure of an election,
 that is, by adding or deleting voters or candidates.
 Other interesting problems, that we are not going to explore in this work,
-include manipulation (\cite{bartholdi-manipulation}; \cite{faliszewski-procaccia-manipulation}),
-bribery (\cite{faliszewski-bribery}), justified representation (\cite{aziz-representation}) and many others (\cite{handbook-csc}).
+include
+manipulation (see, e.g., the works of \cite{bartholdi-manipulation}; \cite{faliszewski-procaccia-manipulation}, and the survey of \cite{walsh-manipulation-hcsc}),
+bribery (see, e.g., the works of \cite{faliszewski-bribery}, and the survey of \cite{control-hcsc-faliszewski}),
+justified representation (\cite{aziz-representation})
+and many others (see the handbook edited by \cite{handbook-csc}).
+
+% ==================================
+% ==================================
+% ==================================
+% ==================================
 
 \section{Preference Restrictions}\label{ch:intro:sec:restrictions}
 Many of the above-mentioned social choice problems are known to be computationally hard.
 We can deal with this complexity using various methods,
-such as designing approximation (random or deterministic) or parametrized algorithms.
+such as designing approximation algorithms (random or deterministic) (see the work of \cite{vazirani-approximation})
+or parametrized algorithms (see the book by \cite{cygan-parameterized}).
 An alternative approach is to introduce restrictions on the preference domains.
-In other words, we restrict the structure of voters' ballots. 
+In other words, we restrict the structure of the voters' ballots. 
 There is a successful and active line of research in this area.
-This begins with the notion of \textit{single-peaked (SP)} (\cite{Black-single-peaked}; \cite{arrow-single-peaked})
-and \textit{single-crossing (SC)} (\cite{mirrlees-single-crossing}; \cite{roberts-single-crossing}).
-Much more recently, \cite{barbera-top-monotonicity} introduced a concept of the \textit{top-monotonicity},
-a generalization of SP and SC restrictions.
+It begins with the notions of \textit{single-peaked (SP)} (\cite{Black-single-peaked}; \cite{arrow-single-peaked})
+and \textit{single-crossing (SC)} (\cite{mirrlees-single-crossing}; \cite{roberts-single-crossing}) elections.
+Much more recently, \cite{barbera-top-monotonicity} introduced the concept of \textit{top-monotonicity},
+a generalization of the SP and SC restrictions.
 These models provided a basis for numerous and promising results in circumventing the computational complexity in a variety of problems.
 (\cite{walsh-pref-restrictions}; \cite{control-sp-shield-faliszewski-hemaspaandra};
- \cite{skowron-pref-restrictions}; \cite{brand-pref-restrictions}; \cite{elkind-pref-restrictions})
+ \cite{skowron-pref-restrictions}; \cite{brand-pref-restrictions}; \cite{elkind-pref-restrictions}).
+Naturally, many other restricted domains were also studied.
 
-However, in the context of this work we need to emphasize a survey by \cite{elkind-approval-restrictions}.
+In the context of this work, we emphasize a survey by \cite{elkind-approval-restrictions}.
 Unlike most of the above-mentioned examples, which considered the ordinal model of preferences,
-the survey explored well-known preference restrictions in the setting of approval preferences, and
+the survey explored well-known preference restrictions in the setting of approval voting, and
 introduced several new ones. This includes models such as \textit{Voter Interval (VI)} and \textit{Candidate Interval (CI)},
 both based on the \textit{Dichotomous Euclidean (DE)} restriction.
-Euclidean models are very intuitive, a simplified explanation of such models, is that,
+Euclidean models are very intuitive, a simplified explanation of such models is that
 each candidate and each voter is assigned an ideal point in some Euclidean space $\mathbb{R}^{d}$,
-this point represents their opinion on some $d$ issues.
-The points are assigned in such a way, that voters prefer the candidates that are closer to them.
+this point represents their opinion on some $d$ issues. Furthermore, each voter has an additional radius parameter.
+The points are assigned in such a way that voters approve the candidates that are within their radius, and prefer the closer ones.
 \cite{faliszewski-vcr} extended this model, making it more versatile,
-by using a radius in addition to a point, to represent candidates and voters opinions.
-\cite{faliszewski-vcr} named the new model a \textit{Voter/Candidate Range (VCR)} model,
-and later analyzed the two-dimensional case and briefly the one-dimensional one,
-for committee election problems.
+by using a radius in addition to a point, to represent both the candidates and voters.
+They named the new model a \textit{Voter/Candidate Range (VCR)} model.
+We note that the VI and CI models are special cases of the one dimensional VCR model.
+However, \cite{faliszewski-vcr} use different terminology,
+and their names for the VI and CI are the one dimensional \textit{Candidate Range} (1D-CR)
+and one dimensional \textit{Voter Range} (1D-VR) models, respectively. 
 
-\section{Contributions}
-In this work we focus on the one-dimensional Voter/Candidate Range model and our main contributions are as follows:
+% ==================================
+% ==================================
+% ==================================
+% ==================================
+
+\section{Goals and Contributions}
+The goal of this work is to study the one-dimensional Voter/Candidate Range model (1D-VCR),
+and to compare it with the 1D-CR and 1D-VR models.
+Our main contributions are as follows:
 \begin{enumerate}
     \item In Chapter \ref{ch:detection}, we provide detection algorithm for the 1D-VCR property,
     based on a reduction to integer linear programming (ILP). 
-    Additionally, we apply it to detecting 1D-VR and 1D-CR profiles,
-    later we do a performance comparison with a solution based on a 2-SAT reduction from \cite{fitzsimmons-lackner-sat-cop}. 
+    Additionally, we apply it to detecting 1D-VR and 1D-CR profiles and,
+    later, we do a performance comparison with a solution based on a 2-SAT reduction due to \cite{fitzsimmons-lackner-sat-cop}. 
 
     \item In Chapter \ref{ch:domain}, we analyze the 1D-VCR domain and compare it to other well known models.
     We use multiple statistical cultures to generate random elections in the 1D-VCR model, 
@@ -96,12 +120,10 @@ In this work we focus on the one-dimensional Voter/Candidate Range model and our
     Furthermore, we inspect how different are the 1D-VCR elections from the 1D-VR and 1D-CR ones.
     
     \item In Chapter \ref{ch:control}, we propose a polynomial time algorithm for a certain control problem under the 1D-VCR model,
-    expanding on the solutions for 1D-CR and 1D-VR models,
+    expanding on the solutions for the 1D-CR and 1D-VR models,
     due to \cite{control-cr-how-hard-magiera-faliszewski} and \cite{control-sp-shield-faliszewski-hemaspaandra}, respectively.
 
 \end{enumerate}
 
-\textcolor{orange}{(WIP: Powyżej, używam VR i CR, mimo że nigdzie o nich nie wspomniałem, czy powinienem napisać że VI=CR, CI=VR?)}
-
-We do not discuss the related work right now, and instead we do it throughout this thesis,
-as the discussion will greatly benefit from the added context and introduced definitions in the subsequent chapters.
+We do not discuss the related work right now but, instead we do it throughout this thesis,
+as the discussion will greatly benefit from the added context and definitions introduced in the subsequent chapters.
