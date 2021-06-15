@@ -281,7 +281,7 @@ This will result in defeating both $c_E$ and $c_I$ (automatically).
 %===============================
 % Sketch Proof CR
 %===============================
-\subsection{Sketch Proof for the CR Algorithm}
+\subsection{Sketch Proof for the CR Elections}
 We show how our CC-VD algorithm for the VCR elections is equivalent to the one from \cite{control-cr-how-hard-magiera-faliszewski} for the CR elections.
 Let us consider an instance of the CC-VD problem for a CR election (agents are still represented using the VCR model).
 In the explanation we follow the example from Figure \ref{fig:cr-cc-dv}.
@@ -299,7 +299,7 @@ In the explanation we follow the example from Figure \ref{fig:cr-cc-dv}.
 
 \subsubsection{Choosing opponents}
 In the CR algorithm, we choose dangerous candidates to process ordered by their voter's interval end (i.e., $v_{e(c)}$) ascending.
-We can see that it is equivalent to picking the leftmost (i.e., min $b(c)$) candidate from the set of opponents $\widehat{C}$ in the VCR algorithm.
+We can see that it is equivalent to picking the leftmost candidate (i.e., min $b(c)$) from the set of opponents $\widehat{C}$ in the VCR algorithm.
 The selected candidate will also have the smallest $v_{e(c)}$ (candidate $C_5$ in the example).
 Of course the above statement is not true for the special case of the contained candidates.
 However, in Section \ref{ch5:sec21:contained:cand}, we already explained why it is irrelevant for the overall result.
@@ -313,11 +313,25 @@ the VCR one does virtually the same by deleting the rightmost voters first (i.e.
 %===============================
 % Sketch Proof VR
 %===============================
-\subsection{Sketch Proof for the VR Algorithm}
+\subsection{Sketch Proof for the VR Elections}
 We show how our CC-VD algorithm for the VCR elections is equivalent to the one from \cite{control-sp-shield-faliszewski-hemaspaandra} for the VR elections.
 Let us consider an instance of the CC-VD problem for a VR election (agents are still represented using the VCR model).
 In the explanation we follow the example from Figure \ref{fig:vr-cc-dv}.
+Strategy of the VR algorithm is significantly different from the VCR one (when compared to the CR one).
+However, if we introduce one simple assumption and an additional step to our algorithm, they become identical.
+First, let us assume that the preferred candidate $p$ is always the first candidate in the VR order (see election in Figure \ref{fig:vr-cc-dv}).
+This assumption is correct based on two facts:
+\begin{enumerate}
+    \item Having candidates in order $[c_L, \: p, \: c_R]$,
+    if there was a voter $v$ who approved of $c_L$ and $c_R$ it would also have to approve of $p$ (because of the VR property),
+    so we could not delete $v$ anyway.
 
+    \item Next, for the VCR algorithm (with the above assumption) to be complete,
+    we need to extend it by using the "universe flip" method from the VR algorithm.
+    That is, we process only the dangerous candidates to the right of candidate $p$, 
+    and once there is none left, we proceed with the remaining ones on the left side of $p$,
+    treating them as if they were on the right side.
+\end{enumerate}
 \begin{figure}[t!]
     \includegraphics[width=0.65\linewidth]{vr-example.png}
     \centering
@@ -330,52 +344,38 @@ In the explanation we follow the example from Figure \ref{fig:vr-cc-dv}.
 \end{figure}
 
 \subsubsection{Choosing opponents}
-VR algorithm picks dangerous candidates to the left and right of candidate $p$,
-however later it proceeds only with defeating the right ones.
-Once finished with them, it does the "mirror flip" of the universe to process candidates on the left side.
-Even though the VCR algorithm picks leftmost candidate, we will show it is equivalent to the VR strategy
-under some basic assumptions.
-
-Following example in Figure \ref{fig:vr-cc-dv},
-let's assume that candidate $p$ always will be the first candidate in the VR order,
-which is equivalent to being the leftmost in the VCR order.
-Then we can see that the VCR algorithm strategy of
-choosing the leftmost candidate as an opponent
-will be the same as the VR algorithm choosing the first candidate on the right side of $p$.
-In the example it would be candidate $c_1$.
-
-This assumption is correct because, having candidates in order $[c_L, \: p, \: c_R]$,
-if there was a voter $v$ who approved of $c_L$ and $c_R$ it would also have to approve of $p$ (because of the VR property),
-so we could not delete $v$ anyway.
-
-Now, expanding on the above, ...
-
-\textcolor{orange}{(WIP: Faktycznie taki dowód nie jest w 100\% przekonujący
-Mam 2 możliwości:
-1) Wprowadzić krork "universe flip" do algorytmu i wtedy na pewno działa.
-2) Zmienić argumentację i pokazać, że wybieranie najdalszego kandydat od p (najbardziej lewy po lewej stronie) też jest w porządku)}
+We can see that the VCR algorithm strategy (the extended one) of
+picking the leftmost dangerous candidates is identical to the VR algorithm choosing the first candidate on the right side of $p$.
+However, there is another difference between the algorithms,
+the VCR one considers every candidate with score equal or higher than $p$ to be a dangerous candidate
+(i.e., $\{C_1, C_2, C_3, C_4, C_5\}$ in the example).
+Whereas the CR one limits this set, by picking only candidates that have
+strictly more votes than a previously picked dangerous candidate (i.e., $\{C_1, C_2\}$ in the example).
+Nonetheless, in the VCR algorithm we recompute the set of dangerous candidates after each iteration,
+which ensures that we never process any unnecessary dangerous candidates.
 
 \subsubsection{Voter deletion}
-The reasoning here is very similar to the one in the voter deletion part of the CR proof.
+The reasoning here is very similar to the one in the voter deletion part of the CR sketch proof.
 Both algorithms try to delete $scoreDelta(c,p) + 1$ voters. 
-VR algorithm starts deleting voters from the end of interval ($max(e(v))$).
-VCR one does virtually the same by deleting the rightmost voter first.
+The VR algorithm starts deleting voters from the end of interval ($max e(v)$).
+The VCR one does virtually the same by deleting the rightmost voter first.
 
 %
 % Proof VCR
 %
 \subsection{Proof for the VCR Algorithm}
-
+Now, we provide a formal proof of correctness of our VCR algorithm.
+The proof requires additional definitions and notation that we introduce below.
 \begin{definition}
-    Having a solution $S$ to the AV-CC-VD problem, which deletes $k$ voters.
+    Having a solution $S$ to the CC-VD problem, a set of $k$ deleted voters.
     We define the score of this solution as a sum of removed voters' range ends: \[score(S) = \sum_{i=1}^{k} e(v_i) \]
     \textcolor{orange}{(WIP: Dlaczego możemy zdefiniować jakiś wynik, czy wynik jest po prostu równy k?)}
 \end{definition}
 
 \begin{proposition}
-    VCR-AV-CC-VD finds an optimal solution.
+    The VCR CC-VD algorithm finds an optimal solution in polynomial time.
     \begin{proof}
-        Let $S$ be the solution found by the VCR-AV-CC-VD algorithm, 
+        Let $S$ be the solution found by the algorithm, 
         and $S^{*}$ an optimal solution to the problem.
         We will prove that $S = S^{*}$ by contradiction.
         Assume $S \neq S^{*}$, therefore, $S - S^* \neq \emptyset$.
@@ -398,9 +398,21 @@ VCR one does virtually the same by deleting the rightmost voter first.
 % ================================
 
 \subsection{Constructive Control by Adding Voters for the VCR Elections}
-Our strategy is based on the solution from \cite{control-cr-how-hard-magiera-faliszewski}.
+We give only a sketch of an algorithm for the constructive control by adding voters variant.
+\begin{definition}\label{ch5:def:av-cc-av}
+    We are given a set of candidates $C$, a set of voters $V$ and a set of unused voters $W$,
+    a nonnegative integer k, and a selected candidate $p \in C$.
+    In the constructive control by adding voters problem for the approval voting (Approval-CC-AV),
+    we ask whether there exists a set $\widetilde{V} \subseteq W$,
+    such that $p$ is the unique winner of the approval voting election $E = (C, V \cup \widetilde{V})$, where $|\widetilde{V}| \leq k$.
+\end{definition}
+
+\noindent Our strategy is based on the similar solution from \cite{control-cr-how-hard-magiera-faliszewski}.
+It comes down to adding all the unused voters from $W$ to the election, 
+and then solving a reversed problem of the constructive control by deleting voters.
+
 \begin{enumerate}
     \item Add all $v \in W$ to the election
     \item Is $p$ the winner?
-    \item Try to delete $k' = |W| - k$ voters 
+    \item Try to delete $k' = |W| - k$ voters from $W$.
 \end{enumerate}
