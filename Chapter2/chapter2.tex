@@ -7,11 +7,11 @@
     \graphicspath{{Chapter2/Figs/Vector/}{Chapter2/Figs/}}
 \fi
 
+In this chapter we provide the necessary background for our work.
 First, in Section \ref{sec:basic-def}, we introduce basic definitions and core concepts, together with simple examples.
 Later, in Section \ref{ch2:sec:pref-restrictions}, we discuss preference restrictions,
-and how can we leverage them to design better algorithms, for many of the computational social choice problems.
-Finally, in Section \ref{{ch2:sec:methods}}, we explain some computational methods (tricks) we have used in this work,
-that we believe are not necessarily straightforward. 
+and how we can leverage them to design better algorithms for many computational social choice problems.
+Finally, in Section \ref{{ch2:sec:methods}}, we explain some computational methods that we have used in this work.
 
 % =====================
 % Basic Definitions
@@ -19,22 +19,23 @@ that we believe are not necessarily straightforward.
 \section{Basic Definitions}\label{sec:basic-def}
 
 For an integer $t$, by $[t]$ we mean the set $\{1,...,t\}$.
-To describe a matrix $\mathbf{A}$ with $r$ rows and $c$ columns, we use $\mathbf{A}_{r \times c}$.
-By $\mathbf{A}[i,j]$ we refer to the entry in i-th row and in j-th column of a matrix $\mathbf{A}$.
+To describe a matrix $\mathbf{A}$ with $r$ rows and $c$ columns, we write $\mathbf{A}_{r \times c}$.
+By $\mathbf{A}[i,j]$ we refer to the entry in the i-th row and in the j-th column of matrix $\mathbf{A}$.
+We denote $\mathbb{R}^{0+}$ for the set of real numbers greater than or equal to zero.
 
 \subsubsection{Approval Elections}
 
-An approval-based election (in short, an \textit{election}, or interchangeably a \textit{profile}) is a pair $E = (C, V)$, where 
+An approval-based election (in short, an \textit{election}, or, interchangeably, a \textit{profile}) is a pair $E = (C, V)$, where 
 $C = \{c_1,...,c_M\}$ is a set of candidates and  $V = \{v_1,...,v_N\}$ is a set of voters.
-We use $M$ and $N$ for the number of candidates and voters respectively. 
-For each voter $v \in V$, his or hers preferences are represented as a set of approved candidates $A(v)$,
-we call it an \textit{approval set}.
-Furthermore, for each candidate $c \in C$, we define $V(c) = \{v \in V \:|\: c \in A(v)\}$,
-a set of voters who approve candidate $c$.
+We use $M$ and $N$ for the numbers of candidates and voters respectively. 
+For each voter $v \in V$, his or her preferences are represented as a set of approved candidates $A(v)$,
+which we call an \textit{approval set}.
+Furthermore, for each candidate $c \in C$, we define $V(c) = \{v \in V \:|\: c \in A(v)\}$
+to be the set of voters who approve candidate $c$.
 
-In practice, we often use an additional, simplified notation of representing an election.
-We redefine $A$ as a binary matrix (a matrix, where each entry is in $\{0,1\}$), with $N$ rows and $M$ columns.
-For $i \in [N]$ and $j \in [M]$, entry $A[i,j]$ is $1$ if voter $v_i$ approves of candidate $c_j$, and $0$ otherwise.
+In practice, we often use additional, simplified notation for representing an election.
+We redefine $A$ as a binary matrix (a matrix where each entry is in $\{0,1\}$) with $N$ rows and $M$ columns.
+For $i \in [N]$ and $j \in [M]$, entry $A[i,j]$ is $1$ if voter $v_i$ approves of candidate $c_j$, and it is $0$ otherwise.
 In other words, each row of the matrix is a vector representation of a given voter's approval set.
 We refer to it as an \textit{approval matrix} or a \textit{preference matrix}.
 It will always be clear from the context which notation we are using.
@@ -55,19 +56,19 @@ It will always be clear from the context which notation we are using.
 
 \subsubsection{Multiwinner Committee Selection Rules}
 
-Voting rules are algorithms used to, select a committee (winners) — fixed size subset of the candidates,
-based on the voters preferences, for a given election.
+Voting rules are algorithms used to select a committee (the winners), i.e., a fixed size subset of the candidates,
+based on the voters preferences for a given election.
 Each rule has different properties and must be selected according to the goal of the election.
-As this is not the main focus of this work we point to \cite{faliszewskiSkowronMultiWinnerOverview},
+As this is not the main focus of this work, we point to the work of \cite{faliszewskiSkowronMultiWinnerOverview}
 for a detailed overview of multiwinner voting rules.
 
 Nonetheless, we introduce the most basic voting rule for the approval model, simply called \textit{Approval Voting (AV)},
-introduced by \cite{brams1983approval}.
+and introduced by \cite{brams1983approval}.
 
 \begin{definition}[Multi-Winner Approval Voting (AV)]\label{ch2:def:av}
     For a given election $E = (C, V)$ and a size of committee $k$, AV rule selects the $k$ candidates with the highest approval scores.
-    AV-score of a given candidate $c$, is the number of voters who approve of $c$, and 
-    formally, is defined as $score_{AV}(E,c) = |\{v \in V : c \in A(v)\}|$.
+    AV-score of a given candidate $c$ is the number of voters who approve of $c$. 
+    Formally, it is defined as $score_{AV}(E,c) = |\{v \in V : c \in A(v)\}|$.
 \end{definition}
 
 \begin{example}
@@ -80,32 +81,29 @@ introduced by \cite{brams1983approval}.
 % =====================
 
 \section{Preference Restrictions}\label{ch2:sec:pref-restrictions}
-As a reminder from Section \ref{ch:intro:sec:restrictions},
-many computational social choice problems such as winner determination, or control problems are known to be computationally hard.
+Let us recall from Section \ref{ch:intro:sec:restrictions} that
+many computational social choice problems, such as winner determination or control problems are known to be computationally hard.
 Preference restrictions, i.e., restrictions on the structure of voters’ ballots,
 are a very effective solution to circumvent the computational complexity of these problems.
 
 \subsection{Euclidean Preference Restrictions}\label{ch2:sec:euc-pref-restrictions}
-Euclidean preference restrictions, in the approval voting model, are foundation of this work.
+Euclidean preference restrictions in the approval voting model are the main focus of this work.
 All the problems we solve in the subsequent chapters are structured around this concept.
-Unless stated otherwise, throughout this work, we consider one-dimensional variants of the Euclidean models.
+Unless stated otherwise, throughout this work we consider one-dimensional variants of the Euclidean models.
 
-Let us introduce restrictions that we explore in this work.
-Starting with the most basic one, that is a predecessor to the other ones,
+Let us introduce restrictions that we explore.
+We start with the most basic one, a predecessor to the other ones
 in this family of restrictions. 
 
 \begin{pref-restriction}[Dichotomous Euclidean (DE)][\cite{elkind-approval-restrictions}]
-
 Given an election $E = (C,V)$, we say that $E$ satisfies DE
 if there is a mapping $\rho$ of voters and candidates into the real line such that
 for every voter $v \in V$ there exists a radius $r_v$, and it holds that $v = \{c : |\rho(v) - \rho(c)| \leq r_v\}$.
-\textcolor{orange}{(WIP: Czy w ogóle definiować DE?, czy jest potrzebna cytacja?, ta definicja
-nie jest specjalnie spójna z pozostałymi oznaczeniami / nie oczywista)}   
-
 \end{pref-restriction}
 
-The DE preference restriction is somewhat limited, it permits for only one agent type, i.e., candidate or voter,
-to have a radius parameter, while the other one is represented just by his or hers point.
+The DE preference restriction is somewhat limited.
+Indeed, it permits for only one agent type, i.e., either the candidates or the voters,
+to have a radius parameter, while the other one is represented just by his or her point.
 We consider the DE model in one of the two variants:
 \begin{enumerate}
     \item The voter-range model, where voters have the radius parameter.
@@ -115,25 +113,24 @@ We consider the DE model in one of the two variants:
     We say that if a candidate is approved by a voter, then he or she is also approved
     by all the voters closer to him or her.
 \end{enumerate}
+In some literature these models are known as the candidate interval and the voter interval ones, respectively.
 Below we provide a formal definition of these two models,
 as well as their generalization which allows all agents to have a radius parameter.
 
 \begin{pref-restriction}[Voter/Candidate Range (VCR)][\cite{faliszewski-vcr}]\label{ch2:def:vcr}
-
-Given an election \(E = (C, V)\), we say that the voters have one-dimensional Euclidean preferences if
+Given an election \(E = (C, V)\), we say that the voters have one-dimensional voter/candidate range preferences if
 for each agent $a \in C \cup V$ (i.e., for each candidate and each voter)
 there exists a point $x_a \in \mathbb{R}$ and nonnegative real value $r_a \in \mathbb{R}$ such that:
-\begin{displaymath}
-    c \in A(v) \Longleftrightarrow |x_c - x_v| \leq r_c + r_v
-\end{displaymath}
-
+\[
+    c \in A(v) \Longleftrightarrow |x_c - x_v| \leq r_c + r_v.
+\]
 \end{pref-restriction}
 
-We can think of the VCR restriction as
-for an agent $a \in C \cup V$ the point $x_a$ describes $a$'s ideal position 
+We can think of the VCR restriction as follows.
+For an agent $a \in C \cup V$ the point $x_a$ describes $a$'s ideal position 
 in $\mathbb{R}$, representing his or hers opinion. 
 For a candidate $c \in C$, radius $r_c$ can be seen as $c$'s charisma,
-or in other words their ability to reach a number of different voters
+or, in other words, their ability to reach a number of different voters
 (e.g., a centrist candidate possibly would have a larger reach, than an extremist one).
 For a voter $v \in V$, radius $r_v$ corresponds to $v$'s willingness to compromise,
 that is, how different (faraway) opinion they would still accept from their ideal one.
@@ -172,7 +169,7 @@ both introduced by \cite{elkind-approval-restrictions}. \cite{faliszewski-vcr} s
 \end{figure}
 
 The VCR domain is larger than the CR and the VR domains combined.
-Below in Example \ref{ch:pre:ex:tvcr}, we show an election that is VCR, but neither CR nor VR.
+Below in Example~\ref{ch:pre:ex:tvcr}, we show an election that is VCR, but neither CR nor VR.
 We explore this topic further in Chapter \ref{ch:domain}.
 
 \begin{example}\label{ch:pre:ex:tvcr}
@@ -187,50 +184,50 @@ To see why, ...
 % Techniques
 % =====================
 
-\section{Integer Linear Programming}\label{{ch2:sec:methods}}
+\section{Integer Linear Program}\label{{ch2:sec:methods}}
 
-Integer linear programming (ILP) is a common approach to solve NP-hard problems, 
+Linear programming (ILP) is a common approach to solve NP-hard problems, 
 furthermore it can be used successfully for other problems as well.
 To solve a problem by reduction to the linear program,
-first we need to define the given problem as a system of linear inequalities and an objective function.
+we first need to define the given problem as a system of linear inequalities and an objective function.
 Formally, for $j \in [n]$, a single inequality consists of
 a set of decision variables $x_j$,
 a set of parameters $a_j$ and
 a constraint $b$,
 together giving a formula: $a_{1}x_{1} + a_{2}x_{2} + ... + a_{n}x_{n} \leq b$
-However, in practice there are multiple constraint inequalities, and we use more general notation to represent an i-th inequality:
+Usually, there are multiple constraint inequalities and we use more general notation to represent an i-th inequality:
 \[\sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i}\]
-Besides constraints, we define an objective function with parameters $c_j$:
+Beside constraints, we define an objective function with parameters $c_1, ..., c_n$:
 \[\sum_{j=1}^{n} c_{j}x_{j}\]
-Now, having defined inequalities and the objective, 
-the goal is to find a vector of values for the $x_j$,
-such that it maximizes (or minimizes) the value of the objective function, while keeping all the inequalities true.
-In general, all the variables of a linear program can be fractional, and such program can be solved in polynomial time.
-However, there is a special case called \textit{(mixed) integer linear program},
-that is, when we require some variables to be integers. Solving integer linear programs is NP-hard.
-Despite this, there are available state-of-the-art linear program solvers, that solve ILPs effectively.
-In this work we use one of them, the Gurobi solver.
+Now, having defined the inequalities and the objective, 
+the goal is to find a vector of values for the $x_j$ variables,
+that maximizes (or minimizes) the value of the objective function, while keeping all the inequalities satisfied.
+The variables of a linear program can be fractional and such programs can be solved in polynomial time.
+However, there is a special case called \textit{(mixed) integer linear programming}
+where we require some of the variables to be integers. Solving integer linear programs is NP-hard.
+Despite this, there are available state-of-the-art linear program solvers that solve ILPs effectively.
+In this work we use the Gurobi solver.
 For the complete theory of (integer) linear programming, we point to the book by \cite{ilp-book-wolsey}.
 
 Not every problem can be directly defined as an integer linear program.
-However, we can apply basic techniques and tricks to make the problem suitable.
+However, we can apply basic techniques and tricks to help in such cases.
 For example, this is the case for our solution to the VCR profile detection problem described in Chapter \ref{ch:detection}.
-Below we present these methods:
+Below we present these methods.
 \newline
 
 \noindent \textbf{Big-M Method.} \indent This technique is used to overcome a variety of problems,
 such as representing absolute or minimum/maximum values as linear inequalities.
-Another examples would be defining a logical conditions (And/Or) between the inequalities or using indicators (i.e., if-then logic).
-These problems are not linear in their nature. However, by taking certain steps we can linearize them,
-and then use them in a linear program.
-
+Another example of its application would be defining logical conditions (and/or) between the inequalities
+or using indicators (i.e., if-then logic). Such constructions are not linear in their nature, but
+by taking certain steps we can linearize them and, then, use them in a linear program.
 
 Having a set of $m$ linear inequalities with $n$ variables represented as:
 \[\sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i} \qquad i \in [m], j \in [n]\]
-The fundamental concept of the BigM method is to introduce to the inequalities,
-an additional large constant coefficient $M$ (hence Big), which is greater than the maximum value of any variable $x_j$.
-Based on how we do it decides which of the aforementioned problems we solve.
-Below in Example \ref{ch2:ex:ilp-bigm-or}, we showcase the BigM technique to represent $OR$ condition between inequalities.
+the fundamental concept of the BigM method is to introduce in the inequalities
+an additional large constant coefficient $M$ (hence Big in the name of the method),
+which is greater than the maximum value of any variable $x_j$.
+Below, in Example \ref{ch2:ex:ilp-bigm-or}, we showcase the BigM technique to represent an $OR$ condition between inequalities.
+To represent other non-linear constructs, we would apply the method in a slightly different way.
 
 \begin{example}\label{ch2:ex:ilp-bigm-or}
     We have two inequalities and want to represent a logical $OR$ condition between them.
@@ -243,12 +240,13 @@ Below in Example \ref{ch2:ex:ilp-bigm-or}, we showcase the BigM technique to rep
     This constraint enforces that at least one of the inequalities will be true.
 \end{example}
 
-The BigM method is a valuable and widely used tool, however it has some downsides, mostly related to the numerical issues.
-That is why, most ILP solvers provide additional built-in mechanisms for applying it.
+The BigM method is a valuable and widely used tool. 
+However, it has some downsides, mostly related to numerical issues.
+This is why most ILP solvers provide additional built-in mechanisms for applying it.
 For further reading, we point to the reference manual of \cite{ilp-gurobi}.
 We use one of those mechanisms for our linear program in Chapter \ref{ch:detection}, namely an \textit{indicator constraint}.
 It allows one to create constraints representing if-then logic.
 Formally, we have to introduce a binary variable $z \in \{0,1\}$, and then we can define an indicator constraint in the form of:
 \[z = f \longrightarrow \sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i}\]
 The constraint states that if variable $z$ is equal to $f \in \{0,1\}$, then the linear constraint should hold.
-On the other hand, if $z = 1 - f$, then the linear consist may be violated.
+On the other hand, if $z = 1 - f$, then the constraint may be violated.
