@@ -25,7 +25,7 @@ We denote $\mathbb{R}^{0+}$ for the set of real numbers greater than or equal to
 
 \subsubsection{Approval Elections}
 
-An approval-based election (in short, an \textit{election}, or, interchangeably, a \textit{profile}) is a pair $E = (C, V)$, where 
+An approval-based election\footnotemark (in short, an \textit{election}, or, interchangeably, a \textit{profile}) is a pair $E = (C, V)$, where 
 $C = \{c_1,...,c_M\}$ is a set of candidates and  $V = \{v_1,...,v_N\}$ is a set of voters.
 We use $M$ and $N$ for the numbers of candidates and voters respectively. 
 For each voter $v \in V$, his or her preferences are represented as a set of approved candidates $A(v)$,
@@ -33,12 +33,18 @@ which we call an \textit{approval set}.
 Furthermore, for each candidate $c \in C$, we define $V(c) = \{v \in V \:|\: c \in A(v)\}$
 to be the set of voters who approve candidate $c$.
 
+\footnotetext{Let us mention another widely studied type of the elections, i.e., the \textit{ordinal-based} elections.
+That is, where the voters order the candidates from the most to the least preferred ones.
+Formally, each voter $v$ provides a linear order $\succ_v$, which ranks all the candidates.
+}
+
 In practice, we often use additional, simplified notation for representing an election.
 We redefine $A$ as a binary matrix (a matrix where each entry is in $\{0,1\}$) with $N$ rows and $M$ columns.
 For $i \in [N]$ and $j \in [M]$, entry $A[i,j]$ is $1$ if voter $v_i$ approves of candidate $c_j$, and it is $0$ otherwise.
 In other words, each row of the matrix is a vector representation of a given voter's approval set.
 We refer to it as an \textit{approval matrix} or a \textit{preference matrix}.
 It will always be clear from the context which notation we are using.
+
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{approval-election.png}
