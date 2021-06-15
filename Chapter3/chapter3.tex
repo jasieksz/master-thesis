@@ -15,49 +15,51 @@
 % VCR Profile Detection Algorithm
 % ========================================================================
 
-First, in Section \ref{ch3:sec1:detection}, we discuss various approaches to preference recognition, and we present selection of related work.
-Followed by Section \ref{ch3:sec2:ilp}, where we describe our main contribution of this chapter.
-That is, an algorithm based on a reduction to ILP for deciding if a given approval profile has the VCR structure.
+In this chapter we provide and evaluate an algorithm for recognizing profiles that satisfy the Voter/Candidate Range restriction.
+First, in Section \ref{ch3:sec1:detection}, we discuss various approaches to preference recognition and we present selection of related work.
+Next, in Section \ref{ch3:sec2:ilp}, we describe our main contribution of this chapter,
+i.e., an algorithm based on a reduction to ILP for deciding if a given approval profile has the VCR structure.
 Finally, in Section \ref{ch3:sec3:sat}
 we experimentally compare the performance of our ILP based solution with the one based on a reduction to 2-SAT,
-for a task of recognizing the CR and the VR preference restrictions.
+for a task of recognizing the CR and VR preference restrictions.
 
 % ========================= 
 % Detection
 % =========================
 
 \section{Profile Structure Detection}\label{ch3:sec1:detection}
-To take advantage of the preference restrictions defined in Section \ref{ch2:sec:pref-restrictions} or any other one,
+To take advantage of the preference restrictions defined in Section \ref{ch2:sec:pref-restrictions}, or any other ones for that matter,
 we need to design detection (recognition) algorithms. They can be used to check whether a given election
 has particular structural properties. 
 Research in this area is active and successful.
-Provided solutions can be divided into two categories.
-First one, where preference recognition algorithm is based on a certain characterization of a domain.
+Provided solutions can be divided into two categories:
+In the first one, the recognition algorithm is based on a certain characterization of a domain.
 For example, \cite{peters-spoc} show that a profile is \textit{single-peaked on a circle} by defining a forbidden-substructure of profiles.  
-For the \textit{single-peaked single-crossing} domain, \cite{elkind-recognising-spsc} characterize profiles by connecting them to other smaller domain.
-Second category is more vague, and the solutions are somewhat conventional. For example,
-\cite{doigon-recognising-1deuclidean} provide detection algorithm for the \textit{1d-Euclidean} domain.
+For the \textit{single-peaked single-crossing} domain,
+\cite{elkind-recognising-spsc} characterize profiles by connecting them to another smaller domain.
+The second category of recognition algorithms is more vague and the solutions diversified. 
+For example, \cite{doigon-recognising-1deuclidean} provide detection algorithm for the \textit{1D-Euclidean} domain using linear programming.
 \cite{magiera-recognising-topmono} reduce the \textit{top-monotonicity} recognition problem to the SAT-2CNF problem.
 Above-mentioned examples consider elections in the ordinal model,
 nonetheless, there are recognition algorithms for the approval-based elections as well.
-For a large group of preference restrictions among others, the CR and the VR,
-the problem of recognition can be reduced to detecting consecutive ones property (Definition \ref{ch3:def:c1p})
+For a large group of preference restrictions, among others, the CR and the VR restrictions,
+the problem of recognition can be reduced to detecting consecutive ones property (see Definition \ref{ch3:def:c1p})
 in the approval matrix of a profile (\cite{elkind-approval-restrictions}).
 However, for some restrictions designing a polynomial time domain recognition algorithm is not possible.
 \cite{peters-recognising-euc-pref} showed this to be true for the case of \textit{d-Euclidean} ($d \geq 2$) restrictions in the ordinal election model.
 
 \begin{definition}\label{ch3:def:c1p}
-
-A binary matrix (i.e., a matrix consisting of zeros and ones) has the consecutive ones property (C1P or COP)
+A binary matrix (i.e., a matrix consisting of zeros and ones) has the consecutive ones property (COP)
 if its columns can be permuted in such a way that
 for each row the ones are consecutive, i.e., the 1s form an interval.
-
 \end{definition}
 
-In this work we refer to the term C1P more broadly, using it interchangeably,
+In this work we refer to the term COP more broadly, using it interchangeably,
 for an analogous scenario where we permute the rows and look for the 
 consecutive 1s in every column in a given matrix.
-\cite{COP-PQTree} provided a linear-time C1P detection algorithm based on the PQ-Tree data structure.
+\cite{COP-PQTree} provided a linear-time COP detection algorithm based on the PQ-Tree data structure.
+Below, in Proposition \ref{ch3:sec1:vr-cop-propostion} we give an example of the VR (the CR) recognition algorithm (due to \cite{elkind-approval-restrictions}),
+which utilizes the COP detection algorithm. 
 
 \begin{proposition}[\cite{elkind-approval-restrictions}]\label{ch3:sec1:vr-cop-propostion}
 There is an algorithm that given an approval election with m candidates and n voters
@@ -68,7 +70,7 @@ decides if it satisfies the VR (the CR) condition in $O(mn)$ time.
 Let us represent the election as an approval matrix $A_{n \times m}$.
 We can see that for the VR property, permuting the columns of matrix $A$ so that ones form an interval in each row is equivalent 
 to permuting candidates so that the set of candidates approved by each voter forms an interval.
-For the CR case, we use our extended definition of the C1P (the transposed variant),
+For the CR case, we use our extended definition of the COP (the transposed variant),
 where we permute the rows so that ones form an interval in each column,
 which is equivalent to permuting voters so that the set of voters who approve a certain candidate forms an interval.  
 \end{proof}
@@ -76,14 +78,14 @@ which is equivalent to permuting voters so that the set of voters who approve a 
 In this work, our focus lies on designing an algorithm for recognition of the one dimensional VCR property. 
 That is, having an approval matrix as input we have to decide if 
 for each agent (i.e., for each voter and each candidate) there is a point on the real line 
-and a nonnegative real value representing the radius, so that these parameters satisfy the VCR property.  
+and a nonnegative real value representing the radius so that these parameters satisfy the VCR property.  
 
 % ========================= 
 % ILP
 % =========================
 
 \section{Integer Linear Program}\label{ch3:sec2:ilp}
-An algorithm based on integer linear program (ILP) solving is an excellent choice for the first attempt
+An algorithm based on integer linear programming (ILP) is an excellent choice for the first attempt
 at designing a detection algorithm. It provides an efficient and relatively simple solution.
 Furthermore, it can be used as a fast benchmark for validating future solutions.
 Below we provide an ILP for the VCR profile recognition problem, together with additional preliminary steps.
@@ -107,12 +109,12 @@ linear inequalities.
     \end{split}
 \end{equation}
 
-The constraint obtained from Equation \ref{vcr-to-linear-eq} is not suitable yet for an ILP
+The constraint obtained from Equation \ref{vcr-to-linear-eq} is not yet suitable for an ILP formulation
 because it contains a logical \textit{OR} condition, which again cannot be directly represented in an ILP.
 To transform it into linear form,
 we use special type of the constraints provided by the Gurobi solver, i.e., indicator constraints,
 which allow representing if-then logic.
-They are based on the so-called BigM technique, which we described in Section \ref{ch2:sec:methods}.
+They are based on the BigM technique, which we described in Section \ref{ch2:sec:methods}.
 
 \subsubsection{Detection Algorithm} \label{vcr-detection-ilp-section}
 We present our final formulation of the ILP for recognising VCR elections in Figure \ref{vcr-detection-ilp}.
@@ -128,13 +130,12 @@ Additionally, we use two binary variables $p$ and $q$, required by the indicator
         & p_{c,v} \in \{0,1\} & & & c \in C, \: v \in V & \\
         & q_{c,v} \in \{0,1\} & & & c \in C, \: v \in V & \\
         \mathbf{Constraints:} & \\
-        & & & & \text{for} \: c \in A(v) & \\
-        & x_c - x_v \leq r_c + r_v & \\
-        & -(x_c - x_v) \leq r_c + r_v & \\
-        & & & & \text{for} \: c \notin A(v) & \\
-        & p_{c,v} = 1 \rightarrow x_c - x_v \geq r_c + r_v + 1 & \\
-        & q_{c,v} = 1 \rightarrow -(x_c - x_v) \geq r_c + r_v + 1 & \\
-        & p_{c,v} + q_{c,v} >= 1 &
+        & x_c - x_v \leq r_c + r_v & & & \text{for} \: v \in V, \: \text{for} \: c \in A(v) & \\
+        & -(x_c - x_v) \leq r_c + r_v & & & \text{for} \: v \in V, \: \text{for} \: c \in A(v) & \\
+        \\
+        & p_{c,v} = 1 \rightarrow x_c - x_v \geq r_c + r_v + 1 & & & \text{for} \: v \in V, \: \text{for} \: c \notin A(v) & \\
+        & q_{c,v} = 1 \rightarrow -(x_c - x_v) \geq r_c + r_v + 1 & & & \text{for} \: v \in V, \: \text{for} \: c \notin A(v) & \\
+        & p_{c,v} + q_{c,v} \geq 1 & & & \text{for} \: v \in V, \: \text{for} \: c \notin A(v)
     \end{align*}
 \caption{An ILP for detecting the VCR property.
 Variables $x_a$ and $r_a$ represent agent's position and radius,
@@ -147,22 +148,26 @@ and variables $p_{c,v}$ and $q_{c,v}$ are required to use indicator constraints.
 % ILP vs SAT
 % =========================
 
-\section{Performance comparison of ILP and SAT based solutions for COP detection}\label{ch3:sec3:sat}
+\section{Performance Comparison of ILP and SAT Based Solutions for COP Detection}\label{ch3:sec3:sat}
 In this section we propose a small extension of our ILP, so it can be used to detect the VR and the CR properties.
-Later, we compare it with an alternative solution, which is based on a reduction to the 2-SAT problem, due to \cite{fitzsimmons-lackner-sat-cop}.
+Then, we compare it with an alternative solution, which is based on a reduction to the 2-SAT problem, due to \cite{fitzsimmons-lackner-sat-cop}.
 
 \subsubsection{Extending the VCR recognition ILP}
-We know that the VR and the CR properties are special cases of the VCR restriction, to be specific,
-they require all candidates or all voters to have radius equal to zero, respectively.
-The extension is straightforward,
-we need to introduce additional constraints that require each agents' (candidates' or voters’) radius to be zero. 
-For the VR case it is: $r_c = 0 \quad c \in C$, and for the CR: $r_v = 0 \quad v \in V$.
+We know that the VR and the CR properties are special cases of the VCR restriction.
+To be specific, they require either all the candidates or all the voters to have radius equal to zero, respectively.
+The extension is straightforward:
+We need to introduce additional constraints that require each candidate's or each voter's radius to be zero. 
+For the VR case it is:
+\[r_c = 0 \quad c \in C,\]
+and for the CR:
+\[r_v = 0 \quad v \in V.\]
 
-\subsubsection{Comparison experiment}
+\subsubsection{Comparison Experiment}
 The 2-SAT based solution is an algorithm for the consecutive ones property detection in a matrix.
 From Proposition \ref{ch3:sec1:vr-cop-propostion} we know it is equivalent to detecting the VR property in an approval matrix of an election.
 With that said, we expect the ILP solution to be slower than the 2-SAT one,
-the latter one is specialized in one task only, that is detecting the COP. 
+as the latter one is specialized in one task only, that is detecting the COP,
+and there are classic polynomial-time algorithms for 2-SAT. 
 On the other hand, the ILP solution is more general, 
 as it outputs not only a VR certificate, but also a mapping of agents to points and radii.
 We design a simple experiment to find out how much faster is the 2-SAT solution.
@@ -173,32 +178,40 @@ We conduct the experiment in the following steps:
 
     \item We generate 100 random VCR profiles for each election size (generation details are discussed in Section \ref{ch4:sec2:experiment2}).
     
-    \item For both algorithms, we measure time of the model creation and optimization to detect the VR property. 
-    To minimize external factors on measurement time, we repeat this step three times, and pick the smallest result. 
+    \item For both algorithms, we measure the time of model creation and optimization to detect the VR property. 
+    To minimize external factors on time measurement, we repeat this step three times, and pick the smallest result. 
 \end{enumerate}
+We present the results in Figure \ref{fig:detection:time} and Table \ref{tab:ch3:ex}.
 
-\noindent \textbf{Results.} \indent Let us analyze the results visualized in Figure \ref{fig:detection:time}.
-Each subplot shows results for a given election size.
-Algorithms are represented on y-axis, and measured detection time on x-axis in seconds.
-Furthermore, each point is colored based on the detection result. 
-2-SAT based algorithm is significantly faster and more consistent, it is anywhere between 10 and 100 times faster.
-These conclusions are reflected in statistical metrics presented in Table \ref{tab:ch3:ex}.
-Additionally, we have performed one-off measurements for some larger elections (i.e., $80C \times 80V$ and $100C \times 100V$),
-for which detection time differences were even bigger.
-
-\input{Chapter3/Figs/table-ex.tex}
-
-\begin{figure}[H]
+\begin{figure}[b!]
     \includegraphics[width=\linewidth]{ex1-violin.png}
     \centering
     \caption{Violin Plot: VR (COP) Detection time comparison between ILP and SAT.
     Results are divided into 3 subplots based on the election size. 
-    Categories, that is algorithms used (i.e., ILP or SAT) are described on y-axes.
-    On x-axes detection time is shown in seconds.
-    Additionally, we distinguish detection outcome (i.e., positive or negative) of each measurement with different colors.
-    Precise statistical metrics are included in Table \ref{tab:ch3:ex}.
-    }    \label{fig:detection:time}
+    Categories, that is algorithms used (i.e., ILP or SAT) are described on $y$-axes.
+    On $x$-axes detection time is shown in seconds.
+    Additionally, we distinguish detection outcome (i.e., positive or negative) with different colors.
+    Precise metrics are included in Table \ref{tab:ch3:ex}.
+    }
+    \label{fig:detection:time}
 \end{figure}
+\input{Chapter3/Figs/table-ex.tex}
 
-\section{\textcolor{orange}{WIP: Conclusions}}
-2SAT is great, but we have not studied VCR domain enough to construct one
+\noindent \textbf{Results.} \indent Let us analyze the results shown in Figure \ref{fig:detection:time}.
+Each subplot presents results for a given election size.
+Algorithms are represented on the $y$-axis, and measured detection time on the $x$-axis in seconds.
+Furthermore, each point is colored based on the detection result. 
+2-SAT based algorithm is significantly faster and more consistent. It is anywhere between 10 and 100 times faster.
+These conclusions are reflected in the metrics presented in Table \ref{tab:ch3:ex}.
+Additionally, we have performed one-off measurements for some larger elections (i.e., $80C \times 80V$ and $100C \times 100V$),
+for which detection time differences were even bigger.
+
+\section{Conclusions}
+The key takeaway from this chapter is that recognition algorithms are crucial part of creating successful preference restrictions.
+We might create a preference restriction with extremely desirable properties,
+but the truth is, it would not be used in practice until the invention of an efficient recognition algorithm. 
+Now, focusing on the VCR restriction and the 2-SAT approach to recognition problems.
+We showed how fast 2-SAT based recognition algorithm can be. 
+However, it is unlikely that we will create one for the VCR restriction with our current knowledge of the domain.
+That is, until the VCR domain is not characterized by some combinatorial properties.
+Nonetheless, there might be a whole new approach to the VCR detection, we leave the problem open.
