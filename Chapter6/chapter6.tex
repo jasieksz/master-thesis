@@ -18,15 +18,19 @@ however, it lacks in the performance when it comes to recognizing larger profile
 Next, in Chapter \ref{ch:domain} we performed extensive analysis of the VCR domain.
 We showed that there is a significant number of profiles that satisfy the TVCR (i.e., neither VR nor CR) property.
 This result is very promising, and encourages further development and research related to the VCR domain.
-Finally, in Chapter \ref{ch:control} we showcase the advantages of preference restrictions.
-That is, we demonstrate a polynomial-time algorithm for the constructive control by deleting voters (CC-DV) problem
-for the VCR profiles, which in general is NP-Hard for the unrestricted profiles.  
+Finally, in Chapter \ref{ch:control} we demonstrated the advantages of preference restrictions.
+That is, we gave a polynomial-time algorithm for the constructive control by deleting voters (CC-DV) problem
+for the VCR profiles, which is NP-Hard for the unrestricted profiles.
+Furthermore, we showed that the VCR based algorithms can extend and replace the existing ones for the VR and the CR restrictions.
+
 
 % ======================================
 %********************************** %Second Section  *************************************
 % ======================================
 \section{Open Problems} %Section - 1.2
-
-MAV VCR based on \cite{cr-vr-mav-liu-guo}
-
-Detection algorithm
+Concept of the VCR restriction was introduced only recently by \cite{faliszewski-vcr}.
+Naturally, there is a multitude of unanswered questions and possible research directions.
+It would be interesting to see more solutions based on the VCR model for other computational social choice problems.
+For example, one might try to extend the minimax approval-voting (MAV) algorithms for the VR and the CR profiles (see the work of \cite{cr-vr-mav-liu-guo}).
+Moreover, we believe that improving our results for the VCR profile recognition algorithms (see Chapter \ref{ch:detection}), would be greatly beneficial.
+One of the possible directions for this, would be to study combinatorial properties of the VCR domain. 
