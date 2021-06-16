@@ -176,7 +176,8 @@ We describe these steps in detail below:
     \item \textbf{Choosing opponents.} 
     The only candidates that we consider are from the set of opponents $\widetilde{C}$.
     We pick the leftmost candidate, that is, the one with the minimal beginning of the range $b(c)$ (we break ties arbitrarily).
-    We refer to the selected candidate as $c_L$.
+    We refer to the selected candidate as $c_L$. This strategy together with recalculating $\widetilde{C}$ after each iteration,
+    ensures that we perform only the necessary steps to find a solution. 
 
     \item \textbf{Deleting voters.}
     Having currently processed opponent $c_L$.
@@ -185,9 +186,12 @@ We describe these steps in detail below:
     To defeat $c_L$, we need to delete $scoreDelta(c_L,p) + 1$ voters from $\widehat{V}$.
     If $|\widehat{V}| < scoreDelta(c_L,p) + 1$, then we fail (it is impossible to delete enough voters to defeat $c_L$).
     We proceed with deleting the rightmost voters, that is, the ones with the maximum end of the range $e(v)$ (we break ties arbitrarily).
-    By choosing the rightmost voters, we try to maximize the number of other dangerous candidates who might be contained inside each voter's range.
-    We can do so because of our leftmost candidate picking strategy.
-    At this point, any dangerous candidate to the left of $c_L$ would have already been defeated.    
+    This is an optimal strategy, that is,
+    because choosing the rightmost voter maximizes the number of other dangerous candidates who might be contained inside each voter's range.
+    Furthermore, it is perfectly safe to do so for two reasons:
+    The first one, is because of our leftmost candidate picking strategy. 
+    At this point, any dangerous candidate to the left of $c_L$ would have already been defeated.
+    The second reason is related to the special case of contained candidates that we discuss in detail in Section \ref{ch5:sec21:contained:cand}. 
 \end{enumerate}
 We illustrate the algorithm in Example \ref{ex:cc-dv-vcr}, which describes an election from Figure \ref{fig:cc-dv-vcr}.
 
@@ -218,7 +222,7 @@ Finally, we give a formal proof of correctness of the algorithm.
 %===============================
 \subsection{Special Case of Contained Candidates}\label{ch5:sec21:contained:cand}
 
-In the VCR model it is possible that some candidates have their interval fully contained inside other candidate's interval. 
+In the VCR model it is possible that some candidates have their interval fully contained inside other candidate's interval (see Figure \ref{fig:contained-cand}). 
 If so, every voter who would approve the smaller candidate (i.e., internal) would also approve the larger one (i.e., external),
 however not vice versa. For this case, our algorithm's strategy of choosing rightmost voters to delete, might seem suboptimal at first glance. 
 We define additional terminology and symbols to help us explain why we do not have to worry about this special case. 
@@ -229,6 +233,18 @@ We define additional terminology and symbols to help us explain why we do not ha
     For each candidate $c \in C \setminus \{p\}$ we represent a number of voter deletions required for $p$ to defeat $c$ with:
     \[\Delta(c) = score_{AV}(E,c) - score_{AV}(E,p) + 1.\]
 \end{definition}
+
+\begin{figure}[b!]
+    \includegraphics[width=\linewidth]{vcr-contained-candidate.png}
+    \centering
+    \caption{A VCR election with two candidates contained inside each other's ranges.
+    The larger one $c_E$ (external), and the smaller one $c_I$ (internal).
+    Furthermore, voters from the set $\widehat{V}$, are divided into two groups, i.e.,
+    $\widehat{V}_E = \{V_4, V_5\}$ a subset of voters who approve of $c_E$ but not $c_I$,
+    and a subset of remaining voters $\widehat{V}_I = \{V_1, V_2, V_3\}$.
+    Because we discuss the CC-DV problem, there is also the preferred candidate $p$ and his voters.}
+    \label{fig:contained-cand}
+\end{figure}
 
 \begin{definition}\label{ch5:def:contained-vi-ve}
     Having an election $E$, where a candidate is contained inside another one.
@@ -266,18 +282,6 @@ It means that to defeat $c_E$ we have not other choice but to delete at least $\
 the remaining $|\widehat{V}_E|$ voters can be deleted from any of the subsets (i.e., $\widehat{V}_E$ or $\widehat{V}_I$).
 This will result in defeating both $c_E$ and $c_I$ (automatically). 
 
-\begin{figure}[t!]
-    \includegraphics[width=\linewidth]{vcr-contained-candidate.png}
-    \centering
-    \caption{A VCR election with two candidates contained inside each other's ranges.
-    The larger one $c_E$ (external), and the smaller one $c_I$ (internal).
-    Furthermore, voters from the set $\widehat{V}$, are divided into two groups, i.e.,
-    $\widehat{V}_E = \{V_4, V_5\}$ a subset of voters who approve of $c_E$ but not $c_I$,
-    and a subset of remaining voters $\widehat{V}_I = \{V_1, V_2, V_3\}$.
-    Because we discuss the CC-DV problem, there is also the preferred candidate $p$ and his voters.}
-    \label{fig:contained-cand}
-\end{figure}
-
 %===============================
 % Sketch Proof CR
 %===============================
@@ -286,7 +290,7 @@ We show how our CC-DV algorithm for the VCR elections is equivalent to the one f
 Let us consider an instance of the CC-DV problem for a CR election (agents are still represented using the VCR model).
 In the explanation we follow the example from Figure \ref{fig:cr-cc-dv}.
 
-\begin{figure}[t!]
+\begin{figure}[b!]
     \includegraphics[width=0.7\linewidth]{cr-example.png}
     \centering
     \caption{A CR election for the CC-DV problem, based on an example from \cite{control-cr-how-hard-magiera-faliszewski}. 
@@ -321,6 +325,16 @@ Strategy of the VR algorithm is significantly different from the VCR one (when c
 However, if we introduce one simple assumption and an additional step to our algorithm, they become identical.
 First, let us assume that the preferred candidate $p$ is always the first candidate in the VR order (see election in Figure \ref{fig:vr-cc-dv}).
 This assumption is correct based on two facts:
+\begin{figure}[b!]
+    \includegraphics[width=0.65\linewidth]{vr-example.png}
+    \centering
+    \caption{A VR election for the CC-DV problem. 
+    The candidates are labeled with $C_i$ (expect for the preferred candidate $P$), and the voters with $V_i$.
+    We use colors to distinguish some key groups of agents. 
+    That is, $P$ is in dark-blue, and voters that approve of him or her (we never delete them) are in light-blue color.
+    Additionally, all the initially dangerous candidates are in red.}    
+    \label{fig:vr-cc-dv}
+\end{figure}
 \begin{enumerate}
     \item Having candidates in order $[c_L, \: p, \: c_R]$,
     if there was a voter $v$ who approved of $c_L$ and $c_R$ it would also have to approve of $p$ (because of the VR property),
@@ -332,16 +346,6 @@ This assumption is correct based on two facts:
     and once there is none left, we proceed with the remaining ones on the left side of $p$,
     treating them as if they were on the right side.
 \end{enumerate}
-\begin{figure}[t!]
-    \includegraphics[width=0.65\linewidth]{vr-example.png}
-    \centering
-    \caption{A VR election for the CC-DV problem. 
-    The candidates are labeled with $C_i$ (expect for the preferred candidate $P$), and the voters with $V_i$.
-    We use colors to distinguish some key groups of agents. 
-    That is, $P$ is in dark-blue, and voters that approve of him or her (we never delete them) are in light-blue color.
-    Additionally, all the initially dangerous candidates are in red.}    
-    \label{fig:vr-cc-dv}
-\end{figure}
 
 \subsubsection{Choosing opponents}
 We can see that the VCR algorithm strategy (the extended one) of
