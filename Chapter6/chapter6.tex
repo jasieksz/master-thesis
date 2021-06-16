@@ -1,9 +1,4 @@
-%!TEX root = ../thesis.tex
-%*******************************************************************************
-%*********************************** First Chapter *****************************
-%*******************************************************************************
-
-\chapter{\textcolor{orange}{Summary}}  %Title of the First Chapter
+\chapter{Summary}
 
 \ifpdf
     \graphicspath{{Chapter6/Figs/Raster/}{Chapter6/Figs/PDF/}{Chapter6/Figs/}}
@@ -11,10 +6,27 @@
     \graphicspath{{Chapter6/Figs/Vector/}{Chapter6/Figs/}}
 \fi
 
-
+% ======================================
 %********************************** %First Section  **************************************
-\section{Conclusions} %Section - 1.1 
+% ======================================
 
+\section{Conclusions} 
+We have studied various problems, all centered around the one-dimensional Voter/Candidate Range preferences restriction.
+First, in Chapter \ref{ch:detection} we proposed the VCR detection algorithm based on a reduction to ILP.
+Our solution is perfectly suitable for basic analysis of the domain,
+however, it lacks in the performance when it comes to recognizing larger profiles.
+Next, in Chapter \ref{ch:domain} we performed extensive analysis of the VCR domain.
+We showed that there is a significant number of profiles that satisfy the TVCR (i.e., neither VR nor CR) property.
+This result is very promising, and encourages further development and research related to the VCR domain.
+Finally, in Chapter \ref{ch:control} we showcase the advantages of preference restrictions.
+That is, we demonstrate a polynomial-time algorithm for the constructive control by deleting voters (CC-DV) problem
+for the VCR profiles, which in general is NP-Hard for the unrestricted profiles.  
+
+% ======================================
 %********************************** %Second Section  *************************************
-\section{Future Work} %Section - 1.2
+% ======================================
+\section{Open Problems} %Section - 1.2
 
+MAV VCR based on \cite{cr-vr-mav-liu-guo}
+
+Detection algorithm

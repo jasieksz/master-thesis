@@ -11,7 +11,7 @@ In this chapter we provide the necessary background for our work.
 First, in Section \ref{sec:basic-def}, we introduce basic definitions and core concepts, together with simple examples.
 Later, in Section \ref{ch2:sec:pref-restrictions}, we discuss preference restrictions,
 and how we can leverage them to design better algorithms for many computational social choice problems.
-Finally, in Section \ref{{ch2:sec:methods}}, we explain some computational methods that we have used in this work.
+Finally, in Section \ref{ch2:sec:methods}, we explain some computational methods that we have used in this work.
 
 % =====================
 % Basic Definitions
@@ -45,8 +45,7 @@ In other words, each row of the matrix is a vector representation of a given vot
 We refer to it as an \textit{approval matrix} or a \textit{preference matrix}.
 It will always be clear from the context which notation we are using.
 
-
-\begin{figure}[H]
+\begin{figure}[t!]
     \includegraphics[width=\linewidth]{approval-election.png}
     \centering
     \caption{Example of an approval election.
@@ -155,7 +154,7 @@ is VR if for each candidate $c \in C$, their radius $r_c$ is equal to zero.
 The CR and the VR models are equivalent to the voter interval (VI) and the candidate interval (CI) ones,
 both introduced by \cite{elkind-approval-restrictions}. \cite{faliszewski-vcr} simply use a different terminology.
 
-\begin{figure}[H]
+\begin{figure}[b!]
     \begin{subfigure}{0.49\textwidth}
       \centering
       \includegraphics[width=\linewidth]{cr-example.png}
