@@ -4,7 +4,7 @@
                Ulle Endriss and
                J{\'{e}}r{\^{o}}me Lang and
                Ariel D. Procaccia},
-  title     = {Handbook of Computational Social Choice},
+  title     = {{Handbook of Computational Social Choice}},
   publisher = {Cambridge University Press},
   year      = {2016},
   url       = {https://doi.org/10.1017/CBO9781107446984},
@@ -15,7 +15,7 @@
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
-@book{ilp-book-wolsey,
+book{ilp-book-wolsey,
   title={Integer and Combinatorial Optimization},
   author={Wolsey, L.A. and Nemhauser, G.L.},
   isbn={9781118626863},
@@ -25,25 +25,48 @@
   publisher={Wiley}
 }
 
+@book{ilp-book-wolsey,
+  author    = {George L. Nemhauser and
+               Laurence A. Wolsey},
+  title     = {{Integer and Combinatorial Optimization}},
+  series    = {Wiley interscience series in discrete mathematics and optimization},
+  publisher = {Wiley},
+  year      = {1988},
+  url       = {https://doi.org/10.1002/9781118627372},
+  doi       = {10.1002/9781118627372},
+  isbn      = {978-0-471-82819-8},
+  timestamp = {Mon, 22 Jul 2019 15:00:49 +0200},
+  biburl    = {https://dblp.org/rec/books/daglib/0090563.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
 @misc{ilp-gurobi,
   author = "Gurobi Optimization, LLC",
-  title = "Gurobi Optimizer Reference Manual",
+  title = "{Gurobi Optimizer Reference Manual}",
   year = 2021,
   url = "http://www.gurobi.com"
 }
 
-@inbook{minimax-Brams-Kilgour-Sanver,
-  author  = {Brams, Steven and Kilgour, D. and Sanver, M. Remzi},
-  year    = {2007},
-  month   = {01},
-  pages   = {265-282},
-  title   = {A Minimax Procedure for Negotiating Multilateral Treaties},
-  isbn    = {978-3-540-68303-2},
-  journal = {Diplomacy Games: Formal Models and International Negotiations},
-  doi     = {10.1007/978-3-540-68304-9_14}
+Inbook{minimax-Brams-Kilgour-Sanver,
+  author="Brams, Steven J.
+  and Kilgour, D. Marc
+  and Sanver, M. Remzi",
+  editor="Avenhaus, Rudolf
+  and Zartman, I. William",
+  title="A Minimax Procedure for Negotiating Multilateral Treaties",
+  bookTitle="Diplomacy Games: Formal Models and International Negotiations",
+  year="2007",
+  publisher="Springer Berlin Heidelberg",
+  address="Berlin, Heidelberg",
+  pages="265--282",
+  abstract="We propose in this chapter a procedure for reaching agreement on multilateral treaties that produces a compromise as close as possible to the preferences of all parties. By ``close'' we mean that the maximum distance of the compromise from the position of any state is minimal, which we call a minimax outcome. We show that this procedure is relatively invulnerable to strategizing by states, reducing any incentive they might have to misrepresent their preferences to try to induce a better outcome.4",
+  isbn="978-3-540-68304-9",
+  doi="10.1007/978-3-540-68304-9_14",
+  url="https://doi.org/10.1007/978-3-540-68304-9_14"
 }
 
-@article{elkind-approval-restrictions,
+
+article{elkind-approval-restrictions,
   author    = {Edith Elkind and
                Martin Lackner},
   title     = {Structure in Dichotomous Preferences},
@@ -58,7 +81,25 @@
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
-@inbook{cr-vr-mav-liu-guo,
+@inproceedings{elkind-approval-restrictions,
+  author    = {Edith Elkind and
+               Martin Lackner},
+  editor    = {Qiang Yang and
+               Michael J. Wooldridge},
+  title     = {{Structure in Dichotomous Preferences}},
+  booktitle = {Proceedings of the Twenty-Fourth International Joint Conference on
+               Artificial Intelligence, {IJCAI} 2015, Buenos Aires, Argentina, July
+               25-31, 2015},
+  pages     = {2019--2025},
+  publisher = {{AAAI} Press},
+  year      = {2015},
+  url       = {http://ijcai.org/Abstract/15/286},
+  timestamp = {Tue, 20 Aug 2019 16:16:43 +0200},
+  biburl    = {https://dblp.org/rec/conf/ijcai/ElkindL15.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+inbook{cr-vr-mav-liu-guo,
   author = {Liu, Hong and Guo, Jiong},
   title = {Parameterized Complexity of Winner Determination in Minimax Committee Elections},
   year = {2016},
@@ -69,11 +110,27 @@
   series = {AAMAS '16}
 }
 
+@inproceedings{cr-vr-mav-liu-guo,
+  author = {Liu, Hong and Guo, Jiong},
+  title = {{Parameterized Complexity of Winner Determination in Minimax Committee Elections}},
+  year = {2016},
+  isbn = {9781450342391},
+  publisher = {International Foundation for Autonomous Agents and Multiagent Systems},
+  abstract = {},
+  booktitle = {Proceedings of the 2016 International Conference on Autonomous Agents and Multiagent Systems},
+  pages = {341–349},
+  address = {Richland, SC},
+  location = {Singapore, Singapore},
+  numpages = {9},
+  keywords = {fixed-parameter tractability, computational social choice, minimax committee election},
+  series = {AAMAS '16}
+}
+
 @article{peters-spoc,
   author    = {Dominik Peters and
                Martin Lackner},
-  title     = {Preferences Single-Peaked on a Circle},
-  journal   = {J. Artif. Intell. Res.},
+  title     = {{Preferences Single-Peaked on a Circle}},
+  journal   = {Journal of Artificial Intelligence Research},
   volume    = {68},
   pages     = {463--502},
   year      = {2020},
@@ -84,7 +141,7 @@
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
-@inproceedings{peters-recognising-euc-pref,
+inproceedings{peters-recognising-euc-pref,
 author = {Peters, Dominik},
 title = {Recognising Multidimensional Euclidean Preferences},
 year = {2017},
@@ -96,11 +153,27 @@ location = {San Francisco, California, USA},
 series = {AAAI'17}
 }
 
+@inproceedings{peters-recognising-euc-pref,
+  author    = {Dominik Peters},
+  editor    = {Satinder P. Singh and
+               Shaul Markovitch},
+  title     = {{Recognising Multidimensional Euclidean Preferences}},
+  booktitle = {Proceedings of the Thirty-First {AAAI} Conference on Artificial Intelligence,
+               February 4-9, 2017, San Francisco, California, {USA}},
+  pages     = {642--648},
+  publisher = {{AAAI} Press},
+  year      = {2017},
+  url       = {http://aaai.org/ocs/index.php/AAAI/AAAI17/paper/view/14947},
+  timestamp = {Wed, 10 Feb 2021 08:44:41 +0100},
+  biburl    = {https://dblp.org/rec/conf/aaai/Peters17.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
 @article{magiera-recognising-topmono,
   author    = {Krzysztof Magiera and
                Piotr Faliszewski},
-  title     = {Recognizing Top-Monotonic Preference Profiles in Polynomial Time},
-  journal   = {J. Artif. Intell. Res.},
+  title     = {{Recognizing Top-Monotonic Preference Profiles in Polynomial Time}},
+  journal   = {Journal of Artificial Intelligence Research},
   volume    = {66},
   pages     = {57--84},
   year      = {2019},
@@ -111,7 +184,7 @@ series = {AAAI'17}
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
-@Article{elkind-recognising-spsc,
+Article{elkind-recognising-spsc,
   author={Edith Elkind and Piotr Faliszewski and Piotr Skowron},
   title={{A characterization of the single-peaked single-crossing domain}},
   journal={Social Choice and Welfare},
@@ -126,7 +199,24 @@ series = {AAAI'17}
   url={https://ideas.repec.org/a/spr/sochwe/v54y2020i1d10.1007_s00355-019-01216-3.html}
 }
 
-@article{doigon-recognising-1deuclidean,
+@article{elkind-recognising-spsc,
+  author    = {Edith Elkind and
+               Piotr Faliszewski and
+               Piotr Skowron},
+  title     = {{A Characterization of the Single-Peaked Single-Crossing Domain}},
+  journal   = {Social Choice and Welfare},
+  volume    = {54},
+  number    = {1},
+  pages     = {167--181},
+  year      = {2020},
+  url       = {https://doi.org/10.1007/s00355-019-01216-3},
+  doi       = {10.1007/s00355-019-01216-3},
+  timestamp = {Fri, 14 May 2021 08:31:05 +0200},
+  biburl    = {https://dblp.org/rec/journals/scw/ElkindFS20.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+article{doigon-recognising-1deuclidean,
   title={A Polynomial Time Algorithm for Unidimensional Unfolding Representations},
   author={Jean-Paul Doignon and J. Falmagne},
   journal={J. Algorithms},
@@ -135,13 +225,50 @@ series = {AAAI'17}
   pages={218-233}
 }
 
-@inproceedings{faliszewski-vcr,
+@article{doigon-recognising-1deuclidean,
+  author    = {Jean{-}Paul Doignon and
+               Jean{-}Claude Falmagne},
+  title     = {{A Polynomial Time Algorithm for Unidimensional Unfolding Representations}},
+  journal   = {Journal of Algorithms},
+  volume    = {16},
+  number    = {2},
+  pages     = {218--233},
+  year      = {1994},
+  url       = {https://doi.org/10.1006/jagm.1994.1010},
+  doi       = {10.1006/jagm.1994.1010},
+  timestamp = {Sun, 28 May 2017 13:24:57 +0200},
+  biburl    = {https://dblp.org/rec/journals/jal/DoignonF94.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+inproceedings{faliszewski-vcr,
   title={An Analysis of Approval-Based Committee Rules for 2D-Euclidean Elections},
   author={Godziszewski, Micha{\l} and Batko, Pawe{\l} and Skowron, Piotr and Faliszewski, Piotr},
   year={2021}
 }
 
-@misc{lacknerSkowronAVOverview,
+@inproceedings{faliszewski-vcr,
+  author    = {Michal Tomasz Godziszewski and
+               Pawel Batko and
+               Piotr Skowron and
+               Piotr Faliszewski},
+  title     = {{An Analysis of Approval-Based Committee Rules for 2D-Euclidean Elections}},
+  booktitle = {Thirty-Fifth {AAAI} Conference on Artificial Intelligence, {AAAI}
+               2021, Thirty-Third Conference on Innovative Applications of Artificial
+               Intelligence, {IAAI} 2021, The Eleventh Symposium on Educational Advances
+               in Artificial Intelligence, {EAAI} 2021, Virtual Event, February 2-9,
+               2021},
+  pages     = {5448--5455},
+  publisher = {{AAAI} Press},
+  year      = {2021},
+  url       = {https://ojs.aaai.org/index.php/AAAI/article/view/16686},
+  timestamp = {Wed, 02 Jun 2021 18:09:11 +0200},
+  biburl    = {https://dblp.org/rec/conf/aaai/GodziszewskiB0F21.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+misc{lacknerSkowronAVOverview,
       title={Approval-Based Committee Voting: Axioms, Algorithms, and Applications}, 
       author={Martin Lackner and Piotr Skowron},
       year={2020},
@@ -150,18 +277,44 @@ series = {AAAI'17}
       primaryClass={cs.GT}
 }
 
-@Book{faliszewskiSkowronMultiWinnerOverview,
-  author = {Piotr Faliszewski and Piotr Skowron and Arkadii Slink and Nimrod Talmon},
-  title = 	 {Multiwinner Voting: A New Challenge for Social Choice Theory},
-  booktitle = 	 {Trends in Computational Social Choice},
-  editor = 	 {Ulle Endriss},
-  chapter        = {2},
-  pages          = {27-47},
-  publisher =    {AI Access},
-  year = 	 {2017}
+@article{lacknerSkowronAVOverview,
+  author    = {Martin Lackner and
+               Piotr Skowron},
+  title     = {{Approval-Based Committee Voting: Axioms, Algorithms, and Applications}},
+  journal   = {CoRR},
+  volume    = {abs/2007.01795},
+  year      = {2020},
+  url       = {https://arxiv.org/abs/2007.01795},
+  archivePrefix = {arXiv},
+  eprint    = {2007.01795},
+  timestamp = {Fri, 09 Oct 2020 09:46:56 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2007-01795.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
-@article{COP-PQTree,
+@Book{faliszewskiSkowronMultiWinnerOverview,
+  author={Piotr Faliszewski and Piotr Skowron and Arkadii Slink and Nimrod Talmon},
+  title={{Multiwinner Voting: A New Challenge for Social Choice Theory}},
+  booktitle={Trends in Computational Social Choice},
+  editor={Ulle Endriss},
+  chapter= {2},
+  pages={27-47},
+  publisher={AI Access},
+  year={2017}
+}
+
+article{faliszewski2017multiwinner,
+  title={Multiwinner voting: A new challenge for social choice theory},
+  author={Faliszewski, Piotr and Skowron, Piotr and Slinko, Arkadii and Talmon, Nimrod},
+  journal={Trends in computational social choice},
+  volume={74},
+  pages={27--47},
+  year={2017},
+  publisher={AI Access Foundation}
+}
+
+
+article{COP-PQTree,
 title = "Testing for the consecutive ones property, interval graphs, and graph planarity using PQ-tree algorithms",
 journal = "Journal of Computer and System Sciences",
 volume = "13",
@@ -175,7 +328,22 @@ author = "Kellogg S. Booth and George S. Lueker",
 abstract = "A data structure called a PQ-tree is introduced. PQ-trees can be used to represent the permutations of a set U in which various subsets of U occur consecutively. Efficient algorithms are presented for manipulating PQ-trees. Algorithms using PQ-trees are then given which test for the consecutive ones property in matrices and for graph planarity. The consecutive ones test is extended to a test for interval graphs using a recently discovered fast recognition algorithm for chordal graphs. All of these algorithms require a number of steps linear in the size of their input."
 }
 
-@article{COP-LexBFS,
+@article{COP-PQTree,
+  author={Kellogg S. Booth and George S. Lueker},
+  title={{Testing for the Consecutive Ones Property, Interval Graphs, and Graph Planarity Using PQ-Tree Algorithms}},
+  journal={Journal of Computer and System Sciences},
+  volume={13},
+  number={3},
+  pages={335--379},
+  year={1976},
+  url={https://doi.org/10.1016/S0022-0000(76)80045-1},
+  doi={10.1016/S0022-0000(76)80045-1},
+  timestamp={Tue, 16 Feb 2021 14:03:50 +0100},
+  biburl={https://dblp.org/rec/journals/jcss/BoothL76.bib},
+  bibsource={dblp computer science bibliography, https://dblp.org}
+}
+
+article{COP-LexBFS,
 title = "Lex-BFS and partition refinement, with applications to transitive orientation, interval graph recognition and consecutive ones testing",
 journal = "Theoretical Computer Science",
 volume = "234",
@@ -190,7 +358,7 @@ keywords = "Algorithm, Data-structure, Partition refinement, Graph, Boolean matr
 abstract = "By making use of lexicographic breadth first search (Lex-BFS) and partition refinement with pivots, we obtain very simple algorithms for some well-known problems in graph theory. We give a O(n+mlogn) algorithm for transitive orientation of a comparability graph, and simple linear algorithms to recognize interval graphs, convex graphs, Y-semichordal graphs and matrices that have the consecutive ones property. Previous approaches to these problems used difficult preprocessing steps, such as computing PQ-trees or modular decomposition. The algorithms we give are easy to understand and straightforward to prove. They do not make use of sophisticated data structures, and the complexity analysis is straightforward."
 }
 
-@article{fitzsimmons-lackner-sat-cop,
+article{fitzsimmons-lackner-sat-cop,
   author    = {Zack Fitzsimmons and
                Martin Lackner},
   title     = {Incomplete Preferences in Single-Peaked Electorates},
@@ -205,7 +373,22 @@ abstract = "By making use of lexicographic breadth first search (Lex-BFS) and pa
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
-@article{control-sp-shield-faliszewski-hemaspaandra,
+@article{fitzsimmons-lackner-sat-cop,
+  author    = {Zack Fitzsimmons and
+               Martin Lackner},
+  title     = {{Incomplete Preferences in Single-Peaked Electorates}},
+  journal   = {Journal of Artificial Intelligence Research},
+  volume    = {67},
+  pages     = {797--833},
+  year      = {2020},
+  url       = {https://doi.org/10.1613/jair.1.11577},
+  doi       = {10.1613/jair.1.11577},
+  timestamp = {Mon, 04 May 2020 13:23:13 +0200},
+  biburl    = {https://dblp.org/rec/journals/jair/FitzsimmonsL20.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+article{control-sp-shield-faliszewski-hemaspaandra,
   author    = {Piotr Faliszewski and
                Edith Hemaspaandra and
                Lane A. Hemaspaandra and
@@ -223,7 +406,26 @@ abstract = "By making use of lexicographic breadth first search (Lex-BFS) and pa
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
-@article{control-cr-how-hard-magiera-faliszewski,
+@article{control-sp-shield-faliszewski-hemaspaandra,
+  author    = {Piotr Faliszewski and
+               Edith Hemaspaandra and
+               Lane A. Hemaspaandra and
+               J{\"{o}}rg Rothe},
+  title     = {{The Shield that Never Was: Societies with Single-Peaked Preferences
+               are More Open to Manipulation and Control}},
+  journal   = {Information and Computation},
+  volume    = {209},
+  number    = {2},
+  pages     = {89--107},
+  year      = {2011},
+  url       = {https://doi.org/10.1016/j.ic.2010.09.001},
+  doi       = {10.1016/j.ic.2010.09.001},
+  timestamp = {Fri, 12 Feb 2021 22:16:16 +0100},
+  biburl    = {https://dblp.org/rec/journals/iandc/FaliszewskiHHR11.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+article{control-cr-how-hard-magiera-faliszewski,
   author = {Magiera, K. and Faliszewski, Piotr},
   year = {2014},
   month = {01},
@@ -234,7 +436,23 @@ abstract = "By making use of lexicographic breadth first search (Lex-BFS) and pa
   doi = {10.3233/978-1-61499-419-0-579}
 }
 
-@inbook{control-hcsc-faliszewski,
+@article{control-cr-how-hard-magiera-faliszewski,
+  author    = {Krzysztof Magiera and
+               Piotr Faliszewski},
+  title     = {{How Hard is Control in Single-Crossing Elections?}},
+  journal   = {Autonomous Agents and Multiagent Systems},
+  volume    = {31},
+  number    = {3},
+  pages     = {606--627},
+  year      = {2017},
+  url       = {https://doi.org/10.1007/s10458-016-9339-3},
+  doi       = {10.1007/s10458-016-9339-3},
+  timestamp = {Fri, 13 Mar 2020 10:56:00 +0100},
+  biburl    = {https://dblp.org/rec/journals/aamas/MagieraF17.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+inbook{control-hcsc-faliszewski,
   place={Cambridge},
   title={Control and Bribery in Voting},
   DOI={10.1017/CBO9781107446984.008},
@@ -246,12 +464,32 @@ abstract = "By making use of lexicographic breadth first search (Lex-BFS) and pa
   pages={146–168}
 }
 
+@incollection{control-hcsc-faliszewski,
+  author    = {Piotr Faliszewski and
+               J{\"{o}}rg Rothe},
+  editor    = {Felix Brandt and
+               Vincent Conitzer and
+               Ulle Endriss and
+               J{\'{e}}r{\^{o}}me Lang and
+               Ariel D. Procaccia},
+  title     = {{Control and Bribery in Voting}},
+  booktitle = {Handbook of Computational Social Choice},
+  pages     = {146--168},
+  publisher = {Cambridge University Press},
+  year      = {2016},
+  url       = {https://doi.org/10.1017/CBO9781107446984.008},
+  doi       = {10.1017/CBO9781107446984.008},
+  timestamp = {Wed, 12 Jul 2017 09:11:30 +0200},
+  biburl    = {https://dblp.org/rec/reference/choice/FaliszewskiR16.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
 @book{Black-single-peaked,
   added-at = {2010-03-02T17:25:53.000+0100},
   address = {Cambridge},
   author = {Black, Duncan},
   biburl = {https://www.bibsonomy.org/bibtex/2c5286599595c9051cb9e927c66555763/jrennstich},
-  booktitle = {The Theory of Committees and Elections},
+  booktitle = {{The Theory of Committees and Elections}},
   date-modified = {2010-02-28 21:17:00 -0500},
   interhash = {c302890e393e5f8f2d269c24e4c85874},
   intrahash = {c5286599595c9051cb9e927c66555763},
@@ -259,13 +497,13 @@ abstract = "By making use of lexicographic breadth first search (Lex-BFS) and pa
   pages = {xii, 241},
   publisher = {University Press},
   timestamp = {2010-03-08T19:29:43.000+0100},
-  title = {The theory of committees and elections},
+  title = {{The Theory of Committees and Elections}},
   year = 1958
 }
 
 @book{arrow-single-peaked,
 	author = {Kenneth Arrow},
-	title = {Social Choice and Individual Values},
+	title = {{Social Choice and Individual Values}},
 	publisher = {Wiley: New York},
 	year = {1951}
 }
@@ -286,7 +524,7 @@ abstract = "By making use of lexicographic breadth first search (Lex-BFS) and pa
 }
 
 @article{roberts-single-crossing,
-  title = {Voting over income tax schedules},
+  title = {{Voting Over Income Tax Schedules}},
   journal = {Journal of Public Economics},
   volume = {8},
   number = {3},
@@ -299,8 +537,8 @@ abstract = "By making use of lexicographic breadth first search (Lex-BFS) and pa
   abstract = {}
 }
 
-@article{barbera-top-monotonicity,
-title = {Top monotonicity: A common root for single peakedness, single crossing and the median voter result},
+article{barbera-top-monotonicity,
+title = {{Top Monotonicity: A Common Root for Single Peakedness, Single Crossing and the Median Voter Result}},
 journal = {Games and Economic Behavior},
 volume = {73},
 number = {2},
@@ -314,7 +552,23 @@ keywords = {Single peaked, Single crossing and intermediate preferences, Majorit
 abstract = {}
 }
 
-@inproceedings{walsh-pref-restrictions,
+@article{barbera-top-monotonicity,
+  author    = {Salvador Barber{\`{a}} and
+               Bernardo Moreno},
+  title = {{Top Monotonicity: A Common Root for Single Peakedness, Single Crossing and the Median Voter Result}},
+  journal   = {Games and Economic Behavior},
+  volume    = {73},
+  number    = {2},
+  pages     = {345--359},
+  year      = {2011},
+  url       = {https://doi.org/10.1016/j.geb.2011.02.004},
+  doi       = {10.1016/j.geb.2011.02.004},
+  timestamp = {Sat, 22 Feb 2020 13:47:27 +0100},
+  biburl    = {https://dblp.org/rec/journals/geb/BarberaM11.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+inproceedings{walsh-pref-restrictions,
   author = {Walsh, Toby},
   title = {Uncertainty in Preference Elicitation and Aggregation},
   year = {2007},
@@ -328,7 +582,21 @@ abstract = {}
   series = {AAAI'07}
 }
 
-@article{skowron-pref-restrictions,
+@inproceedings{walsh-pref-restrictions,
+  author    = {Toby Walsh},
+  title     = {{Uncertainty in Preference Elicitation and Aggregation}},
+  booktitle = {Proceedings of the Twenty-Second {AAAI} Conference on Artificial Intelligence,
+               July 22-26, 2007, Vancouver, British Columbia, Canada},
+  pages     = {3--8},
+  publisher = {{AAAI} Press},
+  year      = {2007},
+  url       = {http://www.aaai.org/Library/AAAI/2007/aaai07-001.php},
+  timestamp = {Wed, 10 Feb 2021 08:44:59 +0100},
+  biburl    = {https://dblp.org/rec/conf/aaai/Walsh07.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+article{skowron-pref-restrictions,
   title = {The complexity of fully proportional representation for single-crossing electorates},
   journal = {Theoretical Computer Science},
   volume = {569},
@@ -342,7 +610,24 @@ abstract = {}
   abstract = {}
 }
 
-@article{brand-pref-restrictions,
+@article{skowron-pref-restrictions,
+  author    = {Piotr Skowron and
+               Lan Yu and
+               Piotr Faliszewski and
+               Edith Elkind},
+  title     = {{The Complexity of Fully Proportional Representation for Single-Crossing Electorates}},
+  journal   = {Theoretical Computer Science},
+  volume    = {569},
+  pages     = {43--57},
+  year      = {2015},
+  url       = {https://doi.org/10.1016/j.tcs.2014.12.012},
+  doi       = {10.1016/j.tcs.2014.12.012},
+  timestamp = {Wed, 17 Feb 2021 21:59:39 +0100},
+  biburl    = {https://dblp.org/rec/journals/tcs/SkowronYFE15.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+article{brand-pref-restrictions,
   title={Bypassing combinatorial protections: Polynomial-time algorithms for single-peaked electorates},
   author={Brandt, Felix and Brill, Markus and Hemaspaandra, Edith and Hemaspaandra, Lane A},
   journal={Journal of Artificial Intelligence Research},
@@ -351,7 +636,24 @@ abstract = {}
   year={2015}
 }
 
-@inproceedings{elkind-pref-restrictions,
+@article{brand-pref-restrictions,
+  author    = {Felix Brandt and
+               Markus Brill and
+               Edith Hemaspaandra and
+               Lane A. Hemaspaandra},
+  title     = {{Bypassing Combinatorial Protections: Polynomial-Time Algorithms for Single-Peaked Electorates}},
+  journal   = {Journal of Artificial Intelligence Research},
+  volume    = {53},
+  pages     = {439--496},
+  year      = {2015},
+  url       = {https://doi.org/10.1613/jair.4647},
+  doi       = {10.1613/jair.4647},
+  timestamp = {Mon, 16 Sep 2019 14:52:54 +0200},
+  biburl    = {https://dblp.org/rec/journals/jair/BrandtBHH15.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+inproceedings{elkind-pref-restrictions,
 author = {Elkind, Edith and Lackner, Martin and Peters, Dominik},
 title = {Preference Restrictions in Computational Social Choice: Recent Progress},
 year = {2016},
@@ -365,7 +667,25 @@ location = {New York, New York, USA},
 series = {IJCAI'16}
 }
 
-@article{elkind-multiwinner-17,
+@inproceedings{elkind-pref-restrictions,
+  author    = {Edith Elkind and
+               Martin Lackner and
+               Dominik Peters},
+  editor    = {Subbarao Kambhampati},
+  title     = {Preference Restrictions in Computational Social Choice: Recent Progress},
+  booktitle = {Proceedings of the Twenty-Fifth International Joint Conference on
+               Artificial Intelligence, {IJCAI} 2016, New York, NY, USA, 9-15 July
+               2016},
+  pages     = {4062--4065},
+  publisher = {{IJCAI/AAAI} Press},
+  year      = {2016},
+  url       = {http://www.ijcai.org/Abstract/16/601},
+  timestamp = {Tue, 20 Aug 2019 16:19:00 +0200},
+  biburl    = {https://dblp.org/rec/conf/ijcai/ElkindLP16.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+article{elkind-multiwinner-17,
   author    = {Edith Elkind and
                Piotr Faliszewski and
                Piotr Skowron and
@@ -383,7 +703,25 @@ series = {IJCAI'16}
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
-@book{brams1983approval,
+@article{elkind-multiwinner-17,
+  author    = {Edith Elkind and
+               Piotr Faliszewski and
+               Piotr Skowron and
+               Arkadii Slinko},
+  title     = {{Properties of Multiwinner Voting Rules}},
+  journal   = {Social Choice and Welfare},
+  volume    = {48},
+  number    = {3},
+  pages     = {599--632},
+  year      = {2017},
+  url       = {https://doi.org/10.1007/s00355-017-1026-z},
+  doi       = {10.1007/s00355-017-1026-z},
+  timestamp = {Fri, 09 Oct 2020 09:46:56 +0200},
+  biburl    = {https://dblp.org/rec/journals/scw/ElkindFSS17.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+book{brams1983approval,
   title={Approval Voting},
   author={Brams, S.J. and Fishburn, P.C.},
   isbn={9783764331245},
@@ -393,8 +731,20 @@ series = {IJCAI'16}
   publisher={Southgate Publishers}
 }
 
+@book{brams1983approval,
+  author    = {Steven J. Brams and
+               Peter C. Fishburn},
+  title     = {{Approval Voting, 2nd edition}},
+  publisher = {Springer},
+  year      = {2007},
+  isbn      = {978-0-387-49895-9},
+  timestamp = {Tue, 13 Jun 2017 14:47:00 +0200},
+  biburl    = {https://dblp.org/rec/books/daglib/0017739.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
 @article{bartholdi-control,
-  title = {How hard is it to control an election?},
+  title = {{How Hard Is It to Control an Election?}},
   journal = {Mathematical and Computer Modelling},
   volume = {16},
   number = {8},
@@ -407,7 +757,7 @@ series = {IJCAI'16}
   abstract = {}
 }
 
-@article{hemaspaandra-control,
+article{hemaspaandra-control,
   author = {Hemaspaandra, Edith and Hemaspaandra, Lane A. and Rothe, Jörg},
   title = {Hybrid Elections Broaden Complexity-Theoretic Resistance to Control},
   journal = {Mathematical Logic Quarterly},
@@ -422,6 +772,24 @@ series = {IJCAI'16}
   year = {2009}
 }
 
+@article{hemaspaandra-control,
+  author    = {Edith Hemaspaandra and
+               Lane A. Hemaspaandra and
+               J{\"{o}}rg Rothe},
+  title     = {{Hybrid Elections Broaden Complexity-Theoretic Resistance to Control}},
+  journal   = {Mathematical Logic Quarterly},
+  volume    = {55},
+  number    = {4},
+  pages     = {397--424},
+  year      = {2009},
+  url       = {https://doi.org/10.1002/malq.200810019},
+  doi       = {10.1002/malq.200810019},
+  timestamp = {Mon, 16 Sep 2019 14:45:02 +0200},
+  biburl    = {https://dblp.org/rec/journals/mlq/HemaspaandraHR09.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+
 @article{bartholdi-manipulation,
   ISSN = {01761714, 1432217X},
   URL = {http://www.jstor.org/stable/41105918},
@@ -431,12 +799,12 @@ series = {IJCAI'16}
   number = {3},
   pages = {227--241},
   publisher = {Springer},
-  title = {The Computational Difficulty of Manipulating an Election},
+  title = {{The Computational Difficulty of Manipulating an Election}},
   volume = {6},
   year = {1989}
 }
 
-@article{faliszewski-procaccia-manipulation,
+article{faliszewski-procaccia-manipulation,
   title={AI’s War on Manipulation: Are We Winning?},
   volume={31},
   url={https://ojs.aaai.org/index.php/aimagazine/article/view/2314},
@@ -449,7 +817,23 @@ series = {IJCAI'16}
   pages={53-64} 
 }
 
-@article{faliszewski-bribery,
+@article{faliszewski-procaccia-manipulation,
+  author    = {Piotr Faliszewski and
+               Ariel D. Procaccia},
+  title     = {{AI's War on Manipulation: Are We Winning?}},
+  journal   = {{AI} Magazine},
+  volume    = {31},
+  number    = {4},
+  pages     = {53--64},
+  year      = {2010},
+  url       = {https://doi.org/10.1609/aimag.v31i4.2314},
+  doi       = {10.1609/aimag.v31i4.2314},
+  timestamp = {Tue, 25 Aug 2020 16:51:00 +0200},
+  biburl    = {https://dblp.org/rec/journals/aim/FaliszewskiP10.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+article{faliszewski-bribery,
   author    = {Piotr Faliszewski and
                Edith Hemaspaandra and
                Lane A. Hemaspaandra},
@@ -465,7 +849,23 @@ series = {IJCAI'16}
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
-@article{aziz-representation,
+@article{faliszewski-bribery,
+  author    = {Piotr Faliszewski and
+               Edith Hemaspaandra and
+               Lane A. Hemaspaandra},
+  title     = {{How Hard Is Bribery in Elections?}},
+  journal   = {Journal of Artificial Intelligence Research},
+  volume    = {35},
+  pages     = {485--532},
+  year      = {2009},
+  url       = {https://doi.org/10.1613/jair.2676},
+  doi       = {10.1613/jair.2676},
+  timestamp = {Mon, 16 Sep 2019 14:52:54 +0200},
+  biburl    = {https://dblp.org/rec/journals/jair/FaliszewskiHH09.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+article{aziz-representation,
   author    = {Haris Aziz and
                Toby Walsh},
   title     = {Justified Representation in Approval-Based Committee Voting},
@@ -480,7 +880,27 @@ series = {IJCAI'16}
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
-@inbook{walsh-manipulation-hcsc,
+@article{aziz-representation,
+  author    = {Haris Aziz and
+               Markus Brill and
+               Vincent Conitzer and
+               Edith Elkind and
+               Rupert Freeman and
+               Toby Walsh},
+  title     = {{Justified Representation in Approval-Based Committee Voting}},
+  journal = {Social Choice and Welfare},
+  volume    = {48},
+  number    = {2},
+  pages     = {461--485},
+  year      = {2017},
+  url       = {https://doi.org/10.1007/s00355-016-1019-3},
+  doi       = {10.1007/s00355-016-1019-3},
+  timestamp = {Wed, 22 Jul 2020 21:58:54 +0200},
+  biburl    = {https://dblp.org/rec/journals/scw/AzizBCEFW17.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+inbook{walsh-manipulation-hcsc,
   place={Cambridge},
   title={Barriers to Manipulation in Voting},
   DOI={10.1017/CBO9781107446984.007},
@@ -492,7 +912,27 @@ series = {IJCAI'16}
   pages={127–145}
 }
 
-@book{cygan-parameterized,
+@incollection{walsh-manipulation-hcsc,
+  author    = {Vincent Conitzer and
+               Toby Walsh},
+  editor    = {Felix Brandt and
+               Vincent Conitzer and
+               Ulle Endriss and
+               J{\'{e}}r{\^{o}}me Lang and
+               Ariel D. Procaccia},
+  title     = {{Barriers to Manipulation in Voting}},
+  booktitle = {Handbook of Computational Social Choice},
+  pages     = {127--145},
+  publisher = {Cambridge University Press},
+  year      = {2016},
+  url       = {https://doi.org/10.1017/CBO9781107446984.007},
+  doi       = {10.1017/CBO9781107446984.007},
+  timestamp = {Wed, 12 Jul 2017 09:11:30 +0200},
+  biburl    = {https://dblp.org/rec/reference/choice/ConitzerW16.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+book{cygan-parameterized,
   title={Parameterized Algorithms},
   author={Cygan, M. and Fomin, F.V. and Kowalik, {\L}. and Lokshtanov, D. and Marx, D. and Pilipczuk, M. and Pilipczuk, M. and Saurabh, S.},
   isbn={9783319212753},
@@ -501,7 +941,27 @@ series = {IJCAI'16}
   publisher={Springer International Publishing}
 }
 
-@book{vazirani-approximation,
+@book{cygan-parameterized,
+  author    = {Marek Cygan and
+               Fedor V. Fomin and
+               Lukasz Kowalik and
+               Daniel Lokshtanov and
+               D{\'{a}}niel Marx and
+               Marcin Pilipczuk and
+               Michal Pilipczuk and
+               Saket Saurabh},
+  title     = {{Parameterized Algorithms}},
+  publisher = {Springer},
+  year      = {2015},
+  url       = {https://doi.org/10.1007/978-3-319-21275-3},
+  doi       = {10.1007/978-3-319-21275-3},
+  isbn      = {978-3-319-21274-6},
+  timestamp = {Sun, 25 Oct 2020 22:32:21 +0100},
+  biburl    = {https://dblp.org/rec/books/sp/CyganFKLMPPS15.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+book{vazirani-approximation,
   title={Approximation Algorithms},
   author={Vazirani, V.V.},
   isbn={9783540653677},
@@ -510,3 +970,16 @@ series = {IJCAI'16}
   year={2002},
   publisher={Springer Berlin Heidelberg}
 }
+
+@book{vazirani-approximation,
+  author    = {Vijay V. Vazirani},
+  title     = {{Approximation algorithms}},
+  publisher = {Springer},
+  year      = {2001},
+  url       = {http://www.springer.com/computer/theoretical+computer+science/book/978-3-540-65367-7},
+  isbn      = {978-3-540-65367-7},
+  timestamp = {Tue, 12 Apr 2011 15:08:26 +0200},
+  biburl    = {https://dblp.org/rec/books/daglib/0004338.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
