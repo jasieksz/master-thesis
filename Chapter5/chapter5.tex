@@ -370,54 +370,21 @@ The VCR one does virtually the same by deleting the rightmost voter first.
 %
 \subsection{Proof For the VCR Algorithm}
 Now, we provide a formal proof of correctness of our VCR algorithm.
-The proof requires additional definitions and notation that we introduce below.
-\begin{definition}
-    Having a solution $S$ to the CC-DV problem, that is, a set of $k$ deleted voters.
-    We define the score of this solution as a sum of removed voters' range ends: \[score(S) = \sum_{i=1}^{k} e(v_i) \]
-    \textcolor{orange}{(WIP: Czy możemy zdefiniować jakiś alternatywny wynik, czy wynik musi być po prostu równy k?)}
-\end{definition}
+We work under an assumption that in the election there is no contained candidates (see Section \ref{ch5:sec21:contained:cand}).
 
 \begin{proposition}
     The VCR CC-DV algorithm finds an optimal solution in polynomial time.
     \begin{proof}
         Let $S$ be the solution found by the algorithm, 
-        and $S^{*}$ an optimal solution to the problem.
-        We will prove that $S = S^{*}$ by contradiction.
-        Assume $S \neq S^{*}$, therefore, $S - S^* \neq \emptyset$.
-        Let $v$, be any voter in $S - S^*$.
-        When $v$ was added to $S$, it was the rightmost voter ($\max(e(v))$).
-        Since $S^*$ is optimal, then there must be some voter $x \in S^*$, such that $e(x) < e(v)$, because $v$ is the rightmost voter.
-        Let $S^{*\prime} = S^* \cup \{v\} - \{x\}$, we know that $S^{*\prime}$ is a correct solution.
-        \textcolor{orange}{(WIP: Dlaczego $S^{*\prime}$ jest poprawny? -
-        Czy to właśnie tu musimy uzasadnić specjalny przpadek "wewnętrznych kandydatów"?
-        Czy może być to jakiś osobny, wcześniej pokazany lemat?)}
-        However, \[score(S^{*\prime}) = score(S^*) + e(v) - e(x) > score(S^*)\]
-        contradicting that $S^*$ is an optimal solution.
-        We have reached a contradiction, so our assumption must have been wrong.
-        Thus $S = S^*$, hence $S$ is an optimal solution.
+        and $S^{*}$ an optimal solution to the problem, that is, a minimal-size set of removed voters.
+        Let $v_r$, be any voter in $S - S^*$.
+        When $v_r$ was added to $S$, it was the rightmost voter (max $e(v_r)$).
+        Since $S^*$ is optimal, then there must be some voter $v_x \in S^*$, such that $e(v_x) < e(v_r)$, because $v_r$ is the rightmost voter.
+        If $v_x = v_r$, we are done, since we have shown that $v_r$ is in a minimal-size set of removed voters.
+        If $v_x \neq v_r$, let the set $S^{*\prime} = S^* - \{v_x\} \cup \{v_r\}$ be $S^{*}$ but substituting $v_r$ for $v_x$.
+        We know that $S^{*\prime}$ is a correct solution, 
+        because the approval set of the voter $v_r$ contains
+        at least as many candidates as the approval set of the voter $v_x$ (i.e., $|A(v_r)| \geq |A(v_x)|$).
+        Since $|S^{*\prime}| = |S^{*}|$, we conclude that $S^{*\prime}$ is a minimal-size set of removed voters, and it includes $v_r$.
     \end{proof}
 \end{proposition}
-
-% ================================
-% CC-AV
-% ================================
-
-\subsection{Constructive Control by Adding Voters For the VCR Elections}
-We give only a sketch of an algorithm for the constructive control by adding voters variant.
-\begin{definition}\label{ch5:def:av-cc-av}
-    We are given a set of candidates $C$, a set of voters $V$ and a set of unused voters $W$,
-    a nonnegative integer k, and a selected candidate $p \in C$.
-    In the constructive control by adding voters problem for the approval voting (Approval-CC-AV),
-    we ask whether there exists a set $\widetilde{V} \subseteq W$,
-    such that $p$ is the unique winner of the approval voting election $E = (C, V \cup \widetilde{V})$, where $|\widetilde{V}| \leq k$.
-\end{definition}
-
-\noindent Our strategy is based on the similar solution from \cite{control-cr-how-hard-magiera-faliszewski}.
-It comes down to adding all the unused voters from $W$ to the election, 
-and then solving a reversed problem of the constructive control by deleting voters.
-
-\begin{enumerate}
-    \item Add all $v \in W$ to the election
-    \item Is $p$ the winner?
-    \item Try to delete $k' = |W| - k$ voters from $W$.
-\end{enumerate}
