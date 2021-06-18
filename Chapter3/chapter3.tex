@@ -167,7 +167,7 @@ The 2-SAT based solution is an algorithm for the consecutive ones property detec
 From Proposition \ref{ch3:sec1:vr-cop-propostion} we know it is equivalent to detecting the VR property in an approval matrix of an election.
 With that said, we expect the ILP solution to be slower than the 2-SAT one,
 as the latter one is specialized in one task only, that is detecting the COP,
-and there are classic polynomial-time algorithms for 2-SAT. 
+and there are classic polynomial-time algorithms for 2-SAT (see the work of \cite{aspvall-poly-2sat}). 
 On the other hand, the ILP solution is more general, 
 as it outputs not only a VR certificate, but also a mapping of agents to points and radii.
 We design a simple experiment to find out how much faster is the 2-SAT solution.
