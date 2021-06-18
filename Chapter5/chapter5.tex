@@ -376,16 +376,19 @@ We work under an assumption that in the election there is no contained candidate
         and $S^{*}$ an optimal solution to the problem, that is, a minimal-size set of removed voters.
         Let $v_r$, be any voter in $S - S^*$.
         When $v_r$ was added to $S$, it was the rightmost voter (max $e(v_r)$).
-        Since $S^*$ is optimal, then there must be some voter $v_x \in S^*$, such that $e(v_x) < e(v_r)$, because $v_r$ is the rightmost voter.
+        Since $S^*$ is optimal, then there must be some voter $v_x \in S^* - S$,
+        (WIP: Czy chcemy wybrać najbardziej prawego $v_x$? żeby zachować własność prawości po podmienieniu?) 
+        such that $e(v_x) \leq e(v_r)$, because $v_r$ is the rightmost voter.
         If $v_x = v_r$, we are done, since we have shown that $v_r$ is in a minimal-size set of removed voters.
         If $v_x \neq v_r$, let the set $S^{*\prime} = S^* - \{v_x\} \cup \{v_r\}$ be $S^{*}$ but substituting $v_r$ for $v_x$.
         We know that $S^{*\prime}$ is a correct solution, 
         because the approval set of the voter $v_r$ contains
         at least as many candidates as the approval set of the voter $v_x$ (i.e., $|A(v_r)| \geq |A(v_x)|$).
+        (WIP: Gdzie powiedzieć że rozpatrujemy 1 kandydata: Moreover, we know that any candidate to the left is not dangerous,
+        so we can focus only on defeating the current one.)
         Since $|S^{*\prime}| = |S^{*}|$, we conclude that $S^{*\prime}$ is a minimal-size set of removed voters, and it includes $v_r$.
-
-        (WIP: Czy to już koniec dowodu? czy muszę stworzyć "krok indukcyjny") 
         If we repeat this process once for each voter in $S - S^*$, we will have converted $S^*$ into $S$ while preserving $|S^*|$.
-        Thus $|S| = |S^*|$.
+        Thus $|S| = |S^*|$. (WIP: Czy taka nieformalna indukcja jest ok?) 
+
     \end{proof}
 \end{proposition}

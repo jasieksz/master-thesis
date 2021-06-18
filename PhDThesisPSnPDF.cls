@@ -1032,7 +1032,7 @@ wish to left align your text}
 }{
 \flushright
 \@author{}\\
-\@degreedate{}
+% \@degreedate{}
 \vfill
 }
 
