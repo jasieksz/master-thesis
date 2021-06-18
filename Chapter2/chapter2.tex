@@ -262,9 +262,9 @@ a set of parameters $a_j$ and
 a constraint $b$,
 together giving a formula: $a_{1}x_{1} + a_{2}x_{2} + ... + a_{n}x_{n} \leq b$
 Usually, there are multiple constraint inequalities and we use more general notation to represent an i-th inequality:
-\[\sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i}\]
+\[\sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i}.\]
 Beside constraints, we define an objective function with parameters $c_1, ..., c_n$:
-\[\sum_{j=1}^{n} c_{j}x_{j}\]
+\[\sum_{j=1}^{n} c_{j}x_{j}.\]
 Now, having defined the inequalities and the objective, 
 the goal is to find a vector of values for the $x_j$ variables,
 that maximizes (or minimizes) the value of the objective function, while keeping all the inequalities satisfied.
@@ -288,7 +288,7 @@ or using indicators (i.e., if-then logic). Such constructions are not linear in 
 by taking certain steps we can linearize them and, then, use them in a linear program.
 
 Having a set of $m$ linear inequalities with $n$ variables represented as:
-\[\sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i} \qquad i \in [m], j \in [n]\]
+\[\sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i} \qquad i \in [m], j \in [n].\]
 the fundamental concept of the BigM method is to introduce in the inequalities
 an additional large constant coefficient $M$ (hence Big in the name of the method),
 which is greater than the maximum value of any variable $x_j$.
@@ -299,10 +299,10 @@ To represent other non-linear constructs, we would apply the method in a slightl
     We have two inequalities and want to represent a logical $OR$ condition between them.
     \[\sum_{j=1}^{n} a_{1j}x_{j} \leq b_{1} \quad or \quad \sum_{j=1}^{n} a_{2j}x_{j} \leq b_{2}.\]
     To do so, we introduce a large constant $M$ and two binary variables $y_1, y_2 \in \{0,1\}$.  First we transform the inequalities:
-    \[\sum_{j=1}^{n} a_{1j}x_{j} \leq b_{1} + M(1 - y_1)\]
-    \[\sum_{j=1}^{n} a_{2j}x_{j} \leq b_{2} + M(1 - y_2)\]
+    \[\sum_{j=1}^{n} a_{1j}x_{j} \leq b_{1} + M(1 - y_1),\]
+    \[\sum_{j=1}^{n} a_{2j}x_{j} \leq b_{2} + M(1 - y_2).\]
     Then, we add one more constraint, binding the inequalities together:
-    \[y_1 + y_2 \geq 1\]
+    \[y_1 + y_2 \geq 1.\]
     This constraint enforces that at least one of the inequalities will be true.
 \end{example}
 
@@ -313,6 +313,6 @@ For further reading, we point to the reference manual of \cite{ilp-gurobi}.
 We use one of those mechanisms for our linear program in Chapter \ref{ch:detection}, namely an \textit{indicator constraint}.
 It allows one to create constraints representing if-then logic.
 Formally, we have to introduce a binary variable $z \in \{0,1\}$, and then we can define an indicator constraint in the form of:
-\[z = f \longrightarrow \sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i}\]
+\[z = f \longrightarrow \sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i}.\]
 The constraint states that if variable $z$ is equal to $f \in \{0,1\}$, then the linear constraint should hold.
 On the other hand, if $z = 1 - f$, then the constraint may be violated.

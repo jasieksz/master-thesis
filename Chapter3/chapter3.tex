@@ -105,7 +105,7 @@ linear inequalities.
     \begin{split}
      & |x_c - x_v| \leq r_c + r_v \iff \\
      & -(r_c + r_v) \le x_c - x_v \le r_c + r_v \iff \\
-     & x_c - x_v \le r_c + r_v\ \ \lor \ \ -(x_c - x_v) \le r_c + r_v
+     & x_c - x_v \le r_c + r_v\ \ \lor \ \ -(x_c - x_v) \le r_c + r_v.
     \end{split}
 \end{equation}
 
@@ -181,9 +181,16 @@ We conduct the experiment in the following steps:
     \item For both algorithms, we measure the time of model creation and optimization to detect the VR property.
     To minimize external factors on time measurement, we repeat this step three times, and pick the smallest result. 
 \end{enumerate}
-We present the results in Figure \ref{fig:detection:time} and Table \ref{tab:ch3:ex}.
+\noindent \textbf{Results.} \indent Let us analyze the results shown in Figure \ref{fig:detection:time} and Table \ref{tab:ch3:ex}.
+Each subplot presents results for a given election size.
+Algorithms are represented on the $y$-axis, and measured detection time on the $x$-axis in seconds.
+Furthermore, each point is colored based on the detection result. 
+2-SAT based algorithm is significantly faster and more consistent. It is anywhere between 10 and 100 times faster.
+These conclusions are reflected in the metrics presented in Table \ref{tab:ch3:ex}.
+Additionally, we have performed one-off measurements for some larger elections (i.e., $80C \times 80V$ and $100C \times 100V$),
+for which detection time differences were even bigger.
 
-\begin{figure}[b!]
+\begin{figure}[t!]
     \includegraphics[width=\linewidth]{ex1-violin.png}
     \centering
     \caption{VR (COP) Detection time comparison between ILP and SAT.
@@ -196,15 +203,6 @@ We present the results in Figure \ref{fig:detection:time} and Table \ref{tab:ch3
     \label{fig:detection:time}
 \end{figure}
 \input{Chapter3/Figs/table-ex.tex}
-
-\noindent \textbf{Results.} \indent Let us analyze the results shown in Figure \ref{fig:detection:time}.
-Each subplot presents results for a given election size.
-Algorithms are represented on the $y$-axis, and measured detection time on the $x$-axis in seconds.
-Furthermore, each point is colored based on the detection result. 
-2-SAT based algorithm is significantly faster and more consistent. It is anywhere between 10 and 100 times faster.
-These conclusions are reflected in the metrics presented in Table \ref{tab:ch3:ex}.
-Additionally, we have performed one-off measurements for some larger elections (i.e., $80C \times 80V$ and $100C \times 100V$),
-for which detection time differences were even bigger.
 
 \section{Conclusions}
 The key takeaway from this chapter is that recognition algorithms are crucial part of creating successful preference restrictions.
