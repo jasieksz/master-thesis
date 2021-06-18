@@ -925,70 +925,84 @@ wish to left align your text}
 % ******************************************************************************
 
 % ******************************** Title Page **********************************
-\renewcommand{\maketitle}{
+% \renewcommand{\maketitle}{
 
-% To compute the free vertical space in Title page
-\computeTitlePageSpacing
+% % To compute the free vertical space in Title page
+% \computeTitlePageSpacing
 
-\thispagestyle{empty}
+% \thispagestyle{empty}
 
-\begin{singlespace}
-\begin{center}
+% \begin{singlespace}
+% \begin{center}
 
-% University Crest Long if college crest is defined
-\ifPHD@collegeshield%
-	{\usebox{\PHD@crest}}
-	\vspace{.15\PHD@titlepagespacing}
-\fi
+% % University Crest Long if college crest is defined
+% \ifPHD@collegeshield%
+% 	{\usebox{\PHD@crest}}
+% 	\vspace{.15\PHD@titlepagespacing}
+% \fi
 
-% Title
-{\usebox{\PHD@Title}} % subtitle is defined
-
-
-% Crest
-
-\ifPHD@collegeshield%
-	\vspace{.15\PHD@titlepagespacing}
-	{\usebox{\PHD@collegecrest}}
-	\vspace{.1\PHD@titlepagespacing}
-\else
-	\vspace{.25\PHD@titlepagespacing}
-	{\usebox{\PHD@crest}}
-	\vspace{.15\PHD@titlepagespacing}
-\fi
+% % Title
+% {\usebox{\PHD@Title}} % subtitle is defined
 
 
+% % Crest
 
-% Author
-{\usebox{\PHD@author}}
-\vspace*{1em}
+% \ifPHD@collegeshield%
+% 	\vspace{.15\PHD@titlepagespacing}
+% 	{\usebox{\PHD@collegecrest}}
+% 	\vspace{.1\PHD@titlepagespacing}
+% \else
+% 	\vspace{.25\PHD@titlepagespacing}
+% 	{\usebox{\PHD@crest}}
+% 	\vspace{.15\PHD@titlepagespacing}
+% \fi
 
-% Supervisor
-\ifPHD@supervisor%
-{\usebox{\PHD@supervisor}}
-\vspace*{0.5em}
-\fi
 
-% Advisor
-\ifPHD@advisor%
-{\usebox{\PHD@advisor}}
-\vspace*{0.5em}
-\fi
 
-% Department and University
-{\usebox{\PHD@dept}}
-\vspace{.2\PHD@titlepagespacing}
+% % Author
+% {\usebox{\PHD@author}}
+% \vspace*{1em}
 
-% Submission Text
-{\usebox{\PHD@submission}}
+% % Supervisor
+% \ifPHD@supervisor%
+% {\usebox{\PHD@supervisor}}
+% \vspace*{0.5em}
+% \fi
 
-% College and degree date
-\vfill
-{\usebox{\PHD@collegedate}}
+% % Advisor
+% \ifPHD@advisor%
+% {\usebox{\PHD@advisor}}
+% \vspace*{0.5em}
+% \fi
+
+% % Department and University
+% {\usebox{\PHD@dept}}
+% \vspace{.2\PHD@titlepagespacing}
+
+% % Submission Text
+% {\usebox{\PHD@submission}}
+
+% % College and degree date
+% \vfill
+% {\usebox{\PHD@collegedate}}
     
-\end{center}
+% \end{center}
 
-\end{singlespace}
+% \end{singlespace}
+% }
+
+
+\renewcommand{\maketitle}{
+  \thispagestyle{empty}
+  \begin{singlespace}
+  \begin{center}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figs/title-page.pdf}
+  \end{figure}
+  \vfill
+  \end{center}
+  \end{singlespace}
 }
 
 % ********************************* Dedication *********************************
