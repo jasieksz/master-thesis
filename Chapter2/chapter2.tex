@@ -49,7 +49,7 @@ It will always be clear from the context which notation we are using.
     \begin{subfigure}{\textwidth}
       \centering
       \includegraphics[width=\linewidth]{vcr-election-example.png}
-      \caption{VCR representation}
+      \caption{VCR representation (see Restriction \ref{ch2:def:vcr} in Section \ref{ch2:sec:euc-pref-restrictions})}
       \label{fig:vcr-example-range}
     \end{subfigure}
 
@@ -209,21 +209,47 @@ both introduced by \cite{elkind-approval-restrictions}. \cite{faliszewski-vcr} s
 \end{figure}
 
 The VCR domain is larger than the CR and the VR domains combined.
-Below in Example~\ref{ch:pre:ex:tvcr}, we show an election that is VCR, but neither CR nor VR.
+Below in Example~\ref{ch:pre:ex:tvcr}, we discuss an election that is VCR, but neither CR nor VR\footnotemark.
+Additionally, we present its visualization in Figure \ref{fig:ncop-example-parent}.
 We explore this topic further in Chapter \ref{ch:domain}.
+\footnotetext{The example is based on the one from the work of \cite{faliszewski-vcr}.}
 
 \begin{example}\label{ch:pre:ex:tvcr}
-Given an election $E$ with the candidates $C = \{a, b, c, d\}$ and 
-the voter's approval sets $\{a, b\}$, $\{b, c\}$, $\{b, d\}$, and $\{a, b, c, d\}$.
+Given an election $E$ with the candidates $C = \{c_0, c_1, c_2, c_3\}$ and 
+the voter's approval sets $\{c_1, c_3\}$, $\{c_1, c_2\}$, $\{c_0, c_1\}$, and $\{c_0, c_1, c_2, c_3\}$.
+We show that the election does not satisfy the VR property.
+If it did, then the candidates next to $c_1$ would have to be $c_0, c_2, c_3$,
+because they are all approved by at least one voter who also approves $c_1$.
+Clearly, it is impossible, because there can be only two candidates next to $c_1$ (one on each side).
 
-To see why, ... 
-\textcolor{orange}{(WIP: Podać punkty i promienie (VCR), następnie opisać dlaczego nie jest CR ani VR ... Obrazek?)}   
+Analogous reasoning works for the CR case, that is,
+where all the voters who approve of the same candidate have to form an interval.
+If this was the case, then the voters $v_0, v_1, v_2$ would have to be next to the $v_3$.
+Again, it is impossible as there can be only two voters next to $v_3$.
+
 \end{example}
-
+\begin{figure}[t!]
+    \begin{subfigure}{0.49\textwidth}
+      \centering
+      \includegraphics[width=0.9\linewidth]{ncop-election-example.png}
+      \caption{VCR representation}
+      \label{fig:ncop-example}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{ncop-election-example-matrix-unordered.png}
+      \caption{Approval matrix}
+      \label{fig:ncop-example-matirx}
+    \end{subfigure}
+    \caption{An election that satisfies the VCR property, but neither CR nor VR ones.
+    Analyzed in Example \ref{ch:pre:ex:tvcr}.
+    }
+    \label{fig:ncop-example-parent}
+\end{figure}
 % =====================
 % Techniques
 % =====================
-
 \section{Integer Linear Program}\label{ch2:sec:methods}
 
 Linear programming (ILP) is a common approach to solve NP-hard problems, 
