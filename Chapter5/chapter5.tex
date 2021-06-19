@@ -157,9 +157,9 @@ Thus, when deleting voters, we consider only the ones from the set: \[V^{\prime}
     \includegraphics[width=\linewidth]{alt-vcr-example.png}
     \centering
     \caption{A VCR election for the CC-DV problem.
-    The candidates are labeled with $C_i$ (expect for the preferred candidate $P$), and the voters with $V_i$.
+    The candidates are labeled with $c_i$ (expect for the preferred candidate $p$), and the voters with $v_i$.
     We use colors to distinguish some key groups of agents. 
-    That is, $P$ is in green, and voters that approve of him or her (we never delete them) are in light-blue color.
+    That is, $p$ is in green, and voters that approve of him or her (we never delete them) are in light-blue color.
     Additionally, all the initially dangerous candidates are in red.
     }
     \label{fig:cc-dv-vcr}
@@ -199,17 +199,17 @@ We illustrate the algorithm in Example \ref{ex:cc-dv-vcr}, which describes an el
 %
 \begin{example}\label{ex:cc-dv-vcr}
     Let us discuss an instance of the CC-DV problem. We consider the VCR election from Figure \ref{fig:cc-dv-vcr},
-    the designated candidate $P$ with 3 votes (i.e., $\{V_6, V_7, V_8\}$) and
-    the set of dangerous candidates $\widetilde{C} = \{C_2, C_3, C_4\}$.
+    the designated candidate $P$ with 3 votes (i.e., $\{v_6, v_7, v_8\}$) and
+    the set of dangerous candidates $\widetilde{C} = \{c_2, c_3, c_4\}$.
     We proceed to find the smallest number of voters that we need to delete for $P$ to win the election.
-    First, we choose the leftmost dangerous candidate $C_2$.
-    We need to delete two voters ($scoreDelta(C_2,P) + 1$). 
-    We pick the rightmost voters $V_4$ and $V_3$.
-    Now, an important observation is that by removing $V_4$ we defeated next dangerous candidate $C_3$.
+    First, we choose the leftmost dangerous candidate $c_2$.
+    We need to delete two voters ($scoreDelta(c_2,P) + 1$). 
+    We pick the rightmost voters $v_4$ and $v_3$.
+    Now, an important observation is that by removing $v_4$ we defeated next dangerous candidate $c_3$.
     We finish this iteration, and recompute approvals and the set $\widetilde{C}$.
-    The only dangerous candidate left is $C_4$, and we just need to delete 1 voter. 
-    We pick $V_{10}$ (in this case it would not matter if we chose $V_9$).
-    We succeed, $P$ is the winner, and in total we removed three voters, i.e, $V_4, V_3$ and $V_{10}$.
+    The only dangerous candidate left is $c_4$, and we just need to delete one voter.
+    We pick $v_{10}$ (in this case it would not matter if we chose $v_9$).
+    We succeed, $p$ is the winner, and in total we removed three voters, i.e, $v_4, v_3$ and $v_{10}$.
 \end{example}
 
 In the subsequent sections, first, we discuss a certain special case for which our voter picking strategy might not be obvious.
