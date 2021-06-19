@@ -19,27 +19,26 @@ The differences come from the underlying properties and objectives of the proble
 For example, in presidential elections we want to choose the candidate supported by the majority of the voters.
 It is not necessarily the case for the parliamentary elections, where the goal is to select members of the parliament in such a way that 
 the opinions of the voters are represented proportionally. 
-Another example would be the problem of scheduling a meeting, where we would try to pick the time that,
-maximizes the number of participants who can attend, even though, the selected time might not be optimal for anyone (e.g., early morning).
+Another example would be the problem of scheduling a meeting, where we would try to pick the time that
+maximizes the number of participants who can attend, even though the selected time might not be optimal for anyone (e.g., early morning).
 In sport competitions, especially in the seasonal ones, i.e., the ones consisting of series of events,
 we need to come up with a strategy of calculating overall ranking at the end of the season,
 based on the aggregated results from the particular events.
 For example, in FIS Alpine Ski World Cup, or in Formula 1 World Championship,
 the overall winners achieve very high scores consistently throughout the season,
 but might not have necessarily achieved the highest scores (1st place) in the majority of the individual events.
+% Another key distinction between the considered examples,
+% is whether a given election has just one winner, or requires selecting multiple candidates.
+% More formally, in computational social choice
+% these election types are called \textit{single-winner} or \textit{multiwinner} elections.
+% Multiwinner (committee) elections are even more widespread than the single-winner ones,
+% and in most cases they have different properties and require different voting rules.
+% For an overview of various committee election types and their related properties,
+% see the works of \cite{faliszewskiSkowronMultiWinnerOverview} and \cite{elkind-multiwinner-17}.
+% A committee election is the process of choosing a fixed-size subset of candidates (i.e., the committee), based on the voters' preferences. 
 
-Another key distinction between the considered examples,
-is whether a given election has just one winner, or requires selecting multiple candidates.
-More formally, in computational social choice
-these election types are called \textit{single-winner} or \textit{multiwinner} elections.
-Multiwinner (committee) elections are even more widespread than the single-winner ones,
-and in most cases they have different properties and require different voting rules.
-For an overview of various committee election types and their related properties,
-see the works of \cite{faliszewskiSkowronMultiWinnerOverview} and \cite{elkind-multiwinner-17}.
-A committee election is the process of choosing a fixed-size subset of candidates (i.e., the committee), 
-based on the voters' preferences. Voters' ballots (preferences) can be represented in various different ways.
-In this work we focus on approval elections, that is,
-on elections where each voter provides a subset of candidates that he or she approves of.
+We can classify election types based on the representation of voters' ballots (preferences).
+In this work we focus on approval elections, that is, on elections where each voter provides a subset of candidates that he or she approves of.
 Another notable type of elections is the ordinal model,
 where the voters order the candidates from the most to the least preferred ones. 
 For an extensive survey of the approval model and current state of the art
@@ -96,8 +95,8 @@ by using a radius in addition to a point, to represent both the candidates and v
 They named the new model a \textit{Voter/Candidate Range (VCR)} model.
 We note that the VI and CI models are special cases of the one dimensional VCR model.
 However, \cite{faliszewski-vcr} use different terminology,
-and their names for the VI and CI are the one dimensional \textit{Candidate Range (1D-CR)}
-and one dimensional \textit{Voter Range (1D-VR)} models, respectively.
+and their names for the VI and CI are one-dimensional \textit{Candidate Range (1D-CR)}
+and one-dimensional \textit{Voter Range (1D-VR)} models, respectively.
 
 % ==================================
 % ==================================
