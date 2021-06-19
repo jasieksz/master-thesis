@@ -17,8 +17,8 @@
 %===============================
 
 In this chapter we demonstrate how a certain control problem that is known to be 
-NP-hard for unrestricted preferences, becomes polynomial-time solvable for the VCR elections.
-First in Section \ref{ch5:sec1:overview}, we discuss variants of the control problem. 
+NP-hard for unrestricted preferences becomes polynomial-time solvable for the VCR elections.
+First, in Section \ref{ch5:sec1:overview}, we discuss variants of the control problem. 
 Additionally, we present two existing polynomial-time algorithms for a control problem, for elections in the VR and the CR domain.
 Later in Section \ref{ch5:sec2:vcr-control}, we describe our solution for the VCR elections,
 and we show that it unifies the two aforementioned algorithms for the VR and the CR cases.
@@ -75,7 +75,7 @@ It is the first paper to consider solving control problems under preference rest
 The restriction that they consider is the single-peaked one.
 However, in the approval elections it is virtually identical to the voter range model (i.e., candidates' radii are zero).
 We only present a brief description of the algorithm that explains the core idea and some necessary concepts.
-For the detailed explanation, proofs and examples we point to the original paper of \cite{control-sp-shield-faliszewski-hemaspaandra}.
+For the detailed explanation, proofs, and examples we point to the original paper of \cite{control-sp-shield-faliszewski-hemaspaandra}.
 
 \begin{figure}[t!]
     \centering
@@ -109,8 +109,8 @@ We repeat these steps until candidate $p$ becomes a unique winner (or we fail in
 We recalculate the approvals and the dangerous candidates set after each iteration.
 Once we reached the point where all the dangerous candidates are in the left group, then
 we simply “flip the universe”, and consider them to be the right ones.
-
-
+% ==========
+% ==========
 \subsection{Constructive Control by Deleting Voters For CR Elections}\label{ch5:sec:1:cc-dv-cr}
 % \subsection{AV-CC-DV for Candidate Range = VI = column C1P = $r_v=0$}
 
@@ -119,7 +119,7 @@ They study multiple election types, but we discuss only the approval elections c
 They consider control problems for the single-crossing preferences restriction,
 which, in the approval elections, is identical to the candidate range model (i.e., voters' radii are zero).
 We again provide only a brief explanation of the algorithm, and for specifics we refer to the original paper. 
-This algorithm has many similarities to the previous one, mainly it utilizes a greedy strategy as well.
+This algorithm has many similarities to the previous one (i.e., the FHHR algorithm), mainly it utilizes a greedy strategy as well.
 Let us consider the CC-DV problem under the approval voting rule.
 Having a set of candidates $C$, a set of voters $V$ in the CR order,
 a designated winner candidate $p$, and a maximum number of voter deletions $k$,
@@ -213,7 +213,7 @@ We illustrate the algorithm in Example \ref{ex:cc-dv-vcr}, which describes an el
 \end{example}
 
 In the subsequent sections, first, we discuss a certain special case for which our voter picking strategy might not be obvious.
-Later, we provide informal sketch proofs that show how our algorithm is equivalent to the VR and the CR ones.
+Later, we provide informal sketch proofs that show how our algorithm is equivalent to the MF and the FHHR ones.
 Finally, we give a formal proof of correctness of the algorithm.
 
 %===============================
@@ -297,7 +297,7 @@ In the explanation we follow the example from Figure \ref{fig:cr-cc-dv}.
 \end{figure}
 
 \subsubsection{Choosing opponents}
-In the CR algorithm, we choose dangerous candidates to process ordered by their voter's interval end (i.e., $v_{e(c)}$), ascending.
+In the MF algorithm, we choose dangerous candidates to process ordered by their voter's interval end (i.e., $v_{e(c)}$), ascending.
 We see that it is equivalent to picking the leftmost candidate (i.e., min $b(c)$) from the set of opponents $\widehat{C}$ in the VCR algorithm.
 The selected candidate will also have the smallest $v_{e(c)}$ (candidate $c_5$ in the example).
 Of course the above statement is not true for the special case of the contained candidates.
@@ -306,7 +306,7 @@ However, in Section \ref{ch5:sec21:contained:cand}, we already explained why it 
 \subsubsection{Voter deletion}
 Now, once we know how to pick an opponent $c_L$, we show that choosing voters is identical as well.
 The notion of the beginning/end of the voter's interval in the CR model is equivalent to the left/right end of the voter's range in the VCR setting.
-Both algorithms try to delete $scoreDelta(c_L,p) + 1$ voters, the CR one starts deleting voters from the end of interval, while
+Both algorithms try to delete $scoreDelta(c_L,p) + 1$ voters, the MF one starts deleting voters from the end of interval, while
 the VCR one does virtually the same by deleting the rightmost voters first (i.e., max $e(v)$).
 
 %===============================
@@ -333,11 +333,11 @@ This assumption is correct based on two facts:
 
 \begin{enumerate}
     \item Having candidates in order $[c_L, \: p, \: c_R]$,
-    if there were a voter $v$ who approved of $c_L$ and $c_R$ it would also have to approve of $p$ (because of the VR property),
+    if there were a voter $v$ who approved of $c_L$ and $c_R$, then he or she would also have to approve of $p$ (because of the VR property),
     so we could not delete $v$ anyway.
 
     \item Next, for the VCR algorithm (with the above assumption) to be complete,
-    we need to extend it by using the "universe flip" method from the VR algorithm.
+    we need to extend it by using the "universe flip" method from the FHHR algorithm.
     That is, we process only the dangerous candidates to the right of candidate $p$, 
     and once there is none left, we proceed with the remaining ones on the left side of $p$,
     treating them as if they were on the right side.
@@ -345,11 +345,11 @@ This assumption is correct based on two facts:
 
 \subsubsection{Choosing opponents}
 We can see that the VCR algorithm strategy (the extended one) of
-picking the leftmost dangerous candidates is identical to the VR algorithm choosing the first candidate on the right side of $p$.
+picking the leftmost dangerous candidates is identical to the FHHR algorithm choosing the first candidate on the right side of $p$.
 However, there is another difference between the algorithms,
 the VCR one considers every candidate with score equal or higher than $p$ to be a dangerous candidate
 (i.e., $\{c_1, c_2, c_3, c_4, c_5\}$ in the example).
-Whereas the CR one limits this set, by picking only candidates that have
+Whereas the FHHR one limits this set, by picking only candidates that have
 strictly more votes than a previously picked dangerous candidate (i.e., $\{c_1, c_2\}$ in the example).
 Nonetheless, in the VCR algorithm we recompute the set of dangerous candidates after each iteration
 (we defeat $\{c_3, c_4, c_5\}$ as a side effect of defeating $c_1$),
@@ -361,33 +361,35 @@ Both algorithms try to delete $scoreDelta(c,p) + 1$ voters.
 The VR algorithm starts deleting voters from the end of interval (max $e(v)$).
 The VCR one does virtually the same by deleting the rightmost voter first.
 
-%
+% =================
 % Proof VCR
-%
+% =================
 \subsection{Proof For the VCR Algorithm}
 Now, we provide a formal proof of correctness of our VCR algorithm.
-We work under an assumption that in the election there is no contained candidates (see Section \ref{ch5:sec21:contained:cand}).
+We work under the assumption that in the election there are no contained candidates (see Section \ref{ch5:sec21:contained:cand}).
 
 \begin{proposition}
     The VCR CC-DV algorithm finds an optimal solution in polynomial time.
     \begin{proof}
-        Let $S$ be the solution found by the algorithm, 
-        and $S^{*}$ an optimal solution to the problem, that is, a minimal-size set of removed voters.
-        Let $v_r$, be any voter in $S - S^*$.
+        Let $S$ be the solution found by the algorithm
+        and let $S^{*}$ be an optimal solution to the problem, that is, a minimal-size set of removed voters.
+        We consider every dangerous candidate $c \in \widetilde{C}$. They are ordered by their range's beginnings, ascending (i.e., left to right).
+        We choose the first candidate in this order, for whom there is a voter $v_r \in S - S^*$.
         When $v_r$ was added to $S$, it was the rightmost voter (max $e(v_r)$).
-        Since $S^*$ is optimal, then there must be some voter $v_x \in S^* - S$,
-        (WIP: Czy chcemy wybrać najbardziej prawego $v_x$? żeby zachować własność prawości po podmienieniu?) 
+        Since $S^*$ is optimal, then there must be some rightmost voter $v_x \in S^* - S$,
         such that $e(v_x) \leq e(v_r)$, because $v_r$ is the rightmost voter.
         If $v_x = v_r$, we are done, since we have shown that $v_r$ is in a minimal-size set of removed voters.
         If $v_x \neq v_r$, let the set $S^{*\prime} = S^* - \{v_x\} \cup \{v_r\}$ be $S^{*}$ but substituting $v_r$ for $v_x$.
         We know that $S^{*\prime}$ is a correct solution, 
-        because the approval set of the voter $v_r$ contains
-        at least as many candidates as the approval set of the voter $v_x$ (i.e., $|A(v_r)| \geq |A(v_x)|$).
-        (WIP: Gdzie powiedzieć że rozpatrujemy 1 kandydata: Moreover, we know that any candidate to the left is not dangerous,
-        so we can focus only on defeating the current one.)
+        because the approval set of the voter $v_r$ contains at least as many candidates as the approval set of the voter $v_x$.
         Since $|S^{*\prime}| = |S^{*}|$, we conclude that $S^{*\prime}$ is a minimal-size set of removed voters, and it includes $v_r$.
         If we repeat this process once for each voter in $S - S^*$, we will have converted $S^*$ into $S$ while preserving $|S^*|$.
-        Thus $|S| = |S^*|$. (WIP: Czy taka nieformalna indukcja jest ok?) 
-
+        Thus $|S| = |S^*|$.
     \end{proof}
 \end{proposition}
+
+
+% =================
+% Summary
+% =================
+\subsection{Summary}
