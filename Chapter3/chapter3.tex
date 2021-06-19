@@ -33,15 +33,15 @@ we need to design detection (recognition) algorithms. They can be used to check 
 has particular structural properties. 
 Research in this area is active and successful.
 Provided solutions can be divided into two categories:
-In the first one, the recognition algorithm is based on a certain characterization of a domain.
+In the first one, the recognition algorithm is based on a certain characterization of the domain.
 For example, \cite{peters-spoc} show that a profile is \textit{single-peaked on a circle} by defining a forbidden-substructure of profiles.  
 For the \textit{single-peaked single-crossing} domain,
 \cite{elkind-recognising-spsc} characterize profiles by connecting them to another smaller domain.
-The second category of recognition algorithms is more vague and the solutions diversified. 
-For example, \cite{doigon-recognising-1deuclidean} provide detection algorithm for the \textit{1D-Euclidean} domain using linear programming.
+The second category of recognition algorithms is more vague and the solutions are more diverse. 
+For example, \cite{doigon-recognising-1deuclidean} provide detection algorithm for the \textit{1D-Euclidean} domain using linear programming and
 \cite{magiera-recognising-topmono} reduce the \textit{top-monotonicity} recognition problem to the SAT-2CNF problem.
 Above-mentioned examples consider elections in the ordinal model,
-nonetheless, there are recognition algorithms for the approval-based elections as well.
+but, there are recognition algorithms for the approval-based elections as well.
 For a large group of preference restrictions, among others, the CR and the VR restrictions,
 the problem of recognition can be reduced to detecting consecutive ones property (see Definition \ref{ch3:def:c1p})
 in the approval matrix of a profile (\cite{elkind-approval-restrictions}).
@@ -54,11 +54,11 @@ if its columns can be permuted in such a way that
 for each row the ones are consecutive, i.e., the 1s form an interval.
 \end{definition}
 
-In this work we refer to the term COP more broadly, using it interchangeably,
+In this work we refer to the term COP more broadly, using it interchangeably
 for an analogous scenario where we permute the rows and look for the 
 consecutive 1s in every column in a given matrix.
 \cite{COP-PQTree} provided a linear-time COP detection algorithm based on the PQ-Tree data structure.
-Below, in Proposition \ref{ch3:sec1:vr-cop-propostion} we give an example of the VR (the CR) recognition algorithm (due to \cite{elkind-approval-restrictions}),
+Below, in Proposition \ref{ch3:sec1:vr-cop-propostion}, we give an example of the VR (the CR) recognition algorithm (due to \cite{elkind-approval-restrictions}),
 which utilizes the COP detection algorithm. 
 
 \begin{proposition}[\cite{elkind-approval-restrictions}]\label{ch3:sec1:vr-cop-propostion}
@@ -84,7 +84,7 @@ and a nonnegative real value representing the radius so that these parameters sa
 % ILP
 % =========================
 
-\section{Integer Linear Program}\label{ch3:sec2:ilp}
+\section{ILP-Based Algorithm}\label{ch3:sec2:ilp}
 An algorithm based on integer linear programming (ILP) is an excellent choice for the first attempt
 at designing a detection algorithm. It provides an efficient and relatively simple solution.
 Furthermore, it can be used as a fast benchmark for validating future solutions.
@@ -111,8 +111,7 @@ linear inequalities.
 
 The constraint obtained from Equation \ref{vcr-to-linear-eq} is not yet suitable for an ILP formulation
 because it contains a logical \textit{OR} condition, which again cannot be directly represented in an ILP.
-To transform it into linear form,
-we use special type of the constraints provided by the Gurobi solver, i.e., indicator constraints,
+To transform it into linear form, we use a special type of constraints provided by the Gurobi solver, i.e., indicator constraints,
 which allow representing if-then logic.
 They are based on the BigM technique, which we described in Section \ref{ch2:sec:methods}.
 
@@ -158,14 +157,14 @@ To be specific, they require either all the candidates or all the voters to have
 The extension is straightforward:
 We need to introduce additional constraints that require each candidate's or each voter's radius to be zero. 
 For the VR case it is:
-\[r_c = 0 \quad c \in C,\]
+\[r_c = 0 \quad \text{for} \: c \in C,\]
 and for the CR:
-\[r_v = 0 \quad v \in V.\]
+\[r_v = 0 \quad \text{for} \: v \in V.\]
 
 \subsubsection{Comparison Experiment}
 The 2-SAT based solution is an algorithm for the consecutive ones property detection in a matrix.
 From Proposition \ref{ch3:sec1:vr-cop-propostion} we know it is equivalent to detecting the VR property in an approval matrix of an election.
-With that said, we expect the ILP solution to be slower than the 2-SAT one,
+That said, we expect the ILP solution to be slower than the 2-SAT one,
 as the latter one is specialized in one task only, that is detecting the COP,
 and there are classic polynomial-time algorithms for 2-SAT (see the work of \cite{aspvall-poly-2sat}). 
 On the other hand, the ILP solution is more general, 
@@ -207,9 +206,10 @@ for which detection time differences were even bigger.
 \section{Conclusions}
 The key takeaway from this chapter is that recognition algorithms are crucial part of creating successful preference restrictions.
 We might create a preference restriction with extremely desirable properties,
-but the truth is, it would not be used in practice until the invention of an efficient recognition algorithm. 
-Now, focusing on the VCR restriction and the 2-SAT approach to recognition problems.
-We showed how fast 2-SAT based recognition algorithm can be. 
+but it would not be used in practice until the invention of an efficient recognition algorithm. 
+Now, focusing on the VCR restriction and the 2-SAT approach to recognition problems,
+we showed how fast 2-SAT based recognition algorithm can be. 
 However, it is unlikely that we will create one for the VCR restriction with our current knowledge of the domain.
 That is, until the VCR domain is not characterized by some combinatorial properties.
-Nonetheless, there might be a whole new approach to the VCR detection, we leave the problem open.
+Nonetheless, there might be a whole new approach to the VCR detection. 
+We leave the problem open.
