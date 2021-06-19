@@ -25,12 +25,12 @@ For the sake of text clarity and more explicit naming,
 we introduce additional notations to describe some special cases of the VCR preference restriction.
 \begin{definition}
     A profile P is \textbf{Truly VCR (TVCR)},
-    if P satisfies the VCR property and does not satisfy either of the VR and the CR properties.
+    if P satisfies the VCR property and does not satisfy either of the VR and CR properties.
 \end{definition}
 
 \begin{definition}
     A profile P is \textbf{Fully COP (FCOP)},
-    if P satisfies both the VR and the CR properties
+    if P satisfies both of the VR and CR properties
     (see Definition \ref{ch3:def:c1p}, for a reminder of the COP notion).
 \end{definition}
 
@@ -41,7 +41,7 @@ we introduce additional notations to describe some special cases of the VCR pref
 \subsection{Experiment 1: How Many Profiles Are TVCR or VCR?}\label{ch4:ex1}
 For this experiment we performed a complete search of the domain.
 That is, we generated every possible profile of a given size and checked if it has the VCR property,
-and if so we checked again if it were the TVCR variant.
+and, if so, we checked again if it were the TVCR variant.
 We focused on the small size of elections.
 Having elections of $M$ candidates and $N$ voters,
 we considered $(M,N) \in \{(3,3), (4,4), (5,5), (4,6), (6,4)\}$.
@@ -228,6 +228,7 @@ Columns correspond to the radius candidate/voter models, and rows to the positio
           \label{fig:ex42-20C20V-bars-RUG}
   \end{subfigure}
   \begin{subfigure}{0.32\textwidth}
+    \centering
     \includegraphics[scale=0.7]{legend.png}
   \end{subfigure}
   \caption{The numbers of profiles with a given property, for elections of 20 candidates and 20 voters,
@@ -238,7 +239,7 @@ Columns correspond to the radius candidate/voter models, and rows to the positio
   \label{fig:ex42-20C20V-bars}
 \end{figure}
 
-Before, we further describe the results of the experiment, 
+Before we further describe the results of the experiment, 
 we need to observe trends in the visualization and explain some basic ideas.
 Based on the visualizations, we know that the VCR profiles produce semi-structured approval matrices.
 That is, the ones in an approval matrix create roughly continuous blocks (intervals), they form a cluster.
@@ -290,6 +291,7 @@ The UCP/GVP ones are skewed vertically, opposite to the GCP/UVP ones, which are 
           \label{fig:ex42-40C40V-bars-RUG}
   \end{subfigure}
   \begin{subfigure}{0.32\textwidth}
+    \centering
     \includegraphics[scale=0.7]{legend.png}
   \end{subfigure}
   \caption{The numbers of profiles with a given property, for elections of 40 candidates and 40 voters,
@@ -399,7 +401,7 @@ In this experiment we partially reuse the strategy for profile generation from t
 We narrow down our experiment parameters to only two radius generation methods,
 that is, the GCR/GVR and the LUCR/LUVR models.
 Nonetheless, we keep the position models unchanged and explore all four of them.
-Obviously, we only pick the TVCR profiles. To be exact, we use 400 of them for each category pair (in total, 8 pairs).
+Naturally, we only pick the TVCR profiles. To be exact, we use 400 of them for each category pair (in total, 8 pairs).
 Due to the limited computational resources, we only use profiles consisting of 15 candidates and 15 voters.
 Having a TVCR profile as input, we search for a minimal number of agents that we have to remove from this profile
 for it to become a VR or a CR one. To achieve more meaningful results we categorize experiment parameters and describe them below.
