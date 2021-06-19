@@ -20,16 +20,16 @@ Finally, in Section \ref{ch2:sec:methods}, we explain some computational methods
 
 For an integer $t$, by $[t]$ we mean the set $\{1,...,t\}$.
 To describe a matrix $\mathbf{A}$ with $r$ rows and $c$ columns, we write $\mathbf{A}_{r \times c}$.
-By $\mathbf{A}[i,j]$ we refer to the entry in the i-th row and in the j-th column of matrix $\mathbf{A}$.
-We denote $\mathbb{R}^{0+}$ for the set of real numbers greater than or equal to zero.
+By $\mathbf{A}[i,j]$ we refer to the entry in the $i$-th row and in the $j$-th column of matrix $\mathbf{A}$.
+We write $\mathbb{R}^{0+}$ to denote the set of real numbers greater than or equal to zero.
 
 \subsubsection{Approval Elections}
 
-An approval-based election\footnotemark (in short, an \textit{election}, or, interchangeably, a \textit{profile}) is a pair $E = (C, V)$, where 
+An approval-based election (in short, an \textit{election}, or, interchangeably, a \textit{profile}) is a pair $E = (C, V)$, where 
 $C = \{c_1,...,c_M\}$ is a set of candidates and  $V = \{v_1,...,v_N\}$ is a set of voters.
 We use $M$ and $N$ for the numbers of candidates and voters respectively. 
 For each voter $v \in V$, his or her preferences are represented as a set of approved candidates $A(v)$,
-which we call an \textit{approval set}.
+which we call an \textit{approval set}.\footnotemark
 Furthermore, for each candidate $c \in C$, we define $V(c) = \{v \in V \:|\: c \in A(v)\}$
 to be the set of voters who approve candidate $c$.
 
@@ -63,15 +63,15 @@ It will always be clear from the context which notation we are using.
       \centering
       \includegraphics[width=1.1\linewidth]{alt-vcr-election-example-matrix-ordered.png}
       \caption{Ordered approval matrix representation}
-      \label{fig:vcr-example-ord-matirx}
+      \label{fig:vcr-example-ord-matrix}
     \end{subfigure}
     \caption{Three graphical representations of the same approval election from Example \ref{ex:approval-election}.
     The candidates are labeled with $c_i$ and the voters with $v_i$.
-    The first one illustrates the agents in the VCR model, i.e., every agent is represented by the point $x$ and radius $r$
-    (see Restriction \ref{ch2:def:vcr} in Section \ref{ch2:sec:euc-pref-restrictions} for the explanation).
-    The next two graphs visualize approval matrices of the election.
+    Figure \ref{fig:vcr-example-range} illustrates the agents in the VCR model, i.e., every agent is represented by the point $x$ and radius $r$
+    (see Restriction~\ref{ch2:def:vcr} in Section \ref{ch2:sec:euc-pref-restrictions} for the explanation).
+    Figures \ref{fig:vcr-example-unord-matrix} and \ref{fig:vcr-example-ord-matrix} visualize approval matrices of the election.
     Solid color corresponds to $1$ and white to $0$ in the cells of the matrix.
-    The first one is presented in a natural order of the agents, and in the second one, agents are ordered by their point $x$.
+    The first one is presented in a natural order of the agents, and in the second the agents are ordered by their point $x$.
     }
     \label{fig:vcr-example}
 \end{figure}
@@ -88,19 +88,18 @@ It will always be clear from the context which notation we are using.
     We answer this question in the subsequent section in Example \ref{ex:approval-voting}.   
 \end{example}
 
-\subsubsection{Multiwinner Committee Selection Rules}
+\subsubsection{Single-winner Selection Rules}
 
-Voting rules are algorithms used to select a committee (the winners), i.e., a fixed size subset of the candidates,
-based on the voters preferences for a given election.
+Voting rules are algorithms used to select the winner based on the voters preferences for a given election.\footnotemark
 Each rule has different properties and must be selected according to the goal of the election.
-As this is not the main focus of this work, we point to the work of \cite{faliszewskiSkowronMultiWinnerOverview}
-for a detailed overview of multiwinner voting rules.
+As this is not the main focus of this work, we only introduce the most basic voting rule for the approval model,
+simply called \textit{Approval Voting (AV)}, and introduced by \cite{brams1983approval}.
+\footnotetext{Computational social choice theory also studies \textit{multi-winner (committee)} elections,
+that is, where voting rules output a fixed size subset of the candidates (a committee). 
+We point to the work of \cite{faliszewskiSkowronMultiWinnerOverview} for a detailed overview of multiwinner voting rules.}
 
-Nonetheless, we introduce the most basic voting rule for the approval model, simply called \textit{Approval Voting (AV)},
-and introduced by \cite{brams1983approval}.
-
-\begin{definition}[Multi-Winner Approval Voting (AV)]\label{ch2:def:av}
-    For a given election $E = (C, V)$ and a size of committee $k$, AV rule selects the $k$ candidates with the highest approval scores.
+\begin{definition}[Single-Winner Approval Voting (AV)]\label{ch2:def:av}
+    For a given election $E = (C, V)$, AV rule selects the candidate with the highest approval score.
     AV-score of a given candidate $c$ is the number of voters who approve of $c$. 
     Formally, it is defined as $score_{AV}(E,c) = |\{v \in V : c \in A(v)\}|$.
 \end{definition}
@@ -112,9 +111,8 @@ and introduced by \cite{brams1983approval}.
         & score_{AV}(E,c_0)=5 \qquad score_{AV}(E,c_1)=1 \qquad score_{AV}(E,c_2)=5 \qquad score_{AV}(E,c_3)=2 \\
         & score_{AV}(E,c_4)=3 \qquad score_{AV}(E,c_5)=2 \qquad score_{AV}(E,c_6)=2 \qquad score_{AV}(E,c_7)=1.
     \end{align*}
-    For a given committee size $k$, AV returns $k$ most approved candidates. 
-    For example, if our desired committee size is $k=1$, then AV will return two tied candidates $c_2$ and $c_0$ (we break ties arbitrarily).
-    If $k=3$, then AV will return the committee $W = \{c_0, c_2, c_4\}$.
+    AV returns the most approved candidate.
+    In the example AV would return two tied candidates $c_2$ and $c_0$ (we break ties arbitrarily).
 \end{example}
 
 % =====================
@@ -253,30 +251,30 @@ Again, it is impossible as there can be only two voters next to $v_3$.
 % =====================
 % Techniques
 % =====================
-\section{Integer Linear Program}\label{ch2:sec:methods}
+\section{Integer Linear Programming}\label{ch2:sec:methods}
 
-Linear programming (ILP) is a common approach to solve NP-hard problems, 
+Integer Linear programming (ILP) is a common approach to solving NP-hard problems, 
 furthermore it can be used successfully for other problems as well.
-To solve a problem by reduction to the linear program,
+To solve a problem by reduction to a linear program,
 we first need to define the given problem as a system of linear inequalities and an objective function.
 Formally, for $j \in [n]$, a single inequality consists of
 a set of decision variables $x_j$,
 a set of parameters $a_j$ and
 a constraint $b$,
 together giving a formula: $a_{1}x_{1} + a_{2}x_{2} + ... + a_{n}x_{n} \leq b$
-Usually, there are multiple constraint inequalities and we use more general notation to represent an i-th inequality:
+Usually, there are multiple inequalities, and we use more general notation to represent the $i$-th inequality:
 \[\sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i}.\]
 Beside constraints, we define an objective function with parameters $c_1, ..., c_n$:
 \[\sum_{j=1}^{n} c_{j}x_{j}.\]
 Now, having defined the inequalities and the objective, 
-the goal is to find a vector of values for the $x_j$ variables,
-that maximizes (or minimizes) the value of the objective function, while keeping all the inequalities satisfied.
-The variables of a linear program can be fractional and such programs can be solved in polynomial time.
+the goal is to find a vector of values for the $x_j$ variables that maximizes (or minimizes) the value of the objective function,
+while keeping all the inequalities satisfied.
+If the variables of a linear program can be fractional, then such programs can be solved in polynomial time.
 However, there is a special case called \textit{(mixed) integer linear programming}
 where we require some of the variables to be integers. Solving integer linear programs is NP-hard.
 Despite this, there are available state-of-the-art linear program solvers that solve ILPs effectively.
 In this work we use the Gurobi solver.
-For the complete theory of (integer) linear programming, we point to the book by \cite{ilp-book-wolsey}.
+For a discussion of the theory of (integer) linear programming, we point to the book by \cite{ilp-book-wolsey}.
 
 Not every problem can be directly defined as an integer linear program.
 However, we can apply basic techniques and tricks to help in such cases.
@@ -291,10 +289,12 @@ or using indicators (i.e., if-then logic). Such constructions are not linear in 
 by taking certain steps we can linearize them and, then, use them in a linear program.
 
 Having a set of $m$ linear inequalities with $n$ variables represented as:
-\[\sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i} \qquad i \in [m], j \in [n].\]
+\begin{equation}\label{ch2:eq:bigm}
+  \sum_{j=1}^{n} a_{ij}x_{j} \leq b_{i} \qquad i \in [m], j \in [n],
+\end{equation}
 the fundamental concept of the BigM method is to introduce in the inequalities
 an additional large constant coefficient $M$ (hence Big in the name of the method),
-which is greater than the maximum value of any variable $x_j$.
+which is greater than the maximum value in the left-hand side of Equation \ref{ch2:eq:bigm}.
 Below, in Example \ref{ch2:ex:ilp-bigm-or}, we showcase the BigM technique to represent an $OR$ condition between inequalities.
 To represent other non-linear constructs, we would apply the method in a slightly different way.
 
