@@ -285,7 +285,7 @@ We show how our CC-DV algorithm for the VCR elections is equivalent to the one o
 Let us consider an instance of the CC-DV problem for a CR election (agents are still represented using the VCR model).
 In the explanation we follow the example from Figure \ref{fig:cr-cc-dv}.
 
-\begin{figure}[t!]
+\begin{figure}[b!]
     \includegraphics[width=\linewidth]{alt-cr-example.png}
     \centering
     \caption{A CR election for the CC-DV problem, based on an example from \cite{control-cr-how-hard-magiera-faliszewski}. 
@@ -299,7 +299,7 @@ In the explanation we follow the example from Figure \ref{fig:cr-cc-dv}.
 \subsubsection{Choosing opponents}
 In the CR algorithm, we choose dangerous candidates to process ordered by their voter's interval end (i.e., $v_{e(c)}$), ascending.
 We see that it is equivalent to picking the leftmost candidate (i.e., min $b(c)$) from the set of opponents $\widehat{C}$ in the VCR algorithm.
-The selected candidate will also have the smallest $v_{e(c)}$ (candidate $C_5$ in the example).
+The selected candidate will also have the smallest $v_{e(c)}$ (candidate $c_5$ in the example).
 Of course the above statement is not true for the special case of the contained candidates.
 However, in Section \ref{ch5:sec21:contained:cand}, we already explained why it is irrelevant for the overall result.
 
@@ -321,7 +321,7 @@ Strategy of the FHHR algorithm is significantly different from the VCR and the M
 However, if we introduce one simple assumption and an additional step to our VCR algorithm, they become identical.
 First, let us assume that the preferred candidate $p$ is always the first candidate in the VR order (see election in Figure \ref{fig:vr-cc-dv}).
 This assumption is correct based on two facts:
-\begin{figure}[t!]
+\begin{figure}[b!]
     \includegraphics[width=\linewidth]{alt-vr-example.png}
     \centering
     \caption{A VR election for the CC-DV problem. 
@@ -348,11 +348,11 @@ We can see that the VCR algorithm strategy (the extended one) of
 picking the leftmost dangerous candidates is identical to the VR algorithm choosing the first candidate on the right side of $p$.
 However, there is another difference between the algorithms,
 the VCR one considers every candidate with score equal or higher than $p$ to be a dangerous candidate
-(i.e., $\{C_1, C_2, C_3, C_4, C_5\}$ in the example).
+(i.e., $\{c_1, c_2, c_3, c_4, c_5\}$ in the example).
 Whereas the CR one limits this set, by picking only candidates that have
-strictly more votes than a previously picked dangerous candidate (i.e., $\{C_1, C_2\}$ in the example).
+strictly more votes than a previously picked dangerous candidate (i.e., $\{c_1, c_2\}$ in the example).
 Nonetheless, in the VCR algorithm we recompute the set of dangerous candidates after each iteration
-(we defeat $\{C_3, C_4, C_5\}$ as a side effect of defeating $C_1$),
+(we defeat $\{c_3, c_4, c_5\}$ as a side effect of defeating $c_1$),
 which ensures that we never process any unnecessary dangerous candidates.
 
 \subsubsection{Voter deletion}
