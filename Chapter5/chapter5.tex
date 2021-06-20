@@ -358,7 +358,7 @@ which ensures that we never process any unnecessary dangerous candidates.
 \subsubsection{Voter deletion}
 The reasoning here is very similar to the one in the voter deletion part of the CR sketch proof.
 Both algorithms try to delete $scoreDelta(c,p) + 1$ voters. 
-The VR algorithm starts deleting voters from the end of interval (max $e(v)$).
+The FHHR algorithm starts deleting voters from the end of interval (max $e(v)$).
 The VCR one does virtually the same by deleting the rightmost voter first.
 
 % =================
@@ -391,7 +391,7 @@ We work under the assumption that in the election there are no contained candida
 % =================
 % Summary
 % =================
-\subsection{Summary}
+\subsection{Discussion}
 We successfully demonstrated a polynomial-time algorithm for Approval-CC-DV for VCR elections.
 Next step would be to consider other variants of control problem, that is, CC-AV, DC-DV and DC-AV (destructive control).
 We believe that our reasoning used in the CC-DV algorithm could be extended to the CC-AV one.
