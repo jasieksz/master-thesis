@@ -998,7 +998,7 @@ wish to left align your text}
   \begin{center}
   \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Figs/title-page.pdf}
+    \includegraphics[scale=0.72]{Figs/title-page.pdf}
   \end{figure}
   \vfill
   \end{center}
