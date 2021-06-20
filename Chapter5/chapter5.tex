@@ -376,15 +376,13 @@ We work under the assumption that in the election there are no contained candida
         We consider every dangerous candidate $c \in \widetilde{C}$. They are ordered by their range's beginnings, ascending (i.e., left to right).
         We choose the first candidate in this order, for whom there is a voter $v_r \in S - S^*$.
         When $v_r$ was added to $S$, it was the rightmost voter (max $e(v_r)$).
-        Since $S^*$ is optimal, then there must be some rightmost voter $v_x \in S^* - S$,
-        such that $e(v_x) \leq e(v_r)$, because $v_r$ is the rightmost voter.
-        If $v_x = v_r$, we are done, since we have shown that $v_r$ is in a minimal-size set of removed voters.
-        If $v_x \neq v_r$, let the set $S^{*\prime} = S^* - \{v_x\} \cup \{v_r\}$ be $S^{*}$ but substituting $v_r$ for $v_x$.
+        Since $S^*$ is optimal, then there must be some voter $v_x \in S^* - S$,
+        such that $v_x$ approves the first candidate and $e(v_x) \leq e(v_r)$, because $v_r$ is the rightmost voter.
+        Let the set $S^{*\prime} = S^* - \{v_x\} \cup \{v_r\}$ be $S^{*}$ but substituting $v_r$ for $v_x$.
         We know that $S^{*\prime}$ is a correct solution, 
         because the approval set of the voter $v_r$ contains at least as many candidates as the approval set of the voter $v_x$.
-        Since $|S^{*\prime}| = |S^{*}|$, we conclude that $S^{*\prime}$ is a minimal-size set of removed voters, and it includes $v_r$.
-        If we repeat this process once for each voter in $S - S^*$, we will have converted $S^*$ into $S$ while preserving $|S^*|$.
-        Thus $|S| = |S^*|$.
+        Since $|S^{*\prime}| = |S^{*}|$, and we can repeat the just-described process,
+        we conclude that $S^{*\prime}$ is a minimal-size set of removed voters.
     \end{proof}
 \end{proposition}
 
